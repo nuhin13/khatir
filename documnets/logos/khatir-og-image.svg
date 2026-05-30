@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="ogbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FBF6EE"/>
+      <stop offset="100%" stop-color="#F0E8D5"/>
+    </linearGradient>
+    <linearGradient id="ogmark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7BA084"/>
+      <stop offset="100%" stop-color="#5C8067"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#ogbg)"/>
+  <circle cx="100" cy="100" r="6" fill="#7BA084" opacity="0.3"/>
+  <circle cx="1100" cy="80" r="10" fill="#E89B8B" opacity="0.4"/>
+  <circle cx="60" cy="540" r="14" fill="#F4D58D" opacity="0.5"/>
+  <circle cx="1140" cy="560" r="8" fill="#7BA084" opacity="0.3"/>
+  <circle cx="200" cy="300" r="4" fill="#E89B8B" opacity="0.3"/>
+  <circle cx="1050" cy="380" r="5" fill="#F4D58D" opacity="0.4"/>
+  <g transform="translate(120, 195)">
+    <rect x="0" y="0" width="240" height="240" rx="66" ry="66" fill="url(#ogmark)"/>
+    <text x="120" y="195" text-anchor="middle" font-family="'Noto Sans Bengali', 'Hind Siliguri', sans-serif" font-size="188" font-weight="700" fill="#FFFFFF">খ</text>
+  </g>
+  <text x="410" y="260" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="96" fill="#2C3530" letter-spacing="-3">Khatir</text>
+  <text x="410" y="340" font-family="'Noto Sans Bengali', 'Hind Siliguri', sans-serif" font-weight="700" font-size="64" fill="#5C8067">খাতির</text>
+  <line x1="410" y1="380" x2="540" y2="380" stroke="#D9B45F" stroke-width="3" stroke-linecap="round"/>
+  <text x="410" y="425" font-family="'Noto Sans Bengali', 'Hind Siliguri', sans-serif" font-weight="600" font-size="26" fill="#3D4A42">বাড়িওয়ালার ডিজিটাল খাতা</text>
+  <text x="410" y="460" font-family="'Plus Jakarta Sans', sans-serif" font-weight="500" font-size="22" fill="#8C8578" font-style="italic">The landlord's digital ledger</text>
+  <rect x="410" y="495" width="500" height="58" rx="29" fill="#E89B8B"/>
+  <text x="660" y="535" text-anchor="middle" font-family="'Noto Sans Bengali', 'Hind Siliguri', sans-serif" font-weight="700" font-size="22" fill="#FFFFFF">পুলিশ ফর্ম, ঘরে বসে ২ মিনিটে</text>
+</svg>
