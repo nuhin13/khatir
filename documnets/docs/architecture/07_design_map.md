@@ -211,35 +211,35 @@ When a screen task needs one of these, it uses the shared widget — it does not
 | 13 | `manualTenant` | Manual DMP form | Landlord | screens-landlord2.js | EPIC-04 | T-013 | ☐ |
 | 14 | `dmp` | DMP form (review) | Landlord | screens-landlord2.js | EPIC-05 | T-007 | ☐ |
 | 15 | `dmpPdf` | DMP PDF preview | Landlord | screens-landlord2.js | EPIC-05 | T-008 | ☐ |
-| 16 | `rentReq` | Rent request | Landlord | screens-landlord2.js | EPIC-07 | _TBD_ | ☐ |
-| 17 | `verifyPay` | Verify payment | Landlord | screens-landlord2.js | EPIC-07 | _TBD_ | ☐ |
-| 18 | `receipt` | Receipt | Landlord | screens-landlord2.js | EPIC-07 | _TBD_ | ☐ |
-| 19 | `expenses` | Maintenance & expenses | Landlord | screens-landlord2.js | EPIC-08 | _TBD_ | ☐ |
-| 20 | `addExpense` | Add expense | Landlord | screens-landlord2.js | EPIC-08 | _TBD_ | ☐ |
-| 21 | `dashboard` | Dashboard / charts | Landlord | screens-landlord2.js | EPIC-09 | _TBD_ | ☐ |
+| 16 | `rentReq` | Rent request | Landlord | screens-landlord2.js | EPIC-07 | T-011 | ☐ |
+| 17 | `verifyPay` | Verify payment | Landlord | screens-landlord2.js | EPIC-07 | T-012 | ☐ |
+| 18 | `receipt` | Receipt | Landlord | screens-landlord2.js | EPIC-07 | T-013 | ☐ |
+| 19 | `expenses` | Maintenance & expenses | Landlord | screens-landlord2.js | EPIC-08 | T-008 | ☐ |
+| 20 | `addExpense` | Add expense | Landlord | screens-landlord2.js | EPIC-08 | T-009 | ☐ |
+| 21 | `dashboard` | Dashboard / charts | Landlord | screens-landlord2.js | EPIC-09 | T-006 | ☐ |
 | 22 | `more` | More menu (profile, lang) | Landlord | screens-landlord2.js | EPIC-02 | T-007 | ☐ |
-| 23 | `plan` | Plan & billing | Landlord | screens-landlord2.js | EPIC-10 | _TBD_ | ☐ |
-| 24 | `verify` | NID verify | Landlord | screens-landlord2.js | EPIC-17 (P1) | _TBD_ | ☐ |
-| 25 | `lease` | AI lease | Landlord | screens-landlord2.js | EPIC-18 (P1) | _TBD_ | ☐ |
-| 26 | `warning` | Warning / complaint | Landlord | screens-landlord2.js | EPIC-20 (P1) | _TBD_ | ☐ |
-| 27 | `mgrHome` | Manager home | Manager | screens-other.js | EPIC-22 (P1) | _TBD_ | ☐ |
-| 28 | `mgrAddOwner` | Add owner | Manager | screens-other.js | EPIC-22 (P1) | _TBD_ | ☐ |
-| 29 | `mgrTeam` | Team members | Manager | screens-other.js | EPIC-22 (P1) | _TBD_ | ☐ |
-| 30 | `mgrReport` | Consolidated report | Manager | screens-other.js | EPIC-22 (P1) | _TBD_ | ☐ |
-| 31 | `tenHome` | Tenant home | Tenant app | screens-other.js | EPIC-19 (P1) | _TBD_ | ☐ |
-| 32 | `tenLease` | Lease detail | Tenant app | screens-other.js | EPIC-19 (P1) | _TBD_ | ☐ |
-| 33 | `tenPay` | Pay rent | Tenant app | screens-other.js | EPIC-19 (P1) | _TBD_ | ☐ |
-| 34 | `tenMaint` | Request maintenance | Tenant app | screens-other.js | EPIC-19 (P1) | _TBD_ | ☐ |
-| 35 | `tenReceipts` | Receipts | Tenant app | screens-other.js | EPIC-19 (P1) | _TBD_ | ☐ |
-| 36 | `tenReview` | Review landlord | Tenant app | screens-other.js | EPIC-21 (P1) | _TBD_ | ☐ |
-| 37 | `tenRecord` | Good-tenant record | Tenant app | screens-other.js | EPIC-21 (P1) | _TBD_ | ☐ |
-| 38 | `webPay` | Rent pay link | Web-link 🌐 | screens-other.js | EPIC-07 | _TBD_ | ☐ |
-| 39 | `webReceipt` | Receipt view | Web-link 🌐 | screens-other.js | EPIC-07 | _TBD_ | ☐ |
-| 40 | `webMaint` | Maintenance form | Web-link 🌐 | screens-other.js | EPIC-19 (P1) | _TBD_ | ☐ |
-| 41 | `webVisitor` | Visitor QR form | Web-link 🌐 | screens-other.js | EPIC-25 (P2) | _TBD_ | ☐ |
-| 42 | `careHome` | Caretaker home | Caretaker | screens-other.js | EPIC-25 (P2) | _TBD_ | ☐ |
-| 43 | `careReview` | Visitor review | Caretaker | screens-other.js | EPIC-25 (P2) | _TBD_ | ☐ |
-| 44 | `careLog` | Visitor log | Caretaker | screens-other.js | EPIC-25 (P2) | _TBD_ | ☐ |
+| 23 | `plan` | Plan & billing | Landlord | screens-landlord2.js | EPIC-10 | T-007 | ☐ |
+| 24 | `verify` | NID verify | Landlord | screens-landlord2.js | EPIC-17 (P1) | T-006 | ☐ |
+| 25 | `lease` | AI lease | Landlord | screens-landlord2.js | EPIC-18 (P1) | T-006 | ☐ |
+| 26 | `warning` | Warning / complaint | Landlord | screens-landlord2.js | EPIC-20 (P1) | T-005 | ☐ |
+| 27 | `mgrHome` | Manager home | Manager | screens-other.js | EPIC-22 (P1) | T-006 | ☐ |
+| 28 | `mgrAddOwner` | Add owner | Manager | screens-other.js | EPIC-22 (P1) | T-007 | ☐ |
+| 29 | `mgrTeam` | Team members | Manager | screens-other.js | EPIC-22 (P1) | T-008 | ☐ |
+| 30 | `mgrReport` | Consolidated report | Manager | screens-other.js | EPIC-22 (P1) | T-009 | ☐ |
+| 31 | `tenHome` | Tenant home | Tenant app | screens-other.js | EPIC-19 (P1) | T-005 | ☐ |
+| 32 | `tenLease` | Lease detail | Tenant app | screens-other.js | EPIC-19 (P1) | T-006 | ☐ |
+| 33 | `tenPay` | Pay rent | Tenant app | screens-other.js | EPIC-19 (P1) | T-007 | ☐ |
+| 34 | `tenMaint` | Request maintenance | Tenant app | screens-other.js | EPIC-19 (P1) | T-008 | ☐ |
+| 35 | `tenReceipts` | Receipts | Tenant app | screens-other.js | EPIC-19 (P1) | T-009 | ☐ |
+| 36 | `tenReview` | Review landlord | Tenant app | screens-other.js | EPIC-21 (P1) | T-005 | ☐ |
+| 37 | `tenRecord` | Good-tenant record | Tenant app | screens-other.js | EPIC-21 (P1) | T-010 | ☐ |
+| 38 | `webPay` | Rent pay link | Web-link 🌐 | screens-other.js | EPIC-07 | T-005 | ☐ |
+| 39 | `webReceipt` | Receipt view | Web-link 🌐 | screens-other.js | EPIC-07 | T-006 | ☐ |
+| 40 | `webMaint` | Maintenance form | Web-link 🌐 | screens-other.js | EPIC-08 | T-005 | ☐ |
+| 41 | `webVisitor` | Visitor QR form | Web-link 🌐 | screens-other.js | EPIC-25 (P2) | T-005 | ☐ |
+| 42 | `careHome` | Caretaker home | Caretaker | screens-other.js | EPIC-25 (P2) | T-006 | ☐ |
+| 43 | `careReview` | Visitor review | Caretaker | screens-other.js | EPIC-25 (P2) | T-007 | ☐ |
+| 44 | `careLog` | Visitor log | Caretaker | screens-other.js | EPIC-25 (P2) | T-008 | ☐ |
 
 **Legend:** `Task` = `_TBD_` means the owning epic isn't written yet; it will be filled with the real `T-XXX` when that epic is authored. `Built?` ☐→☑ when the task is `verified`.
 
@@ -250,18 +250,18 @@ When a screen task needs one of these, it uses the shared widget — it does not
 - **EPIC-04** (4): addTenant, ocr, voice, manualTenant
 - **EPIC-05** (2): dmp, dmpPdf
 - **EPIC-07** (5): rentReq, verifyPay, receipt, webPay, webReceipt
-- **EPIC-08** (2): expenses, addExpense
+- **EPIC-08** (3): expenses, addExpense, webMaint
 - **EPIC-09** (1): dashboard
 - **EPIC-10** (1): plan
 - **EPIC-17 P1** (1): verify
 - **EPIC-18 P1** (1): lease
-- **EPIC-19 P1** (6): tenHome, tenLease, tenPay, tenMaint, tenReceipts, webMaint
+- **EPIC-19 P1** (5): tenHome, tenLease, tenPay, tenMaint, tenReceipts
 - **EPIC-20 P1** (1): warning
 - **EPIC-21 P1** (2): tenReview, tenRecord
 - **EPIC-22 P1** (4): mgrHome, mgrAddOwner, mgrTeam, mgrReport
 - **EPIC-25 P2** (4): webVisitor, careHome, careReview, careLog
 
-**Sum check:** 4+2+4+4+2+5+2+1+1+1+1+6+1+2+4+4 = **44 ✅** — every prototype screen is assigned to exactly one owning epic.
+**Sum check:** 4+2+4+4+2+5+3+1+1+1+1+5+1+2+4+4 = **44 ✅** — every prototype screen is assigned to exactly one owning epic.
 
 ### Shared UI primitives (not screens — built once in EPIC-00 T-008, reused everywhere)
 From `proto/ui.js`: `statusbar`, `topbar`, `bottomnav`, `emojiHero`, `iconBadge`, `field`, `avatar`, `bellbtn`, plus the CSS classes `k-btn`, `k-card`, `k-chip`, `k-field`, `k-track`. These map to Flutter `lib/core/widgets/` and must exist before screen tasks consume them.

@@ -31,7 +31,7 @@
 | Epics total | 26 |
 | Epics done | 0 |
 | Epics in-progress | 0 |
-| Tasks total | ~260 (finalized per epic as written) |
+| Tasks total | 302 (all epics fully specced) |
 | Tasks done | 0 |
 | Tasks in-progress | 0 |
 | Tasks blocked | 0 |
@@ -55,39 +55,39 @@ Legend: ⬜ todo · 🟡 in-progress · ✅ done · ⛔ blocked
 | EPIC-03 | Properties & Units | MVP | 14 | ⬜ | 0/14 |
 | EPIC-04 | Tenant Management & NID OCR | MVP | 16 | ⬜ | 0/16 |
 | EPIC-05 | DMP Form Generation ★ | MVP | 10 | ⬜ | 0/10 |
-| EPIC-06 | Lease & Rent Schedule | MVP | TBD | ⬜ | 0/0 |
-| EPIC-07 | Rent Collection (Web-Link) | MVP | TBD | ⬜ | 0/0 |
-| EPIC-08 | Maintenance & Expense Tracker | MVP | TBD | ⬜ | 0/0 |
-| EPIC-09 | Dashboard & Visualizations | MVP | TBD | ⬜ | 0/0 |
-| EPIC-10 | Pricing Tiers & Free Limit | MVP | TBD | ⬜ | 0/0 |
-| EPIC-11 | Admin Portal Foundation | MVP | TBD | ⬜ | 0/0 |
-| EPIC-12 | Admin · Pricing & Users | MVP | TBD | ⬜ | 0/0 |
-| EPIC-13 | Admin · Feature Flags & Kill-switch | MVP | TBD | ⬜ | 0/0 |
-| EPIC-14 | Admin · AI Providers | MVP | TBD | ⬜ | 0/0 |
-| EPIC-15 | Admin · Notifications | MVP | TBD | ⬜ | 0/0 |
-| EPIC-16 | Admin · Audit & Compliance | MVP | TBD | ⬜ | 0/0 |
+| EPIC-06 | Lease & Rent Schedule | MVP | 10 | ⬜ | 0/10 |
+| EPIC-07 | Rent Collection (Web-Link) ★ | MVP | 14 | ⬜ | 0/14 |
+| EPIC-08 | Maintenance & Expense Tracker | MVP | 12 | ⬜ | 0/12 |
+| EPIC-09 | Dashboard & Visualizations | MVP | 10 | ⬜ | 0/10 |
+| EPIC-10 | Pricing Tiers & Free Limit | MVP | 9 | ⬜ | 0/9 |
+| EPIC-11 | Admin Portal Foundation | MVP | 12 | ⬜ | 0/12 |
+| EPIC-12 | Admin · Pricing & Users | MVP | 10 | ⬜ | 0/10 |
+| EPIC-13 | Admin · Feature Flags & Kill-switch | MVP | 8 | ⬜ | 0/8 |
+| EPIC-14 | Admin · AI Providers | MVP | 12 | ⬜ | 0/12 |
+| EPIC-15 | Admin · Notifications | MVP | 14 | ⬜ | 0/14 |
+| EPIC-16 | Admin · Audit & Compliance | MVP | 9 | ⬜ | 0/9 |
 
 ### Phase 1
 | ID | Epic | Phase | Tasks | Status | Progress |
 |----|------|-------|-------|--------|----------|
-| EPIC-17 | NID Verification (EC API) | P1 | TBD | ⬜ | 0/0 |
-| EPIC-18 | AI Lease Generation | P1 | TBD | ⬜ | 0/0 |
-| EPIC-19 | Tenant App Features | P1 | TBD | ⬜ | 0/0 |
-| EPIC-20 | Private Warnings | P1 | TBD | ⬜ | 0/0 |
-| EPIC-21 | Mutual Reviews | P1 | TBD | ⬜ | 0/0 |
-| EPIC-22 | B2B Manager Tier | P1 | TBD | ⬜ | 0/0 |
-| EPIC-23 | AI Support Chatbot | P1 | TBD | ⬜ | 0/0 |
+| EPIC-17 | NID Verification (EC API) | P1 | 10 | ⬜ | 0/10 |
+| EPIC-18 | AI Lease Generation | P1 | 10 | ⬜ | 0/10 |
+| EPIC-19 | Tenant App Features | P1 | 14 | ⬜ | 0/14 |
+| EPIC-20 | Private Warnings | P1 | 10 | ⬜ | 0/10 |
+| EPIC-21 | Mutual Reviews | P1 | 10 | ⬜ | 0/10 |
+| EPIC-22 | B2B Manager Tier | P1 | 12 | ⬜ | 0/12 |
+| EPIC-23 | AI Support Chatbot | P1 | 8 | ⬜ | 0/8 |
 
 ### Phase 2
 | ID | Epic | Phase | Tasks | Status | Progress |
 |----|------|-------|-------|--------|----------|
-| EPIC-24 | History Flags | P2 | TBD | ⬜ | 0/0 |
-| EPIC-25 | Gatekeeper / Caretaker | P2 | TBD | ⬜ | 0/0 |
+| EPIC-24 | History Flags | P2 | 12 | ⬜ | 0/12 |
+| EPIC-25 | Gatekeeper / Caretaker | P2 | 14 | ⬜ | 0/14 |
 
 ### Phase 3
 | ID | Epic | Phase | Tasks | Status | Progress |
 |----|------|-------|-------|--------|----------|
-| EPIC-26 | Government Export | P3 | TBD | ⬜ | 0/0 |
+| EPIC-26 | Government Export | P3 | 6 | ⬜ | 0/6 |
 
 ---
 
