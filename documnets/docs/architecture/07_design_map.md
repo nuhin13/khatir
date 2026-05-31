@@ -201,16 +201,16 @@ When a screen task needs one of these, it uses the shared widget — it does not
 | 3 | `login` | Phone + OTP | Onboarding | screens-onboard.js | EPIC-01 | T-009 | ☐ |
 | 4 | `otp` | Verify OTP | Onboarding | screens-onboard.js | EPIC-01 | T-010 | ☐ |
 | 5 | `roleChooser` | Role chooser | Onboarding | screens-onboard.js | EPIC-02 | T-005 | ☐ |
-| 6 | `home` | Home dashboard | Landlord | screens-landlord.js | EPIC-03 (shell+home), EPIC-09 (charts) | _TBD_ | ☐ |
-| 7 | `addBuilding` | Add building (wizard) | Landlord | screens-landlord.js | EPIC-03 | _TBD_ | ☐ |
-| 8 | `portfolio` | Portfolio | Landlord | screens-landlord.js | EPIC-03 | _TBD_ | ☐ |
-| 9 | `unit` | Unit detail | Landlord | screens-landlord.js | EPIC-03 | _TBD_ | ☐ |
-| 10 | `addTenant` | Add tenant (chooser) | Landlord | screens-landlord2.js | EPIC-04 | _TBD_ | ☐ |
-| 11 | `ocr` | NID OCR scan | Landlord | screens-landlord2.js | EPIC-04 | _TBD_ | ☐ |
-| 12 | `voice` | Voice fill | Landlord | screens-landlord2.js | EPIC-04 | _TBD_ | ☐ |
-| 13 | `manualTenant` | Manual DMP form | Landlord | screens-landlord2.js | EPIC-04 | _TBD_ | ☐ |
-| 14 | `dmp` | DMP form (review) | Landlord | screens-landlord2.js | EPIC-05 | _TBD_ | ☐ |
-| 15 | `dmpPdf` | DMP PDF preview | Landlord | screens-landlord2.js | EPIC-05 | _TBD_ | ☐ |
+| 6 | `home` | Home dashboard | Landlord | screens-landlord.js | EPIC-03 (T-009) + EPIC-09 (charts) | T-009 | ☐ |
+| 7 | `addBuilding` | Add building (4-step) | Landlord | screens-landlord.js | EPIC-03 | T-010,T-011 | ☐ |
+| 8 | `portfolio` | Portfolio | Landlord | screens-landlord.js | EPIC-03 | T-012 | ☐ |
+| 9 | `unit` | Unit detail | Landlord | screens-landlord.js | EPIC-03 | T-013 | ☐ |
+| 10 | `addTenant` | Add tenant (chooser) | Landlord | screens-landlord2.js | EPIC-04 | T-009 | ☐ |
+| 11 | `ocr` | NID OCR scan | Landlord | screens-landlord2.js | EPIC-04 | T-010,T-011 | ☐ |
+| 12 | `voice` | Voice fill | Landlord | screens-landlord2.js | EPIC-04 | T-012 | ☐ |
+| 13 | `manualTenant` | Manual DMP form | Landlord | screens-landlord2.js | EPIC-04 | T-013 | ☐ |
+| 14 | `dmp` | DMP form (review) | Landlord | screens-landlord2.js | EPIC-05 | T-007 | ☐ |
+| 15 | `dmpPdf` | DMP PDF preview | Landlord | screens-landlord2.js | EPIC-05 | T-008 | ☐ |
 | 16 | `rentReq` | Rent request | Landlord | screens-landlord2.js | EPIC-07 | _TBD_ | ☐ |
 | 17 | `verifyPay` | Verify payment | Landlord | screens-landlord2.js | EPIC-07 | _TBD_ | ☐ |
 | 18 | `receipt` | Receipt | Landlord | screens-landlord2.js | EPIC-07 | _TBD_ | ☐ |

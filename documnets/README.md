@@ -1,78 +1,74 @@
-# Khatir — Complete Project Bundle
+# Khatir — Complete Current Bundle
 
-**This ZIP always contains everything, current as of the latest update.** Nothing is kept loose outside the ZIP, so there's never a broken or stale download.
+**This single ZIP contains everything written so far, fully up to date.** Extract at your repo root; the `docs/` folder drops straight into place.
+
+Last updated: this delivery includes EPIC-00, EPIC-01, EPIC-02 (all final), plus all architecture, design, and product docs.
 
 ---
 
 ## What's inside
 
 ```
-Khatir-Complete/
-├── README.md                          ← This file (the index)
+docs/
+├── product/                        WHAT to build (business + requirements)
+│   ├── 01_BRD_Khatir.md
+│   ├── 02_SRS_Khatir.md
+│   ├── 03_Backlog_and_Flows_Khatir.md
+│   └── 04_Admin_Portal_Khatir.md
 │
-├── docs/
-│   ├── product/                       WHAT to build (business + requirements)
-│   │   ├── 01_BRD_Khatir.md           Business Requirements
-│   │   ├── 02_SRS_Khatir.md           Software Requirements
-│   │   ├── 03_Backlog_and_Flows_Khatir.md
-│   │   └── 04_Admin_Portal_Khatir.md
-│   │
-│   ├── architecture/                  HOW it's structured (engineering rules)
-│   │   ├── 00_overview.md             System map — read first
-│   │   ├── 01_stack_and_standards.md  Versions, coding standards, git rules
-│   │   ├── 02_project_structure.md    Mono-repo layout
-│   │   ├── 03_env_and_config.md       Env vars, config layers
-│   │   ├── 04_coding_conventions.md   API envelope, multi-tenancy, naming
-│   │   ├── 05_navigation_routing.md   Flutter + Next.js routing
-│   │   ├── 06_database_schema.md      Full ERD + tables
-│   │   └── enums.md                   Canonical enums (all surfaces match)
-│   │
-│   └── epics/                         The work plan + tracking
-│       ├── README.md                  Master tracker dashboard (26 epics)
-│       ├── _task_template.md          Strict task file template
-│       ├── _handoff_protocol.md       Agent-to-agent handoff + review chain
-│       └── _glossary.md               Shared vocabulary
+├── architecture/                   HOW it's structured (engineering rules)
+│   ├── 00_overview.md
+│   ├── 01_stack_and_standards.md   (latest-stable policy)
+│   ├── 02_project_structure.md
+│   ├── 03_env_and_config.md
+│   ├── 04_coding_conventions.md
+│   ├── 05_navigation_routing.md    (4-step add-building wizard)
+│   ├── 06_database_schema.md       (human-readable, 9 domains)
+│   ├── 07_design_map.md            (screen→task map + 44-screen coverage ledger)
+│   └── enums.md
 │
-├── ui/                                React reference UIs (visual contracts)
-│   ├── KhatirMobile.jsx               Mobile app (all roles + screens)
-│   └── KhatirAdmin.jsx                Admin portal
+├── design/
+│   └── khatir-ui/                  The Khatir prototype (source of truth for UI)
+│       ├── README.md
+│       ├── Khatir Mobile Prototype.html
+│       ├── proto/*.js              (all 44 screens)
+│       ├── proto.css, ui.js, styles/, assets/
 │
-└── logos/                             Brand asset pack
-    ├── build_pngs.py                  Regenerate PNGs from SVG
-    ├── *.svg                          9 source files
-    ├── *.png                          23 raster exports
-    └── favicon.ico
+└── epics/
+    ├── README.md                   Master tracker (26 epics)
+    ├── _master_plan.md             All 26 epics + dependencies
+    ├── _task_template.md           Strict task template (design anchor + lane + checklist convention)
+    ├── _handoff_protocol.md        Agent handoff + peer review + §3b checklist-execution rules
+    ├── _glossary.md
+    ├── EPIC-00-foundation/         ✅ 16 tasks — FINAL
+    ├── EPIC-01-onboarding-auth/    ✅ 12 tasks — FINAL
+    └── EPIC-02-role-profile/       ✅ 8 tasks — FINAL
 ```
 
 ---
 
 ## Build progress
 
-| Stage | What | Status |
-|-------|------|--------|
-| Product specs | BRD, SRS, Backlog, Admin spec | ✅ Done |
-| Brand | Logo (খ monogram) + full asset pack | ✅ Done |
-| UI references | Mobile + Admin JSX | ✅ Done |
-| **Step 1** | Architecture & standards (8 arch docs + 4 epic-system docs) | ✅ Done |
-| **Step 2** | Master Epic Plan (all 26 epics, dependencies) | ⏳ Next |
-| **Step 3** | EPIC-00 Foundation — full task files | ⏳ Pending |
-| Steps 4+ | Each remaining epic, fully task-specced | ⏳ Pending |
+| Stage | Status |
+|-------|--------|
+| Product specs (BRD/SRS/Backlog/Admin) | ✅ |
+| Architecture & standards (8 docs + enums) | ✅ |
+| Design map + 44-screen coverage ledger | ✅ |
+| Design prototype (in-repo) | ✅ |
+| Master epic plan (all 26) | ✅ |
+| **EPIC-00** Foundation (16 tasks) | ✅ FINAL |
+| **EPIC-01** Onboarding & Auth (12 tasks) | ✅ FINAL |
+| **EPIC-02** Role & Profile (8 tasks) | ✅ FINAL |
+| EPIC-03 → EPIC-26 (23 epics, ~246 tasks) | ⏳ pending |
+
+**36 of ~282 tasks specced across 3 of 26 epics.**
 
 ---
 
-## How to read this (for a new agent or session)
+## How to start building
 
-1. `docs/architecture/00_overview.md` — the system map
-2. `docs/architecture/01` → `06` + `enums.md` — the rules
-3. `docs/epics/README.md` — what's done / next
-4. `docs/epics/_master_plan.md` — all epics (arrives in Step 2)
-5. The specific `EPIC-NN/_epic.md` + `T-XXX.md` you're executing (arrives Step 3+)
+1. Open Claude Code at your repo root.
+2. Tell it to read `docs/architecture/00_overview.md` → `01`–`07` + `enums.md`, then `docs/epics/_handoff_protocol.md` + `_task_template.md`.
+3. Execute `docs/epics/EPIC-00-foundation/T-001-monorepo-structure.md` first (it has no dependencies), then walk forward with `make next`.
 
-## Locked decisions
-
-- **Backend:** Django 5.1 + DRF monolith (AI gateway as FastAPI microservice in EPIC-14)
-- **Mobile:** One Flutter app, role-based shells (landlord/manager/tenant)
-- **Admin:** Next.js 15 (App Router)
-- **Repo:** Single mono-repo (`apps/api`, `apps/mobile`, `apps/admin`, `services/`, `infra/`, `docs/`)
-- **Brand:** Khatir · খ monogram on sage tile · Notun Din palette
-- **Execution:** autonomous task loop, peer AI review, human final sign-off
+The design prototype is in `docs/design/khatir-ui/` — any CLI can read it; UI tasks point at exact screens via `docs/architecture/07_design_map.md`.
