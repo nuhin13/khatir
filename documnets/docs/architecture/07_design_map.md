@@ -200,7 +200,7 @@ When a screen task needs one of these, it uses the shared widget — it does not
 | 2 | `intro` | Intro slides | Onboarding | screens-onboard.js | EPIC-01 | T-008 | ☐ |
 | 3 | `login` | Phone + OTP | Onboarding | screens-onboard.js | EPIC-01 | T-009 | ☐ |
 | 4 | `otp` | Verify OTP | Onboarding | screens-onboard.js | EPIC-01 | T-010 | ☐ |
-| 5 | `roleChooser` | Role chooser | Onboarding | screens-onboard.js | EPIC-02 | _TBD_ | ☐ |
+| 5 | `roleChooser` | Role chooser | Onboarding | screens-onboard.js | EPIC-02 | T-005 | ☐ |
 | 6 | `home` | Home dashboard | Landlord | screens-landlord.js | EPIC-03 (shell+home), EPIC-09 (charts) | _TBD_ | ☐ |
 | 7 | `addBuilding` | Add building (wizard) | Landlord | screens-landlord.js | EPIC-03 | _TBD_ | ☐ |
 | 8 | `portfolio` | Portfolio | Landlord | screens-landlord.js | EPIC-03 | _TBD_ | ☐ |
@@ -217,7 +217,7 @@ When a screen task needs one of these, it uses the shared widget — it does not
 | 19 | `expenses` | Maintenance & expenses | Landlord | screens-landlord2.js | EPIC-08 | _TBD_ | ☐ |
 | 20 | `addExpense` | Add expense | Landlord | screens-landlord2.js | EPIC-08 | _TBD_ | ☐ |
 | 21 | `dashboard` | Dashboard / charts | Landlord | screens-landlord2.js | EPIC-09 | _TBD_ | ☐ |
-| 22 | `more` | More menu (profile, lang) | Landlord | screens-landlord2.js | EPIC-02 | _TBD_ | ☐ |
+| 22 | `more` | More menu (profile, lang) | Landlord | screens-landlord2.js | EPIC-02 | T-007 | ☐ |
 | 23 | `plan` | Plan & billing | Landlord | screens-landlord2.js | EPIC-10 | _TBD_ | ☐ |
 | 24 | `verify` | NID verify | Landlord | screens-landlord2.js | EPIC-17 (P1) | _TBD_ | ☐ |
 | 25 | `lease` | AI lease | Landlord | screens-landlord2.js | EPIC-18 (P1) | _TBD_ | ☐ |
