@@ -36,7 +36,7 @@ All routes declared in `lib/core/router/app_router.dart`. No ad-hoc `Navigator.p
   /tenant/more
 
 # Pushed (full-screen) routes — above the shell
-/properties/add           → 3-step add-building wizard
+/properties/add           → 4-step add-building wizard (name+area → address+map → units → review)
 /properties/:id           → building detail
 /tenants/add              → method chooser
 /tenants/add/ocr          → NID camera + extract

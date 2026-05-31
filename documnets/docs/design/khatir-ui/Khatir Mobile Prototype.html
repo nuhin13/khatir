@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khatir · Mobile Prototype</title>
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="stylesheet" href="styles/khatir.css">
+<link rel="stylesheet" href="proto/proto.css">
+</head>
+<body>
+<div class="stage">
+
+  <button class="iconbtn idx-toggle" onclick="document.getElementById('idx').classList.toggle('open')" id="idxToggle"></button>
+
+  <!-- screen index -->
+  <aside class="idx" id="idx">
+    <div class="idx-head">
+      <div class="idx-brand">
+        <img src="assets/khatir-icon-128.png" alt="Khatir">
+        <div class="nm">Khatir <small>খাতির · প্রোটোটাইপ</small></div>
+      </div>
+      <div class="idx-sub">Mobile app · all roles · Bangla-first with English. Click any screen to jump, or tap through the real flows.</div>
+    </div>
+    <div class="idx-list k-scroll" id="idxList"></div>
+  </aside>
+
+  <!-- center -->
+  <main class="canvas">
+    <div class="canvas-col">
+      <div class="toolbar">
+        <div class="hint" id="flowHint">Khatir prototype</div>
+      </div>
+      <div class="device" id="device"></div>
+      <div class="toolbar">
+        <div class="hint">📱 Flutter PWA · 390×844</div>
+        <a class="hint" href="Khatir Design Overview.html" style="text-decoration:none;">← Design overview</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="styles/khatir-icons.js"></script>
+<script src="proto/ui.js"></script>
+<script src="proto/screens-onboard.js"></script>
+<script src="proto/screens-landlord.js"></script>
+<script src="proto/screens-landlord2.js"></script>
+<script src="proto/screens-other.js"></script>
+<script>
+  // toolbar toggle icon
+  document.getElementById('idxToggle').innerHTML = kicon('grid',{s:20});
+  // friendly flow hint
+  document.getElementById('flowHint').textContent = 'Tap buttons to navigate · or use the screen index';
+</script>
+</body>
+</html>

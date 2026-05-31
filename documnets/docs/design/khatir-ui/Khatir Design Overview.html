@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khatir · Holistic Design Overview</title>
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="stylesheet" href="styles/khatir.css">
+<style>
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .sec { padding: 56px 0; border-top: 1px solid var(--line); }
+  .sec:first-of-type { border-top: 0; }
+  .sec-k { display:flex; align-items:center; gap:10px; margin-bottom: 6px; }
+  .sec-num { font-family: var(--f-mono); font-size: 12px; color: var(--sage-dk); background: var(--sage-bg); padding: 3px 9px; border-radius: 99px; font-weight: 500; }
+  .sec-t { font-family: var(--f-title); font-weight: 800; font-size: 28px; letter-spacing: -.5px; margin: 0; }
+  .sec-d { color: var(--muted-dk); font-size: 15px; line-height: 1.6; max-width: 640px; margin: 10px 0 28px; }
+
+  /* hero */
+  .hero { background:
+      radial-gradient(120% 90% at 85% -10%, rgba(232,155,139,.16), transparent 55%),
+      radial-gradient(110% 80% at 0% 0%, rgba(123,160,132,.18), transparent 50%),
+      var(--cream);
+    border-bottom: 1px solid var(--line); }
+  .hero-in { max-width: 1120px; margin: 0 auto; padding: 60px 24px 56px; }
+  .hero h1 { font-family: var(--f-title); font-weight: 800; font-size: clamp(40px, 7vw, 76px); letter-spacing: -2.5px; line-height: .98; margin: 26px 0 0; }
+  .hero h1 .gr { background: linear-gradient(120deg, var(--sage-dk), var(--rose-dk)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .sub { font-family: var(--f-body); font-size: 20px; color: var(--ink-2); margin-top: 16px; font-weight: 600; }
+  .hero .sub em { font-family: var(--f-hand); font-style: normal; color: var(--sage-dk); font-size: 26px; }
+  .hero .lede { font-size: 16px; color: var(--muted-dk); line-height: 1.7; max-width: 620px; margin-top: 18px; }
+  .meta-row { display:flex; flex-wrap:wrap; gap: 10px; margin-top: 26px; }
+  .meta { display:flex; align-items:center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 8px 15px; font-size: 13px; font-weight: 600; color: var(--ink-2); box-shadow: var(--sh-sm); }
+  .meta b { color: var(--sage-dk); }
+
+  .grid { display: grid; gap: 16px; }
+  @media (min-width: 720px){ .g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);} }
+
+  /* swatches */
+  .sw { border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--sh-sm); background: var(--card); }
+  .sw .chip { height: 92px; }
+  .sw .meta2 { padding: 11px 13px; }
+  .sw .nm { font-weight: 700; font-size: 13.5px; font-family: var(--f-title); }
+  .sw .hex { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); margin-top: 2px; text-transform: uppercase; }
+  .sw .role { font-size: 10.5px; color: var(--muted-dk); margin-top: 4px; }
+
+  /* type specimen */
+  .type-row { display:flex; align-items:baseline; gap:18px; padding: 16px 0; border-bottom: 1px dashed var(--line); flex-wrap: wrap; }
+  .type-row .tag { font-family: var(--f-mono); font-size: 11px; color: var(--muted); width: 120px; flex-shrink:0; }
+
+  /* icon grid */
+  .icogrid { display:grid; grid-template-columns: repeat(auto-fill, minmax(92px,1fr)); gap: 10px; }
+  .icocell { background: var(--card); border:1px solid var(--line); border-radius: var(--r-sm); padding: 14px 6px 9px; text-align:center; box-shadow: var(--sh-sm); }
+  .icocell .nm { font-family: var(--f-mono); font-size: 10px; color: var(--muted); margin-top: 8px; }
+  .icocell i { color: var(--ink); }
+
+  /* component demo */
+  .demo { background: var(--card); border:1px solid var(--line); border-radius: var(--r-lg); padding: 22px; box-shadow: var(--sh-sm); }
+  .demo h4 { font-family: var(--f-title); font-size: 13px; font-weight:800; letter-spacing:-.2px; margin: 0 0 14px; color: var(--ink); }
+  .row { display:flex; flex-wrap:wrap; gap: 10px; align-items:center; }
+
+  /* screen-map */
+  .roleband { display:flex; align-items:center; gap: 12px; margin: 30px 0 14px; }
+  .roleband .dot { width: 38px; height: 38px; border-radius: 12px; display:grid; place-items:center; color:#fff; }
+  .roleband h3 { font-family: var(--f-title); font-weight: 800; font-size: 19px; margin: 0; letter-spacing:-.3px; }
+  .roleband .bn2 { font-family: var(--f-body); font-weight: 600; color: var(--muted); font-size: 14px; }
+  .screens { display:grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(214px,1fr)); }
+  .scard { background: var(--card); border:1px solid var(--line); border-radius: var(--r-md); padding: 13px 14px; box-shadow: var(--sh-sm); position: relative; }
+  .scard .ph { position:absolute; top: 11px; right: 11px; font-family: var(--f-mono); font-size: 9.5px; font-weight:600; padding: 2px 6px; border-radius: 6px; }
+  .ph0{ background: var(--sage-bg); color: var(--sage-dk);} .ph1{ background: var(--butter-bg); color: var(--rose-dk);} .ph2{ background: var(--rose-bg); color: var(--rose-dk);}
+  .scard .sn { display:flex; align-items:center; gap:8px; }
+  .scard .sn b { font-family: var(--f-title); font-weight: 700; font-size: 14px; }
+  .scard .bnn { font-family: var(--f-body); font-size: 12.5px; color: var(--sage-dk); font-weight: 600; margin-top: 3px; }
+  .scard .ds { font-size: 11.5px; color: var(--muted); line-height: 1.45; margin-top: 6px; }
+  .scard i.lead { color: var(--muted-dk); }
+
+  .legend { display:flex; gap: 14px; flex-wrap:wrap; margin-top: 4px; font-size: 12.5px; color: var(--muted-dk); }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .legend .b { width: 22px; height: 14px; border-radius: 5px; display:inline-block; }
+
+  /* handoff */
+  .hcard { background: var(--card); border:1px solid var(--line); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--sh-sm); }
+  .hcard .ht { display:flex; align-items:center; gap:10px; font-family:var(--f-title); font-weight:800; font-size:16px; }
+  .hcard ul { margin: 12px 0 0; padding-left: 18px; color: var(--muted-dk); font-size: 13.5px; line-height: 1.75; }
+  .hcard code { font-family: var(--f-mono); font-size: 12px; background: var(--sage-bg); color: var(--sage-dk); padding: 1px 6px; border-radius: 5px; }
+
+  .pill-row { display:flex; gap:8px; flex-wrap:wrap; }
+  .footnote { color: var(--muted); font-size: 12.5px; }
+  .navbar { position: sticky; top: 0; z-index: 30; background: rgba(251,246,238,.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .navbar-in { max-width: 1120px; margin: 0 auto; padding: 11px 24px; display:flex; align-items:center; gap: 14px; }
+  .navbar a { color: var(--muted-dk); text-decoration:none; font-size: 13px; font-weight: 600; padding: 5px 4px; }
+  .navbar a:hover { color: var(--sage-dk); }
+  .navbar .sp { flex: 1; }
+  @media (max-width: 760px){ .navbar a.opt { display:none; } }
+  .btnlink { text-decoration:none; }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="navbar-in">
+    <img src="assets/khatir-icon-128.png" alt="Khatir" width="28" height="28" style="border-radius:8px;">
+    <strong style="font-family:var(--f-title); letter-spacing:-.3px;">Khatir</strong>
+    <span class="k-chip" style="font-size:10px;">Design Overview</span>
+    <span class="sp"></span>
+    <a href="#brand" class="opt">Brand</a>
+    <a href="#color">Color</a>
+    <a href="#type" class="opt">Type</a>
+    <a href="#icons">Icons</a>
+    <a href="#components" class="opt">Components</a>
+    <a href="#screens">Screen map</a>
+    <a class="k-btn primary sm btnlink" href="Khatir Mobile Prototype.html">Open prototype →</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-in">
+    <img src="assets/khatir-lockup-h-1200.png" alt="Khatir — বাড়িওয়ালার ডিজিটাল খাতা" style="max-width:430px; width:78%;">
+    <h1>The landlord's<br><span class="gr">digital ledger.</span></h1>
+    <div class="sub">বাড়িওয়ালার ডিজিটাল খাতা &nbsp;·&nbsp; <em>Notun Din</em> design language</div>
+    <p class="lede">A landlord-first SaaS for Dhaka that digitizes legally-mandated tenant paperwork, collects rent without forcing tenants to install anything, and tracks per-flat expenses — wrapped in a warm, low-intimidation interface built for 40–65-year-old first-time app users.</p>
+    <div class="meta-row">
+      <div class="meta">Mobile&nbsp;<b>Flutter PWA</b></div>
+      <div class="meta">Admin&nbsp;<b>Next.js</b></div>
+      <div class="meta">Default&nbsp;<b>বাংলা</b>&nbsp;/ English</div>
+      <div class="meta"><b>4</b>&nbsp;roles</div>
+      <div class="meta"><b>40+</b>&nbsp;screens mapped</div>
+      <div class="meta" style="color:var(--rose-dk)">Never&nbsp;<b style="color:var(--rose-dk)">public reviews</b></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- BRAND -->
+  <section class="sec" id="brand">
+    <div class="sec-k"><span class="sec-num">01</span><span class="k-eyebrow">Identity</span></div>
+    <h2 class="sec-t">Brand at a glance</h2>
+    <p class="sec-d">The name <b>Khatir (খাতির)</b> means <i>respectful care, hospitality, treating someone with dignity</i>. The product gives the landlord <i>khatir</i> for his property and tenants. The mandatory 12-month lockup pairs the খ mark with the wordmark and descriptor.</p>
+    <div class="grid g3">
+      <div class="demo" style="text-align:center;">
+        <img src="assets/khatir-icon-512.png" width="96" height="96" style="border-radius:24px; box-shadow:var(--sh-md);" alt="primary mark">
+        <h4 style="margin-top:14px;">Primary · gradient</h4>
+        <div class="footnote">Default on web &amp; mobile</div>
+      </div>
+      <div class="demo" style="text-align:center;">
+        <img src="assets/khatir-icon-light-512.png" width="96" height="96" style="border-radius:24px; box-shadow:var(--sh-md);" alt="light mark">
+        <h4 style="margin-top:14px;">Light tile</h4>
+        <div class="footnote">Cream surfaces, splash</div>
+      </div>
+      <div class="demo" style="text-align:center;">
+        <img src="assets/khatir-icon-mono-512.png" width="96" height="96" style="border-radius:24px; box-shadow:var(--sh-md);" alt="mono mark">
+        <h4 style="margin-top:14px;">Mono · dark</h4>
+        <div class="footnote">Stamps, single-colour</div>
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:16px;">
+      <div class="demo"><div class="k-eyebrow">Tagline</div><div style="font-family:var(--f-title);font-weight:800;font-size:17px;margin-top:8px;">বাড়িওয়ালার ডিজিটাল খাতা</div><div class="footnote" style="margin-top:4px;">The landlord's digital ledger</div></div>
+      <div class="demo"><div class="k-eyebrow">Launch hook</div><div style="font-family:var(--f-title);font-weight:800;font-size:17px;margin-top:8px;">পুলিশ ফর্ম, ঘরে বসে ২ মিনিটে।</div><div class="footnote" style="margin-top:4px;">Police form, from home, in 2 minutes</div></div>
+      <div class="demo"><div class="k-eyebrow">Aesthetic</div><div style="font-family:var(--f-title);font-weight:800;font-size:17px;margin-top:8px;">Notun Din · নতুন দিন</div><div class="footnote" style="margin-top:4px;">Soft, friendly, warm — a trusted neighbour, not a tech startup</div></div>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section class="sec" id="color">
+    <div class="sec-k"><span class="sec-num">02</span><span class="k-eyebrow">Tokens</span></div>
+    <h2 class="sec-t">Colour system</h2>
+    <p class="sec-d">Three brand hues at a shared low chroma — sage (trust / primary), dusty rose (warmth / CTA &amp; alerts), butter (highlight) — over warm cream and soft ink. Each hue carries a tinted background for calm fills.</p>
+    <div class="grid g4" id="swatches"></div>
+    <p class="footnote" style="margin-top:14px;">Every saturated surface keeps WCAG-AA text contrast. Rose doubles as the alert colour; a separate <code style="font-family:var(--f-mono)">--danger #D14D3B</code> is reserved for destructive/kill-switch actions in admin.</p>
+  </section>
+
+  <!-- TYPE -->
+  <section class="sec" id="type">
+    <div class="sec-k"><span class="sec-num">03</span><span class="k-eyebrow">Tokens</span></div>
+    <h2 class="sec-t">Typography</h2>
+    <p class="sec-d"><b>Plus Jakarta Sans</b> for Latin titles &amp; numerals, <b>Hind Siliguri</b> for all Bangla body, <b>Caveat</b> for sparing handwritten warmth on hero/empty states. Minimum body size 14px; tap-target labels 13px+ for older users.</p>
+    <div class="demo">
+      <div class="type-row"><span class="tag">Display / 800</span><span class="k-display" style="font-size:40px;">৳৯৭,০০০ collected</span></div>
+      <div class="type-row"><span class="tag">H1 / 800</span><span class="k-h1" style="font-size:28px;">পুলিশ ফর্ম, ২ মিনিটে!</span></div>
+      <div class="type-row"><span class="tag">H2 / 800</span><span class="k-h2" style="font-size:22px;">আপনি কে? · Who are you?</span></div>
+      <div class="type-row"><span class="tag">Body / 400</span><span class="k-body" style="font-size:16px;">ভাড়াটিয়ার তথ্য, ভাড়ার হিসাব, খরচ — সব এক জায়গায়।</span></div>
+      <div class="type-row"><span class="tag">Hand / Caveat</span><span class="k-hand" style="font-size:30px;color:var(--sage-dk);">All done! চমৎকার</span></div>
+      <div class="type-row" style="border-bottom:0;"><span class="tag">Mono / data</span><span class="k-mono" style="font-size:15px;color:var(--muted-dk);">23.8103°N, 90.4125°E · KHT/2026/0512</span></div>
+    </div>
+  </section>
+
+  <!-- SPACING -->
+  <section class="sec">
+    <div class="sec-k"><span class="sec-num">04</span><span class="k-eyebrow">Tokens</span></div>
+    <h2 class="sec-t">Radius, shadow &amp; spacing</h2>
+    <p class="sec-d">Rounded everything: 14–26px on cards, 999px on buttons &amp; chips. Shadows are soft, low-opacity and warm-tinted — never hard black. 4-pt spacing scale.</p>
+    <div class="grid g3">
+      <div class="demo">
+        <h4>Corner radius</h4>
+        <div class="row">
+          <div style="width:54px;height:54px;background:var(--sage-bg);border:1px solid var(--line);border-radius:10px;"></div>
+          <div style="width:54px;height:54px;background:var(--sage-bg);border:1px solid var(--line);border-radius:14px;"></div>
+          <div style="width:54px;height:54px;background:var(--sage-bg);border:1px solid var(--line);border-radius:18px;"></div>
+          <div style="width:54px;height:54px;background:var(--sage-bg);border:1px solid var(--line);border-radius:22px;"></div>
+        </div>
+        <div class="footnote" style="margin-top:8px;">xs 10 · sm 14 · md 18 · lg 22 · xl 26 · pill 999</div>
+      </div>
+      <div class="demo">
+        <h4>Elevation</h4>
+        <div class="row" style="gap:18px;">
+          <div style="width:56px;height:56px;background:#fff;border-radius:16px;box-shadow:var(--sh-sm);"></div>
+          <div style="width:56px;height:56px;background:#fff;border-radius:16px;box-shadow:var(--sh-md);"></div>
+          <div style="width:56px;height:56px;background:#fff;border-radius:16px;box-shadow:var(--sh-lg);"></div>
+        </div>
+        <div class="footnote" style="margin-top:8px;">sm card · md raised · lg modal/hero</div>
+      </div>
+      <div class="demo">
+        <h4>Spacing · 4-pt</h4>
+        <div class="row" style="align-items:flex-end;">
+          <div style="width:4px;height:24px;background:var(--sage);"></div>
+          <div style="width:8px;height:24px;background:var(--sage);"></div>
+          <div style="width:12px;height:24px;background:var(--sage);"></div>
+          <div style="width:16px;height:24px;background:var(--sage);"></div>
+          <div style="width:24px;height:24px;background:var(--sage);"></div>
+          <div style="width:32px;height:24px;background:var(--sage);"></div>
+        </div>
+        <div class="footnote" style="margin-top:8px;">4 · 8 · 12 · 16 · 24 · 32</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ICONS -->
+  <section class="sec" id="icons">
+    <div class="sec-k"><span class="sec-num">05</span><span class="k-eyebrow">System</span></div>
+    <h2 class="sec-t">Icons — the hybrid rule</h2>
+    <p class="sec-d"><b>Line icons</b> (1.8px stroke, rounded caps) carry all navigation, actions and status — consistent and crisp at any size. <b>Emoji</b> are reserved for hero illustrations, empty states and celebratory moments, where their warmth is an asset, not noise.</p>
+    <div class="demo">
+      <h4>Line-icon set · navigation &amp; actions</h4>
+      <div class="icogrid" id="icogrid"></div>
+    </div>
+    <div class="grid g2" style="margin-top:16px;">
+      <div class="demo">
+        <h4>✅ Emoji — keep for warmth</h4>
+        <div style="font-size:34px;letter-spacing:8px;">🏠 🎁 🎉 📸 🎤 🌟</div>
+        <div class="footnote" style="margin-top:10px;">Onboarding heroes, “first 2 free” gift, success states, empty states.</div>
+      </div>
+      <div class="demo">
+        <h4>Line icons — for everything functional</h4>
+        <div class="row" style="gap:14px;">
+          <span class="k-iconbadge" style="width:46px;height:46px;background:var(--sage-bg);" data-ico="building" data-c="#5C8067"></span>
+          <span class="k-iconbadge" style="width:46px;height:46px;background:var(--rose-bg);" data-ico="cash" data-c="#C9755F"></span>
+          <span class="k-iconbadge" style="width:46px;height:46px;background:var(--butter-bg);" data-ico="wrench" data-c="#C9755F"></span>
+          <span class="k-iconbadge" style="width:46px;height:46px;background:var(--sage-bg);" data-ico="shield" data-c="#5C8067"></span>
+          <span class="k-iconbadge" style="width:46px;height:46px;background:var(--rose-bg);" data-ico="bell" data-c="#C9755F"></span>
+        </div>
+        <div class="footnote" style="margin-top:10px;">Tinted disc + line glyph = the standard action affordance.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="sec" id="components">
+    <div class="sec-k"><span class="sec-num">06</span><span class="k-eyebrow">Library</span></div>
+    <h2 class="sec-t">Core components</h2>
+    <p class="sec-d">Built from the tokens above — the same primitives appear across every screen and both platforms.</p>
+    <div class="grid g2">
+      <div class="demo">
+        <h4>Buttons</h4>
+        <div class="row" style="margin-bottom:10px;">
+          <button class="k-btn primary">Primary</button>
+          <button class="k-btn rose">Rose CTA</button>
+          <button class="k-btn butter">Butter</button>
+        </div>
+        <div class="row">
+          <button class="k-btn dark sm">Dark</button>
+          <button class="k-btn ghost sm">Ghost</button>
+          <button class="k-btn soft sm">Soft</button>
+          <button class="k-btn danger sm">Danger</button>
+        </div>
+      </div>
+      <div class="demo">
+        <h4>Chips &amp; badges</h4>
+        <div class="row">
+          <span class="k-chip">৭৬% 🎯</span>
+          <span class="k-chip rose">বাকি</span>
+          <span class="k-chip butter">⭐ FLAGSHIP</span>
+          <span class="k-chip ink">Manager</span>
+          <span class="k-chip solid">✓ Verified</span>
+        </div>
+      </div>
+      <div class="demo">
+        <h4>Input field</h4>
+        <div class="k-field">
+          <div class="lab">বিল্ডিংয়ের নাম · Building name</div>
+          <input class="k-input" value="করিম মঞ্জিল" readonly>
+        </div>
+        <div class="pill-row" style="margin-top:12px;">
+          <span class="k-btn soft sm">Uttara</span>
+          <span class="k-btn primary sm">Mirpur</span>
+          <span class="k-btn soft sm">Dhanmondi</span>
+        </div>
+      </div>
+      <div class="demo">
+        <h4>Collection progress</h4>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;">
+          <div><div class="footnote">এ মাসে আদায় · Collected</div><div class="k-h2" style="font-size:24px;">৳৭১,০০০ <span class="footnote">/৯৩K</span></div></div>
+          <span class="k-chip">৭৬%</span>
+        </div>
+        <div class="k-track"><i style="width:76%"></i></div>
+      </div>
+      <div class="demo">
+        <h4>List row · tenant</h4>
+        <div class="row" style="flex-wrap:nowrap;">
+          <div style="width:44px;height:44px;border-radius:22px;background:var(--rose);color:#fff;display:grid;place-items:center;font-family:var(--f-title);font-weight:800;">K</div>
+          <div style="flex:1;"><div class="k-label" style="font-size:14.5px;">Karim Hossain</div><div class="footnote">ইউনিট 2C · ৳২২,০০০ · বকেয়া</div></div>
+          <span class="k-chip rose">বাকি</span>
+        </div>
+      </div>
+      <div class="demo">
+        <h4>Bottom navigation</h4>
+        <div style="display:flex;justify-content:space-around;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:8px 4px;">
+          <span class="k-iconbadge" style="width:34px;height:34px;background:var(--sage-bg);" data-ico="home" data-c="#5C8067" data-s="19"></span>
+          <span class="k-iconbadge" style="width:34px;height:34px;" data-ico="chart" data-c="#8C8578" data-s="19"></span>
+          <span class="k-iconbadge" style="width:42px;height:42px;background:var(--sage);box-shadow:var(--sh-sage);margin-top:-8px;" data-ico="plus" data-c="#fff" data-s="21"></span>
+          <span class="k-iconbadge" style="width:34px;height:34px;" data-ico="cash" data-c="#8C8578" data-s="19"></span>
+          <span class="k-iconbadge" style="width:34px;height:34px;" data-ico="more" data-c="#8C8578" data-s="19"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN MAP -->
+  <section class="sec" id="screens">
+    <div class="sec-k"><span class="sec-num">07</span><span class="k-eyebrow">Architecture</span></div>
+    <h2 class="sec-t">Full screen map</h2>
+    <p class="sec-d">Every screen across the four roles, tagged by build phase. This is the contract for the Flutter mobile app — the clickable prototype realises these one-for-one.</p>
+    <div class="legend">
+      <span><i class="b ph0"></i> Phase 0 · MVP</span>
+      <span><i class="b ph1"></i> Phase 1 · Monetise</span>
+      <span><i class="b ph2"></i> Phase 2 · Reputation &amp; gatekeeper</span>
+    </div>
+    <div id="screenmap"></div>
+  </section>
+
+  <!-- HANDOFF -->
+  <section class="sec" id="handoff">
+    <div class="sec-k"><span class="sec-num">08</span><span class="k-eyebrow">Engineering</span></div>
+    <h2 class="sec-t">Handoff notes</h2>
+    <div class="grid g3">
+      <div class="hcard">
+        <div class="ht"><span class="k-iconbadge" style="width:34px;height:34px;background:var(--sage-bg);" data-ico="grid" data-c="#5C8067" data-s="18"></span> Flutter · mobile</div>
+        <ul>
+          <li>Tokens → <code>ThemeData</code> + a <code>KColors</code> / <code>KText</code> constants file.</li>
+          <li>Cards = <code>Card</code> w/ 22px radius, soft shadow; buttons = <code>FilledButton</code> stadium shape.</li>
+          <li>Bangla default locale; English via <code>flutter_localizations</code>.</li>
+          <li>Large 44px+ tap targets; offline draft + sync for all forms.</li>
+        </ul>
+      </div>
+      <div class="hcard">
+        <div class="ht"><span class="k-iconbadge" style="width:34px;height:34px;background:var(--butter-bg);" data-ico="globe" data-c="#C9755F" data-s="18"></span> Next.js · admin</div>
+        <ul>
+          <li>Desktop-first, calmer ops palette (same hues, cooler neutrals).</li>
+          <li>MFA-required; RBAC across 12 console sections.</li>
+          <li>Separate subdomain <code>ops.khatir.com.bd</code>.</li>
+          <li>Admin reference UI ships in the next pass.</li>
+        </ul>
+      </div>
+      <div class="hcard">
+        <div class="ht"><span class="k-iconbadge" style="width:34px;height:34px;background:var(--rose-bg);" data-ico="shield" data-c="#C9755F" data-s="18"></span> Hard constraints</div>
+        <ul>
+          <li><b>No public listings or reviews — ever.</b> All reputation is private, factual, consent-gated.</li>
+          <li>NID data BD-hosted, encrypted; store result not raw payload.</li>
+          <li>Kill-switch + right-of-reply on every warning/flag.</li>
+          <li>Pricing fully admin-configurable, no hard-coded prices.</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;">
+      <a class="k-btn primary lg btnlink" href="Khatir Mobile Prototype.html">Open clickable prototype →</a>
+      <a class="k-btn soft lg btnlink" href="Khatir Screen Canvas.html">View screen canvas →</a>
+    </div>
+  </section>
+
+  <footer style="padding: 30px 0 60px; color: var(--muted); font-size: 13px; text-align:center;">
+    Khatir · খাতির — খাতির রাখুন, ঝামেলা ছাড়ুন · Notun Din design language · v1.0
+  </footer>
+</div>
+
+<script src="styles/khatir-icons.js"></script>
+<script>
+  // swatches
+  const SW = [
+    ['Ink','#2C3530','Primary text'],
+    ['Sage','#7BA084','Primary · trust'],
+    ['Sage dark','#5C8067','Mark · emphasis'],
+    ['Sage bg','#E8F0EA','Calm fill'],
+    ['Rose','#E89B8B','CTA · warmth'],
+    ['Rose dark','#C9755F','Alert text'],
+    ['Rose bg','#FBE9E3','Alert fill'],
+    ['Butter','#F4D58D','Highlight'],
+    ['Butter bg','#FBF1D8','Reward fill'],
+    ['Cream','#FBF6EE','App background'],
+    ['Line','#EFE6D8','Hairline'],
+    ['Muted','#8C8578','Secondary text'],
+  ];
+  document.getElementById('swatches').innerHTML = SW.map(([n,h,r])=>`
+    <div class="sw">
+      <div class="chip" style="background:${h}"></div>
+      <div class="meta2"><div class="nm">${n}</div><div class="hex">${h}</div><div class="role">${r}</div></div>
+    </div>`).join('');
+
+  // icon grid
+  const ICO_SHOW = ['home','chart','cash','building','door','user','users','wrench','doc','receipt','cam','mic','send','download','share','bell','pin','map','shield','qr','star','clock','flag','lock','phone','wa','search','sparkle','badge','cog','globe','plus'];
+  document.getElementById('icogrid').innerHTML = ICO_SHOW.map(n=>`
+    <div class="icocell"><i>${kicon(n,{s:24,c:'#2C3530'})}</i><div class="nm">${n}</div></div>`).join('');
+
+  // screen map data
+  const ROLES = [
+    { key:'shared', t:'Onboarding & Auth', bn:'শেয়ার্ড', ico:'sparkle', bg:'#5C8067',
+      screens:[
+        ['Splash','স্ক্রিন স্প্ল্যাশ','Logo + descriptor lockup, theme load','0','sparkle'],
+        ['Intro slides','ইন্ট্রো (৩টি)','Welcome · DMP wedge · first-2-free hook','0','grid'],
+        ['Phone + OTP','মোবাইল ও OTP','WhatsApp-first code, SMS fallback','0','phone'],
+        ['Role chooser','ভূমিকা নির্বাচন','Landlord (default) / Manager / Tenant','0','users'],
+      ]},
+    { key:'landlord', t:'Landlord', bn:'বাড়িওয়ালা · primary payer', ico:'home', bg:'#7BA084',
+      screens:[
+        ['Home dashboard','হোম','DMP CTA hero, stats, collection, late-payer','0','home'],
+        ['Add building','বিল্ডিং যোগ','3-step wizard: name+area → address → map pin','0','building'],
+        ['Portfolio','পোর্টফোলিও','Buildings + units, occupancy status','0','grid'],
+        ['Unit detail','ইউনিট','Rent, tenant, status, history','0','door'],
+        ['Add tenant','ভাড়াটিয়া যোগ','Method chooser: photo / voice / manual','0','user'],
+        ['NID OCR','NID স্ক্যান','Camera frame → AI field extraction → review','0','cam'],
+        ['Voice fill','ভয়েস ফর্ম','Bangla voice note → structured fields','0','mic'],
+        ['DMP form','DMP ফর্ম','PDF-parity preview, download + share','0','doc'],
+        ['NID verify','NID যাচাই','EC Matched/Not-Matched + consent + fee','1','shield'],
+        ['Rent request','ভাড়ার অনুরোধ','Pick recipients → WhatsApp link → tracking','0','send'],
+        ['Verify payment','পেমেন্ট যাচাই','“X says paid ৳22k” → view proof → Received','0','cash'],
+        ['Receipt','রসিদ','Auto-generated PDF receipt','0','receipt'],
+        ['Maintenance & expenses','মেরামত ও খরচ','Request queue → resolve with cost → ledger','0','wrench'],
+        ['Add expense','খরচ যোগ','Manual per-flat expense entry','0','plus'],
+        ['Dashboard / charts','ড্যাশবোর্ড','Collection, occupancy donut, income vs expense','0','chart'],
+        ['AI lease','লিজ তৈরি','DNCC-compliant agreement, e-sign','1','doc'],
+        ['Warning / complaint','সতর্কতা','Private, factual, right-of-reply, audit-logged','1','flag'],
+        ['Plan & billing','প্ল্যান','Tiers, free-limit, bKash/Nagad upgrade','1','card'],
+        ['More menu','আরও','Profile, language, about, role switch','0','more'],
+      ]},
+    { key:'manager', t:'Building Manager', bn:'ভবন ম্যানেজার · B2B', ico:'users', bg:'#C9755F',
+      screens:[
+        ['Manager home','ম্যানেজার হোম','Aggregate portfolio + owner switcher pills','1','home'],
+        ['Owner switch','মালিক পরিবর্তন','Re-scope all data to selected owner','1','refresh'],
+        ['Add owner','মালিক যোগ','Link a property owner to portfolio','1','plus'],
+        ['Team members','টিম','Accountant / assistant / viewer seats','1','users'],
+        ['Consolidated report','একীভূত রিপোর্ট','Cross-owner income, occupancy, expense','1','chart'],
+      ]},
+    { key:'tenant', t:'Tenant · app', bn:'ভাড়াটিয়া (অ্যাপ)', ico:'user', bg:'#E89B8B',
+      screens:[
+        ['Tenant home','ভাড়াটিয়া হোম','Rent-due hero, lease, receipts, good record','0','home'],
+        ['Lease detail','লিজ','Owner, advance, term, documents','0','doc'],
+        ['Pay rent','ভাড়া পরিশোধ','Upload bKash proof / txn id / note','0','cash'],
+        ['Request maintenance','মেরামত চাই','Category + description + photo','0','wrench'],
+        ['Receipts','রসিদ','History of paid months, download PDF','0','receipt'],
+        ['Review landlord','রিভিউ','Mutual, app-users only, private pair','1','star'],
+        ['Good-tenant record','ভালো রেকর্ড','Consented cross-lease portfolio','2','badge'],
+      ]},
+    { key:'web', t:'Tenant · web link', bn:'ভাড়াটিয়া (লিংক, no install)', ico:'globe', bg:'#D9B45F',
+      screens:[
+        ['Rent pay link','ভাড়ার লিংক','One-screen, no account, <2s on 3G','0','cash'],
+        ['Proof upload','প্রমাণ আপলোড','Screenshot / txn id / photo / note','0','download'],
+        ['Receipt view','রসিদ দেখুন','Read-only generated receipt','0','receipt'],
+        ['Maintenance form','মেরামত ফর্ম','Web request via WhatsApp link','0','wrench'],
+        ['Visitor QR form','ভিজিটর ফর্ম','Gate QR → no-install visitor entry','2','qr'],
+      ]},
+    { key:'care', t:'Caretaker / Gatekeeper', bn:'কেয়ারটেকার · দারোয়ান', ico:'shield', bg:'#3D4A42',
+      screens:[
+        ['Caretaker home','কেয়ারটেকার হোম','Building-scoped visitor queue','2','shield'],
+        ['Visitor review','ভিজিটর যাচাই','Call tenant, admit or refuse','2','user'],
+        ['Visitor log','ভিজিটর লগ','Searchable, 90-day retention','2','search'],
+      ]},
+  ];
+  document.getElementById('screenmap').innerHTML = ROLES.map(r=>`
+    <div class="roleband">
+      <div class="dot" style="background:${r.bg}">${kicon(r.ico,{s:20,c:'#fff'})}</div>
+      <h3>${r.t}</h3><span class="bn2">${r.bn}</span>
+    </div>
+    <div class="screens">
+      ${r.screens.map(([n,bn,d,ph,ic])=>`
+        <div class="scard">
+          <span class="ph ph${ph}">P${ph}</span>
+          <div class="sn"><i class="lead">${kicon(ic,{s:18,c:'#6B6558'})}</i><b>${n}</b></div>
+          <div class="bnn">${bn}</div>
+          <div class="ds">${d}</div>
+        </div>`).join('')}
+    </div>`).join('');
+
+  kiconHydrate();
+</script>
+</body>
+</html>

@@ -69,12 +69,14 @@ The rules. What must be true, what's forbidden, edge cases. Reference the SRS FR
 (If none: "No API changes.")
 
 ## 8. UI changes
-- Surface: mobile | admin
-- Screen / route: reference `05_navigation_routing.md` route + the JSX prototype screen
-- Components added/changed
+> For mobile/admin tasks, name the exact design screen. See `docs/architecture/07_design_map.md`.
+- **Design source:** screen `<screenKey>` — Claude Design `khatir/Khatir Mobile Prototype.html` (in-repo: `docs/design/khatir-ui/proto/<file>.js` → `reg('<screenKey>')`)
+- Surface: mobile | admin   ·   **Lane:** 🟢 mobile / 🟣 admin / 🌐 web-link
+- Screen / route: reference `05_navigation_routing.md`
+- Translate layout + composition + copy; **values (color/spacing/radii) from `packages/design-tokens`**, never copied from the prototype's inline styles
 - States required: loading / error / empty / data
 - Navigation: from → to
-- i18n keys added (bn + en)
+- i18n keys added (bn + en) — lift Bangla/English copy from the prototype screen
 (If none: "No UI changes.")
 
 ## 9. External services
@@ -86,6 +88,8 @@ The rules. What must be true, what's forbidden, edge cases. Reference the SRS FR
 (If none: "None.")
 
 ## 11. Implementation checklist
+> Live execution log — check items off **as you complete them** and append the short commit hash, e.g. `- [x] Model(s) + enums  ` + "`a1b2c3d`". Multiple items may share one commit; one item may list multiple hashes. See `_handoff_protocol.md` §3b for the full convention.
+
 Tailor to the layer. Example (backend):
 - [ ] Model(s) + enums
 - [ ] Migration (reversible)
@@ -156,6 +160,7 @@ Example (mobile):
 - **`depends_on`** must be satisfied (`done` or `verified`) before an agent may start this task. The `make next` script enforces this.
 - **`size`** guides batching; not a deadline.
 - **`status`** transitions: `todo → in-progress → review-requested → done → verified`. Side paths: `→ blocked` (with §16 filled), `review-requested → changes-requested → in-progress`.
+- **`layer`** is the lane: `backend` 🔵 / `mobile` 🟢 / `admin` 🟣 / `infra` ⚙️ / `docs` 📄 / `cross-cutting` 🔶. An agent stream can pull only its lane via `make next LAYER=<layer>`. Cross-layer dependencies still gate correctly (a mobile task depending on a backend task won't be "ready" until the backend one is done/verified).
 - **`preferred_agent`** is a hint, not a lock. Any capable agent may execute. Architecture/multi-file/ambiguous → claude-code. Mechanical/per-file boilerplate → codex.
 
 ## How an autonomous agent uses a task file

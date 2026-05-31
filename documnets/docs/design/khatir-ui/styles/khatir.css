@@ -1,0 +1,164 @@
+/* ═══════════════════════════════════════════════════════════════
+   Khatir · খাতির — Design System
+   Aesthetic: Notun Din (নতুন দিন · New Day)
+   Single source of truth for overview, prototype, and canvas.
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hind+Siliguri:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Brand palette ── */
+  --ink:       #2C3530;
+  --ink-2:     #3D4A42;
+
+  --sage:      #7BA084;
+  --sage-dk:   #5C8067;
+  --sage-bg:   #E8F0EA;
+
+  --rose:      #E89B8B;
+  --rose-dk:   #C9755F;
+  --rose-bg:   #FBE9E3;
+
+  --butter:    #F4D58D;
+  --butter-dk: #D9B45F;
+  --butter-bg: #FBF1D8;
+
+  --danger:    #D14D3B;
+  --danger-bg: #FBE5E1;
+
+  /* ── Neutrals ── */
+  --cream:     #FBF6EE;
+  --card:      #FFFFFF;
+  --line:      #EFE6D8;
+  --line-dk:   #E0D5C2;
+  --muted:     #8C8578;
+  --muted-dk:  #6B6558;
+
+  /* ── Type ── */
+  --f-title: 'Plus Jakarta Sans', 'Hind Siliguri', -apple-system, sans-serif;
+  --f-body:  'Hind Siliguri', 'Noto Sans Bengali', -apple-system, sans-serif;
+  --f-hand:  'Caveat', 'Hind Siliguri', cursive;
+  --f-mono:  'JetBrains Mono', 'Menlo', monospace;
+
+  /* ── Radii ── */
+  --r-xs: 10px;
+  --r-sm: 14px;
+  --r-md: 18px;
+  --r-lg: 22px;
+  --r-xl: 26px;
+  --r-pill: 999px;
+
+  /* ── Shadow ── */
+  --sh-sm: 0 3px 12px -6px rgba(80,60,40,.12);
+  --sh-md: 0 8px 22px -10px rgba(80,60,40,.18);
+  --sh-lg: 0 20px 44px -18px rgba(60,40,30,.28);
+  --sh-sage: 0 12px 28px -12px rgba(92,128,103,.5);
+  --sh-rose: 0 12px 28px -12px rgba(232,155,139,.5);
+
+  /* ── Spacing scale (4pt) ── */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
+  --s5: 20px; --s6: 24px; --s7: 32px; --s8: 40px;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  margin: 0;
+  font-family: var(--f-body);
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Typography helpers ── */
+.k-display { font-family: var(--f-title); font-weight: 800; letter-spacing: -1px; line-height: 1.04; }
+.k-h1      { font-family: var(--f-title); font-weight: 800; letter-spacing: -.6px; line-height: 1.12; }
+.k-h2      { font-family: var(--f-title); font-weight: 800; letter-spacing: -.4px; line-height: 1.18; }
+.k-h3      { font-family: var(--f-title); font-weight: 700; letter-spacing: -.2px; line-height: 1.25; }
+.k-body    { font-family: var(--f-body); font-weight: 400; line-height: 1.6; }
+.k-label   { font-family: var(--f-title); font-weight: 700; }
+.k-hand    { font-family: var(--f-hand); font-weight: 600; }
+.k-mono    { font-family: var(--f-mono); }
+.k-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+.bn { font-family: var(--f-body); }
+.en { font-family: var(--f-title); }
+
+/* ── Surfaces ── */
+.k-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+  padding: var(--s4);
+}
+.k-card.flat { box-shadow: none; }
+.k-soft { border: 1px solid transparent; box-shadow: none; }
+
+/* ── Buttons ── */
+.k-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--f-title); font-weight: 700; font-size: 15px;
+  border: 0; border-radius: var(--r-pill);
+  padding: 14px 22px; cursor: pointer;
+  transition: transform .12s ease, filter .15s ease;
+  letter-spacing: .1px; white-space: nowrap;
+}
+.k-btn:active { transform: scale(.97); }
+.k-btn.sm { padding: 9px 15px; font-size: 13px; }
+.k-btn.lg { padding: 16px 24px; font-size: 16px; }
+.k-btn.full { width: 100%; }
+.k-btn.primary { background: var(--sage); color: #fff; box-shadow: var(--sh-sage); }
+.k-btn.rose    { background: var(--rose); color: #fff; box-shadow: var(--sh-rose); }
+.k-btn.butter  { background: var(--butter); color: var(--ink); }
+.k-btn.dark    { background: var(--ink); color: #fff; }
+.k-btn.ghost   { background: transparent; color: var(--sage-dk); border: 2px solid var(--sage); }
+.k-btn.soft    { background: var(--sage-bg); color: var(--sage-dk); }
+.k-btn.danger  { background: var(--danger); color: #fff; }
+
+/* ── Chips ── */
+.k-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11.5px; font-weight: 700; font-family: var(--f-title);
+  padding: 5px 12px; border-radius: var(--r-pill);
+  background: var(--sage-bg); color: var(--sage-dk);
+}
+.k-chip.rose   { background: var(--rose-bg); color: var(--rose-dk); }
+.k-chip.butter { background: var(--butter-bg); color: var(--rose-dk); }
+.k-chip.ink    { background: rgba(44,53,48,.08); color: var(--ink); }
+.k-chip.solid  { background: var(--sage); color: #fff; }
+
+/* ── Inputs ── */
+.k-field { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 12px 14px; box-shadow: var(--sh-sm); }
+.k-field .lab { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 7px; }
+.k-input { border: 0; outline: none; width: 100%; font-family: var(--f-title); font-weight: 700; font-size: 17px; color: var(--ink); background: transparent; padding: 2px 0; }
+.k-input::placeholder { color: var(--line-dk); font-weight: 600; }
+
+/* ── Icon system: line icons inherit currentColor ── */
+.k-ico { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.k-ico svg { display: block; }
+
+/* round icon badge (line icon on tinted disc) */
+.k-iconbadge { display: grid; place-items: center; border-radius: var(--r-pill); flex-shrink: 0; }
+
+/* ── Brand lockup mark ── */
+.k-mark {
+  display: grid; place-items: center; border-radius: 28%;
+  background: linear-gradient(150deg, var(--sage), var(--sage-dk));
+  color: #fff; box-shadow: var(--sh-sage);
+}
+.k-mark span { font-family: var(--f-body); font-weight: 700; line-height: 1; }
+
+/* ── Scrollbars (subtle) ── */
+.k-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.k-scroll::-webkit-scrollbar-thumb { background: var(--line-dk); border-radius: 99px; }
+.k-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* ── Progress bar ── */
+.k-track { height: 10px; background: var(--sage-bg); border-radius: var(--r-pill); overflow: hidden; }
+.k-track > i { display: block; height: 100%; background: linear-gradient(90deg, var(--sage), var(--sage-dk)); border-radius: var(--r-pill); }
+
+/* ── Dotted/divider ── */
+.k-divider { height: 1px; background: var(--line); border: 0; }
+.k-divider.dash { background: none; border-top: 1px dashed var(--line); }

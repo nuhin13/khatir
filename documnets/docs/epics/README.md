@@ -45,12 +45,12 @@ Legend: ⬜ todo · 🟡 in-progress · ✅ done · ⛔ blocked
 ### Foundation
 | ID | Epic | Phase | Tasks | Status | Progress |
 |----|------|-------|-------|--------|----------|
-| EPIC-00 | Foundation & Scaffold | — | TBD | ⬜ | 0/0 |
+| EPIC-00 | Foundation & Scaffold | — | 16 | ⬜ | 0/16 |
 
 ### MVP
 | ID | Epic | Phase | Tasks | Status | Progress |
 |----|------|-------|-------|--------|----------|
-| EPIC-01 | Onboarding & Authentication | MVP | TBD | ⬜ | 0/0 |
+| EPIC-01 | Onboarding & Authentication | MVP | 12 | ⬜ | 0/12 |
 | EPIC-02 | Role & Profile Management | MVP | TBD | ⬜ | 0/0 |
 | EPIC-03 | Properties & Units | MVP | TBD | ⬜ | 0/0 |
 | EPIC-04 | Tenant Management & NID OCR | MVP | TBD | ⬜ | 0/0 |

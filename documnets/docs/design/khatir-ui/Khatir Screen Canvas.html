@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khatir · Screen Canvas</title>
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="stylesheet" href="styles/khatir.css">
+<link rel="stylesheet" href="proto/proto.css">
+<style>
+  body { background:
+    radial-gradient(80% 50% at 10% 0%, rgba(123,160,132,.16), transparent 55%),
+    radial-gradient(70% 50% at 100% 100%, rgba(232,155,139,.12), transparent 55%),
+    #d8cbb6; }
+  .board { padding: 40px 36px 80px; }
+  .board-head { max-width: 900px; margin: 0 auto 18px; }
+  .board-head img { width: 300px; max-width: 70%; }
+  .board-head h1 { font-family: var(--f-title); font-weight: 800; font-size: 34px; letter-spacing: -1px; margin: 18px 0 0; }
+  .board-head p { color: var(--ink-2); font-size: 15px; line-height: 1.6; max-width: 640px; margin-top: 8px; }
+  .board-head .links { margin-top: 16px; display:flex; gap:10px; flex-wrap:wrap; }
+  .board-head a { text-decoration: none; }
+  .sect { margin: 44px auto 0; max-width: 1280px; }
+  .sect-h { display:flex; align-items:center; gap: 12px; margin-bottom: 18px; }
+  .sect-h .dot { width: 34px; height: 34px; border-radius: 11px; display:grid; place-items:center; color:#fff; }
+  .sect-h h2 { font-family: var(--f-title); font-weight: 800; font-size: 21px; margin: 0; letter-spacing: -.3px; }
+  .sect-h .bn { font-family: var(--f-body); font-weight: 600; color: var(--muted-dk); font-size: 14px; }
+  .frames { display:flex; flex-wrap:wrap; gap: 30px 26px; }
+  .frame-wrap { width: 250px; }
+  .frame-scale { width: 250px; height: 541px; position: relative; overflow: hidden; border-radius: 34px; box-shadow: var(--sh-lg); }
+  .frame-scale .device { position: absolute; top:0; left:0; transform: scale(.641); transform-origin: top left; box-shadow: none; border-radius: 38px; }
+  .frame-cap { margin-top: 12px; }
+  .frame-cap b { font-family: var(--f-title); font-weight: 700; font-size: 14px; display:block; }
+  .frame-cap .bn { font-family: var(--f-body); color: var(--sage-dk); font-size: 12.5px; font-weight: 600; }
+  .frame-cap .ds { font-size: 11.5px; color: var(--muted-dk); margin-top: 3px; line-height: 1.45; }
+  .frame-cap .tag { font-family: var(--f-mono); font-size: 9.5px; padding: 1px 6px; border-radius: 5px; margin-left: 6px; }
+  .dir-note { background: var(--card); border:1px solid var(--line); border-radius: 16px; padding: 12px 14px; font-size: 12.5px; color: var(--muted-dk); line-height: 1.5; margin-top: 12px; width: 250px; }
+  .dir-note b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="board">
+  <div class="board-head">
+    <img src="assets/khatir-lockup-h-1200.png" alt="Khatir">
+    <h1>Screen canvas</h1>
+    <p>Key screens laid out side-by-side for review, plus three visual directions for the Landlord home so you can pick a feel. Every frame is the real prototype render — open the prototype to tap through the full flows.</p>
+    <div class="links">
+      <a class="k-btn primary" href="Khatir Mobile Prototype.html">Open clickable prototype →</a>
+      <a class="k-btn soft" href="Khatir Design Overview.html">Design overview →</a>
+    </div>
+  </div>
+
+  <div class="sect" id="directions"></div>
+  <div class="sect" id="board"></div>
+</div>
+
+<script src="styles/khatir-icons.js"></script>
+<script src="proto/ui.js"></script>
+<script src="proto/screens-onboard.js"></script>
+<script src="proto/screens-landlord.js"></script>
+<script src="proto/screens-landlord2.js"></script>
+<script src="proto/screens-other.js"></script>
+<script src="proto/home-variants.js"></script>
+<script>
+  // canvas is static: neutralise navigation + boot
+  window.removeEventListener('DOMContentLoaded', boot);
+  go = function(){};
+
+  function frame(html){
+    return `<div class="frame-scale"><div class="device"><div class="notch"></div><div class="app">${html}</div></div></div>`;
+  }
+  function card(id, extra){
+    const m = SCREENS[id]; if(!m) return '';
+    return `<div class="frame-wrap">${frame(m.render())}<div class="frame-cap"><b>${m.en}<span class="tag ph${m.ph}">P${m.ph}</span></b><span class="bn">${m.bn}</span>${extra?`<div class="ds">${extra}</div>`:''}</div></div>`;
+  }
+
+  // ── visual directions for Home ──
+  document.getElementById('directions').innerHTML = `
+    <div class="sect-h"><div class="dot" style="background:var(--rose-dk)">${kicon('sparkle',{s:18,c:'#fff'})}</div><h2>Visual directions — Landlord home</h2><span class="bn">একই স্ক্রিন, তিন রকম · pick a feel</span></div>
+    <div class="frames">
+      <div class="frame-wrap">${frame(homeEditorial())}<div class="frame-cap"><b>A · Editorial</b><span class="bn">বড় টাইপ, বাটার ব্যান্ড</span></div><div class="dir-note"><b>Boldest.</b> Oversized numerals, butter accent block, lots of air. Feels premium &amp; modern — best for younger family members.</div></div>
+      <div class="frame-wrap">${frame(SCREENS['home'].render())}<div class="frame-cap"><b>B · Warm <span class="tag ph0">RECOMMENDED</span></b><span class="bn">ইমোজি হিরো, নরম কার্ড</span></div><div class="dir-note"><b>The Notun Din default.</b> Friendly emoji hero, soft rounded cards, celebratory tone. Least intimidating for 40–65yo first-timers.</div></div>
+      <div class="frame-wrap">${frame(homeClean())}<div class="frame-cap"><b>C · Clean</b><span class="bn">লাইন-আইকন, ডেটা-ফরোয়ার্ড</span></div><div class="dir-note"><b>Most efficient.</b> Line-icon list, compact stats row, no emoji. Calmer &amp; denser — scales best as the portfolio grows.</div></div>
+    </div>`;
+
+  // ── key screens by role ──
+  const BOARD = [
+    ['Onboarding & Auth','শেয়ার্ড','sparkle','#5C8067',[
+      ['splash','First impression'],['intro','3 slides: welcome · DMP wedge · free hook'],['otp','WhatsApp-first code'],['roleChooser','Landlord / Manager / Tenant'],
+    ]],
+    ['Landlord','বাড়িওয়ালা','home','#7BA084',[
+      ['addBuilding','3-step wizard incl. optional map pin'],['ocr','NID photo → AI extraction'],['dmp','PDF-parity form preview'],['rentReq','Send to all → WhatsApp link'],['verifyPay','Verify tenant\'s payment proof'],['receipt','Auto-generated receipt'],['expenses','Requests → resolve with cost'],['dashboard','5 charts + late payers'],['verify','EC Matched/Not-Matched · P1'],['warning','Private, factual, right-of-reply · P1'],
+    ]],
+    ['Building Manager','ভবন ম্যানেজার','users','#C9755F',[
+      ['mgrHome','Aggregate portfolio + owner switcher'],['mgrReport','Cross-owner consolidated report'],['mgrTeam','Role-based team seats'],
+    ]],
+    ['Tenant · app','ভাড়াটিয়া','user','#E89B8B',[
+      ['tenHome','Rent-due hero, lease, receipts'],['tenPay','Upload bKash proof'],['tenMaint','Request a fix'],['tenRecord','Good-tenant record · P2'],
+    ]],
+    ['Tenant · web link','লিংক, no install','globe','#D9B45F',[
+      ['webPay','One screen, no account, <2s on 3G'],['webReceipt','Pending → receipt'],['webVisitor','Gate QR visitor form · P2'],
+    ]],
+    ['Caretaker / Gatekeeper','দারোয়ান','shield','#3D4A42',[
+      ['careHome','Building QR + visitor queue · P2'],['careReview','Call tenant → admit/refuse · P2'],['careLog','90-day visitor log · P2'],
+    ]],
+  ];
+  document.getElementById('board').innerHTML = BOARD.map(([t,bn,ic,c,items])=>`
+    <div style="margin-top:8px;">
+      <div class="sect-h"><div class="dot" style="background:${c}">${kicon(ic,{s:18,c:'#fff'})}</div><h2>${t}</h2><span class="bn">${bn}</span></div>
+      <div class="frames">${items.map(([id,ds])=>card(id,ds)).join('')}</div>
+    </div>`).join('');
+
+  kiconHydrate();
+</script>
+</body>
+</html>

@@ -124,12 +124,12 @@ P3: EPIC-26 Government Export (→16)
 **Phase:** MVP · **Est. tasks:** ~14 · **Depends on:** EPIC-02
 **External services:** OpenStreetMap tiles (free, no key)
 
-**Business goal.** Let a landlord build their portfolio: create buildings via the 3-step wizard (name+area → address → optional map pin) and add units to them.
+**Business goal.** Let a landlord build their portfolio: create buildings via the 4-step wizard (name+area → address+map → units → review) and add units to them.
 
 **What it unlocks.** Everything tenant/lease/rent-related needs a unit to attach to.
 
 **Definition of done.**
-- Building CRUD + 3-step add wizard; address required, map pin optional (flutter_map + OSM).
+- Building CRUD + 4-step add wizard (name+area → address+map → units → review); address required, map pin optional (flutter_map + OSM).
 - Unit CRUD; occupied/vacant/maintenance status.
 - Portfolio list across buildings.
 - `for_user` scoping enforced (landlord sees only own).

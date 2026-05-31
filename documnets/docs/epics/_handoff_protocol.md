@@ -67,6 +67,53 @@ Implementer reads notes, fixes, re-submits.
 
 ---
 
+## 3b. Executing the implementation checklist (live progress + git refs)
+
+The `## 11. Implementation checklist` in every task file is not a static plan — it's a **live execution log** the agent updates *as it works*, so the task file itself becomes the audit trail.
+
+**Rules:**
+
+1. **Check off as you go.** The moment a checklist item is genuinely complete (code written *and* locally working), change `- [ ]` to `- [x]`. Don't batch-check at the end — check each item when it's actually done. This lets a reviewer or a resuming agent see exactly how far the task got.
+
+2. **Annotate with the commit reference.** When you commit work that completes one or more checklist items, append the short commit hash to those items:
+   ```
+   - [x] Model(s) + enums  `a1b2c3d`
+   - [x] Migration (reversible)  `a1b2c3d`
+   - [x] Serializer(s)  `e4f5g6h`
+   ```
+   - **Multiple items can share one commit** — that's expected and fine. Just put the same hash on each item that commit covered:
+     ```
+     - [x] Service function(s)  `e4f5g6h`
+     - [x] Permission class(es)  `e4f5g6h`
+     ```
+   - **One item may span multiple commits** — list both:
+     ```
+     - [x] View(s)/viewset  `e4f5g6h, i7j8k9l`
+     ```
+   - If work isn't committed yet but the item is done locally, mark `- [x]` and add `(uncommitted)`; replace with the hash on the next commit. Never hand off with `(uncommitted)` still present — see §4.
+
+3. **Hash format.** Use the 7-char short hash. The full branch is already `epic-NN/T-XXX-slug`, and every commit message carries `[EPIC-NN T-XXX]`, so the task ID → commits mapping is recoverable from git history too; the inline hash is a convenience for human reviewers reading the task file.
+
+4. **Partial completion is legible.** If a task is handed off or blocked midway, the checklist already shows which items are `[x]` (with hashes) and which remain `[ ]`. The next agent continues from the first unchecked item on the same branch.
+
+5. **The self-review (§14) "Files touched (actual)" still lists the concrete files** — the checklist tracks *what was done*, the self-review confirms *it's done correctly*. Both are required.
+
+**Example of a checklist mid-execution:**
+```markdown
+## 11. Implementation checklist
+- [x] Model(s) + enums  `a1b2c3d`
+- [x] Migration (reversible)  `a1b2c3d`
+- [x] Manager `for_user` scope  `a1b2c3d`
+- [x] Serializer(s)  `e4f5g6h`
+- [x] Service function(s) — logic here, not in view  `e4f5g6h`
+- [ ] Permission class(es)
+- [ ] View(s)/viewset thin
+- [ ] Tests: happy + auth-fail + validation-fail
+```
+A reviewer instantly sees: models/migration/serializer/service done across two commits; permissions, views, tests still pending.
+
+---
+
 ## 4. Handoff hygiene (rules)
 
 1. **Always leave the repo green or clearly red.** Either `make test` passes, or §16 explains exactly what's failing and why.
