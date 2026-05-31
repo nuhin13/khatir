@@ -1,0 +1,76 @@
+---
+id: T-011
+epic: EPIC-08
+title: Maintenance entry on unit detail
+layer: mobile
+size: S
+status: todo
+preferred_agent: codex
+depends_on: [T-007, EPIC-03.T-013]
+blocks: []
+external_services: []
+feature_flags: []
+started_at:
+completed_at:
+executed_by:
+reviewed_at:
+reviewed_by:
+review_outcome:
+---
+
+# T-011 · Maintenance entry on unit detail
+
+## 1. Feature goal
+Show recent maintenance + expenses for a unit on the unit detail screen, with a link to the full queue/list.
+
+## 2. Business logic
+Adds a maintenance/expense summary section to unit detail (recent items + counts), linking to queue (T-010) and expenses (T-008).
+
+## 3. What this task DOES
+- unit maintenance/expense summary widget; integrate into unit detail; states. Widget test.
+
+## 5. Files & changes
+### Add
+- features/maintenance/presentation/widgets/unit_maint_expense_section.dart; test
+### Update
+- EPIC-03 unit_detail_screen.dart
+
+## 6. Database changes
+None.
+## 7. API changes
+Consumes unit maintenance/expense lists.
+## 8. UI changes
+- Surface: mobile · **Lane:** 🟢 mobile
+- Section on `/properties/unit/:id`
+- States: loading/empty/data
+- i18n keys: `unit_maintenance`, `unit_expenses`, `unit_view_all` (bn + en)
+
+## 9. External services
+None.
+## 10. Feature flags
+None.
+
+## 11. Implementation checklist
+> Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
+- [ ] unit maintenance/expense summary section
+- [ ] links to queue + expenses
+- [ ] integrate into unit detail
+- [ ] states; widget test
+- [ ] analyze + test pass
+
+## 12. Test plan
+### Automated
+- unit_maint_section_test
+### Manual QA
+1. Unit detail shows recent maintenance + expenses.
+
+## 13. Acceptance criteria
+- [ ] Unit detail shows maintenance/expense summary; tests + analyze pass.
+
+## 14. Self-review
+- [ ] Tokens; links correct
+### Deviations from spec
+### Files touched (actual)
+
+## 15. Notes for the implementing agent
+- Keep it a lightweight summary; full lists live in their own screens.
