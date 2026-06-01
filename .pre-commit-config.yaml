@@ -1,0 +1,103 @@
+# Pre-commit hooks (T-013).
+# Install with:  pre-commit install --install-hooks && pre-commit install --hook-type commit-msg
+# Run on demand: pre-commit run --all-files
+#
+# Hooks are scoped per app via `files:` patterns so each runs only on the
+# files it owns:
+#   - apps/api    -> ruff (lint + format)
+#   - apps/mobile -> dart format + flutter analyze
+#   - apps/admin  -> eslint + prettier
+# Generic hygiene + secret detection + commit-msg validation run repo-wide.
+default_install_hook_types: [pre-commit, commit-msg]
+minimum_pre_commit_version: "3.5.0"
+
+repos:
+  # ---------------------------------------------------------------------------
+  # Generic hygiene hooks (repo-wide)
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.md$'
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: ["--allow-multiple-documents"]
+      - id: check-json
+      - id: check-toml
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+      - id: detect-private-key
+
+  # ---------------------------------------------------------------------------
+  # Secret detection (repo-wide)
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+
+  # ---------------------------------------------------------------------------
+  # Backend — apps/api (Python / ruff)
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.15
+    hooks:
+      - id: ruff
+        name: ruff (apps/api lint)
+        args: ["--fix"]
+        files: '^apps/api/.*\.py$'
+      - id: ruff-format
+        name: ruff-format (apps/api)
+        files: '^apps/api/.*\.py$'
+
+  # ---------------------------------------------------------------------------
+  # Mobile — apps/mobile (Dart / Flutter)
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: dart-format
+        name: dart format (apps/mobile)
+        language: system
+        entry: dart format
+        files: '^apps/mobile/.*\.dart$'
+        types: [file]
+      - id: flutter-analyze
+        name: flutter analyze (apps/mobile)
+        language: system
+        entry: bash -c 'cd apps/mobile && flutter analyze'
+        files: '^apps/mobile/.*\.dart$'
+        pass_filenames: false
+
+  # ---------------------------------------------------------------------------
+  # Admin — apps/admin (TypeScript / ESLint + Prettier)
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: admin-eslint
+        name: eslint (apps/admin)
+        language: system
+        entry: bash -c 'cd apps/admin && npx --no-install eslint --fix "$@"' --
+        files: '^apps/admin/.*\.(ts|tsx|js|jsx|mjs|cjs)$'
+        types: [file]
+      - id: admin-prettier
+        name: prettier (apps/admin)
+        language: system
+        entry: bash -c 'cd apps/admin && npx --no-install prettier --write "$@"' --
+        files: '^apps/admin/.*\.(ts|tsx|js|jsx|mjs|cjs|json|css|scss|md)$'
+        types: [file]
+
+  # ---------------------------------------------------------------------------
+  # Commit message — Conventional Commits + epic tag (commit-msg stage)
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: check-commit-msg
+        name: commit-msg conventional + epic tag
+        language: system
+        entry: python3 infra/scripts/check_commit_msg.py
+        stages: [commit-msg]
+        pass_filenames: true
