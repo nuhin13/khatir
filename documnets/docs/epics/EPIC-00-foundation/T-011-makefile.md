@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Makefile (dev + tracker commands)
 layer: infra
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-004, T-007, T-009]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
