@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Env conventions & .env.example
 layer: infra
 size: XS
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-001]
 blocks: [T-003, T-004]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
