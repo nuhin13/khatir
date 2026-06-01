@@ -46,23 +46,28 @@ services:
       start_period: 5s
 
   # ── api ──────────────────────────────────────────────────────────────
-  # Enabled by T-004. Build context + Dockerfile already wired; uncomment
-  # to bring the Django API online once apps/api/ exists.
-  #
-  # api:
-  #   build:
-  #     context: .
-  #     dockerfile: infra/docker/api.Dockerfile
-  #   restart: unless-stopped
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #     redis:
-  #       condition: service_healthy
+  # Enabled by T-004. Django + DRF backend served by gunicorn.
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Inside the compose network the API reaches Postgres/Redis by service
+      # name, not localhost. These override the host-oriented .env values.
+      DJANGO_ENV: ${DJANGO_ENV:-prod}
+      DB_HOST: db
+      DB_PORT: "5432"
+      REDIS_URL: redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   # ── admin ────────────────────────────────────────────────────────────
   # Enabled by T-009. Next.js admin portal.

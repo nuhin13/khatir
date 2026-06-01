@@ -4,3 +4,4 @@
 2026-06-02 | EPIC-00/T-001 | infra | claude | done | -
 2026-06-02 | EPIC-00/T-002 | infra | claude | done | -
 2026-06-02 | EPIC-00/T-003 | infra | claude | done | -
+2026-06-02 | EPIC-00/T-004 | backend | claude | done | -
