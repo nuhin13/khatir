@@ -42,6 +42,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "khatir.core",
     "khatir.health",
 ]
 
@@ -117,12 +118,15 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# ── Field encryption ──────────────────────────────────────────────────
+# Fernet key for personal/sensitive fields (NID, etc.). See core/encryption.py.
+FIELD_ENCRYPTION_KEY = env("FIELD_ENCRYPTION_KEY", default="")
+
 # ── Django REST Framework ─────────────────────────────────────────────
-# The custom exception handler is reserved for T-005 (core app); the hook is
-# wired here so the standard error envelope can drop in without touching DRF
-# config. Until then DRF's default handler is used.
+# Custom exception handler (T-005) produces the standard error envelope; the
+# core pagination class produces the {results, pagination} envelope.
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "EXCEPTION_HANDLER": "khatir.core.exceptions.exception_handler",
+    "DEFAULT_PAGINATION_CLASS": "khatir.core.pagination.StandardPageNumberPagination",
     "PAGE_SIZE": 20,
-    # "EXCEPTION_HANDLER": "khatir.core.exceptions.exception_handler",  # T-005
 }

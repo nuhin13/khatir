@@ -24,3 +24,6 @@ CACHES = {
 }
 
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
+
+# Deterministic Fernet key so encryption round-trips in tests without env setup.
+FIELD_ENCRYPTION_KEY = "32SDpIJPPLw0lyx6ULQ8-e31Vqhl6zy77JSD8LKIBHI="
