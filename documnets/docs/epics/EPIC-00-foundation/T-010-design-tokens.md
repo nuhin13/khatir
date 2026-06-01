@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Shared design-tokens package
 layer: packages
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-001]
 blocks: [T-008, T-009]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -65,26 +65,30 @@ None.
 None.
 
 ## 11. Implementation checklist
-- [ ] tokens.json with full Notun Din palette + radii + spacing + font families
-- [ ] Dart bindings generated
-- [ ] TS bindings + Tailwind preset generated
-- [ ] generate script regenerates both from JSON
-- [ ] README with add-a-token instructions
-- [ ] generated outputs committed
+- [x] tokens.json with full Notun Din palette + radii + spacing + font families
+- [x] Dart bindings generated
+- [x] TS bindings + Tailwind preset generated
+- [x] generate script regenerates both from JSON
+- [x] README with add-a-token instructions
+- [x] generated outputs committed
 
 ## 12. Test plan
 ### Manual QA
 1. Change a color in tokens.json, run the generator, confirm both Dart + TS outputs update.
 
 ## 13. Acceptance criteria
-- [ ] tokens.json is the single source; Dart + TS generated from it.
-- [ ] Palette values match Notun Din exactly.
+- [x] tokens.json is the single source; Dart + TS generated from it.
+- [x] Palette values match Notun Din exactly.
 
 ## 14. Self-review
-- [ ] One source of truth (JSON)
-- [ ] Generator reproducible
+- [x] One source of truth (JSON)
+- [x] Generator reproducible
 ### Deviations from spec
+- Added `package.json` (not listed in §5) so the package is consumable as `@khatir/design-tokens` and exposes an `npm run generate` script. The package is intentionally NOT `type: module` so the Tailwind preset can use CommonJS `module.exports` (Tailwind requirement); the generator is `.mjs` so it stays ESM regardless.
+- tokens.json includes the full prototype `:root` set (incl. `ink2`, `lineDk`, `mutedDk`, `danger`/`dangerBg`, the `xs/sm/md/xl` radii and `pill`) beyond the minimal list in §15, so no surface drifts from the prototype. The §15 named values (sage/rose/butter/cream/ink, radii card 22 / button 999 / chip 999 / tile 16, fonts) are all present and verified against `styles/khatir.css`.
 ### Files touched (actual)
+- Add: packages/design-tokens/{tokens.json, generate.mjs, package.json, README.md, dart/khatir_tokens.dart, ts/tokens.ts, ts/tailwind-preset.js}
+- Delete: packages/.gitkeep
 
 ## 15. Notes for the implementing agent
 - Palette: sage #7BA084, sageDk #5C8067, sageBg #E8F0EA, rose #E89B8B, roseDk #C9755F, roseBg #FBE9E3, butter #F4D58D, butterDk #D9B45F, butterBg #FBF1D8, cream #FBF6EE, card #FFFFFF, line #EFE6D8, ink #2C3530, muted #8C8578.

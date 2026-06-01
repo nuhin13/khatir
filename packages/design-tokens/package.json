@@ -1,0 +1,22 @@
+{
+  "name": "@khatir/design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Single source of truth for the Notun Din design tokens, generated for Flutter (Dart) and Next.js (TS + Tailwind preset).",
+  "main": "ts/tokens.ts",
+  "exports": {
+    ".": "./ts/tokens.ts",
+    "./tokens.json": "./tokens.json",
+    "./tailwind-preset": "./ts/tailwind-preset.js"
+  },
+  "files": [
+    "tokens.json",
+    "dart/",
+    "ts/",
+    "generate.mjs",
+    "README.md"
+  ],
+  "scripts": {
+    "generate": "node generate.mjs"
+  }
+}
