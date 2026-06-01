@@ -174,4 +174,15 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "khatir.core.exceptions.exception_handler",
     "DEFAULT_PAGINATION_CLASS": "khatir.core.pagination.StandardPageNumberPagination",
     "PAGE_SIZE": 20,
+    # Scoped throttle rates for the OTP auth endpoints (T-007). Caps abuse on
+    # request-otp (SMS/WhatsApp cost bombs) and verify-otp (code brute force),
+    # keyed by phone and by IP. Tunable per environment without code changes;
+    # state lives in the cache backend (Redis in prod). Defaults follow T-007
+    # §15. The per-phone resend cooldown (T-003) still applies on top of these.
+    "DEFAULT_THROTTLE_RATES": {
+        "request_otp_phone": env("THROTTLE_REQUEST_OTP_PHONE", default="5/hour"),
+        "request_otp_ip": env("THROTTLE_REQUEST_OTP_IP", default="20/hour"),
+        "verify_otp_phone": env("THROTTLE_VERIFY_OTP_PHONE", default="10/10min"),
+        "verify_otp_ip": env("THROTTLE_VERIFY_OTP_IP", default="30/10min"),
+    },
 }
