@@ -115,6 +115,14 @@ def test_malformed_yaml_file_is_skipped_not_crashing(tmp_path):
     assert "EPIC-00/T-009" not in tasks  # broken file skipped
 
 
+def test_task_with_missing_dependency_stays_blocked(tmp_path):
+    # T-002 depends on T-001, but T-001 was never defined. It must NOT
+    # become ready (the dep is absent from `done`, so the check fails).
+    _write(tmp_path, "T-002.md", TASK_B)
+    ready = [t.key for t in ready_tasks(tmp_path)]
+    assert ready == []
+
+
 def test_duplicate_keys_are_detected(tmp_path):
     # Two files in the same epic both claiming id T-002.
     e0 = tmp_path / "EPIC-08"; e0.mkdir()
