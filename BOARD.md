@@ -14,3 +14,4 @@
 2026-06-02 | EPIC-00/T-008 | mobile | claude | done | -
 2026-06-02 | EPIC-00/T-011 | infra | claude | done | -
 2026-06-02 | EPIC-00/T-013 | infra | claude | done | -
+2026-06-02 | EPIC-00/T-014 | infra | claude | done | -
