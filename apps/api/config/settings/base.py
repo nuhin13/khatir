@@ -137,6 +137,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Fernet key for personal/sensitive fields (NID, etc.). See core/encryption.py.
 FIELD_ENCRYPTION_KEY = env("FIELD_ENCRYPTION_KEY", default="")
 
+# ── Observability (T-015) ─────────────────────────────────────────────
+# Structured logging: JSON in prod (DEBUG=False), human-readable in dev. A
+# PII-masking filter (core/logging.py) strips NID/OTP/token/secret/trx values
+# from every record. Sentry init lives in prod.py and is a no-op without a DSN.
+LOG_LEVEL = env("LOG_LEVEL", default="INFO")
+SENTRY_DSN = env("SENTRY_DSN", default="")
+# Environment tag attached to Sentry events: dev | staging | prod.
+DJANGO_ENV = env("DJANGO_ENV", default="dev")
+
+from khatir.core.logging import build_logging_config  # noqa: E402
+
+LOGGING = build_logging_config(log_level=LOG_LEVEL, json_logs=not DEBUG)
+
 # ── Django REST Framework ─────────────────────────────────────────────
 # Custom exception handler (T-005) produces the standard error envelope; the
 # core pagination class produces the {results, pagination} envelope.

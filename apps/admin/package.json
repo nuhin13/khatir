@@ -16,6 +16,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@khatir/design-tokens": "file:../../packages/design-tokens",
+    "@sentry/nextjs": "^10.55.0",
     "@tanstack/react-query": "^5.100.14",
     "lucide-react": "^1.17.0",
     "next": "^16.2.7",

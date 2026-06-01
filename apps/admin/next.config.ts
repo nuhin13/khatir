@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   output: "standalone",
@@ -7,4 +8,14 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@khatir/design-tokens"],
 };
 
-export default nextConfig;
+// Wrap with Sentry (T-015). Build-time instrumentation is harmless without a
+// DSN — runtime init is gated on SENTRY_DSN / NEXT_PUBLIC_SENTRY_DSN in the
+// sentry.*.config.ts files, so a missing DSN is a graceful no-op.
+export default withSentryConfig(nextConfig, {
+  silent: !process.env.CI,
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  // Do not require Sentry source-map upload credentials at build time.
+  widenClientFileUpload: true,
+});

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../config/app_config.dart';
+import '../observability/dio_sentry_interceptor.dart';
 import '../storage/secure_storage.dart';
 import 'api_exception.dart';
 
@@ -21,6 +22,11 @@ final dioClientProvider = Provider<Dio>((ref) {
 
   dio.interceptors.add(
     _AuthInterceptor(secureStorage),
+  );
+  // Report non-2xx responses / transport errors to Sentry (PII-safe; no-op
+  // without a DSN), then normalise the error for the rest of the app.
+  dio.interceptors.add(
+    const DioSentryInterceptor(),
   );
   dio.interceptors.add(
     _ErrorInterceptor(),
