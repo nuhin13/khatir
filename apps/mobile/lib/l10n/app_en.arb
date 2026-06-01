@@ -27,5 +27,14 @@
   "auth_phone_whatsapp": "Code via WhatsApp · WhatsApp-এ কোড পাবেন",
   "auth_rate_limited": "Too many attempts. Please try again later.",
   "common_network_error": "Connection problem. Please try again.",
-  "common_retry": "Try again"
+  "common_retry": "Try again",
+  "auth_otp_appbar": "Verify code · কোড যাচাই",
+  "auth_otp_title": "Enter code · কোড লিখুন",
+  "auth_otp_sent_to": "Code sent to {phone}",
+  "auth_otp_verify": "Verify · যাচাই করুন",
+  "auth_otp_no_code": "Didn't get the code?",
+  "auth_otp_resend": "Resend",
+  "auth_otp_resend_in": "Resend ({time})",
+  "auth_otp_invalid": "Wrong code. Please try again.",
+  "auth_otp_expired": "Code expired. Request a new one."
 }

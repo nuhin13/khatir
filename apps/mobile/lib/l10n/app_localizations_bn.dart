@@ -95,4 +95,35 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get common_retry => 'আবার চেষ্টা করুন';
+
+  @override
+  String get auth_otp_appbar => 'কোড যাচাই';
+
+  @override
+  String get auth_otp_title => 'কোড লিখুন · Enter code';
+
+  @override
+  String auth_otp_sent_to(String phone) {
+    return '$phone নম্বরে পাঠানো কোড লিখুন';
+  }
+
+  @override
+  String get auth_otp_verify => 'যাচাই করুন · Verify';
+
+  @override
+  String get auth_otp_no_code => 'কোড আসেনি?';
+
+  @override
+  String get auth_otp_resend => 'আবার পাঠান';
+
+  @override
+  String auth_otp_resend_in(String time) {
+    return 'আবার পাঠান ($time)';
+  }
+
+  @override
+  String get auth_otp_invalid => 'ভুল কোড। আবার চেষ্টা করুন।';
+
+  @override
+  String get auth_otp_expired => 'কোডের মেয়াদ শেষ। নতুন কোড নিন।';
 }

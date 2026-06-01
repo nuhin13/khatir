@@ -9,6 +9,7 @@ import 'package:khatir_mobile/core/network/api_exception.dart';
 import 'package:khatir_mobile/features/auth/data/auth_providers.dart';
 import 'package:khatir_mobile/features/auth/data/auth_repository.dart';
 import 'package:khatir_mobile/features/auth/data/models/request_otp_response.dart';
+import 'package:khatir_mobile/features/auth/data/models/verify_otp_response.dart';
 import 'package:khatir_mobile/features/auth/presentation/screens/phone_entry_screen.dart';
 import 'package:khatir_mobile/l10n/app_localizations.dart';
 
@@ -26,6 +27,13 @@ class _StubAuthRepository implements AuthRepository {
     if (throwError != null) throw throwError!;
     return const RequestOtpResponse();
   }
+
+  @override
+  Future<RequestOtpResponse> resendOtp(String phone) => requestOtp(phone);
+
+  @override
+  Future<VerifyOtpResponse> verifyOtp(String phone, String code) async =>
+      const VerifyOtpResponse(access: 'a', refresh: 'r');
 }
 
 void main() {

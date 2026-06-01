@@ -4,15 +4,15 @@ epic: EPIC-01
 title: Flutter OTP-entry screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-009]
 blocks: [T-011]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -77,16 +77,16 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] verifyOtp + resendOtp repository methods
-- [ ] verify_otp_controller (AsyncNotifier)
-- [ ] 6-box OTP input, auto-advance + auto-submit
-- [ ] resend button w/ cooldown countdown
-- [ ] loading + error states (wrong/expired/429/network)
-- [ ] success hands tokens+user to auth layer (temp hook until T-011)
-- [ ] route /auth/otp with phone arg
-- [ ] ARB bn + en
-- [ ] Widget test: verify path, error, resend cooldown
-- [ ] analyze + test pass; no inline strings/colors
+- [x] verifyOtp + resendOtp repository methods
+- [x] verify_otp_controller (AsyncNotifier)
+- [x] 6-box OTP input, auto-advance + auto-submit
+- [x] resend button w/ cooldown countdown
+- [x] loading + error states (wrong/expired/429/network)
+- [x] success hands tokens+user to auth layer (temp hook until T-011)
+- [x] route /auth/otp with phone arg
+- [x] ARB bn + en
+- [x] Widget test: verify path, error, resend cooldown
+- [x] analyze + test pass; no inline strings/colors
 
 ## 12. Test plan
 ### Automated

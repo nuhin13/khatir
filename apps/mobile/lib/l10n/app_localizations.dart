@@ -265,6 +265,60 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'আবার চেষ্টা করুন'**
   String get common_retry;
+
+  /// OTP screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোড যাচাই'**
+  String get auth_otp_appbar;
+
+  /// OTP screen hero heading.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোড লিখুন · Enter code'**
+  String get auth_otp_title;
+
+  /// Subtitle telling the user where the code was sent.
+  ///
+  /// In bn, this message translates to:
+  /// **'{phone} নম্বরে পাঠানো কোড লিখুন'**
+  String auth_otp_sent_to(String phone);
+
+  /// Verify button label.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই করুন · Verify'**
+  String get auth_otp_verify;
+
+  /// Lead-in before the resend action / countdown.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোড আসেনি?'**
+  String get auth_otp_no_code;
+
+  /// Resend action label (when the cooldown has elapsed).
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার পাঠান'**
+  String get auth_otp_resend;
+
+  /// Resend label with the remaining cooldown countdown.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার পাঠান ({time})'**
+  String auth_otp_resend_in(String time);
+
+  /// Inline error for a wrong OTP code.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভুল কোড। আবার চেষ্টা করুন।'**
+  String get auth_otp_invalid;
+
+  /// Inline error for an expired OTP code.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোডের মেয়াদ শেষ। নতুন কোড নিন।'**
+  String get auth_otp_expired;
 }
 
 class _AppLocalizationsDelegate
