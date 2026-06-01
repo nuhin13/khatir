@@ -11,7 +11,8 @@ blocks: [T-010]
 external_services: [ocr]
 feature_flags: []
 started_at:
-completed_at: executed_by:
+completed_at:
+executed_by:
 reviewed_at:
 reviewed_by:
 review_outcome:
