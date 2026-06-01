@@ -9,6 +9,8 @@ class ApiEndpoints {
   static const String requestOtp = '$apiPrefix/auth/request-otp';
   static const String verifyOtp = '$apiPrefix/auth/verify-otp';
   static const String refresh = '$apiPrefix/auth/refresh';
+  static const String logout = '$apiPrefix/auth/logout';
+  static const String me = '$apiPrefix/auth/me';
 
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';

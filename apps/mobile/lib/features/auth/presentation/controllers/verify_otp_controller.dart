@@ -1,7 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../core/auth/auth_controller.dart';
+import '../../../../core/auth/auth_state.dart';
 import '../../../../core/network/api_exception.dart';
-import '../../../../core/storage/secure_storage.dart';
 import '../../data/auth_providers.dart';
 import '../../data/models/verify_otp_response.dart';
 
@@ -48,13 +49,20 @@ class VerifyOtpController extends AutoDisposeAsyncNotifier<void> {
     state = result;
     if (result.hasError || verified == null) return null;
 
-    // TODO(T-011): the auth state layer owns token persistence, the refresh
-    // interceptor and route bootstrap. Until it lands we stash the tokens via
-    // secure storage so manual testing can proceed; T-011 replaces this hook.
+    // Hand the issued session to the auth-state controller (T-011): it persists
+    // the token pair to secure storage and flips auth state to authenticated,
+    // seeding the user from the verify payload when present.
     final tokens = verified!;
-    await ref.read(secureStorageProvider).writeTokens(
-          accessToken: tokens.access,
-          refreshToken: tokens.refresh,
+    final user = tokens.user;
+    await ref.read(authControllerProvider.notifier).setSession(
+          access: tokens.access,
+          refresh: tokens.refresh,
+          user: user == null
+              ? null
+              : SessionUser(
+                  id: user.id ?? '',
+                  phone: user.phone,
+                ),
         );
     return tokens;
   }
