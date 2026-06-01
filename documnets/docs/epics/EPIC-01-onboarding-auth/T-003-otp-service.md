@@ -4,15 +4,15 @@ epic: EPIC-01
 title: OTP store (Redis) + generation/verification service
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002, T-001]
 blocks: [T-004, T-005]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -67,14 +67,14 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] generate_otp: random N-digit per `otp_length`, hashed, stored at otp:{phone} with TTL `otp_ttl_seconds`, attempts init
-- [ ] verify_otp: hash-compare, decrement attempts, handle expired/too_many
-- [ ] can_resend: enforce `otp_resend_cooldown_seconds`
-- [ ] Reads all params via core.config.get_config
-- [ ] Codes never stored/logged in plaintext
-- [ ] Typed result enum for outcomes
-- [ ] Tests: success, wrong code, expired, too many attempts, resend cooldown
-- [ ] ruff + mypy clean
+- [x] generate_otp: random N-digit per `otp_length`, hashed, stored at otp:{phone} with TTL `otp_ttl_seconds`, attempts init
+- [x] verify_otp: hash-compare, decrement attempts, handle expired/too_many
+- [x] can_resend: enforce `otp_resend_cooldown_seconds`
+- [x] Reads all params via core.config.get_config
+- [x] Codes never stored/logged in plaintext
+- [x] Typed result enum for outcomes
+- [x] Tests: success, wrong code, expired, too many attempts, resend cooldown
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -87,17 +87,29 @@ None.
 1. In a shell, generate + verify against local Redis.
 
 ## 13. Acceptance criteria
-- [ ] OTP generated, hashed, stored with TTL + attempts.
-- [ ] Verify handles all outcomes correctly.
-- [ ] All limits come from SystemConfig.
-- [ ] Tests + lint pass.
+- [x] OTP generated, hashed, stored with TTL + attempts.
+- [x] Verify handles all outcomes correctly.
+- [x] All limits come from SystemConfig.
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] No plaintext code in store or logs
-- [ ] Config-driven (no hardcoded limits)
-- [ ] All branches tested
+- [x] No plaintext code in store or logs
+- [x] Config-driven (no hardcoded limits)
+- [x] All branches tested
 ### Deviations from spec
+- Redis access goes through Django's cache framework (`django.core.cache.cache`,
+  RedisCache in prod / LocMem in tests) — the project's established pattern
+  (`core/config.py`). `fakeredis` was therefore not needed; tests run against the
+  test-settings LocMem cache, so no new dev dependency was added.
+- HMAC-SHA256 is keyed by `settings.SECRET_KEY` (no separate `JWT_SIGNING_KEY` is
+  defined in settings yet; §15 allowed "its own" server secret).
+- TTL is preserved across wrong attempts via an `expires_at` stamp in the payload
+  (Django's cache exposes no portable per-key TTL read), so wrong guesses never
+  extend a code's lifetime.
 ### Files touched (actual)
+- `apps/api/khatir/accounts/otp.py` (add)
+- `apps/api/khatir/accounts/services.py` (add)
+- `apps/api/khatir/accounts/tests/test_otp.py` (add)
 
 ## 15. Notes for the implementing agent
 - Use a server-side secret (env, e.g. derived from JWT_SIGNING_KEY or its own) for hashing so a Redis dump alone can't reveal codes.
