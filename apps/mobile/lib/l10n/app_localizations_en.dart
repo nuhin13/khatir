@@ -95,4 +95,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get common_retry => 'Try again';
+
+  @override
+  String get auth_otp_appbar => 'Verify code · কোড যাচাই';
+
+  @override
+  String get auth_otp_title => 'Enter code · কোড লিখুন';
+
+  @override
+  String auth_otp_sent_to(String phone) {
+    return 'Code sent to $phone';
+  }
+
+  @override
+  String get auth_otp_verify => 'Verify · যাচাই করুন';
+
+  @override
+  String get auth_otp_no_code => 'Didn\'t get the code?';
+
+  @override
+  String get auth_otp_resend => 'Resend';
+
+  @override
+  String auth_otp_resend_in(String time) {
+    return 'Resend ($time)';
+  }
+
+  @override
+  String get auth_otp_invalid => 'Wrong code. Please try again.';
+
+  @override
+  String get auth_otp_expired => 'Code expired. Request a new one.';
 }

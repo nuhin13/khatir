@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../features/auth/presentation/screens/otp_entry_placeholder_screen.dart';
+import '../../features/auth/presentation/screens/otp_entry_screen.dart';
 import '../../features/auth/presentation/screens/phone_entry_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/placeholder/presentation/screens/placeholder_screen.dart';
@@ -31,12 +31,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const PhoneEntryScreen(),
       ),
       GoRoute(
-        // Placeholder OTP destination; T-010 builds the real screen. Reads the
-        // typed AuthArgs passed via `extra` from phone-entry.
-        path: OtpEntryPlaceholderScreen.routePath,
-        name: OtpEntryPlaceholderScreen.routeName,
+        // OTP-entry screen (T-010). Reads the typed AuthArgs passed via
+        // `extra` from phone-entry.
+        path: OtpEntryScreen.routePath,
+        name: OtpEntryScreen.routeName,
         builder: (context, state) =>
-            OtpEntryPlaceholderScreen(args: state.extra as AuthArgs?),
+            OtpEntryScreen(args: state.extra as AuthArgs?),
       ),
       GoRoute(
         path: PlaceholderScreen.routePath,

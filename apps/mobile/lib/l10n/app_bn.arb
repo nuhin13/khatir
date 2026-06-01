@@ -111,5 +111,53 @@
   "common_retry": "আবার চেষ্টা করুন",
   "@common_retry": {
     "description": "Retry action label."
+  },
+  "auth_otp_appbar": "কোড যাচাই",
+  "@auth_otp_appbar": {
+    "description": "OTP screen app-bar title."
+  },
+  "auth_otp_title": "কোড লিখুন · Enter code",
+  "@auth_otp_title": {
+    "description": "OTP screen hero heading."
+  },
+  "auth_otp_sent_to": "{phone} নম্বরে পাঠানো কোড লিখুন",
+  "@auth_otp_sent_to": {
+    "description": "Subtitle telling the user where the code was sent.",
+    "placeholders": {
+      "phone": {
+        "type": "String",
+        "example": "+8801711000111"
+      }
+    }
+  },
+  "auth_otp_verify": "যাচাই করুন · Verify",
+  "@auth_otp_verify": {
+    "description": "Verify button label."
+  },
+  "auth_otp_no_code": "কোড আসেনি?",
+  "@auth_otp_no_code": {
+    "description": "Lead-in before the resend action / countdown."
+  },
+  "auth_otp_resend": "আবার পাঠান",
+  "@auth_otp_resend": {
+    "description": "Resend action label (when the cooldown has elapsed)."
+  },
+  "auth_otp_resend_in": "আবার পাঠান ({time})",
+  "@auth_otp_resend_in": {
+    "description": "Resend label with the remaining cooldown countdown.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "0:24"
+      }
+    }
+  },
+  "auth_otp_invalid": "ভুল কোড। আবার চেষ্টা করুন।",
+  "@auth_otp_invalid": {
+    "description": "Inline error for a wrong OTP code."
+  },
+  "auth_otp_expired": "কোডের মেয়াদ শেষ। নতুন কোড নিন।",
+  "@auth_otp_expired": {
+    "description": "Inline error for an expired OTP code."
   }
 }
