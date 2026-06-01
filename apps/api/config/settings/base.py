@@ -143,6 +143,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Fernet key for personal/sensitive fields (NID, etc.). See core/encryption.py.
 FIELD_ENCRYPTION_KEY = env("FIELD_ENCRYPTION_KEY", default="")
 
+# ── Messaging / notification channels (T-004) ─────────────────────────
+# Credentials for the WhatsApp Business API and the SMS gateway. All default to
+# empty so the app boots without them; in dev the console sender is used and
+# never touches these. When unset in prod, the WhatsApp/SMS senders raise a
+# clear configuration error rather than failing silently (T-004 §2).
+WHATSAPP_API_URL = env("WHATSAPP_API_URL", default="")
+WHATSAPP_API_TOKEN = env("WHATSAPP_API_TOKEN", default="")
+WHATSAPP_PHONE_ID = env("WHATSAPP_PHONE_ID", default="")
+SMS_GATEWAY_URL = env("SMS_GATEWAY_URL", default="")
+SMS_GATEWAY_KEY = env("SMS_GATEWAY_KEY", default="")
+
 # ── Observability (T-015) ─────────────────────────────────────────────
 # Structured logging: JSON in prod (DEBUG=False), human-readable in dev. A
 # PII-masking filter (core/logging.py) strips NID/OTP/token/secret/trx values
