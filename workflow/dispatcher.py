@@ -26,14 +26,20 @@ class Task:
         return f"{self.epic}/{self.id}"
 
     def dep_keys(self) -> list[str]:
-        """Resolve each ``depends_on`` entry to a global key.
+        """Resolve each ``depends_on`` entry to a global ``<epic>/<id>`` key.
 
-        Bare ids (``T-003``) resolve within this task's own epic; entries that
-        already contain a ``/`` are treated as fully-qualified cross-epic refs.
+        Bare ids (``T-003``) resolve within this task's own epic. Cross-epic
+        refs may be written ``EPIC-00/T-005`` (slash) or ``EPIC-00.T-005``
+        (dot) — both normalize to the same global key.
         """
         out = []
         for dep in self.depends_on:
-            out.append(dep if "/" in dep else f"{self.epic}/{dep}")
+            if "/" in dep:
+                out.append(dep)
+            elif "." in dep:
+                out.append(dep.replace(".", "/", 1))
+            else:
+                out.append(f"{self.epic}/{dep}")
         return out
 
 
