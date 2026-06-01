@@ -30,9 +30,9 @@
 |--------|-------|
 | Epics total | 26 |
 | Epics done | 0 |
-| Epics in-progress | 0 |
+| Epics in-progress | 1 |
 | Tasks total | 302 (all epics fully specced) |
-| Tasks done | 0 |
+| Tasks done | 8 |
 | Tasks in-progress | 0 |
 | Tasks blocked | 0 |
 
@@ -45,7 +45,7 @@ Legend: ⬜ todo · 🟡 in-progress · ✅ done · ⛔ blocked
 ### Foundation
 | ID | Epic | Phase | Tasks | Status | Progress |
 |----|------|-------|-------|--------|----------|
-| EPIC-00 | Foundation & Scaffold | — | 16 | ⬜ | 0/16 |
+| EPIC-00 | Foundation & Scaffold | — | 16 | 🟡 | 8/16 |
 
 ### MVP
 | ID | Epic | Phase | Tasks | Status | Progress |
