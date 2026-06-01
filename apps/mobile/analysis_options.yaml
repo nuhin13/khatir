@@ -1,0 +1,18 @@
+# Static analysis config for the Khatir mobile app.
+# flutter_lints baseline + project conventions (100-col formatting).
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    # Generated code (freezed / json_serializable).
+    - "**/*.freezed.dart"
+    - "**/*.g.dart"
+  language:
+    strict-casts: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    require_trailing_commas: true
+    directives_ordering: true

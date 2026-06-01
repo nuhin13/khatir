@@ -1,0 +1,53 @@
+name: khatir_mobile
+description: "Khatir mobile app (landlord / manager / tenant)."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # State management
+  hooks_riverpod: ^2.6.1
+  flutter_hooks: ^0.21.2
+
+  # Routing
+  go_router: ^16.2.4
+
+  # Networking
+  dio: ^5.9.0
+
+  # Secure storage (auth tokens)
+  flutter_secure_storage: ^9.2.4
+
+  # Models / serialization (annotations; codegen via build_runner)
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
+
+  # i18n
+  intl: ^0.20.2
+
+  # Shared Notun Din design tokens (consumed by path)
+  khatir_tokens:
+    path: ../../packages/design-tokens/dart
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+  # Codegen
+  build_runner: ^2.4.13
+  freezed: ^3.2.3
+  json_serializable: ^6.9.0
+
+flutter:
+  uses-material-design: true
