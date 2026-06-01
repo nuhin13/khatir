@@ -1,7 +1,7 @@
 """Tests for the audit writer."""
 
 import pytest
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from khatir.core.audit import audit
 from khatir.core.models import AuditEntry, SystemConfig
@@ -10,7 +10,7 @@ pytestmark = pytest.mark.django_db
 
 
 def test_audit_writes_entry_with_actor_and_target() -> None:
-    actor = User.objects.create(username="landlord")
+    actor = get_user_model().objects.create_user(phone="+8801700000000")
     target = SystemConfig.objects.create(key="k", value="1", type="int")
 
     entry = audit(

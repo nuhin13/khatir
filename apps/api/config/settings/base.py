@@ -44,10 +44,16 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "khatir.core",
+    "khatir.accounts",
     "khatir.health",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# ── Authentication ────────────────────────────────────────────────────
+# Custom phone-based user (T-002). Set before the first domain migration so
+# every ForeignKey(settings.AUTH_USER_MODEL) resolves to it.
+AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

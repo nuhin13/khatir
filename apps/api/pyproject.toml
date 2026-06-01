@@ -26,6 +26,7 @@ dev = [
     "mypy>=1.18.2",
     "django-stubs[compatible-mypy]>=5.2.2",
     "djangorestframework-stubs[compatible-mypy]>=3.17.0",
+    "factory-boy>=3.3.0",
 ]
 
 [tool.ruff]
@@ -47,8 +48,14 @@ warn_unused_ignores = false
 exclude = ['migrations/']
 
 [[tool.mypy.overrides]]
-module = ["environ.*", "celery.*"]
+module = ["environ.*", "celery.*", "factory.*", "faker.*"]
 ignore_missing_imports = true
+
+# factory-boy ships no type stubs; its dynamic API trips strict untyped-call
+# checks where factories are instantiated in tests.
+[[tool.mypy.overrides]]
+module = ["khatir.*.tests.*"]
+disallow_untyped_calls = false
 
 [tool.django-stubs]
 django_settings_module = "config.settings.dev"
