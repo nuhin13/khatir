@@ -10,6 +10,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
+from khatir.core.config import get_config
+
 
 @api_view(["GET"])
 @permission_classes([AllowAny])
@@ -21,5 +23,14 @@ def healthz(request: Request) -> Response:
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def config_public(request: Request) -> Response:
-    """Public client config. Empty for now; populated by later epics."""
-    return Response({"flags": {}, "config": {}})
+    """Public client config. Surfaces unauthenticated tunables for the app."""
+    return Response(
+        {
+            "flags": {},
+            "config": {
+                "intro_slide_skip_allowed": get_config(
+                    "intro_slide_skip_allowed", default=True
+                ),
+            },
+        }
+    )
