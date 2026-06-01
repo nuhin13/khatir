@@ -31,3 +31,7 @@ CELERY_TASK_EAGER_PROPAGATES = True
 
 # Deterministic Fernet key so encryption round-trips in tests without env setup.
 FIELD_ENCRYPTION_KEY = "32SDpIJPPLw0lyx6ULQ8-e31Vqhl6zy77JSD8LKIBHI="
+
+# Deterministic JWT signing key (>=32 bytes) so simplejwt does not warn about a
+# short HMAC key during the suite; prod supplies a real JWT_SIGNING_KEY via env.
+SIMPLE_JWT = {**SIMPLE_JWT, "SIGNING_KEY": "test-jwt-signing-key-at-least-32-bytes-long"}  # noqa: F405

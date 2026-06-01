@@ -18,10 +18,12 @@ from __future__ import annotations
 import logging
 
 from django.conf import settings
+from django.utils import timezone
 
 from khatir.core.enums import Channel
 from khatir.core.exceptions import AuthInvalidError, RateLimitedError
 
+from .auth_tokens import issue_tokens
 from .models import User
 from .notifications import send_otp
 from .otp import (
@@ -42,6 +44,7 @@ __all__ = [
     "request_otp",
     "verify_otp",
     "verify_otp_and_get_user",
+    "verify_otp_and_issue_tokens",
 ]
 
 
@@ -81,3 +84,20 @@ def verify_otp_and_get_user(phone: str, code: str) -> User:
 
     user, _created = User.objects.get_or_create(phone=phone)
     return user
+
+
+def verify_otp_and_issue_tokens(phone: str, code: str) -> tuple[User, dict[str, str]]:
+    """Verify ``code``, fetch/create the ``User``, mint a JWT pair (T-006 §3).
+
+    On success ``last_login_at`` is stamped (support/security visibility) and a
+    fresh ``{access, refresh}`` pair carrying ``user_id`` + ``role`` claims is
+    returned alongside the user. Failures propagate as :class:`AuthInvalidError`
+    from :func:`verify_otp_and_get_user`.
+    """
+    user = verify_otp_and_get_user(phone, code)
+
+    user.last_login_at = timezone.now()
+    user.save(update_fields=["last_login_at"])
+
+    tokens = issue_tokens(user)
+    return user, tokens

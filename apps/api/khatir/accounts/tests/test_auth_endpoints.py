@@ -130,6 +130,9 @@ def test_verify_success_creates_user(client: APIClient, auth_config: None) -> No
     assert body["phone"] == PHONE
     assert body["id"] == str(user.pk)
     assert body["role"] == "landlord"  # default; real role set in EPIC-02
+    # T-006 wires JWT issuance into verify-otp.
+    assert resp.data["access"]
+    assert resp.data["refresh"]
 
 
 def test_verify_existing_user_reused(client: APIClient, auth_config: None) -> None:

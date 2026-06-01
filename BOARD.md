@@ -25,3 +25,4 @@
 2026-06-02 | EPIC-01/T-004 | backend | claude | done | -
 2026-06-02 | EPIC-01/T-010 | mobile | claude | done | -
 2026-06-02 | EPIC-01/T-005 | backend | claude | done | -
+2026-06-02 | EPIC-01/T-006 | backend | claude | done | -
