@@ -39,6 +39,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "django_celery_beat",
 ]
 
 LOCAL_APPS = [
@@ -97,6 +98,20 @@ CACHES = {
         "LOCATION": env("REDIS_URL", default="redis://localhost:6379/0"),
     }
 }
+
+# ── Celery ────────────────────────────────────────────────────────────
+# Broker + result backend are Redis, on dedicated DBs (see .env.example:
+# /0 cache, /1 broker, /2 result). All keys are CELERY_-namespaced so the
+# Celery app can load them via config_from_object(..., namespace="CELERY").
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://localhost:6379/1")
+CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND", default="redis://localhost:6379/2")
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TIMEZONE = "UTC"  # keep in sync with TIME_ZONE below
+CELERY_TASK_ALWAYS_EAGER = env.bool("CELERY_TASK_ALWAYS_EAGER", default=False)
+# DB-backed schedule for Celery Beat; later epics register periodic tasks here.
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 # ── Password validation ───────────────────────────────────────────────
 AUTH_PASSWORD_VALIDATORS = [

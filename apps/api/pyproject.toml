@@ -12,6 +12,8 @@ dependencies = [
     "redis>=6.4.0",
     "gunicorn>=23.0.0",
     "cryptography>=44.0.0",
+    "celery>=5.5.3",
+    "django-celery-beat>=2.8.1",
 ]
 
 [dependency-groups]
@@ -43,7 +45,7 @@ warn_unused_ignores = false
 exclude = ['migrations/']
 
 [[tool.mypy.overrides]]
-module = ["environ.*"]
+module = ["environ.*", "celery.*"]
 ignore_missing_imports = true
 
 [tool.django-stubs]

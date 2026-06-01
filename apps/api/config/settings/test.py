@@ -25,5 +25,9 @@ CACHES = {
 
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
+# Run Celery tasks synchronously, in-process — no live broker needed in tests.
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
+
 # Deterministic Fernet key so encryption round-trips in tests without env setup.
 FIELD_ENCRYPTION_KEY = "32SDpIJPPLw0lyx6ULQ8-e31Vqhl6zy77JSD8LKIBHI="

@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Celery + Celery Beat wiring
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-004]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -66,13 +66,13 @@ None. Uses local Redis.
 None.
 
 ## 11. Implementation checklist
-- [ ] celery app in config/celery.py, autodiscover
-- [ ] broker/backend from env
-- [ ] django-celery-beat registered + migrated
-- [ ] core.tasks.ping debug task
-- [ ] worker + beat compose services
-- [ ] eager mode in test settings
-- [ ] test_celery: ping returns pong
+- [x] celery app in config/celery.py, autodiscover
+- [x] broker/backend from env
+- [x] django-celery-beat registered + migrated
+- [x] core.tasks.ping debug task
+- [x] worker + beat compose services
+- [x] eager mode in test settings
+- [x] test_celery: ping returns pong
 
 ## 12. Test plan
 ### Automated
@@ -82,14 +82,28 @@ None.
 2. From shell: `ping.delay()` → result "pong".
 
 ## 13. Acceptance criteria
-- [ ] Worker + beat start via compose.
-- [ ] ping task runs (eager in tests, real via worker).
+- [x] Worker + beat start via compose.
+- [x] ping task runs (eager in tests, real via worker).
 
 ## 14. Self-review
-- [ ] Broker/backend from env, not hardcoded
-- [ ] Eager mode only in test
+- [x] Broker/backend from env, not hardcoded
+- [x] Eager mode only in test
 ### Deviations from spec
+- The spec listed an optional debug `@app.task` in `config/celery.py`; it was
+  dropped. Celery ships no type stubs, so a bound task there triggered mypy
+  `strict` errors. The required `core.tasks.ping` task is the canonical debug
+  task and stays. `celery.*` was added to the existing mypy
+  `ignore_missing_imports` override (mirrors the `environ.*` entry), and the
+  `ping` decorator carries a single `# type: ignore[untyped-decorator]`.
+- No `makemigrations` step needed for our apps; `django_celery_beat` ships its
+  own migrations (verified `makemigrations --check` reports no changes).
+
 ### Files touched (actual)
+- Add: `apps/api/config/celery.py`, `apps/api/khatir/core/tasks.py`,
+  `apps/api/khatir/core/tests/test_celery.py`
+- Update: `apps/api/config/__init__.py`, `apps/api/config/settings/base.py`,
+  `apps/api/config/settings/test.py`, `apps/api/pyproject.toml`,
+  `apps/api/uv.lock`, `docker-compose.yml`
 
 ## 15. Notes for the implementing agent
 - Use distinct Redis DBs for cache vs broker vs result (see `.env.example`: /0 cache, /1 broker, /2 result).
