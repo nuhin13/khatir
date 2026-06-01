@@ -123,6 +123,18 @@ def test_task_with_missing_dependency_stays_blocked(tmp_path):
     assert ready == []
 
 
+def test_ready_tasks_can_filter_by_epic(tmp_path):
+    # T-001 done in EPIC-00; EPIC-01/T-001 has no deps. Filtering to EPIC-01
+    # returns only the EPIC-01 task.
+    e0 = tmp_path / "EPIC-00"; e0.mkdir()
+    e1 = tmp_path / "EPIC-01"; e1.mkdir()
+    _write(e0, "T-001.md", TASK_A)            # EPIC-00/T-001 done
+    _write(e0, "T-002.md", TASK_B)            # EPIC-00/T-002 ready
+    _write(e1, "T-001.md", TASK_OTHER_EPIC)   # EPIC-01/T-001 ready
+    ready = {t.key for t in ready_tasks(tmp_path, epics={"EPIC-01"})}
+    assert ready == {"EPIC-01/T-001"}
+
+
 def test_duplicate_keys_are_detected(tmp_path):
     # Two files in the same epic both claiming id T-002.
     e0 = tmp_path / "EPIC-08"; e0.mkdir()

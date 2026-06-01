@@ -84,12 +84,19 @@ def duplicate_keys(root: Path) -> dict[str, list[Path]]:
     return {k: v for k, v in seen.items() if len(v) > 1}
 
 
-def ready_tasks(root: Path) -> list[Task]:
+def ready_tasks(root: Path, epics: set[str] | None = None) -> list[Task]:
+    """Tasks whose deps are all ``done`` and which are themselves ``todo``.
+
+    ``done`` status is evaluated over the WHOLE graph (a cross-epic dep must
+    still be satisfied); ``epics`` only narrows which ready tasks are returned.
+    """
     tasks = load_tasks(root)
     done = {key for key, t in tasks.items() if t.status == "done"}
     out = []
     for t in tasks.values():
         if t.status != "todo":
+            continue
+        if epics is not None and t.epic not in epics:
             continue
         if all(dep in done for dep in t.dep_keys()):
             out.append(t)
@@ -97,7 +104,15 @@ def ready_tasks(root: Path) -> list[Task]:
 
 
 if __name__ == "__main__":
+    import sys
+
     root = Path(__file__).resolve().parent.parent / "documnets" / "docs" / "epics"
+    # Optional: `--epics EPIC-00,EPIC-01` narrows output to those epics.
+    epics: set[str] | None = None
+    if "--epics" in sys.argv:
+        i = sys.argv.index("--epics")
+        epics = {e.strip() for e in sys.argv[i + 1].split(",") if e.strip()}
+
     dups = duplicate_keys(root)
     if dups:
         print("WARNING: duplicate task keys (a human must resolve these):")
@@ -105,5 +120,5 @@ if __name__ == "__main__":
             names = ", ".join(p.name for p in paths)
             print(f"  {key}: {names}")
         print()
-    for t in ready_tasks(root):
+    for t in ready_tasks(root, epics=epics):
         print(f"{t.key}\t{t.layer}")
