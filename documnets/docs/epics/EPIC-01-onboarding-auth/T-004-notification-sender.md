@@ -4,15 +4,15 @@ epic: EPIC-01
 title: NotificationSender interface + console/WhatsApp/SMS impls
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003]
 blocks: [T-005]
 external_services: [whatsapp, sms]
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -68,15 +68,15 @@ None (channel is config).
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] NotificationSender ABC (generic send)
-- [ ] ConsoleSender logs message + code (dev)
-- [ ] WhatsAppSender (HTTP, creds from env, errors clearly if unset)
-- [ ] SmsSender (HTTP, creds from env)
-- [ ] Sender selector: dev→console; else primary channel + SMS fallback
-- [ ] send_otp(phone, code) bilingual message
-- [ ] Tests: console logs; WhatsApp/SMS mocked; fallback path
-- [ ] No secrets logged
-- [ ] ruff + mypy clean
+- [x] NotificationSender ABC (generic send) — `khatir/messaging/senders.py`
+- [x] ConsoleSender logs message + code (dev)
+- [x] WhatsAppSender (HTTP, creds from env, errors clearly if unset)
+- [x] SmsSender (HTTP, creds from env)
+- [x] Sender selector: dev→console; else primary channel + SMS fallback — `khatir/messaging/factory.py`
+- [x] send_otp(phone, code) bilingual message — `khatir/accounts/notifications.py`
+- [x] Tests: console logs; WhatsApp/SMS mocked; fallback path
+- [x] No secrets logged (global PII filter masks codes/phones)
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -88,17 +88,39 @@ None (channel is config).
 1. `DJANGO_ENV=dev`, trigger send_otp → code appears in logs, no external call.
 
 ## 13. Acceptance criteria
-- [ ] Generic sender interface with 3 impls.
-- [ ] Dev uses console; prod uses configured channel + fallback.
-- [ ] Buildable/testable with no WhatsApp/SMS account.
-- [ ] Tests + lint pass.
+- [x] Generic sender interface with 3 impls.
+- [x] Dev uses console; prod uses configured channel + fallback.
+- [x] Buildable/testable with no WhatsApp/SMS account.
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] Interface is generic (not OTP-locked) for EPIC-15 reuse
-- [ ] No secrets logged; creds from env
-- [ ] Fallback works
+- [x] Interface is generic (not OTP-locked) for EPIC-15 reuse
+- [x] No secrets logged; creds from env
+- [x] Fallback works
 ### Deviations from spec
+- **Module placement:** put the reusable layer in a new `khatir/messaging/`
+  package (interface + 3 senders + factory) rather than `accounts/senders.py`,
+  per §15's "keep it reusable so EPIC-15 extends rather than duplicates". The
+  OTP-specific `send_otp` helper lives in `khatir/accounts/notifications.py`
+  (next to the OTP service), keeping the messaging layer OTP-agnostic. EPIC-15
+  should extend `khatir/messaging/` (register channels in the factory
+  `_REGISTRY`, add senders), not the accounts helper.
+- **`khatir.messaging` is a plain package, not an INSTALLED_APP** — it has no
+  models/migrations, so it needs no AppConfig.
+- **HTTP client:** used the stdlib (`urllib.request`) in `_post_json` rather
+  than adding an httpx/requests dependency (none was present), so the app stays
+  buildable with no new deps. Tests patch `_post_json` — no network.
+- **Sender selection** is exposed as `get_sender(channel=None)` (factory) plus
+  `send_with_fallback(recipient, message)` for the configured-channel + fallback
+  path. `ConsoleSender.channel` is `Channel.INAPP` (no `console` enum member).
 ### Files touched (actual)
+- Add: `apps/api/khatir/messaging/__init__.py`
+- Add: `apps/api/khatir/messaging/senders.py` (NotificationSender ABC + 3 impls)
+- Add: `apps/api/khatir/messaging/factory.py` (get_sender + send_with_fallback)
+- Add: `apps/api/khatir/accounts/notifications.py` (send_otp helper)
+- Add: `apps/api/khatir/accounts/tests/test_senders.py` (15 tests)
+- Update: `apps/api/config/settings/base.py` (WHATSAPP_*/SMS_* settings)
+- Verified: `.env.example` already carries WHATSAPP_*/SMS_* (no change needed)
 
 ## 15. Notes for the implementing agent
 - OTP message (bn): "আপনার খাতির ভেরিফিকেশন কোড: {code}। কোডটি {minutes} মিনিট পর্যন্ত বৈধ।" + an English line. Keep it short (SMS length).
