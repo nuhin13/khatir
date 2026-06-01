@@ -6,11 +6,20 @@ are public (OTP sign-in is the entry point before any token exists).
 
 from django.urls import path
 
-from .views import RequestOtpView, VerifyOtpView
+from .views import (
+    LogoutView,
+    MeView,
+    RefreshView,
+    RequestOtpView,
+    VerifyOtpView,
+)
 
 app_name = "accounts"
 
 urlpatterns = [
     path("request-otp", RequestOtpView.as_view(), name="request-otp"),
     path("verify-otp", VerifyOtpView.as_view(), name="verify-otp"),
+    path("refresh", RefreshView.as_view(), name="refresh"),
+    path("logout", LogoutView.as_view(), name="logout"),
+    path("me", MeView.as_view(), name="me"),
 ]

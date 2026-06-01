@@ -39,6 +39,8 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "django_celery_beat",
 ]
 
@@ -174,4 +176,30 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "khatir.core.exceptions.exception_handler",
     "DEFAULT_PAGINATION_CLASS": "khatir.core.pagination.StandardPageNumberPagination",
     "PAGE_SIZE": 20,
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
+# ── JWT (djangorestframework-simplejwt, T-006) ────────────────────────
+# Layer-1 secret (signing key) is env-only and separate from DJANGO_SECRET_KEY
+# (03_env_and_config.md §5). Lifetimes are Layer-2 code defaults overridable by
+# env: short access, long refresh. Refresh rotation + blacklist-on-logout are
+# on so a logged-out refresh token can no longer mint access tokens.
+from datetime import timedelta  # noqa: E402
+
+JWT_SIGNING_KEY = env("JWT_SIGNING_KEY", default=SECRET_KEY)
+JWT_ACCESS_LIFETIME_MIN = env.int("JWT_ACCESS_LIFETIME_MIN", default=30)
+JWT_REFRESH_LIFETIME_DAYS = env.int("JWT_REFRESH_LIFETIME_DAYS", default=30)
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=JWT_ACCESS_LIFETIME_MIN),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=JWT_REFRESH_LIFETIME_DAYS),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "SIGNING_KEY": JWT_SIGNING_KEY,
+    "ALGORITHM": "HS256",
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
 }

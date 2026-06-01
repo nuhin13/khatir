@@ -12,6 +12,8 @@ import re
 
 from rest_framework import serializers
 
+from .models import User
+
 # E.164 Bangladesh mobile: +880, leading 1, then 9 digits (e.g. +8801712345678).
 _BD_PHONE_RE = re.compile(r"^\+8801\d{9}$")
 
@@ -34,3 +36,24 @@ class VerifyOtpSerializer(serializers.Serializer[dict[str, str]]):
 
     phone = serializers.CharField(max_length=20, validators=[_validate_bd_phone])
     code = serializers.CharField(max_length=12, min_length=1, trim_whitespace=True)
+
+
+class RefreshSerializer(serializers.Serializer[dict[str, str]]):
+    """Validates the ``refresh``/``logout`` body: a single refresh token."""
+
+    refresh = serializers.CharField()
+
+
+class UserSerializer(serializers.ModelSerializer[User]):
+    """The current-user payload returned by ``GET /auth/me`` (T-006 §2, §7).
+
+    The owner sees their full phone (not masked — masking is for logs only).
+    ``id`` is serialized as a string for stable JSON handling on the client.
+    """
+
+    id = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ("id", "phone", "role", "name", "language")
+        read_only_fields = fields
