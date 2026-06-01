@@ -1,0 +1,84 @@
+# Khatir local development stack (Compose v2 — no `version:` key).
+#
+# Active services: db (PostgreSQL 17), redis (Redis 8).
+#   docker compose up -d db redis
+#
+# The `api` and `admin` services are stubbed below. They are completed and
+# enabled by T-004 (Django API) and T-009 (Next.js admin) respectively.
+#
+# All connection settings are read from `.env` (see `.env.example`).
+
+name: khatir
+
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      # Host port from .env (DB_PORT), container always listens on 5432.
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    image: redis:8
+    restart: unless-stopped
+    ports:
+      # Redis always listens on 6379 in-container; expose on host 6379.
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # ── api ──────────────────────────────────────────────────────────────
+  # Enabled by T-004. Build context + Dockerfile already wired; uncomment
+  # to bring the Django API online once apps/api/ exists.
+  #
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: infra/docker/api.Dockerfile
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+
+  # ── admin ────────────────────────────────────────────────────────────
+  # Enabled by T-009. Next.js admin portal.
+  #
+  # admin:
+  #   build:
+  #     context: .
+  #     dockerfile: infra/docker/admin.Dockerfile
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - api
+
+volumes:
+  pgdata:
+  redisdata:

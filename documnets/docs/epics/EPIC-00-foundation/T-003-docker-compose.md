@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Docker-compose local stack (Postgres, Redis)
 layer: infra
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, T-002]
 blocks: [T-004]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
