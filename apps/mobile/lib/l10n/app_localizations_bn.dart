@@ -15,6 +15,15 @@ class AppLocalizationsBn extends AppLocalizations {
   String get common_toggle_language => 'English';
 
   @override
+  String get common_logout => 'লগ আউট';
+
+  @override
+  String get splash_loading => 'লোড হচ্ছে…';
+
+  @override
+  String get home_placeholder_welcome => 'আপনি সাইন ইন করেছেন';
+
+  @override
   String get placeholder_welcome => 'খাতিরে স্বাগতম';
 
   @override

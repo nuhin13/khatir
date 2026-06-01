@@ -4,15 +4,15 @@ epic: EPIC-01
 title: Splash routing + session bootstrap + logout wiring
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-011]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -75,14 +75,14 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] splash_screen runs bootstrap()
-- [ ] go_router redirect: onboarding/auth/home decision table
-- [ ] authenticated placeholder home + Logout button
-- [ ] logout clears session → /auth/phone
-- [ ] EPIC-00 placeholder route removed
-- [ ] ARB bn + en
-- [ ] Test: redirect decision table (3 states)
-- [ ] analyze + test pass
+- [x] splash_screen runs bootstrap()
+- [x] go_router redirect: onboarding/auth/home decision table
+- [x] authenticated placeholder home + Logout button
+- [x] logout clears session → /auth/phone
+- [x] EPIC-00 placeholder route removed
+- [x] ARB bn + en
+- [x] Test: redirect decision table (3 states)
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -93,17 +93,27 @@ None.
 3. Logout → phone screen; relaunch → phone screen.
 
 ## 13. Acceptance criteria
-- [ ] Splash bootstraps + routes per the decision table.
-- [ ] Full first-run loop works end-to-end (onboarding→phone→OTP→home).
-- [ ] Logout returns to phone and clears session.
-- [ ] Test + analyze pass.
+- [x] Splash bootstraps + routes per the decision table.
+- [x] Full first-run loop works end-to-end (onboarding→phone→OTP→home).
+- [x] Logout returns to phone and clears session.
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] Redirect reads single auth source of truth
-- [ ] No flicker/loop on launch
-- [ ] EPIC-02 can cleanly replace /home with role routing
+- [x] Redirect reads single auth source of truth (authControllerProvider + onboardingSeenProvider)
+- [x] No flicker/loop on launch (unknown/loading holds on splash; idempotent redirect targets)
+- [x] EPIC-02 can cleanly replace /home with role routing (single `/home` seam, marked with TODO)
 ### Deviations from spec
+- Splash performs no artificial delay; it stays mounted only while bootstrap is `loading` (avoids a fixed timer / flicker). Bootstrap is driven by `AuthController.build()` (T-011), so the splash just subscribes.
+- OTP success route now points at `/home`; the AuthState-driven redirect would route there on its own, the explicit `context.go` keeps the transition immediate.
 ### Files touched (actual)
+- Add: `lib/features/home_placeholder/presentation/screens/home_placeholder_screen.dart`
+- Add: `test/router_redirect_test.dart`
+- Update: `lib/core/router/app_router.dart` (redirect + refreshListenable + onboardingSeenProvider + `/home` route; `/placeholder` removed)
+- Update: `lib/features/splash/presentation/screens/splash_screen.dart` (branded splash, subscribes to bootstrap)
+- Update: `lib/features/auth/presentation/screens/otp_entry_screen.dart` (success → `/home`)
+- Update: `lib/l10n/app_en.arb`, `lib/l10n/app_bn.arb` (`splash_loading`, `home_placeholder_welcome`, `common_logout`)
+- Update: `test/theme_i18n_test.dart` (retargeted off the removed EPIC-00 placeholder)
+- Delete: `lib/features/placeholder/presentation/screens/placeholder_screen.dart`
 
 ## 15. Notes for the implementing agent
 - Keep `/home` deliberately minimal — it's a seam EPIC-02 replaces with role-based routing to landlord/manager/tenant shells. Leave a clear `// TODO(EPIC-02) role routing` marker.

@@ -1,34 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:khatir_tokens/khatir_tokens.dart';
 
-import '../../../placeholder/presentation/screens/placeholder_screen.dart';
+import '../../../../core/auth/auth_controller.dart';
+import '../../../../core/theme/text_styles.dart';
+import '../../../../l10n/app_localizations.dart';
 
-/// Boot screen. In later epics this decides the next route from auth + role;
-/// for the scaffold it simply forwards to the placeholder.
-class SplashScreen extends StatefulWidget {
+/// Branded splash. Reading [authControllerProvider] kicks off the session
+/// bootstrap (its `build()` resolves persisted tokens via `/auth/me`); while
+/// auth state is `unknown` the router keeps the user here. The redirect in
+/// `app_router.dart` then routes onward (onboarding / phone / home) once
+/// bootstrap resolves. Mirrors the `splash` prototype; values from tokens.
+class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   static const String routeName = 'splash';
   static const String routePath = '/';
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Subscribing here ensures bootstrap is kicked off as soon as the splash
+    // mounts; the router redirect reacts to the resolved AuthState.
+    ref.watch(authControllerProvider);
 
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      context.goNamed(PlaceholderScreen.routeName);
-    });
-  }
+    final l10n = AppLocalizations.of(context);
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
+    return Scaffold(
+      backgroundColor: KhatirColors.cream,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                l10n.common_app_name,
+                style: AppTextStyles.displayLarge.copyWith(
+                  color: KhatirColors.ink,
+                ),
+              ),
+              const SizedBox(height: KhatirSpacing.s2),
+              Container(
+                width: 32,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: KhatirColors.butter,
+                  borderRadius: BorderRadius.circular(KhatirRadius.pill),
+                ),
+              ),
+              const SizedBox(height: KhatirSpacing.s6),
+              const SizedBox(
+                width: 28,
+                height: 28,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                  color: KhatirColors.sage,
+                ),
+              ),
+              const SizedBox(height: KhatirSpacing.s4),
+              Text(
+                l10n.splash_loading,
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: KhatirColors.mutedDk,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

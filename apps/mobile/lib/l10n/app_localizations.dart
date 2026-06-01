@@ -110,6 +110,24 @@ abstract class AppLocalizations {
   /// **'English'**
   String get common_toggle_language;
 
+  /// Logout action label.
+  ///
+  /// In bn, this message translates to:
+  /// **'লগ আউট'**
+  String get common_logout;
+
+  /// Loading copy shown on the splash while the session bootstraps.
+  ///
+  /// In bn, this message translates to:
+  /// **'লোড হচ্ছে…'**
+  String get splash_loading;
+
+  /// Welcome message on the temporary authenticated home placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনি সাইন ইন করেছেন'**
+  String get home_placeholder_welcome;
+
   /// Welcome message on the placeholder screen.
   ///
   /// In bn, this message translates to:

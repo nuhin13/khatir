@@ -8,6 +8,18 @@
   "@common_toggle_language": {
     "description": "Label on the language toggle button. Shows the language it will switch TO."
   },
+  "common_logout": "লগ আউট",
+  "@common_logout": {
+    "description": "Logout action label."
+  },
+  "splash_loading": "লোড হচ্ছে…",
+  "@splash_loading": {
+    "description": "Loading copy shown on the splash while the session bootstraps."
+  },
+  "home_placeholder_welcome": "আপনি সাইন ইন করেছেন",
+  "@home_placeholder_welcome": {
+    "description": "Welcome message on the temporary authenticated home placeholder."
+  },
   "placeholder_welcome": "খাতিরে স্বাগতম",
   "@placeholder_welcome": {
     "description": "Welcome message on the placeholder screen."

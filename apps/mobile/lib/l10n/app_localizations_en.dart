@@ -15,6 +15,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_toggle_language => 'বাংলা';
 
   @override
+  String get common_logout => 'Log out';
+
+  @override
+  String get splash_loading => 'Loading…';
+
+  @override
+  String get home_placeholder_welcome => 'You\'re signed in';
+
+  @override
   String get placeholder_welcome => 'Welcome to Khatir';
 
   @override

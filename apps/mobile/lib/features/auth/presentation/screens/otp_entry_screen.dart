@@ -6,7 +6,7 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 import '../../../../core/router/args/auth_args.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../placeholder/presentation/screens/placeholder_screen.dart';
+import '../../../home_placeholder/presentation/screens/home_placeholder_screen.dart';
 import '../controllers/resend_otp_controller.dart';
 import '../controllers/verify_otp_controller.dart';
 import '../widgets/otp_input.dart';
@@ -20,8 +20,8 @@ const int kOtpLength = 6;
 /// A back-titled top bar, a 🔐 hero with "Enter code" copy, the destination
 /// phone, an N-box OTP input (auto-advance + auto-submit), a resend line with a
 /// cooldown countdown and a Verify button with loading/error states. On a
-/// successful verify it stows tokens (temp T-011 hook) and routes onward to a
-/// placeholder (T-012 wires the real bootstrap). All visual values come from
+/// successful verify it hands the session to the auth controller (T-011) and
+/// routes onward to the authenticated home (T-012). All visual values come from
 /// tokens; copy from ARB.
 class OtpEntryScreen extends ConsumerStatefulWidget {
   const OtpEntryScreen({super.key, this.args});
@@ -31,8 +31,10 @@ class OtpEntryScreen extends ConsumerStatefulWidget {
   static const String routeName = 'auth-otp';
   static const String routePath = '/auth/otp';
 
-  /// Destination after a successful verify (real bootstrap lands in T-012).
-  static const String successRoutePath = PlaceholderScreen.routePath;
+  /// Destination after a successful verify. The redirect (driven by AuthState)
+  /// would route here on its own once setSession flips to authenticated; this
+  /// explicit nav keeps the transition immediate.
+  static const String successRoutePath = HomePlaceholderScreen.routePath;
 
   @override
   ConsumerState<OtpEntryScreen> createState() => _OtpEntryScreenState();
