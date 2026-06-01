@@ -115,6 +115,96 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'খাতিরে স্বাগতম'**
   String get placeholder_welcome;
+
+  /// Onboarding slide 1 chip / kicker.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্বাগতম'**
+  String get onboarding_slide1_kicker;
+
+  /// Onboarding slide 1 title (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'বাড়িওয়ালার ডিজিটাল খাতা'**
+  String get onboarding_slide1_title;
+
+  /// Onboarding slide 1 handwritten English accent line.
+  ///
+  /// In bn, this message translates to:
+  /// **'The landlord\'s digital ledger'**
+  String get onboarding_slide1_accent;
+
+  /// Onboarding slide 1 body copy.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাগজের ঝামেলা শেষ। ভাড়াটিয়ার তথ্য, ভাড়ার হিসাব, খরচ — সব এক জায়গায়।'**
+  String get onboarding_slide1_body;
+
+  /// Onboarding slide 2 chip / kicker.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রধান সুবিধা'**
+  String get onboarding_slide2_kicker;
+
+  /// Onboarding slide 2 title (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'পুলিশ ফর্ম, ২ মিনিটে!'**
+  String get onboarding_slide2_title;
+
+  /// Onboarding slide 2 handwritten English accent line.
+  ///
+  /// In bn, this message translates to:
+  /// **'Police form, in 2 minutes'**
+  String get onboarding_slide2_accent;
+
+  /// Onboarding slide 2 body copy.
+  ///
+  /// In bn, this message translates to:
+  /// **'থানায় দৌড়ানো বন্ধ। NID-এর ছবি তুলুন, ফর্ম নিজে থেকেই পূরণ হবে।'**
+  String get onboarding_slide2_body;
+
+  /// Onboarding slide 3 chip / kicker.
+  ///
+  /// In bn, this message translates to:
+  /// **'একদম ফ্রি!'**
+  String get onboarding_slide3_kicker;
+
+  /// Onboarding slide 3 title (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রথম ২ ভাড়াটিয়া ফ্রি'**
+  String get onboarding_slide3_title;
+
+  /// Onboarding slide 3 handwritten English accent line.
+  ///
+  /// In bn, this message translates to:
+  /// **'First 2 tenants free'**
+  String get onboarding_slide3_accent;
+
+  /// Onboarding slide 3 body copy.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো খরচ ছাড়াই পুরো ব্যবস্থা ব্যবহার করুন। NID যাচাই ছাড়া সব ফিচার।'**
+  String get onboarding_slide3_body;
+
+  /// Skip button on the onboarding slides.
+  ///
+  /// In bn, this message translates to:
+  /// **'এড়িয়ে যান'**
+  String get onboarding_skip;
+
+  /// Next button on the onboarding slides.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী'**
+  String get onboarding_next;
+
+  /// Get-started button on the final onboarding slide.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুরু করি!'**
+  String get onboarding_start;
 }
 
 class _AppLocalizationsDelegate
