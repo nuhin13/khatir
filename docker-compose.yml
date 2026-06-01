@@ -128,19 +128,18 @@ services:
         condition: service_healthy
 
   # ── admin ────────────────────────────────────────────────────────────
-  # Enabled by T-009. Next.js admin portal.
-  #
-  # admin:
-  #   build:
-  #     context: .
-  #     dockerfile: infra/docker/admin.Dockerfile
-  #   restart: unless-stopped
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - api
+  # Next.js admin portal (enabled by T-009).
+  admin:
+    build:
+      context: .
+      dockerfile: infra/docker/admin.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
 
 volumes:
   pgdata:

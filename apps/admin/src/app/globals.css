@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* Bridge the JS preset (legacy `theme.extend`) into Tailwind v4 so the shared
+   Notun Din tokens drive utilities like `bg-cream`, `text-ink`, `rounded-card`. */
+@config "../../tailwind.config.ts";
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family:
+    "Plus Jakarta Sans",
+    "Hind Siliguri",
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
