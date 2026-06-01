@@ -1,0 +1,15 @@
+{
+  "@@locale": "bn",
+  "common_app_name": "খাতির",
+  "@common_app_name": {
+    "description": "App name shown in the title bar / headers."
+  },
+  "common_toggle_language": "English",
+  "@common_toggle_language": {
+    "description": "Label on the language toggle button. Shows the language it will switch TO."
+  },
+  "placeholder_welcome": "খাতিরে স্বাগতম",
+  "@placeholder_welcome": {
+    "description": "Welcome message on the placeholder screen."
+  }
+}

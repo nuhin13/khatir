@@ -51,3 +51,25 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # gen-l10n: generate AppLocalizations from lib/l10n/*.arb (see l10n.yaml).
+  generate: true
+
+  # Notun Din brand fonts. Family names match packages/design-tokens
+  # (KhatirFonts). Bundle the OFL .ttf binaries under assets/fonts/ to make the
+  # app render them offline; until the binaries are committed, Flutter falls
+  # back to the platform default for these families (text still renders).
+  # fonts:
+  #   - family: Plus Jakarta Sans
+  #     fonts:
+  #       - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+  #       - asset: assets/fonts/PlusJakartaSans-Bold.ttf
+  #         weight: 700
+  #   - family: Hind Siliguri
+  #     fonts:
+  #       - asset: assets/fonts/HindSiliguri-Regular.ttf
+  #       - asset: assets/fonts/HindSiliguri-SemiBold.ttf
+  #         weight: 600
+  #   - family: Caveat
+  #     fonts:
+  #       - asset: assets/fonts/Caveat-SemiBold.ttf
+  #         weight: 600
