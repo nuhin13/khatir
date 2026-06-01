@@ -97,6 +97,15 @@ wheels = [
 ]
 
 [[package]]
+name = "certifi"
+version = "2026.5.20"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/f3/ce/ee2ecad540810a79593028e88299baeae54d346cc7a0d94b6199988b89b1/certifi-2026.5.20.tar.gz", hash = "sha256:69dea482ab64caa7b9f6aba1c6bf48bb6a5448d1c0f1b17ab42ad8c763a5344d", size = 135422, upload-time = "2026-05-20T11:46:50.073Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/59/8c/57e832b7af6d7c5abe66eb3fbe3a3a32f4d11ea23a1aa7131371035be991/certifi-2026.5.20-py3-none-any.whl", hash = "sha256:3c52e209ba0a4ad7aebe60436a4ab349c39e1e602e8c134221e546902ad25897", size = 134134, upload-time = "2026-05-20T11:46:48.578Z" },
+]
+
+[[package]]
 name = "cffi"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -425,7 +434,9 @@ dependencies = [
     { name = "djangorestframework" },
     { name = "gunicorn" },
     { name = "psycopg", extra = ["binary"] },
+    { name = "python-json-logger" },
     { name = "redis" },
+    { name = "sentry-sdk", extra = ["django"] },
 ]
 
 [package.dev-dependencies]
@@ -449,7 +460,9 @@ requires-dist = [
     { name = "djangorestframework", specifier = ">=3.17.1" },
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.3.4" },
+    { name = "python-json-logger", specifier = ">=4.1.0" },
     { name = "redis", specifier = ">=6.4.0" },
+    { name = "sentry-sdk", extras = ["django"], specifier = ">=2.61.1" },
 ]
 
 [package.metadata.requires-dev]
@@ -723,6 +736,15 @@ wheels = [
 ]
 
 [[package]]
+name = "python-json-logger"
+version = "4.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/f7/ff/3cc9165fd44106973cd7ac9facb674a65ed853494592541d339bdc9a30eb/python_json_logger-4.1.0.tar.gz", hash = "sha256:b396b9e3ed782b09ff9d6e4f1683d46c83ad0d35d2e407c09a9ebbf038f88195", size = 17573, upload-time = "2026-03-29T04:39:56.805Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/27/be/0631a861af4d1c875f096c07d34e9a63639560a717130e7a87cbc82b7e3f/python_json_logger-4.1.0-py3-none-any.whl", hash = "sha256:132994765cf75bf44554be9aa49b06ef2345d23661a96720262716438141b6b2", size = 15021, upload-time = "2026-03-29T04:39:55.266Z" },
+]
+
+[[package]]
 name = "redis"
 version = "8.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -754,6 +776,24 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/b1/c0/1003b60edd697c649faf61f1a34094b1abb38fb3d1181e3f895781250a08/ruff-0.15.15-py3-none-win32.whl", hash = "sha256:29428ea79694afbe756d45fd59b36f22b6b020dc0443cf7de0173046236964b9", size = 10716774, upload-time = "2026-05-28T14:16:52.337Z" },
     { url = "https://files.pythonhosted.org/packages/02/a8/1269eddd6945a06c23f055ef7848886e37cf9d6a8bebb386a3115f01470c/ruff-0.15.15-py3-none-win_amd64.whl", hash = "sha256:8df0323902e15e24bc4bf246da830573d3cf3352bd0b9a164eab335d111ff4a4", size = 11868463, upload-time = "2026-05-28T14:16:11.333Z" },
     { url = "https://files.pythonhosted.org/packages/4e/b2/920464c907b191e37469d477a1aa8bc048b8f36c4c1610dfa4ab87b39e18/ruff-0.15.15-py3-none-win_arm64.whl", hash = "sha256:3c8ceca6792f38196b8f589bc92eccd03eef286602da92e5dc05cc42ef6441b7", size = 11138498, upload-time = "2026-05-28T14:16:38.425Z" },
+]
+
+[[package]]
+name = "sentry-sdk"
+version = "2.61.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "certifi" },
+    { name = "urllib3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/63/3b/4bc6b348bbd331daa14d4babe9f2b99bc854f4da41560eefb9488d78481d/sentry_sdk-2.61.1.tar.gz", hash = "sha256:9c6adccb3feefa9ba032c8d295ca477575c2f11896046a2b0ad686c47c4af555", size = 459429, upload-time = "2026-06-01T07:24:18.875Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/df/54/c9218db183846e08efaf68534889ef42e499dde432778881104a42f7071b/sentry_sdk-2.61.1-py3-none-any.whl", hash = "sha256:fa36eaf4b8ad708f718500d4bdcc1532637526a22beb874d88cbc0a46458b5ae", size = 483735, upload-time = "2026-06-01T07:24:17.027Z" },
+]
+
+[package.optional-dependencies]
+django = [
+    { name = "django" },
 ]
 
 [[package]]
@@ -811,6 +851,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/8b/2e/c14812d3d4d9cd1773c6be938f89e5735a1f11a9f184ac3639b93cef35d5/tzlocal-5.3.1.tar.gz", hash = "sha256:cceffc7edecefea1f595541dbd6e990cb1ea3d19bf01b2809f362a03dd7921fd", size = 30761, upload-time = "2025-03-05T21:17:41.549Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c2/14/e2a54fabd4f08cd7af1c07030603c3356b74da07f7cc056e600436edfa17/tzlocal-5.3.1-py3-none-any.whl", hash = "sha256:eb1a66c3ef5847adf7a834f1be0800581b683b5608e74f86ecbcef8ab91bb85d", size = 18026, upload-time = "2025-03-05T21:17:39.857Z" },
+]
+
+[[package]]
+name = "urllib3"
+version = "2.7.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz", hash = "sha256:231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c", size = 433602, upload-time = "2026-05-07T16:13:18.596Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl", hash = "sha256:9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897", size = 131087, upload-time = "2026-05-07T16:13:17.151Z" },
 ]
 
 [[package]]

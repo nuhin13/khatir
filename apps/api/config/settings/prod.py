@@ -5,10 +5,17 @@ never from a committed file. ``DJANGO_SECRET_KEY`` and ``DJANGO_ALLOWED_HOSTS``
 are required at boot.
 """
 
+from khatir.core.observability import init_sentry
+
 from .base import *  # noqa: F401, F403
-from .base import env
+from .base import DJANGO_ENV, SENTRY_DSN, env
 
 DEBUG = False
+
+# ── Observability (T-015) ─────────────────────────────────────────────
+# Report unhandled exceptions to Sentry with an environment tag. No-op when
+# SENTRY_DSN is unset, so the app still boots without an account configured.
+init_sentry(dsn=SENTRY_DSN, environment=DJANGO_ENV)
 
 # Required in production — env() raises if unset.
 SECRET_KEY = env("DJANGO_SECRET_KEY")
