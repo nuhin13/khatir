@@ -16,3 +16,4 @@
 2026-06-02 | EPIC-00/T-013 | infra | claude | done | -
 2026-06-02 | EPIC-00/T-014 | infra | claude | done | -
 2026-06-02 | EPIC-00/T-015 | cross-cutting | claude | done | -
+2026-06-02 | EPIC-00/T-016 | infra | claude | done | -
