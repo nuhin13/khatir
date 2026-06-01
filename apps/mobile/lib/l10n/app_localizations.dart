@@ -205,6 +205,66 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'শুরু করি!'**
   String get onboarding_start;
+
+  /// Phone-entry hero greeting (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'স্বাগতম, বাড়িওয়ালা'**
+  String get auth_phone_hero;
+
+  /// Phone-entry subtitle / sign-in prompt.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল নম্বর দিয়ে শুরু করুন'**
+  String get auth_phone_title;
+
+  /// Label above the phone number field.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল নম্বর · Mobile number'**
+  String get auth_phone_label;
+
+  /// Placeholder/hint for the phone number input.
+  ///
+  /// In bn, this message translates to:
+  /// **'01XXXXXXXXX'**
+  String get auth_phone_hint;
+
+  /// Inline error when the entered phone number is invalid.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক ১১-সংখ্যার নম্বর দিন (01XXXXXXXXX)'**
+  String get auth_phone_invalid;
+
+  /// Submit button: request the OTP.
+  ///
+  /// In bn, this message translates to:
+  /// **'OTP পাঠান · Send code'**
+  String get auth_phone_submit;
+
+  /// Helper note that the code arrives via WhatsApp.
+  ///
+  /// In bn, this message translates to:
+  /// **'WhatsApp-এ কোড পাবেন · Code via WhatsApp'**
+  String get auth_phone_whatsapp;
+
+  /// Friendly message shown on HTTP 429 (rate limited).
+  ///
+  /// In bn, this message translates to:
+  /// **'অনেকবার চেষ্টা হয়েছে। একটু পরে আবার চেষ্টা করুন।'**
+  String get auth_rate_limited;
+
+  /// Generic network/connection error message with retry.
+  ///
+  /// In bn, this message translates to:
+  /// **'সংযোগে সমস্যা। আবার চেষ্টা করুন।'**
+  String get common_network_error;
+
+  /// Retry action label.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা করুন'**
+  String get common_retry;
 }
 
 class _AppLocalizationsDelegate

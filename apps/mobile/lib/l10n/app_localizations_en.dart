@@ -64,4 +64,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_start => 'Get started';
+
+  @override
+  String get auth_phone_hero => 'Hello!';
+
+  @override
+  String get auth_phone_title => 'Welcome — sign in with your mobile number';
+
+  @override
+  String get auth_phone_label => 'Mobile number · মোবাইল নম্বর';
+
+  @override
+  String get auth_phone_hint => '01XXXXXXXXX';
+
+  @override
+  String get auth_phone_invalid =>
+      'Enter a valid 11-digit number (01XXXXXXXXX)';
+
+  @override
+  String get auth_phone_submit => 'Send code · OTP পাঠান';
+
+  @override
+  String get auth_phone_whatsapp => 'Code via WhatsApp · WhatsApp-এ কোড পাবেন';
+
+  @override
+  String get auth_rate_limited => 'Too many attempts. Please try again later.';
+
+  @override
+  String get common_network_error => 'Connection problem. Please try again.';
+
+  @override
+  String get common_retry => 'Try again';
 }

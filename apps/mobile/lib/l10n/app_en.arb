@@ -17,5 +17,15 @@
   "onboarding_slide3_body": "Use the whole system at zero cost — every feature except NID verification.",
   "onboarding_skip": "Skip",
   "onboarding_next": "Next",
-  "onboarding_start": "Get started"
+  "onboarding_start": "Get started",
+  "auth_phone_hero": "Hello!",
+  "auth_phone_title": "Welcome — sign in with your mobile number",
+  "auth_phone_label": "Mobile number · মোবাইল নম্বর",
+  "auth_phone_hint": "01XXXXXXXXX",
+  "auth_phone_invalid": "Enter a valid 11-digit number (01XXXXXXXXX)",
+  "auth_phone_submit": "Send code · OTP পাঠান",
+  "auth_phone_whatsapp": "Code via WhatsApp · WhatsApp-এ কোড পাবেন",
+  "auth_rate_limited": "Too many attempts. Please try again later.",
+  "common_network_error": "Connection problem. Please try again.",
+  "common_retry": "Try again"
 }

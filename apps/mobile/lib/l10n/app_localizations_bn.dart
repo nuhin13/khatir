@@ -64,4 +64,35 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get onboarding_start => 'শুরু করি!';
+
+  @override
+  String get auth_phone_hero => 'স্বাগতম, বাড়িওয়ালা';
+
+  @override
+  String get auth_phone_title => 'মোবাইল নম্বর দিয়ে শুরু করুন';
+
+  @override
+  String get auth_phone_label => 'মোবাইল নম্বর · Mobile number';
+
+  @override
+  String get auth_phone_hint => '01XXXXXXXXX';
+
+  @override
+  String get auth_phone_invalid => 'সঠিক ১১-সংখ্যার নম্বর দিন (01XXXXXXXXX)';
+
+  @override
+  String get auth_phone_submit => 'OTP পাঠান · Send code';
+
+  @override
+  String get auth_phone_whatsapp => 'WhatsApp-এ কোড পাবেন · Code via WhatsApp';
+
+  @override
+  String get auth_rate_limited =>
+      'অনেকবার চেষ্টা হয়েছে। একটু পরে আবার চেষ্টা করুন।';
+
+  @override
+  String get common_network_error => 'সংযোগে সমস্যা। আবার চেষ্টা করুন।';
+
+  @override
+  String get common_retry => 'আবার চেষ্টা করুন';
 }

@@ -71,5 +71,45 @@
   "onboarding_start": "শুরু করি!",
   "@onboarding_start": {
     "description": "Get-started button on the final onboarding slide."
+  },
+  "auth_phone_hero": "স্বাগতম, বাড়িওয়ালা",
+  "@auth_phone_hero": {
+    "description": "Phone-entry hero greeting (Bangla)."
+  },
+  "auth_phone_title": "মোবাইল নম্বর দিয়ে শুরু করুন",
+  "@auth_phone_title": {
+    "description": "Phone-entry subtitle / sign-in prompt."
+  },
+  "auth_phone_label": "মোবাইল নম্বর · Mobile number",
+  "@auth_phone_label": {
+    "description": "Label above the phone number field."
+  },
+  "auth_phone_hint": "01XXXXXXXXX",
+  "@auth_phone_hint": {
+    "description": "Placeholder/hint for the phone number input."
+  },
+  "auth_phone_invalid": "সঠিক ১১-সংখ্যার নম্বর দিন (01XXXXXXXXX)",
+  "@auth_phone_invalid": {
+    "description": "Inline error when the entered phone number is invalid."
+  },
+  "auth_phone_submit": "OTP পাঠান · Send code",
+  "@auth_phone_submit": {
+    "description": "Submit button: request the OTP."
+  },
+  "auth_phone_whatsapp": "WhatsApp-এ কোড পাবেন · Code via WhatsApp",
+  "@auth_phone_whatsapp": {
+    "description": "Helper note that the code arrives via WhatsApp."
+  },
+  "auth_rate_limited": "অনেকবার চেষ্টা হয়েছে। একটু পরে আবার চেষ্টা করুন।",
+  "@auth_rate_limited": {
+    "description": "Friendly message shown on HTTP 429 (rate limited)."
+  },
+  "common_network_error": "সংযোগে সমস্যা। আবার চেষ্টা করুন।",
+  "@common_network_error": {
+    "description": "Generic network/connection error message with retry."
+  },
+  "common_retry": "আবার চেষ্টা করুন",
+  "@common_retry": {
+    "description": "Retry action label."
   }
 }
