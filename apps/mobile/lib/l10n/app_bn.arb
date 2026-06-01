@@ -11,5 +11,65 @@
   "placeholder_welcome": "খাতিরে স্বাগতম",
   "@placeholder_welcome": {
     "description": "Welcome message on the placeholder screen."
+  },
+  "onboarding_slide1_kicker": "স্বাগতম",
+  "@onboarding_slide1_kicker": {
+    "description": "Onboarding slide 1 chip / kicker."
+  },
+  "onboarding_slide1_title": "বাড়িওয়ালার ডিজিটাল খাতা",
+  "@onboarding_slide1_title": {
+    "description": "Onboarding slide 1 title (Bangla)."
+  },
+  "onboarding_slide1_accent": "The landlord's digital ledger",
+  "@onboarding_slide1_accent": {
+    "description": "Onboarding slide 1 handwritten English accent line."
+  },
+  "onboarding_slide1_body": "কাগজের ঝামেলা শেষ। ভাড়াটিয়ার তথ্য, ভাড়ার হিসাব, খরচ — সব এক জায়গায়।",
+  "@onboarding_slide1_body": {
+    "description": "Onboarding slide 1 body copy."
+  },
+  "onboarding_slide2_kicker": "প্রধান সুবিধা",
+  "@onboarding_slide2_kicker": {
+    "description": "Onboarding slide 2 chip / kicker."
+  },
+  "onboarding_slide2_title": "পুলিশ ফর্ম, ২ মিনিটে!",
+  "@onboarding_slide2_title": {
+    "description": "Onboarding slide 2 title (Bangla)."
+  },
+  "onboarding_slide2_accent": "Police form, in 2 minutes",
+  "@onboarding_slide2_accent": {
+    "description": "Onboarding slide 2 handwritten English accent line."
+  },
+  "onboarding_slide2_body": "থানায় দৌড়ানো বন্ধ। NID-এর ছবি তুলুন, ফর্ম নিজে থেকেই পূরণ হবে।",
+  "@onboarding_slide2_body": {
+    "description": "Onboarding slide 2 body copy."
+  },
+  "onboarding_slide3_kicker": "একদম ফ্রি!",
+  "@onboarding_slide3_kicker": {
+    "description": "Onboarding slide 3 chip / kicker."
+  },
+  "onboarding_slide3_title": "প্রথম ২ ভাড়াটিয়া ফ্রি",
+  "@onboarding_slide3_title": {
+    "description": "Onboarding slide 3 title (Bangla)."
+  },
+  "onboarding_slide3_accent": "First 2 tenants free",
+  "@onboarding_slide3_accent": {
+    "description": "Onboarding slide 3 handwritten English accent line."
+  },
+  "onboarding_slide3_body": "কোনো খরচ ছাড়াই পুরো ব্যবস্থা ব্যবহার করুন। NID যাচাই ছাড়া সব ফিচার।",
+  "@onboarding_slide3_body": {
+    "description": "Onboarding slide 3 body copy."
+  },
+  "onboarding_skip": "এড়িয়ে যান",
+  "@onboarding_skip": {
+    "description": "Skip button on the onboarding slides."
+  },
+  "onboarding_next": "পরবর্তী",
+  "@onboarding_next": {
+    "description": "Next button on the onboarding slides."
+  },
+  "onboarding_start": "শুরু করি!",
+  "@onboarding_start": {
+    "description": "Get-started button on the final onboarding slide."
   }
 }

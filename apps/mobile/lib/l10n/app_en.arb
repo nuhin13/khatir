@@ -2,5 +2,20 @@
   "@@locale": "en",
   "common_app_name": "Khatir",
   "common_toggle_language": "বাংলা",
-  "placeholder_welcome": "Welcome to Khatir"
+  "placeholder_welcome": "Welcome to Khatir",
+  "onboarding_slide1_kicker": "Welcome",
+  "onboarding_slide1_title": "The landlord's digital ledger",
+  "onboarding_slide1_accent": "All in one place",
+  "onboarding_slide1_body": "No more paperwork hassle. Tenant records, rent, expenses — all in one place.",
+  "onboarding_slide2_kicker": "The wedge",
+  "onboarding_slide2_title": "Police form, in 2 minutes",
+  "onboarding_slide2_accent": "No more thana runs",
+  "onboarding_slide2_body": "Stop running to the thana. Snap the NID, the form fills itself.",
+  "onboarding_slide3_kicker": "Free hook",
+  "onboarding_slide3_title": "First 2 tenants free",
+  "onboarding_slide3_accent": "Zero cost to start",
+  "onboarding_slide3_body": "Use the whole system at zero cost — every feature except NID verification.",
+  "onboarding_skip": "Skip",
+  "onboarding_next": "Next",
+  "onboarding_start": "Get started"
 }
