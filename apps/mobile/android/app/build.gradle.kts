@@ -14,6 +14,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    // Per-flavor app_name is injected via resValue(), which AGP 8+ gates behind
+    // this build feature (off by default). Without it the build fails:
+    // "Product Flavor dev contains custom resource values, but the feature is disabled."
+    buildFeatures {
+        resValues = true
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "bd.com.khatir.khatir_mobile"
