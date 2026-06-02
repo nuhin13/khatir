@@ -83,6 +83,26 @@ def test_ready_tasks_only_returns_unblocked_todo(tmp_path):
     assert ready == ["T-002"]  # T-001 done, T-003 blocked by T-002
 
 
+def test_cross_epic_dep_in_dot_notation_resolves(tmp_path):
+    # Real task files write cross-epic deps as ``EPIC-00.T-005`` (dot), not
+    # ``EPIC-00/T-005`` (slash). Both must resolve to the same global key.
+    e0 = tmp_path / "EPIC-00"; e0.mkdir()
+    e1 = tmp_path / "EPIC-01"; e1.mkdir()
+    _write(e0, "T-005.md", TASK_A.replace("id: T-001", "id: T-005"))  # EPIC-00/T-005 done
+    dependent = """---
+id: T-001
+epic: EPIC-01
+layer: backend
+status: todo
+depends_on: [EPIC-00.T-005]
+---
+body
+"""
+    _write(e1, "T-001.md", dependent)
+    ready = {t.key for t in ready_tasks(tmp_path)}
+    assert "EPIC-01/T-001" in ready  # dot-form cross-epic dep is satisfied
+
+
 def test_same_local_id_across_epics_does_not_collide(tmp_path):
     # Two files both with local id T-001 but different epics. Files are
     # discovered by the T-*.md glob, so each epic needs its own subdir.
