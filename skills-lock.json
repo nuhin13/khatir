@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "skills": {
+    "address-pr-feedback": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/address-pr-feedback/SKILL.md",
+      "computedHash": "ee0447472af1d97900a14d4c95497a77e8b8791cdde5f05fb7234cfada73b39d"
+    },
+    "branch": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/branch/SKILL.md",
+      "computedHash": "56dfa0fde7311b7f3deef938f64b51c777ed154d7d0e6e5016069404bd1b768c"
+    },
+    "browser-verify": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/browser-verify/SKILL.md",
+      "computedHash": "c452f519828f48ceb5caa2efec855b67ff2dcd8092a62f0a2307ab790c9f6223"
+    },
+    "commit": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/commit/SKILL.md",
+      "computedHash": "1d248375e82f7e674a39fb4c5aac19f5198ed6a6cb4d3672b282f0c578344021"
+    },
+    "design-doc": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/design-doc/SKILL.md",
+      "computedHash": "f19427c6ac625dda358e29bf671c8d655a3b1be956868aedef169c1ef4226b9d"
+    },
+    "implement": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/implement/SKILL.md",
+      "computedHash": "dae6e560255a1d51e2faf7ae1578986faeb62b348aa8d5e9dc2c75544be9cdf1"
+    },
+    "plan": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/plan/SKILL.md",
+      "computedHash": "59c061459f0f229be410df176950cb8696c699b166ae01d9d51428ca620bd1c6"
+    },
+    "refactor": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/refactor/SKILL.md",
+      "computedHash": "e834f4653c2537261e17dbaac7ebac6a5a23da69fdf348de1bcf88d220372d31"
+    },
+    "review": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/review/SKILL.md",
+      "computedHash": "bcfdf9a1dcaa26868a11d926fe4324d06f92bb493d9fde6a812f48cfeb119dd6"
+    },
+    "spec": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/spec/SKILL.md",
+      "computedHash": "831ac85394e96439544cfe50046ebd39ffaa07a0b5702ff46376568961271232"
+    },
+    "tdd": {
+      "source": "owainlewis/blueprint",
+      "sourceType": "github",
+      "skillPath": "skills/tdd/SKILL.md",
+      "computedHash": "014ccdb725a33c2a9a3747e1b30b224e72784f2df164ac80907da760fa0edc82"
+    }
+  }
+}
