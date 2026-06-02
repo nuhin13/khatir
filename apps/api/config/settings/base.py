@@ -199,7 +199,10 @@ REST_FRAMEWORK = {
 # on so a logged-out refresh token can no longer mint access tokens.
 from datetime import timedelta  # noqa: E402
 
-JWT_SIGNING_KEY = env("JWT_SIGNING_KEY", default=SECRET_KEY)
+# An empty JWT_SIGNING_KEY in the env file would override the default with "",
+# leaving simplejwt unable to sign ("HMAC key must not be empty"). Treat blank
+# as unset and fall back to SECRET_KEY.
+JWT_SIGNING_KEY = env("JWT_SIGNING_KEY", default="").strip() or SECRET_KEY
 JWT_ACCESS_LIFETIME_MIN = env.int("JWT_ACCESS_LIFETIME_MIN", default=30)
 JWT_REFRESH_LIFETIME_DAYS = env.int("JWT_REFRESH_LIFETIME_DAYS", default=30)
 
