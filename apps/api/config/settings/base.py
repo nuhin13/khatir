@@ -42,6 +42,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "django_celery_beat",
+    "drf_spectacular",
 ]
 
 LOCAL_APPS = [
@@ -176,6 +177,8 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "khatir.core.exceptions.exception_handler",
     "DEFAULT_PAGINATION_CLASS": "khatir.core.pagination.StandardPageNumberPagination",
     "PAGE_SIZE": 20,
+    # OpenAPI 3 schema generation (drf-spectacular) powering Swagger UI + ReDoc.
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
@@ -190,6 +193,14 @@ REST_FRAMEWORK = {
         "verify_otp_phone": env("THROTTLE_VERIFY_OTP_PHONE", default="10/10min"),
         "verify_otp_ip": env("THROTTLE_VERIFY_OTP_IP", default="30/10min"),
     },
+}
+
+# ── OpenAPI / Swagger (drf-spectacular) ───────────────────────────────
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Khatir API",
+    "DESCRIPTION": "Landlord-first compliance SaaS for Dhaka — backend API.",
+    "VERSION": "0.1.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 # ── JWT (djangorestframework-simplejwt, T-006) ────────────────────────
