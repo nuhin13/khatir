@@ -48,6 +48,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "khatir.core",
     "khatir.accounts",
+    "khatir.properties",
     "khatir.health",
 ]
 
