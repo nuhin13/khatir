@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../features/auth/presentation/screens/otp_entry_screen.dart';
 import '../../features/auth/presentation/screens/phone_entry_screen.dart';
-import '../../features/home_placeholder/presentation/screens/home_placeholder_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/more_screen.dart';
@@ -24,6 +23,32 @@ import 'args/auth_args.dart';
 /// Root navigator key so full-screen routes (pushed above the shells, e.g. the
 /// add-tenant flow) sit on the root navigator rather than inside a branch.
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
+/// The shell-home path each self-selectable role lands on. The redirect (T-008)
+/// uses this both as the destination for an authenticated user with a role and
+/// as the "own shell" a user is bounced back to when they wander into another
+/// role's shell. `caretaker`/`admin` are not phone-app self-roles, so they map
+/// to the landlord shell as a safe default.
+String _shellHomeFor(Role role) => switch (role) {
+      Role.landlord => '/landlord/home',
+      Role.manager => '/manager/home',
+      Role.tenant => '/tenant/home',
+      Role.caretaker => '/landlord/home',
+      Role.admin => '/landlord/home',
+    };
+
+/// The shell-path prefix that a given role is allowed to be inside. Used to
+/// detect wrong-role shell access and bounce the user to their own shell.
+String _shellPrefixFor(Role role) => switch (role) {
+      Role.landlord => '/landlord',
+      Role.manager => '/manager',
+      Role.tenant => '/tenant',
+      Role.caretaker => '/landlord',
+      Role.admin => '/landlord',
+    };
+
+/// All role-shell prefixes, used to tell "is this location inside *some* shell?"
+const List<String> _allShellPrefixes = ['/landlord', '/manager', '/tenant'];
 
 /// Builds a single shell branch: a [StatefulShellBranch] with one [GoRoute]
 /// whose body is a [KShellPlaceholder] until its feature epic fills it in.
@@ -95,12 +120,16 @@ class _RouterRefresh extends ChangeNotifier {
   }
 }
 
-/// ALL go_router routes live here. The redirect implements the EPIC-01 decision
-/// table (T-012):
+/// ALL go_router routes live here. The redirect implements the EPIC-02 role
+/// decision table (T-008), extending the EPIC-01 seam (T-012):
 ///   - auth/onboarding still resolving (unknown) → stay on splash
 ///   - onboarding not seen → /onboarding
 ///   - seen + unauthenticated → /auth/phone
-///   - authenticated → /home (temp; EPIC-02 swaps in role routing)
+///   - authenticated, no role → /role
+///   - authenticated, role set → that role's shell home
+///   - authenticated, inside another role's shell → bounce to own shell home
+///   - /role is always reachable when authenticated (switch-role from More), so
+///     a user with a role is never force-redirected away from it.
 final appRouterProvider = Provider<GoRouter>((ref) {
   final refresh = _RouterRefresh(ref);
   ref.onDispose(refresh.dispose);
@@ -137,12 +166,43 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           loc == OtpEntryScreen.routePath;
 
       if (status == AuthStatus.authenticated) {
-        // Signed in: keep them out of splash/onboarding/auth flows.
+        final role = authAsync.value?.role;
+
+        // Authenticated but no role yet → the role chooser is the only valid
+        // place to be.
+        if (role == null) {
+          return loc == RoleChooserScreen.routePath
+              ? null
+              : RoleChooserScreen.routePath;
+        }
+
+        final home = _shellHomeFor(role);
+
+        // Leaving the pre-shell flows (splash/onboarding/auth) → role home.
         if (loc == SplashScreen.routePath ||
             loc == OnboardingScreen.routePath ||
             atAuth) {
-          return HomePlaceholderScreen.routePath;
+          return home;
         }
+
+        // The role chooser stays reachable for an authenticated user so they
+        // can switch role from More; never bounce them off it.
+        if (loc == RoleChooserScreen.routePath) {
+          return null;
+        }
+
+        // Inside a role shell that is not this user's → bounce to own shell.
+        final ownPrefix = _shellPrefixFor(role);
+        final inAnotherShell = _allShellPrefixes.any(
+          (prefix) =>
+              prefix != ownPrefix &&
+              (loc == prefix || loc.startsWith('$prefix/')),
+        );
+        if (inAnotherShell) {
+          return home;
+        }
+
+        // Own shell or any other top-level route (e.g. /tenants/add) is fine.
         return null;
       }
 
@@ -174,14 +234,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) =>
             OtpEntryScreen(args: state.extra as AuthArgs?),
       ),
-      GoRoute(
-        // Temporary authenticated home (T-012). EPIC-02 swaps users into the
-        // role shells via the T-008 redirect; this route is removed in T-008.
-        path: HomePlaceholderScreen.routePath,
-        name: HomePlaceholderScreen.routeName,
-        builder: (context, state) => const HomePlaceholderScreen(),
-      ),
-
       GoRoute(
         // Role chooser (T-005): a verified user with no role declares one here.
         // The redirect that *sends* users here is wired in T-008; this task

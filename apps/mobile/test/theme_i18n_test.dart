@@ -13,7 +13,7 @@ import 'package:khatir_mobile/core/network/dio_client.dart';
 import 'package:khatir_mobile/core/router/app_router.dart';
 import 'package:khatir_mobile/core/storage/secure_storage.dart';
 import 'package:khatir_mobile/core/theme/app_theme.dart';
-import 'package:khatir_mobile/features/home_placeholder/presentation/screens/home_placeholder_screen.dart';
+import 'package:khatir_mobile/features/shell/landlord_shell.dart';
 import 'package:khatir_tokens/khatir_tokens.dart';
 
 /// In-memory secure storage so tests don't touch the platform keychain.
@@ -114,9 +114,9 @@ void main() {
         child: const KhatirApp(),
       );
 
-  /// Boots [KhatirApp] straight into the authenticated home placeholder by
-  /// scripting a passing `/auth/me` and marking onboarding seen, so theme and
-  /// locale can be asserted on a stable screen.
+  /// Boots [KhatirApp] straight into the authenticated landlord shell by
+  /// scripting a passing `/auth/me` (role=landlord) and marking onboarding
+  /// seen, so theme and locale can be asserted on a stable screen.
   void seedAuthenticatedHome() {
     container = ProviderContainer(
       overrides: [
@@ -151,7 +151,7 @@ void main() {
     await tester.pumpWidget(app());
     await tester.pumpAndSettle();
 
-    expect(find.byType(HomePlaceholderScreen), findsOneWidget);
+    expect(find.byType(LandlordShell), findsOneWidget);
     final ctx = tester.element(find.byType(Scaffold).first);
     expect(Theme.of(ctx).colorScheme.primary, KhatirColors.sage);
     expect(Theme.of(ctx).scaffoldBackgroundColor, KhatirColors.cream);
@@ -163,9 +163,10 @@ void main() {
     await tester.pumpWidget(app());
     await tester.pumpAndSettle();
 
-    // Bangla default (home placeholder welcome copy).
-    expect(find.text('আপনি সাইন ইন করেছেন'), findsOneWidget);
-    expect(find.text("You're signed in"), findsNothing);
+    // Bangla default (landlord home tab label, rendered by the shell
+    // placeholder body).
+    expect(find.text('হোম'), findsWidgets);
+    expect(find.text('Home'), findsNothing);
 
     // Switch locale via the controller (the launch UI no longer hosts a toggle
     // button after T-012 removed the EPIC-00 placeholder screen).
@@ -173,8 +174,8 @@ void main() {
     await tester.pumpAndSettle();
 
     // Now English.
-    expect(find.text("You're signed in"), findsOneWidget);
-    expect(find.text('আপনি সাইন ইন করেছেন'), findsNothing);
+    expect(find.text('Home'), findsWidgets);
+    expect(find.text('হোম'), findsNothing);
   });
 
   test('locale choice persists across a fresh controller', () async {

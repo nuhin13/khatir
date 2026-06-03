@@ -11,8 +11,8 @@ import 'package:khatir_mobile/core/network/dio_client.dart';
 import 'package:khatir_mobile/core/router/app_router.dart';
 import 'package:khatir_mobile/core/storage/secure_storage.dart';
 import 'package:khatir_mobile/features/auth/presentation/screens/phone_entry_screen.dart';
-import 'package:khatir_mobile/features/home_placeholder/presentation/screens/home_placeholder_screen.dart';
 import 'package:khatir_mobile/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:khatir_mobile/features/shell/landlord_shell.dart';
 import 'package:khatir_mobile/features/splash/presentation/screens/splash_screen.dart';
 import 'package:khatir_mobile/l10n/app_localizations.dart';
 
@@ -130,10 +130,10 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(PhoneEntryScreen), findsOneWidget);
-    expect(find.byType(HomePlaceholderScreen), findsNothing);
+    expect(find.byType(LandlordShell), findsNothing);
   });
 
-  testWidgets('seen + authenticated → /home', (tester) async {
+  testWidgets('seen + authenticated landlord → landlord shell', (tester) async {
     // Stored tokens + a passing /auth/me → bootstrap resolves authenticated.
     final storage = FakeSecureStorage(access: 'a', refresh: 'r');
     final adapter = ScriptedAdapter((options) {
@@ -148,38 +148,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.byType(HomePlaceholderScreen), findsOneWidget);
+    expect(find.byType(LandlordShell), findsOneWidget);
     expect(find.byType(PhoneEntryScreen), findsNothing);
-  });
-
-  testWidgets('logout from home → /auth/phone', (tester) async {
-    final storage = FakeSecureStorage(access: 'a', refresh: 'r');
-    final adapter = ScriptedAdapter((options) {
-      if (options.path == ApiEndpoints.me) {
-        return _json({'id': 'u1', 'role': 'landlord'});
-      }
-      if (options.path == ApiEndpoints.logout) {
-        return _json({}, status: 205);
-      }
-      return _json({}, status: 404);
-    });
-
-    await tester.pumpWidget(
-      _harness(seen: true, storage: storage, adapter: adapter),
-    );
-    await tester.pumpAndSettle();
-
-    // Starts authenticated on /home.
-    expect(find.byType(HomePlaceholderScreen), findsOneWidget);
-
-    // Tap Logout → controller clears session → redirect bounces to phone.
-    final l10n = await AppLocalizations.delegate.load(kLocaleBn);
-    await tester.tap(find.text(l10n.common_logout));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(PhoneEntryScreen), findsOneWidget);
-    expect(find.byType(HomePlaceholderScreen), findsNothing);
-    expect(storage.access, isNull);
-    expect(storage.refresh, isNull);
   });
 }

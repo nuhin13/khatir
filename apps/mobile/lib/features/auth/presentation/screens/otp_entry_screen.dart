@@ -6,7 +6,7 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 import '../../../../core/router/args/auth_args.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../home_placeholder/presentation/screens/home_placeholder_screen.dart';
+import '../../../splash/presentation/screens/splash_screen.dart';
 import '../controllers/resend_otp_controller.dart';
 import '../controllers/verify_otp_controller.dart';
 import '../widgets/otp_input.dart';
@@ -31,10 +31,11 @@ class OtpEntryScreen extends ConsumerStatefulWidget {
   static const String routeName = 'auth-otp';
   static const String routePath = '/auth/otp';
 
-  /// Destination after a successful verify. The redirect (driven by AuthState)
-  /// would route here on its own once setSession flips to authenticated; this
-  /// explicit nav keeps the transition immediate.
-  static const String successRoutePath = HomePlaceholderScreen.routePath;
+  /// Destination after a successful verify. We bounce through the splash route
+  /// and let the router redirect (T-008), driven by AuthState, resolve the real
+  /// destination per the role table: no-role → `/role`, role set → that role's
+  /// shell home.
+  static const String successRoutePath = SplashScreen.routePath;
 
   @override
   ConsumerState<OtpEntryScreen> createState() => _OtpEntryScreenState();
@@ -58,8 +59,8 @@ class _OtpEntryScreenState extends ConsumerState<OtpEntryScreen> {
       setState(() => _code = '');
       return;
     }
-    // TODO(T-011): hand tokens+user to the auth state layer, which decides the
-    // onward route (splash/role). Placeholder until then.
+    // Bounce through splash; the router redirect (T-008) reads the now-
+    // authenticated AuthState + role and routes to /role or the role shell.
     context.go(OtpEntryScreen.successRoutePath);
   }
 

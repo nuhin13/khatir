@@ -36,3 +36,4 @@
 2026-06-03 | EPIC-02/T-005 | mobile | claude | in-progress | no Flutter/Dart toolchain to run analyze+test
 2026-06-03 | EPIC-02/T-006 | mobile | claude | in-progress | no Flutter/Dart toolchain to run analyze+test
 2026-06-03 | EPIC-02/T-007 | mobile | claude | in-progress | no Flutter/Dart toolchain to run analyze+test
+2026-06-03 | EPIC-02/T-008 | mobile | claude | in-progress | no Flutter/Dart toolchain to run analyze+test

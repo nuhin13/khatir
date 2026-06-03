@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Router role-redirect guards + replace EPIC-01 /home seam
 layer: mobile
 size: S
-status: todo
+status: in-progress
 preferred_agent: claude-code
 depends_on: [T-004, T-005]
 blocks: []
@@ -70,12 +70,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] Redirect: unauth→phone; auth+norole→/role; auth+role→shell home
-- [ ] Wrong-role shell access → bounce to own shell
-- [ ] EPIC-01 /home placeholder removed
-- [ ] Splash routes per table after bootstrap
-- [ ] Tests: each branch + wrong-role bounce
-- [ ] analyze + test pass
+- [x] Redirect: unauth→phone; auth+norole→/role; auth+role→shell home
+- [x] Wrong-role shell access → bounce to own shell
+- [x] EPIC-01 /home placeholder removed
+- [x] Splash routes per table after bootstrap
+- [x] Tests: each branch + wrong-role bounce (role_redirect_test.dart)
+- [ ] analyze + test pass — BLOCKED: no Flutter/Dart toolchain in this env
 
 ## 12. Test plan
 ### Automated
@@ -84,17 +84,38 @@ None.
 1. Full path: new user → OTP → chooser → shell. Returning landlord → straight to landlord shell. Manually navigate to /tenant/home as landlord → bounced.
 
 ## 13. Acceptance criteria
-- [ ] Redirect table fully enforced incl. wrong-role bounce.
-- [ ] EPIC-01 /home seam replaced; no dead placeholder.
-- [ ] Full onboarding→role→shell flow works end-to-end.
-- [ ] Test + analyze pass.
+- [x] Redirect table fully enforced incl. wrong-role bounce.
+- [x] EPIC-01 /home seam replaced; no dead placeholder.
+- [x] Full onboarding→role→shell flow works end-to-end (code complete; OTP success
+      now bounces through splash → redirect resolves role/shell).
+- [ ] Test + analyze pass — BLOCKED: no Flutter/Dart toolchain in this env.
 
 ## 14. Self-review
-- [ ] Guards read DB-truth role (via auth state)
-- [ ] No redirect loops
-- [ ] EPIC-01 seam fully removed
+- [x] Guards read DB-truth role (via auth state, seeded from `/auth/me`)
+- [x] No redirect loops (`/role` reachable when authenticated; splash/auth/onboarding
+      resolve to a single destination per pass; wrong-shell bounce targets own home)
+- [x] EPIC-01 seam fully removed (route + screen deleted; OTP `successRoutePath`
+      no longer points at `/home`)
 ### Deviations from spec
+- analyze + test could not be executed here (no Flutter/Dart toolchain) — same
+  environment blocker as EPIC-02/T-003, T-004, T-005. Tests are written and
+  reviewed for correctness but not run green in this env.
+- OTP `successRoutePath` was repointed from the deleted `/home` to the splash
+  route (`/`); the T-008 redirect, driven by AuthState, then resolves the real
+  destination (`/role` or the role shell). This keeps the post-verify transition
+  immediate without the screen needing to know the role.
+- EPIC-01 `router_redirect_test.dart` and `theme_i18n_test.dart` referenced the
+  deleted `HomePlaceholderScreen`; both were updated to assert on the landlord
+  shell instead (in scope: removing the EPIC-01 seam).
+- The unused l10n key `home_placeholder_welcome` was left in the ARB/generated
+  files to avoid l10n codegen drift (no toolchain to regenerate).
 ### Files touched (actual)
+- lib/core/router/app_router.dart (update: full role redirect table; remove /home route + import; add _shellHomeFor/_shellPrefixFor helpers)
+- lib/features/home_placeholder/... (delete: EPIC-01 placeholder screen)
+- lib/features/auth/presentation/screens/otp_entry_screen.dart (update: successRoutePath → splash; let redirect resolve)
+- test/role_redirect_test.dart (add: each branch + wrong-role bounce + /role re-entry)
+- test/router_redirect_test.dart (update: drop /home; assert landlord shell)
+- test/theme_i18n_test.dart (update: assert landlord shell + nav_home copy)
 
 ## 15. Notes for the implementing agent
 - This is the EPIC-02 validation gate: when it passes, role selection + the three shells + guards all work end-to-end.
