@@ -8,6 +8,7 @@ import '../../features/auth/presentation/screens/phone_entry_screen.dart';
 import '../../features/home_placeholder/presentation/screens/home_placeholder_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
+import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
 import '../../features/shell/tenant_shell.dart';
@@ -158,6 +159,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: HomePlaceholderScreen.routePath,
         name: HomePlaceholderScreen.routeName,
         builder: (context, state) => const HomePlaceholderScreen(),
+      ),
+
+      GoRoute(
+        // Role chooser (T-005): a verified user with no role declares one here.
+        // The redirect that *sends* users here is wired in T-008; this task
+        // only registers the route + screen.
+        path: RoleChooserScreen.routePath,
+        name: RoleChooserScreen.routeName,
+        builder: (context, state) => const RoleChooserScreen(),
       ),
 
       // ── Landlord shell (T-004) ─────────────────────────────────────────

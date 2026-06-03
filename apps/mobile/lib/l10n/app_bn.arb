@@ -50,6 +50,98 @@
   "@common_logout": {
     "description": "Logout action label."
   },
+  "role_hero": "Tell us who you are",
+  "@role_hero": {
+    "description": "Role chooser handwritten English hero line."
+  },
+  "role_title": "আপনি কে?",
+  "@role_title": {
+    "description": "Role chooser Bangla title."
+  },
+  "role_subtitle": "যথাযথ ফিচার পেতে ভূমিকা নির্বাচন করুন · Pick your role",
+  "@role_subtitle": {
+    "description": "Role chooser subtitle prompting the user to pick a role."
+  },
+  "role_most_common": "⭐ সাধারণত এটিই · Most common",
+  "@role_most_common": {
+    "description": "Badge on the recommended (landlord) role card."
+  },
+  "role_change_later": "পরে More মেনু থেকে পরিবর্তন করা যাবে · Change later in More",
+  "@role_change_later": {
+    "description": "Footnote: the role can be changed later from the More menu."
+  },
+  "role_landlord_bn": "বাড়িওয়ালা",
+  "@role_landlord_bn": {
+    "description": "Landlord role name (Bangla)."
+  },
+  "role_landlord_en": "Landlord",
+  "@role_landlord_en": {
+    "description": "Landlord role name (English accent line)."
+  },
+  "role_landlord_desc": "নিজের বিল্ডিং ও ভাড়াটিয়া পরিচালনা · Manage my own buildings",
+  "@role_landlord_desc": {
+    "description": "Landlord role one-line description."
+  },
+  "role_landlord_perk1": "DMP ফর্ম",
+  "@role_landlord_perk1": {
+    "description": "Landlord perk: DMP form."
+  },
+  "role_landlord_perk2": "ভাড়া আদায়",
+  "@role_landlord_perk2": {
+    "description": "Landlord perk: rent collection."
+  },
+  "role_landlord_perk3": "খরচের হিসাব",
+  "@role_landlord_perk3": {
+    "description": "Landlord perk: expense tracking."
+  },
+  "role_manager_bn": "ভবন ম্যানেজার",
+  "@role_manager_bn": {
+    "description": "Building manager role name (Bangla)."
+  },
+  "role_manager_en": "Building Manager",
+  "@role_manager_en": {
+    "description": "Building manager role name (English accent line)."
+  },
+  "role_manager_desc": "একাধিক মালিকের সম্পত্তি · Manage multiple owners",
+  "@role_manager_desc": {
+    "description": "Building manager role one-line description."
+  },
+  "role_manager_perk1": "মাল্টি-ওনার",
+  "@role_manager_perk1": {
+    "description": "Manager perk: multi-owner."
+  },
+  "role_manager_perk2": "টিম এক্সেস",
+  "@role_manager_perk2": {
+    "description": "Manager perk: team access."
+  },
+  "role_manager_perk3": "একীভূত রিপোর্ট",
+  "@role_manager_perk3": {
+    "description": "Manager perk: unified reports."
+  },
+  "role_tenant_bn": "ভাড়াটিয়া",
+  "@role_tenant_bn": {
+    "description": "Tenant role name (Bangla)."
+  },
+  "role_tenant_en": "Tenant",
+  "@role_tenant_en": {
+    "description": "Tenant role name (English accent line)."
+  },
+  "role_tenant_desc": "একটি ফ্ল্যাটে ভাড়া থাকি · I rent a flat",
+  "@role_tenant_desc": {
+    "description": "Tenant role one-line description."
+  },
+  "role_tenant_perk1": "ভাড়া পরিশোধ",
+  "@role_tenant_perk1": {
+    "description": "Tenant perk: pay rent."
+  },
+  "role_tenant_perk2": "রসিদ",
+  "@role_tenant_perk2": {
+    "description": "Tenant perk: receipts."
+  },
+  "role_tenant_perk3": "মেরামত",
+  "@role_tenant_perk3": {
+    "description": "Tenant perk: repairs."
+  },
   "splash_loading": "লোড হচ্ছে…",
   "@splash_loading": {
     "description": "Loading copy shown on the splash while the session bootstraps."

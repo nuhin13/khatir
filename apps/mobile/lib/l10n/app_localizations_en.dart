@@ -161,4 +161,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get auth_otp_expired => 'Code expired. Request a new one.';
+
+  @override
+  String get role_hero => 'Tell us who you are';
+
+  @override
+  String get role_title => 'Who are you?';
+
+  @override
+  String get role_subtitle => 'Pick your role to get the right features';
+
+  @override
+  String get role_most_common => '⭐ Most common';
+
+  @override
+  String get role_change_later => 'Change later in More';
+
+  @override
+  String get role_landlord_bn => 'Landlord';
+
+  @override
+  String get role_landlord_en => 'Landlord';
+
+  @override
+  String get role_landlord_desc => 'Manage my own buildings & tenants';
+
+  @override
+  String get role_landlord_perk1 => 'DMP form';
+
+  @override
+  String get role_landlord_perk2 => 'Rent collection';
+
+  @override
+  String get role_landlord_perk3 => 'Expense tracking';
+
+  @override
+  String get role_manager_bn => 'Building Manager';
+
+  @override
+  String get role_manager_en => 'Building Manager';
+
+  @override
+  String get role_manager_desc => "Manage multiple owners' properties";
+
+  @override
+  String get role_manager_perk1 => 'Multi-owner';
+
+  @override
+  String get role_manager_perk2 => 'Team access';
+
+  @override
+  String get role_manager_perk3 => 'Unified reports';
+
+  @override
+  String get role_tenant_bn => 'Tenant';
+
+  @override
+  String get role_tenant_en => 'Tenant';
+
+  @override
+  String get role_tenant_desc => 'I rent a flat';
+
+  @override
+  String get role_tenant_perk1 => 'Pay rent';
+
+  @override
+  String get role_tenant_perk2 => 'Receipts';
+
+  @override
+  String get role_tenant_perk3 => 'Repairs';
 }

@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Role chooser screen
 layer: mobile
 size: M
-status: todo
+status: in-progress
 preferred_agent: claude-code
 depends_on: [T-004]
 blocks: [T-008]
@@ -74,14 +74,14 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] role_chooser_screen matches `roleChooser` design (3 cards, badge, perks)
-- [ ] role_card widget (icon, bn/en, desc, perks, most-common)
-- [ ] tap → setRole → route to role shell
-- [ ] loading + error states
-- [ ] route /role
-- [ ] ARB copy from ROLE_CARDS (bn + en)
-- [ ] Widget test: 3 cards; landlord tap persists + routes
-- [ ] analyze + test pass; no inline strings/colors
+- [x] role_chooser_screen matches `roleChooser` design (3 cards, badge, perks)
+- [x] role_card widget (icon, bn/en, desc, perks, most-common)
+- [x] tap → setRole → route to role shell
+- [x] loading + error states
+- [x] route /role
+- [x] ARB copy from ROLE_CARDS (bn + en)
+- [x] Widget test: 3 cards; landlord tap persists + routes
+- [ ] analyze + test pass; no inline strings/colors — BLOCKED: no Flutter/Dart toolchain in this env (same as T-003/T-004)
 
 ## 12. Test plan
 ### Automated
@@ -90,17 +90,32 @@ None.
 1. New user post-OTP with no role → chooser; pick Manager → manager shell; relaunch → straight to manager shell.
 
 ## 13. Acceptance criteria
-- [ ] Three role cards per design with correct copy + badge + perks.
-- [ ] Selection persists role and routes to the right shell.
-- [ ] **Screen `roleChooser` built** (ledger row checked).
-- [ ] Test + analyze pass.
+- [x] Three role cards per design with correct copy + badge + perks.
+- [x] Selection persists role and routes to the right shell.
+- [x] **Screen `roleChooser` built** (ledger row checked).
+- [ ] Test + analyze pass — BLOCKED: no Flutter/Dart toolchain in this env.
 
 ## 14. Self-review
-- [ ] Matches design composition; tokens via theme
-- [ ] Copy from ROLE_CARDS verbatim
-- [ ] Persists before routing
+- [x] Matches design composition; tokens via theme
+- [x] Copy from ROLE_CARDS verbatim
+- [x] Persists before routing
 ### Deviations from spec
+- analyze + test were written but could not be executed here (no Flutter/Dart
+  toolchain) — same blocker as EPIC-02/T-003 and T-004. ARB JSON validity and
+  l10n key parity were verified manually instead.
+- l10n codegen could not be run; the generated `app_localizations*.dart` files
+  were hand-edited to add the new `role_*` keys, mirroring what
+  `flutter gen-l10n` would produce from the `.arb` files.
+- Bangla `role_*` copy is lifted verbatim from `ROLE_CARDS`; English copy is a
+  faithful translation (the prototype's `en` line is the handwritten accent,
+  carried as `role_<role>_en`).
 ### Files touched (actual)
+- lib/features/role/presentation/screens/role_chooser_screen.dart (add)
+- lib/features/role/presentation/widgets/role_card.dart (add)
+- lib/core/router/app_router.dart (update: /role route + import)
+- lib/l10n/app_en.arb, app_bn.arb (add role_* keys)
+- lib/l10n/app_localizations.dart, app_localizations_en.dart, app_localizations_bn.dart (regen by hand)
+- test/role_chooser_test.dart (add)
 
 ## 15. Notes for the implementing agent
 - ROLE_CARDS (from design): landlord 🏠 (most common; perks: DMP ফর্ম, ভাড়া আদায়, খরচের হিসাব), manager 🏢 (perks: মাল্টি-ওনার, টিম এক্সেস, একীভূত রিপোর্ট), tenant 👤 (perks: ভাড়া পরিশোধ, রসিদ, মেরামত).

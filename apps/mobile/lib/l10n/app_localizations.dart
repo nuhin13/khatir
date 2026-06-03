@@ -386,6 +386,144 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'কোডের মেয়াদ শেষ। নতুন কোড নিন।'**
   String get auth_otp_expired;
+
+  /// Role chooser handwritten English hero line.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us who you are'**
+  String get role_hero;
+
+  /// Role chooser Bangla title.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনি কে?'**
+  String get role_title;
+
+  /// Role chooser subtitle prompting the user to pick a role.
+  ///
+  /// In bn, this message translates to:
+  /// **'যথাযথ ফিচার পেতে ভূমিকা নির্বাচন করুন · Pick your role'**
+  String get role_subtitle;
+
+  /// Badge on the recommended (landlord) role card.
+  ///
+  /// In bn, this message translates to:
+  /// **'⭐ সাধারণত এটিই · Most common'**
+  String get role_most_common;
+
+  /// Footnote: the role can be changed later from the More menu.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরে More মেনু থেকে পরিবর্তন করা যাবে · Change later in More'**
+  String get role_change_later;
+
+  /// Landlord role name (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'বাড়িওয়ালা'**
+  String get role_landlord_bn;
+
+  /// Landlord role name (English accent line).
+  ///
+  /// In bn, this message translates to:
+  /// **'Landlord'**
+  String get role_landlord_en;
+
+  /// Landlord role one-line description.
+  ///
+  /// In bn, this message translates to:
+  /// **'নিজের বিল্ডিং ও ভাড়াটিয়া পরিচালনা · Manage my own buildings'**
+  String get role_landlord_desc;
+
+  /// Landlord perk: DMP form.
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP ফর্ম'**
+  String get role_landlord_perk1;
+
+  /// Landlord perk: rent collection.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া আদায়'**
+  String get role_landlord_perk2;
+
+  /// Landlord perk: expense tracking.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচের হিসাব'**
+  String get role_landlord_perk3;
+
+  /// Building manager role name (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভবন ম্যানেজার'**
+  String get role_manager_bn;
+
+  /// Building manager role name (English accent line).
+  ///
+  /// In bn, this message translates to:
+  /// **'Building Manager'**
+  String get role_manager_en;
+
+  /// Building manager role one-line description.
+  ///
+  /// In bn, this message translates to:
+  /// **'একাধিক মালিকের সম্পত্তি · Manage multiple owners'**
+  String get role_manager_desc;
+
+  /// Manager perk: multi-owner.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাল্টি-ওনার'**
+  String get role_manager_perk1;
+
+  /// Manager perk: team access.
+  ///
+  /// In bn, this message translates to:
+  /// **'টিম এক্সেস'**
+  String get role_manager_perk2;
+
+  /// Manager perk: unified reports.
+  ///
+  /// In bn, this message translates to:
+  /// **'একীভূত রিপোর্ট'**
+  String get role_manager_perk3;
+
+  /// Tenant role name (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া'**
+  String get role_tenant_bn;
+
+  /// Tenant role name (English accent line).
+  ///
+  /// In bn, this message translates to:
+  /// **'Tenant'**
+  String get role_tenant_en;
+
+  /// Tenant role one-line description.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি ফ্ল্যাটে ভাড়া থাকি · I rent a flat'**
+  String get role_tenant_desc;
+
+  /// Tenant perk: pay rent.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া পরিশোধ'**
+  String get role_tenant_perk1;
+
+  /// Tenant perk: receipts.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ'**
+  String get role_tenant_perk2;
+
+  /// Tenant perk: repairs.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামত'**
+  String get role_tenant_perk3;
 }
 
 class _AppLocalizationsDelegate

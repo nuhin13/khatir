@@ -161,4 +161,77 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get auth_otp_expired => 'কোডের মেয়াদ শেষ। নতুন কোড নিন।';
+
+  @override
+  String get role_hero => 'Tell us who you are';
+
+  @override
+  String get role_title => 'আপনি কে?';
+
+  @override
+  String get role_subtitle =>
+      'যথাযথ ফিচার পেতে ভূমিকা নির্বাচন করুন · Pick your role';
+
+  @override
+  String get role_most_common => '⭐ সাধারণত এটিই · Most common';
+
+  @override
+  String get role_change_later =>
+      'পরে More মেনু থেকে পরিবর্তন করা যাবে · Change later in More';
+
+  @override
+  String get role_landlord_bn => 'বাড়িওয়ালা';
+
+  @override
+  String get role_landlord_en => 'Landlord';
+
+  @override
+  String get role_landlord_desc =>
+      'নিজের বিল্ডিং ও ভাড়াটিয়া পরিচালনা · Manage my own buildings';
+
+  @override
+  String get role_landlord_perk1 => 'DMP ফর্ম';
+
+  @override
+  String get role_landlord_perk2 => 'ভাড়া আদায়';
+
+  @override
+  String get role_landlord_perk3 => 'খরচের হিসাব';
+
+  @override
+  String get role_manager_bn => 'ভবন ম্যানেজার';
+
+  @override
+  String get role_manager_en => 'Building Manager';
+
+  @override
+  String get role_manager_desc =>
+      'একাধিক মালিকের সম্পত্তি · Manage multiple owners';
+
+  @override
+  String get role_manager_perk1 => 'মাল্টি-ওনার';
+
+  @override
+  String get role_manager_perk2 => 'টিম এক্সেস';
+
+  @override
+  String get role_manager_perk3 => 'একীভূত রিপোর্ট';
+
+  @override
+  String get role_tenant_bn => 'ভাড়াটিয়া';
+
+  @override
+  String get role_tenant_en => 'Tenant';
+
+  @override
+  String get role_tenant_desc => 'একটি ফ্ল্যাটে ভাড়া থাকি · I rent a flat';
+
+  @override
+  String get role_tenant_perk1 => 'ভাড়া পরিশোধ';
+
+  @override
+  String get role_tenant_perk2 => 'রসিদ';
+
+  @override
+  String get role_tenant_perk3 => 'মেরামত';
 }
