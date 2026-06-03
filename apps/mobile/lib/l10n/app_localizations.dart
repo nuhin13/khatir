@@ -809,6 +809,69 @@ abstract class AppLocalizations {
 
   /// Display label for the other unit type.
   String get unit_type_other;
+
+  /// Add-building wizard progress caption (step N of 4).
+  String wizard_step_x_of_4(String step);
+
+  /// Add-building wizard step-1 top-bar title.
+  String get wizard_title_name;
+
+  /// Add-building wizard step-2 top-bar title.
+  String get wizard_title_address;
+
+  /// Add-building wizard step-1 hero (English line).
+  String get wizard_step1_hero_title;
+
+  /// Add-building wizard step-1 hero (Bangla line).
+  String get wizard_step1_hero_sub;
+
+  /// Add-building wizard step-2 hero (English line).
+  String get wizard_step2_hero_title;
+
+  /// Add-building wizard step-2 hero (Bangla line).
+  String get wizard_step2_hero_sub;
+
+  /// Label for the building-name field (required).
+  String get building_name;
+
+  /// Placeholder for the building-name field.
+  String get building_name_hint;
+
+  /// Label for the building-area chip group (required).
+  String get building_area;
+
+  /// Label for the building-address field (required).
+  String get building_address;
+
+  /// Placeholder for the building-address field.
+  String get building_address_hint;
+
+  /// Suffix shown on the address label when it was auto-filled from the map.
+  String get building_address_auto;
+
+  /// Button that opens the map picker in step 2.
+  String get wizard_pick_on_map;
+
+  /// Confirmation chip shown after a pin is dropped.
+  String get wizard_map_filled;
+
+  /// Clears the dropped map pin.
+  String get wizard_reset_pin;
+
+  /// Advances to the next wizard step.
+  String get wizard_next;
+
+  /// Step-2 primary button: advance to the units step.
+  String get wizard_next_units;
+
+  /// Validation error when the building name is empty.
+  String get wizard_err_name;
+
+  /// Validation error when no area is selected.
+  String get wizard_err_area;
+
+  /// Validation error when the address is empty.
+  String get wizard_err_address;
 }
 
 class _AppLocalizationsDelegate

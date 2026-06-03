@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../features/properties/data/models/property_enums.dart';
 import '../network/api_endpoints.dart';
 import '../network/dio_client.dart';
 
@@ -9,11 +10,20 @@ import '../network/dio_client.dart';
 /// Only the fields the app currently consumes are modelled. Defaults are
 /// conservative so a missing/failed config never breaks the UI.
 class PublicConfig {
-  const PublicConfig({this.introSlideSkipAllowed = true});
+  const PublicConfig({
+    this.introSlideSkipAllowed = true,
+    this.areaOptions = Area.values,
+  });
 
   /// Whether the onboarding slides may be skipped (SystemConfig
   /// `intro_slide_skip_allowed`).
   final bool introSlideSkipAllowed;
+
+  /// Selectable Dhaka areas for the property wizard (SystemConfig
+  /// `area_options`). Wire values are mapped to [Area]; unknown values are
+  /// dropped. Falls back to the full [Area] enum when unseeded/missing so the
+  /// wizard always has chips to show.
+  final List<Area> areaOptions;
 
   factory PublicConfig.fromJson(Map<String, dynamic> json) {
     // Tolerate either a flat payload or a `{ "config": { ... } }` envelope.
@@ -28,7 +38,21 @@ class PublicConfig {
         'false' => false,
         _ => true,
       },
+      areaOptions: _parseAreaOptions(root['area_options']),
     );
+  }
+
+  /// Parses the `area_options` wire value (a JSON array of wire strings) into a
+  /// list of [Area]. Unknown values are skipped; an empty/invalid result falls
+  /// back to the full enum so chips never disappear.
+  static List<Area> _parseAreaOptions(Object? raw) {
+    if (raw is! List) return Area.values;
+    final areas = <Area>[
+      for (final value in raw)
+        if (value is String)
+          if (Area.fromWire(value) case final Area area) area,
+    ];
+    return areas.isEmpty ? Area.values : areas;
   }
 }
 

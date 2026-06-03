@@ -473,4 +473,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unit_type_other => 'অন্যান্য · Other';
+
+  @override
+  String wizard_step_x_of_4(String step) {
+    return 'ধাপ $step/৪ · Step $step of 4';
+  }
+
+  @override
+  String get wizard_title_name => 'নতুন বিল্ডিং · New building';
+
+  @override
+  String get wizard_title_address => 'ঠিকানা · Address';
+
+  @override
+  String get wizard_step1_hero_title => 'Name your building';
+
+  @override
+  String get wizard_step1_hero_sub => 'বিল্ডিংয়ের নাম দিন';
+
+  @override
+  String get wizard_step2_hero_title => 'Where is it?';
+
+  @override
+  String get wizard_step2_hero_sub => 'ঠিকানা — ম্যাপ থেকে নিন';
+
+  @override
+  String get building_name => 'বিল্ডিংয়ের নাম · Building name';
+
+  @override
+  String get building_name_hint => 'যেমন: করিম মঞ্জিল, House 12';
+
+  @override
+  String get building_area => 'এলাকা · Area';
+
+  @override
+  String get building_address => 'সম্পূর্ণ ঠিকানা · Full address';
+
+  @override
+  String get building_address_hint => 'ম্যাপ থেকে নিন অথবা হাতে লিখুন';
+
+  @override
+  String get building_address_auto => '(auto)';
+
+  @override
+  String get wizard_pick_on_map => 'ম্যাপ থেকে বেছে নিন · Pick on map';
+
+  @override
+  String get wizard_map_filled =>
+      'ম্যাপ থেকে ঠিকানা নেওয়া হয়েছে · Address filled from map';
+
+  @override
+  String get wizard_reset_pin => 'রিসেট · Reset';
+
+  @override
+  String get wizard_next => 'পরবর্তী · Next';
+
+  @override
+  String get wizard_next_units => 'পরবর্তী — ইউনিট · Units';
+
+  @override
+  String get wizard_err_name => 'বিল্ডিংয়ের নাম দিন · Enter a building name';
+
+  @override
+  String get wizard_err_area => 'একটি এলাকা বেছে নিন · Pick an area';
+
+  @override
+  String get wizard_err_address => 'ঠিকানা দিন · Enter an address';
 }

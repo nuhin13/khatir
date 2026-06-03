@@ -11,6 +11,7 @@ import '../../features/profile/presentation/screens/more_screen.dart';
 import '../../features/properties/presentation/screens/landlord_home_screen.dart';
 import '../../features/properties/presentation/screens/portfolio_screen.dart';
 import '../../features/properties/presentation/screens/unit_detail_screen.dart';
+import '../../features/properties/presentation/wizard/wizard_host.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
@@ -364,6 +365,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // ── Properties / portfolio (T-012) ──────────────────────────────────
       // The portfolio list (buildings + unit counts + occupancy). Sits on the
       // root navigator so it covers the landlord shell when pushed from home.
+      GoRoute(
+        // Add-building wizard (T-010 steps 1–2; T-011 steps 3–4). Sits on the
+        // root navigator so it covers the landlord shell when pushed from home
+        // / portfolio.
+        path: WizardHost.routePath,
+        name: WizardHost.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const WizardHost(),
+      ),
       GoRoute(
         path: PortfolioScreen.routePath,
         name: PortfolioScreen.routeName,

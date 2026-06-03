@@ -48,7 +48,10 @@ class LandlordHomeScreen extends ConsumerWidget {
           ),
           data: (summary) {
             if (summary.totals.buildings == 0 && summary.buildings.isEmpty) {
-              return _EmptyState(l10n: l10n, onAddBuilding: () => _addBuilding(context, l10n));
+              return _EmptyState(
+                l10n: l10n,
+                onAddBuilding: () => _addBuilding(context),
+              );
             }
             return _HomeBody(summary: summary);
           },
@@ -63,13 +66,9 @@ class LandlordHomeScreen extends ConsumerWidget {
   // TODO(EPIC-04) point at the real /tenants/add DMP wizard entry.
   static void _startDmp(BuildContext context) => context.pushNamed('tenantsAdd');
 
-  /// Add-building CTA. The add-building wizard route (`/properties/add`) is not
-  /// registered yet; show a friendly coming-soon until EPIC-03 wires it.
-  // TODO(EPIC-03) route to the /properties/add building wizard once registered.
-  static void _addBuilding(BuildContext context, AppLocalizations l10n) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(l10n.home_add_building)));
+  /// Add-building CTA → the 4-step add-building wizard (T-010).
+  static void _addBuilding(BuildContext context) {
+    context.pushNamed('addBuilding');
   }
 }
 

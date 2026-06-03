@@ -479,4 +479,69 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get unit_type_other => 'অন্যান্য';
+
+  @override
+  String wizard_step_x_of_4(String step) {
+    return 'ধাপ $step/৪';
+  }
+
+  @override
+  String get wizard_title_name => 'নতুন বিল্ডিং';
+
+  @override
+  String get wizard_title_address => 'ঠিকানা';
+
+  @override
+  String get wizard_step1_hero_title => 'বিল্ডিংয়ের নাম দিন';
+
+  @override
+  String get wizard_step1_hero_sub => 'নতুন বিল্ডিং যোগ করুন';
+
+  @override
+  String get wizard_step2_hero_title => 'ঠিকানা কোথায়?';
+
+  @override
+  String get wizard_step2_hero_sub => 'ম্যাপ থেকে ঠিকানা নিন';
+
+  @override
+  String get building_name => 'বিল্ডিংয়ের নাম';
+
+  @override
+  String get building_name_hint => 'যেমন: করিম মঞ্জিল';
+
+  @override
+  String get building_area => 'এলাকা';
+
+  @override
+  String get building_address => 'সম্পূর্ণ ঠিকানা';
+
+  @override
+  String get building_address_hint => 'ম্যাপ থেকে নিন অথবা হাতে লিখুন';
+
+  @override
+  String get building_address_auto => '(স্বয়ংক্রিয়)';
+
+  @override
+  String get wizard_pick_on_map => 'ম্যাপ থেকে বেছে নিন';
+
+  @override
+  String get wizard_map_filled => 'ম্যাপ থেকে ঠিকানা নেওয়া হয়েছে';
+
+  @override
+  String get wizard_reset_pin => 'রিসেট';
+
+  @override
+  String get wizard_next => 'পরবর্তী';
+
+  @override
+  String get wizard_next_units => 'পরবর্তী — ইউনিট';
+
+  @override
+  String get wizard_err_name => 'বিল্ডিংয়ের নাম দিন';
+
+  @override
+  String get wizard_err_area => 'একটি এলাকা বেছে নিন';
+
+  @override
+  String get wizard_err_address => 'ঠিকানা দিন';
 }

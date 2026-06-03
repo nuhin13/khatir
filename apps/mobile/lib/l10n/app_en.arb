@@ -284,5 +284,92 @@
   "unit_type_other": "অন্যান্য · Other",
   "@unit_type_other": {
     "description": "Display label for the other unit type."
+  },
+  "wizard_step_x_of_4": "ধাপ {step}/৪ · Step {step} of 4",
+  "@wizard_step_x_of_4": {
+    "description": "Add-building wizard progress caption (step N of 4).",
+    "placeholders": {
+      "step": { "type": "String", "example": "1" }
+    }
+  },
+  "wizard_title_name": "নতুন বিল্ডিং · New building",
+  "@wizard_title_name": {
+    "description": "Add-building wizard step-1 top-bar title."
+  },
+  "wizard_title_address": "ঠিকানা · Address",
+  "@wizard_title_address": {
+    "description": "Add-building wizard step-2 top-bar title."
+  },
+  "wizard_step1_hero_title": "Name your building",
+  "@wizard_step1_hero_title": {
+    "description": "Add-building wizard step-1 hero (English line)."
+  },
+  "wizard_step1_hero_sub": "বিল্ডিংয়ের নাম দিন",
+  "@wizard_step1_hero_sub": {
+    "description": "Add-building wizard step-1 hero (Bangla line)."
+  },
+  "wizard_step2_hero_title": "Where is it?",
+  "@wizard_step2_hero_title": {
+    "description": "Add-building wizard step-2 hero (English line)."
+  },
+  "wizard_step2_hero_sub": "ঠিকানা — ম্যাপ থেকে নিন",
+  "@wizard_step2_hero_sub": {
+    "description": "Add-building wizard step-2 hero (Bangla line)."
+  },
+  "building_name": "বিল্ডিংয়ের নাম · Building name",
+  "@building_name": {
+    "description": "Label for the building-name field (required)."
+  },
+  "building_name_hint": "যেমন: করিম মঞ্জিল, House 12",
+  "@building_name_hint": {
+    "description": "Placeholder for the building-name field."
+  },
+  "building_area": "এলাকা · Area",
+  "@building_area": {
+    "description": "Label for the building-area chip group (required)."
+  },
+  "building_address": "সম্পূর্ণ ঠিকানা · Full address",
+  "@building_address": {
+    "description": "Label for the building-address field (required)."
+  },
+  "building_address_hint": "ম্যাপ থেকে নিন অথবা হাতে লিখুন",
+  "@building_address_hint": {
+    "description": "Placeholder for the building-address field."
+  },
+  "building_address_auto": "(auto)",
+  "@building_address_auto": {
+    "description": "Suffix shown on the address label when it was auto-filled from the map."
+  },
+  "wizard_pick_on_map": "ম্যাপ থেকে বেছে নিন · Pick on map",
+  "@wizard_pick_on_map": {
+    "description": "Button that opens the map picker in step 2."
+  },
+  "wizard_map_filled": "ম্যাপ থেকে ঠিকানা নেওয়া হয়েছে · Address filled from map",
+  "@wizard_map_filled": {
+    "description": "Confirmation chip shown after a pin is dropped."
+  },
+  "wizard_reset_pin": "রিসেট · Reset",
+  "@wizard_reset_pin": {
+    "description": "Clears the dropped map pin."
+  },
+  "wizard_next": "পরবর্তী · Next",
+  "@wizard_next": {
+    "description": "Advances to the next wizard step."
+  },
+  "wizard_next_units": "পরবর্তী — ইউনিট · Units",
+  "@wizard_next_units": {
+    "description": "Step-2 primary button: advance to the units step."
+  },
+  "wizard_err_name": "বিল্ডিংয়ের নাম দিন · Enter a building name",
+  "@wizard_err_name": {
+    "description": "Validation error when the building name is empty."
+  },
+  "wizard_err_area": "একটি এলাকা বেছে নিন · Pick an area",
+  "@wizard_err_area": {
+    "description": "Validation error when no area is selected."
+  },
+  "wizard_err_address": "ঠিকানা দিন · Enter an address",
+  "@wizard_err_address": {
+    "description": "Validation error when the address is empty."
   }
 }
