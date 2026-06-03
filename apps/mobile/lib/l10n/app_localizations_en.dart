@@ -230,4 +230,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get role_tenant_perk3 => 'Repairs';
+
+  @override
+  String get more_title => 'More';
+
+  @override
+  String get more_profile => 'Profile';
+
+  @override
+  String get more_profile_en => 'Profile';
+
+  @override
+  String get more_plan => 'Plan & billing';
+
+  @override
+  String get more_plan_en => 'Plan & billing';
+
+  @override
+  String get more_lease => 'AI lease';
+
+  @override
+  String get more_lease_en => 'AI lease';
+
+  @override
+  String get more_warnings => 'Warnings & complaints';
+
+  @override
+  String get more_warnings_en => 'Warnings';
+
+  @override
+  String get more_language => 'Language · বাংলা/EN';
+
+  @override
+  String get more_language_en => 'Language';
+
+  @override
+  String get more_switch_role => 'Switch role';
+
+  @override
+  String get more_switch_role_en => 'Switch role';
+
+  @override
+  String get more_about => 'About Khatir';
+
+  @override
+  String get more_about_en => 'About Khatir';
+
+  @override
+  String get more_logout => 'Log out';
+
+  @override
+  String get more_name_fallback => 'User';
+
+  @override
+  String get more_plan_chip => 'Free 1/2';
 }

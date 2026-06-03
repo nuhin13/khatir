@@ -4,13 +4,13 @@ epic: EPIC-02
 title: More menu screen (profile, language, role switch, logout)
 layer: mobile
 size: M
-status: todo
 preferred_agent: claude-code
 depends_on: [T-004, T-003]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
+status: in-progress
+started_at: 2026-06-03
 completed_at:
 executed_by:
 reviewed_at:
@@ -72,16 +72,16 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] more_screen matches `more` design (header + rows + logout)
-- [ ] profile header (avatar, name, masked phone, plan chip placeholder)
-- [ ] rows route correctly (later-epic targets as placeholders)
-- [ ] language row toggles bn/en in place (setLanguage)
-- [ ] switch role → /role; about → /onboarding
-- [ ] logout → authController.logout → /auth/phone
-- [ ] used by all shells' More tab (tenant simpler)
-- [ ] ARB bn + en
-- [ ] Widget test: rows render, language toggle, logout
-- [ ] analyze + test pass
+- [x] more_screen matches `more` design (header + rows + logout)
+- [x] profile header (avatar, name, masked phone, plan chip placeholder)
+- [x] rows route correctly (later-epic targets show "coming soon" until built)
+- [x] language row toggles bn/en in place (LocaleController.toggle)
+- [x] switch role → /role; about → /onboarding
+- [x] logout → authController.logout → /auth/phone
+- [x] used by all shells' More tab (tenant simpler — no lease/warnings)
+- [x] ARB bn + en
+- [x] Widget test: rows render, language toggle, logout, role-adapted rows
+- [ ] analyze + test pass — BLOCKED: no Flutter/Dart toolchain in this env
 
 ## 12. Test plan
 ### Automated
@@ -90,16 +90,34 @@ None.
 1. Open More → toggle language → UI switches; switch role → chooser; logout → phone.
 
 ## 13. Acceptance criteria
-- [ ] More menu matches design; all rows route; language + logout work.
-- [ ] **Screen `more` built** (ledger row checked).
-- [ ] Test + analyze pass.
+- [x] More menu matches design; all rows route; language + logout work.
+- [x] **Screen `more` built** (ledger row checked).
+- [ ] Test + analyze pass — BLOCKED: no Flutter/Dart toolchain in this env.
 
 ## 14. Self-review
-- [ ] Matches design; tokens via theme
-- [ ] Later-epic targets clearly routed (placeholders ok)
-- [ ] Logout fully clears session
+- [x] Matches design; tokens via theme (KhatirColors/Spacing/Radius; no hex/px)
+- [x] Later-epic targets clearly routed ("coming soon" snackbar until built)
+- [x] Logout fully clears session (authController.logout → tokens cleared)
 ### Deviations from spec
+- Plan / lease / warnings rows have no destination route yet (later epics), so
+  tapping them shows a "coming soon" snackbar instead of navigating to a route
+  that does not exist — avoids a go_router "no route" crash. Switch-role
+  (`/role`) and About (`/onboarding`) navigate to their real routes.
+- Manager shows the same full row set as landlord (landlord-like); only the
+  tenant shell gets the simpler list (no AI lease / warnings).
+- Plan chip shows placeholder copy "Free 1/2" (real value lands in EPIC-10).
+- l10n codegen could not be run (no toolchain); the generated
+  `app_localizations*.dart` files were hand-edited to add the new `more_*` keys,
+  mirroring what `flutter gen-l10n` would produce from the `.arb` files.
+- analyze + test were written but could not be executed here (no Flutter/Dart
+  toolchain) — same blocker as EPIC-02/T-003..T-006.
 ### Files touched (actual)
+- lib/features/profile/presentation/screens/more_screen.dart (add)
+- lib/features/profile/presentation/widgets/more_row.dart (add)
+- lib/core/router/app_router.dart (update: 3 More branches → MoreScreen.forRole)
+- lib/l10n/app_en.arb, app_bn.arb (add more_* keys, bn + en)
+- lib/l10n/app_localizations.dart, app_localizations_en.dart, app_localizations_bn.dart (regen by hand)
+- test/more_screen_test.dart (add)
 
 ## 15. Notes for the implementing agent
 - `more` rows (from design): Profile, Plan & billing, AI lease, Warnings, Language (bn/EN), Switch role, About Khatir, + Logout. Tenant's More omits landlord-only rows (lease/warnings) — adapt per role, follow `tenHome`/design.

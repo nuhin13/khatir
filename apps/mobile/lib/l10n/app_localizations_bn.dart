@@ -234,4 +234,58 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get role_tenant_perk3 => 'মেরামত';
+
+  @override
+  String get more_title => 'আরও · More';
+
+  @override
+  String get more_profile => 'প্রোফাইল';
+
+  @override
+  String get more_profile_en => 'Profile';
+
+  @override
+  String get more_plan => 'প্ল্যান ও বিলিং';
+
+  @override
+  String get more_plan_en => 'Plan & billing';
+
+  @override
+  String get more_lease => 'AI লিজ তৈরি';
+
+  @override
+  String get more_lease_en => 'AI lease';
+
+  @override
+  String get more_warnings => 'সতর্কতা ও অভিযোগ';
+
+  @override
+  String get more_warnings_en => 'Warnings';
+
+  @override
+  String get more_language => 'ভাষা · বাংলা/EN';
+
+  @override
+  String get more_language_en => 'Language';
+
+  @override
+  String get more_switch_role => 'ভূমিকা পরিবর্তন';
+
+  @override
+  String get more_switch_role_en => 'Switch role';
+
+  @override
+  String get more_about => 'Khatir সম্পর্কে';
+
+  @override
+  String get more_about_en => 'About Khatir';
+
+  @override
+  String get more_logout => 'লগআউট · Log out';
+
+  @override
+  String get more_name_fallback => 'ব্যবহারকারী';
+
+  @override
+  String get more_plan_chip => 'Free 1/2';
 }

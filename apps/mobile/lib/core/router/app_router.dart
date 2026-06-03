@@ -8,6 +8,7 @@ import '../../features/auth/presentation/screens/phone_entry_screen.dart';
 import '../../features/home_placeholder/presentation/screens/home_placeholder_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
+import '../../features/profile/presentation/screens/more_screen.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
@@ -17,6 +18,7 @@ import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../l10n/app_localizations.dart';
 import '../auth/auth_controller.dart';
 import '../auth/auth_state.dart';
+import '../enums/role.dart';
 import 'args/auth_args.dart';
 
 /// Root navigator key so full-screen routes (pushed above the shells, e.g. the
@@ -38,6 +40,25 @@ StatefulShellBranch _placeholderBranch({
         name: name,
         builder: (context, state) =>
             KShellPlaceholder(tabLabel: label(AppLocalizations.of(context))),
+      ),
+    ],
+  );
+}
+
+/// Builds the More-tab branch for a shell: a single [GoRoute] rendering the
+/// shared [MoreScreen] adapted to [role] (tenants get the simpler list). The
+/// More menu (T-007) is real now, so this branch is not a placeholder.
+StatefulShellBranch _moreBranch({
+  required String path,
+  required String name,
+  required Role role,
+}) {
+  return StatefulShellBranch(
+    routes: [
+      GoRoute(
+        path: path,
+        name: name,
+        builder: (context, state) => MoreScreen.forRole(role),
       ),
     ],
   );
@@ -196,11 +217,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             name: 'landlordRent',
             label: (l) => l.nav_rent,
           ),
-          _placeholderBranch(
-            // TODO(EPIC-02 T-007) replace with the more menu.
+          _moreBranch(
+            // More menu (T-007).
             path: '/landlord/more',
             name: 'landlordMore',
-            label: (l) => l.nav_more,
+            role: Role.landlord,
           ),
         ],
       ),
@@ -228,11 +249,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             name: 'managerRent',
             label: (l) => l.nav_rent,
           ),
-          _placeholderBranch(
-            // TODO(EPIC-22) replace with the manager more menu.
+          _moreBranch(
+            // More menu (T-007) — manager sees the full landlord-like list.
             path: '/manager/more',
             name: 'managerMore',
-            label: (l) => l.nav_more,
+            role: Role.manager,
           ),
         ],
       ),
@@ -260,11 +281,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             name: 'tenantReceipts',
             label: (l) => l.nav_receipts,
           ),
-          _placeholderBranch(
-            // TODO(EPIC-19) replace with the tenant more menu.
+          _moreBranch(
+            // More menu (T-007) — tenant gets the simpler list (no lease /
+            // warnings rows).
             path: '/tenant/more',
             name: 'tenantMore',
-            label: (l) => l.nav_more,
+            role: Role.tenant,
           ),
         ],
       ),

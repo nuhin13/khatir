@@ -142,6 +142,78 @@
   "@role_tenant_perk3": {
     "description": "Tenant perk: repairs."
   },
+  "more_title": "আরও · More",
+  "@more_title": {
+    "description": "More menu app-bar title."
+  },
+  "more_profile": "প্রোফাইল",
+  "@more_profile": {
+    "description": "More row: profile (Bangla primary)."
+  },
+  "more_profile_en": "Profile",
+  "@more_profile_en": {
+    "description": "More row: profile (English caption)."
+  },
+  "more_plan": "প্ল্যান ও বিলিং",
+  "@more_plan": {
+    "description": "More row: plan & billing (Bangla primary)."
+  },
+  "more_plan_en": "Plan & billing",
+  "@more_plan_en": {
+    "description": "More row: plan & billing (English caption)."
+  },
+  "more_lease": "AI লিজ তৈরি",
+  "@more_lease": {
+    "description": "More row: AI lease (Bangla primary, landlord/manager only)."
+  },
+  "more_lease_en": "AI lease",
+  "@more_lease_en": {
+    "description": "More row: AI lease (English caption)."
+  },
+  "more_warnings": "সতর্কতা ও অভিযোগ",
+  "@more_warnings": {
+    "description": "More row: warnings & complaints (Bangla primary, landlord/manager only)."
+  },
+  "more_warnings_en": "Warnings",
+  "@more_warnings_en": {
+    "description": "More row: warnings (English caption)."
+  },
+  "more_language": "ভাষা · বাংলা/EN",
+  "@more_language": {
+    "description": "More row: language toggle (Bangla primary)."
+  },
+  "more_language_en": "Language",
+  "@more_language_en": {
+    "description": "More row: language (English caption)."
+  },
+  "more_switch_role": "ভূমিকা পরিবর্তন",
+  "@more_switch_role": {
+    "description": "More row: switch role (Bangla primary)."
+  },
+  "more_switch_role_en": "Switch role",
+  "@more_switch_role_en": {
+    "description": "More row: switch role (English caption)."
+  },
+  "more_about": "Khatir সম্পর্কে",
+  "@more_about": {
+    "description": "More row: about Khatir (Bangla primary)."
+  },
+  "more_about_en": "About Khatir",
+  "@more_about_en": {
+    "description": "More row: about Khatir (English caption)."
+  },
+  "more_logout": "লগআউট · Log out",
+  "@more_logout": {
+    "description": "More menu logout button label."
+  },
+  "more_name_fallback": "ব্যবহারকারী",
+  "@more_name_fallback": {
+    "description": "Fallback name shown in the profile header when the user has no name."
+  },
+  "more_plan_chip": "Free 1/2",
+  "@more_plan_chip": {
+    "description": "Placeholder plan chip in the profile header (real value lands in EPIC-10)."
+  },
   "splash_loading": "লোড হচ্ছে…",
   "@splash_loading": {
     "description": "Loading copy shown on the splash while the session bootstraps."

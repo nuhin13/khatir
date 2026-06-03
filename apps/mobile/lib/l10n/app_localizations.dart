@@ -524,6 +524,114 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'মেরামত'**
   String get role_tenant_perk3;
+
+  /// More menu app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'আরও · More'**
+  String get more_title;
+
+  /// More row: profile (Bangla primary).
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রোফাইল'**
+  String get more_profile;
+
+  /// More row: profile (English caption).
+  ///
+  /// In bn, this message translates to:
+  /// **'Profile'**
+  String get more_profile_en;
+
+  /// More row: plan & billing (Bangla primary).
+  ///
+  /// In bn, this message translates to:
+  /// **'প্ল্যান ও বিলিং'**
+  String get more_plan;
+
+  /// More row: plan & billing (English caption).
+  ///
+  /// In bn, this message translates to:
+  /// **'Plan & billing'**
+  String get more_plan_en;
+
+  /// More row: AI lease (Bangla primary, landlord/manager only).
+  ///
+  /// In bn, this message translates to:
+  /// **'AI লিজ তৈরি'**
+  String get more_lease;
+
+  /// More row: AI lease (English caption).
+  ///
+  /// In bn, this message translates to:
+  /// **'AI lease'**
+  String get more_lease_en;
+
+  /// More row: warnings & complaints (Bangla primary, landlord/manager only).
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কতা ও অভিযোগ'**
+  String get more_warnings;
+
+  /// More row: warnings (English caption).
+  ///
+  /// In bn, this message translates to:
+  /// **'Warnings'**
+  String get more_warnings_en;
+
+  /// More row: language toggle (Bangla primary).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাষা · বাংলা/EN'**
+  String get more_language;
+
+  /// More row: language (English caption).
+  ///
+  /// In bn, this message translates to:
+  /// **'Language'**
+  String get more_language_en;
+
+  /// More row: switch role (Bangla primary).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভূমিকা পরিবর্তন'**
+  String get more_switch_role;
+
+  /// More row: switch role (English caption).
+  ///
+  /// In bn, this message translates to:
+  /// **'Switch role'**
+  String get more_switch_role_en;
+
+  /// More row: about Khatir (Bangla primary).
+  ///
+  /// In bn, this message translates to:
+  /// **'Khatir সম্পর্কে'**
+  String get more_about;
+
+  /// More row: about Khatir (English caption).
+  ///
+  /// In bn, this message translates to:
+  /// **'About Khatir'**
+  String get more_about_en;
+
+  /// More menu logout button label.
+  ///
+  /// In bn, this message translates to:
+  /// **'লগআউট · Log out'**
+  String get more_logout;
+
+  /// Fallback name shown in the profile header when the user has no name.
+  ///
+  /// In bn, this message translates to:
+  /// **'ব্যবহারকারী'**
+  String get more_name_fallback;
+
+  /// Placeholder plan chip in the profile header (real value lands in EPIC-10).
+  ///
+  /// In bn, this message translates to:
+  /// **'Free 1/2'**
+  String get more_plan_chip;
 }
 
 class _AppLocalizationsDelegate
