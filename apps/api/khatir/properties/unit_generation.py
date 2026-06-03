@@ -2,7 +2,9 @@
 
 The server is the authoritative source of truth for the wizard's unit step. The
 Flutter UI (T-011) mirrors this exact logic, and T-014 asserts parity against the
-same vectors — so this function must stay **pure** (no I/O, no Django, no model
+shared vectors in ``docs/design/khatir-ui/UNIT_GENERATION.md`` (see
+``tests/test_generation_parity.py`` here and ``unit_gen_parity_test.dart`` on the
+client) — so this function must stay **pure** (no I/O, no Django, no model
 access) and deterministic.
 
 Algorithm (matches ``unitLabels()`` in ``proto/screens-landlord.js``)

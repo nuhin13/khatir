@@ -9,7 +9,9 @@ import '../../data/models/property_enums.dart';
 /// only drives the live preview so the user sees exactly what `POST
 /// /buildings/{id}/units/generate` will create. Because of that, the algorithm
 /// must stay **pure** (no I/O, no Flutter) and byte-for-byte identical to the
-/// backend — EPIC-03/T-014 asserts parity against shared vectors.
+/// backend — EPIC-03/T-014 asserts parity against the shared vectors in
+/// `docs/design/khatir-ui/UNIT_GENERATION.md` (see `unit_gen_parity_test.dart`
+/// here and `tests/test_generation_parity.py` on the backend).
 ///
 /// Algorithm
 /// ---------

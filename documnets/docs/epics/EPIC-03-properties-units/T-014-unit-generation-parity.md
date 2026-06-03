@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Unit generation parity (UI↔API)
 layer: cross-cutting
 size: S
-status: todo
+status: in-progress
 preferred_agent: codex
 depends_on: [T-004, T-011]
 blocks: []
@@ -53,11 +53,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] Canonical vectors documented
-- [ ] Backend test matches vectors
-- [ ] Flutter test matches vectors
-- [ ] Cross-reference comments in both implementations
-- [ ] both test suites pass
+- [x] Canonical vectors documented (`docs/design/khatir-ui/UNIT_GENERATION.md`)
+- [x] Backend test matches vectors (`test_generation_parity.py` — 6 tests green)
+- [x] Flutter test matches vectors (`unit_gen_parity_test.dart` — same 5 vectors)
+- [x] Cross-reference comments in both implementations
+- [ ] both test suites pass — backend green; Flutter NOT executed (no Dart/Flutter toolchain in this env)
 
 ## 12. Test plan
 ### Automated
@@ -66,12 +66,21 @@ None.
 1. Generate same config on both → identical labels.
 
 ## 13. Acceptance criteria
-- [ ] Identical labels for identical inputs across UI + API; both tests pass.
+- [~] Identical labels for identical inputs across UI + API; both tests pass.
+      Vectors are byte-for-byte identical across both test files; backend suite
+      green. Flutter suite could not be executed here (no Dart/Flutter toolchain).
 
 ## 14. Self-review
-- [ ] Vectors cover both schemes + custom + removal
+- [x] Vectors cover both schemes + custom + removal
 ### Deviations from spec
+- Shared vectors captured in `docs/design/khatir-ui/UNIT_GENERATION.md` (the
+  `UNIT_GENERATION.md` option offered in §5).
 ### Files touched (actual)
+- `apps/api/khatir/properties/tests/test_generation_parity.py` (add)
+- `apps/mobile/test/unit_gen_parity_test.dart` (add)
+- `documnets/docs/design/khatir-ui/UNIT_GENERATION.md` (add)
+- `apps/api/khatir/properties/unit_generation.py` (cross-ref comment)
+- `apps/mobile/.../wizard/unit_label_gen.dart` (cross-ref comment)
 
 ## 15. Notes for the implementing agent
 - If a divergence is found, the backend is the source of truth — fix the client to match.
