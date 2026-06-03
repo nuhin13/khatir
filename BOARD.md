@@ -40,3 +40,4 @@
 2026-06-03 | EPIC-03/T-006 | backend | claude | done | -
 2026-06-03 | EPIC-03/T-001 | backend | claude | done | -
 2026-06-03 | EPIC-03/T-008 | mobile | claude | in-progress | no Flutter/Dart toolchain to run analyze+test
+2026-06-03 | EPIC-03/T-002 | backend | claude | done | -

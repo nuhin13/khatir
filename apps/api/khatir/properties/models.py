@@ -16,9 +16,10 @@ from decimal import Decimal
 from django.conf import settings
 from django.db import models
 
-from khatir.core.models import SoftDeleteModel
+from khatir.core.models import AllObjectsManager, SoftDeleteModel
 
 from .enums import Area, UnitStatus, UnitType
+from .managers import BuildingManager, UnitManager
 
 
 class Building(SoftDeleteModel):
@@ -53,6 +54,9 @@ class Building(SoftDeleteModel):
         default=None,
         help_text="Optional map-pin longitude.",
     )
+
+    objects = BuildingManager()  # type: ignore[misc]
+    all_objects = AllObjectsManager()  # type: ignore[misc]
 
     class Meta:
         ordering = ("-created_at",)
@@ -101,6 +105,9 @@ class Unit(SoftDeleteModel):
         default=None,
         help_text="When the unit becomes available.",
     )
+
+    objects = UnitManager()  # type: ignore[misc]
+    all_objects = AllObjectsManager()  # type: ignore[misc]
 
     class Meta:
         ordering = ("building", "label")
