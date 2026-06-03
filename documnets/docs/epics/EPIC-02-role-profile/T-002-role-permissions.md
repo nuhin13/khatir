@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Role enum + permission helpers (role gating base)
 layer: backend
 size: XS
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-01.T-002]
 blocks: []
@@ -61,11 +61,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] IsLandlord / IsManager / IsTenant / IsLandlordOrManager
-- [ ] HasRole(*roles) factory
-- [ ] Module docstring with composition example
-- [ ] Tests: each class allows correct role, denies others
-- [ ] ruff + mypy clean
+- [x] IsLandlord / IsManager / IsTenant / IsLandlordOrManager
+- [x] HasRole(*roles) factory
+- [x] Module docstring with composition example
+- [x] Tests: each class allows correct role, denies others
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -75,15 +75,25 @@ None.
 - n/a (covered by units)
 
 ## 13. Acceptance criteria
-- [ ] Role permission classes available + tested.
-- [ ] Composition pattern documented.
-- [ ] Tests + lint pass.
+- [x] Role permission classes available + tested.
+- [x] Composition pattern documented.
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] No inline role checks introduced elsewhere
-- [ ] Classes reusable + tested
+- [x] No inline role checks introduced elsewhere
+- [x] Classes reusable + tested
 ### Deviations from spec
+- Classes live in `khatir.core.permissions` (extending the EPIC-00 base there), not a new
+  `accounts/permissions.py` — matches the spec's "extend the base from EPIC-00 T-005" note and
+  §15 ("keep these in core so every app imports from one place").
+- The pre-existing single-role base was `HasRole` with a single `required_role`. To satisfy the
+  spec's generic `HasRole(*roles)` *factory*, the base class was renamed `RoleBasedPermission`
+  (now `required_roles: tuple`) and `HasRole` is a factory returning a permission class. No
+  external code imported the old name (verified by grep), so this is non-breaking.
+- Added `IsLandlordOrManager` (was missing).
 ### Files touched (actual)
+- `apps/api/khatir/core/permissions.py`
+- `apps/api/khatir/core/tests/test_permissions.py`
 
 ## 15. Notes for the implementing agent
 - Read role from `request.user.role` (DB truth), not the token claim, to avoid stale-role bugs after a role switch.

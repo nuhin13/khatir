@@ -4,6 +4,38 @@ Domain apps subclass these and add intent-named permissions in their own
 ``permissions.py`` (``04_coding_conventions.md`` §4). Compose with ``&`` / ``|``;
 never inline permission logic in a view body.
 
+Role gating (``04_coding_conventions.md`` §4)
+---------------------------------------------
+Gate endpoints with the role permission classes below — never write
+``if request.user.role == ...`` inside a view. Role is read from
+``request.user.role`` (the DB truth), not the token claim, so a role switch
+takes effect immediately and there are no stale-role bugs.
+
+The single-role classes (:class:`IsLandlord`, :class:`IsManager`,
+:class:`IsTenant`, :class:`IsAdminRole`) and the multi-role helpers
+(:class:`IsLandlordOrManager`, the :func:`HasRole` factory) all combine with
+DRF's ``&`` (AND) / ``|`` (OR) operators::
+
+    from khatir.core.permissions import (
+        HasRole, IsLandlord, IsLandlordOrManager, IsManager,
+    )
+    from khatir.core.enums import Role
+
+    class BuildingViewSet(ModelViewSet):
+        # landlords OR managers may reach this endpoint
+        permission_classes = [IsLandlordOrManager]
+
+    class PayoutViewSet(ModelViewSet):
+        # equivalent, spelled with the explicit factory
+        permission_classes = [HasRole(Role.LANDLORD, Role.MANAGER)]
+
+    class ReportView(APIView):
+        # AND-compose role gating with object/feature checks
+        permission_classes = [IsLandlord & SomeOtherPermission]
+
+The factory and the composed classes are interchangeable; pick whichever reads
+clearest at the call site.
+
 Row-level isolation (``04_coding_conventions.md`` §3)
 -----------------------------------------------------
 Every domain model that belongs to a user is filtered through a ``for_user()``
@@ -48,34 +80,63 @@ class IsAuthenticated(BasePermission):
         return bool(request.user and request.user.is_authenticated)
 
 
-class HasRole(BasePermission):
-    """Base for role checks. Subclasses set ``required_role``."""
+class RoleBasedPermission(BasePermission):
+    """Base for role checks. Subclasses set ``required_roles``.
 
-    required_role: str | None = None
+    An empty ``required_roles`` means "any authenticated user" — the class then
+    behaves like :class:`IsAuthenticated`. Role is read from ``request.user.role``
+    (DB truth), never the token claim, so a role switch is effective immediately.
+    """
+
+    required_roles: tuple[str, ...] = ()
 
     def has_permission(self, request: Request, view: Any) -> bool:
         user = request.user
         if not (user and user.is_authenticated):
             return False
-        if self.required_role is None:
+        if not self.required_roles:
             return True
-        return getattr(user, "role", None) == self.required_role
+        return getattr(user, "role", None) in self.required_roles
 
 
-class IsLandlord(HasRole):
-    required_role = Role.LANDLORD
+def HasRole(*roles: str) -> type[RoleBasedPermission]:  # noqa: N802 - DRF classes are CapWords
+    """Factory returning a permission class that allows any of ``roles``.
+
+    Use when no named class exists for the combination you need::
+
+        permission_classes = [HasRole(Role.LANDLORD, Role.MANAGER)]
+
+    The returned class composes with ``&`` / ``|`` like any other permission.
+    """
+    allowed = tuple(roles)
+    label = "_".join(str(r) for r in allowed) or "Any"
+
+    class _HasRole(RoleBasedPermission):
+        required_roles = allowed
+
+    _HasRole.__name__ = f"HasRole_{label}"
+    _HasRole.__qualname__ = _HasRole.__name__
+    return _HasRole
 
 
-class IsManager(HasRole):
-    required_role = Role.MANAGER
+class IsLandlord(RoleBasedPermission):
+    required_roles = (Role.LANDLORD,)
 
 
-class IsTenant(HasRole):
-    required_role = Role.TENANT
+class IsManager(RoleBasedPermission):
+    required_roles = (Role.MANAGER,)
 
 
-class IsAdminRole(HasRole):
-    required_role = Role.ADMIN
+class IsTenant(RoleBasedPermission):
+    required_roles = (Role.TENANT,)
+
+
+class IsAdminRole(RoleBasedPermission):
+    required_roles = (Role.ADMIN,)
+
+
+class IsLandlordOrManager(RoleBasedPermission):
+    required_roles = (Role.LANDLORD, Role.MANAGER)
 
 
 class ForUserQuerySetMixin:
