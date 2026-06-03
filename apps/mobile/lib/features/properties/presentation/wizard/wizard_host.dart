@@ -8,6 +8,8 @@ import '../../../../l10n/app_localizations.dart';
 import 'add_building_controller.dart';
 import 'step1_name_area.dart';
 import 'step2_address_map.dart';
+import 'step3_units.dart';
+import 'step4_review.dart';
 import 'wizard_progress.dart';
 
 /// Host screen for the 4-step add-building wizard (`/properties/add`).
@@ -32,9 +34,8 @@ class WizardHost extends ConsumerWidget {
     final titles = <String>[
       l10n.wizard_title_name,
       l10n.wizard_title_address,
-      // Steps 3–4 titles are owned by T-011; reuse sensible fallbacks for now.
-      l10n.wizard_title_address,
-      l10n.wizard_title_address,
+      l10n.wizard_title_units,
+      l10n.wizard_title_review,
     ];
 
     void onBack() {
@@ -85,9 +86,10 @@ class _StepView extends StatelessWidget {
         return Step1NameArea(onNext: onNext);
       case 2:
         return Step2AddressMap(onNext: onNext);
+      case 3:
+        return Step3Units(onNext: onNext);
       default:
-        // TODO(EPIC-03 T-011) units (step 3) + review/save (step 4).
-        return const _StepPlaceholder();
+        return const Step4Review();
     }
   }
 }
@@ -133,24 +135,6 @@ class _WizardTopBar extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// Placeholder for the not-yet-built steps 3–4 (T-011).
-class _StepPlaceholder extends StatelessWidget {
-  const _StepPlaceholder();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(KhatirSpacing.s6),
-        child: Text(
-          '🚧',
-          style: AppTextStyles.titleLarge.copyWith(fontSize: 40),
-        ),
       ),
     );
   }

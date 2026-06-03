@@ -539,4 +539,106 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wizard_err_address => 'ঠিকানা দিন · Enter an address';
+
+  @override
+  String get wizard_title_units => 'ফ্ল্যাট/ইউনিট · Units';
+
+  @override
+  String get wizard_title_review => 'সংক্ষিপ্ত · Review';
+
+  @override
+  String get wizard_step3_hero_title => 'How many flats?';
+
+  @override
+  String get wizard_step3_hero_sub => 'কয়টি ফ্ল্যাট, কোন ফ্লোরে';
+
+  @override
+  String get wizard_step4_hero_title => 'Looks good?';
+
+  @override
+  String get wizard_step4_hero_sub => 'সব ঠিক আছে?';
+
+  @override
+  String get wizard_floors => 'মোট ফ্লোর · Floors';
+
+  @override
+  String get wizard_floors_sub => 'কয়টি তলা';
+
+  @override
+  String get wizard_per_floor => 'প্রতি ফ্লোরে ফ্ল্যাট · Flats / floor';
+
+  @override
+  String get wizard_per_floor_sub => 'প্রতি তলায় কয়টি';
+
+  @override
+  String get wizard_scheme => 'নম্বরিং ধরন · Numbering scheme';
+
+  @override
+  String get wizard_scheme_letter => 'ফ্লোর + অক্ষর';
+
+  @override
+  String get wizard_scheme_number => 'ফ্লোর × ১০০';
+
+  @override
+  String wizard_units_count(int count) {
+    return 'ইউনিট তালিকা · $count units';
+  }
+
+  @override
+  String get wizard_units_empty =>
+      'ফ্লোর ও ফ্ল্যাট বাড়ান, অথবা কাস্টম যোগ করুন · Add floors/flats or a custom unit';
+
+  @override
+  String get wizard_units_footnote =>
+      'প্রতিটি ইউনিটে পরে ভাড়া ও ভাড়াটিয়া যোগ করবেন · Add rent & tenant per unit later';
+
+  @override
+  String get wizard_add_custom => '+ কাস্টম · Custom';
+
+  @override
+  String get wizard_add_custom_title => 'কাস্টম ইউনিট · Custom unit';
+
+  @override
+  String get wizard_add_custom_hint => 'যেমন 8B, 2001';
+
+  @override
+  String get wizard_cancel => 'বাতিল · Cancel';
+
+  @override
+  String get wizard_add => 'যোগ · Add';
+
+  @override
+  String get wizard_next_review => 'পরবর্তী — দেখুন · Review';
+
+  @override
+  String get wizard_review_building => 'বিল্ডিং · Building';
+
+  @override
+  String get wizard_review_area => 'এলাকা · Area';
+
+  @override
+  String get wizard_review_address => 'ঠিকানা · Address';
+
+  @override
+  String get wizard_review_pin => 'ম্যাপ পিন · Pin';
+
+  @override
+  String get wizard_review_pin_saved => 'সংরক্ষিত · Saved';
+
+  @override
+  String get wizard_review_units => 'মোট ইউনিট · Units';
+
+  @override
+  String wizard_review_units_value(int count, int floors, int perFloor) {
+    return '$count টি ($floors ফ্লোর × $perFloor)';
+  }
+
+  @override
+  String get wizard_save => 'বিল্ডিং সেভ করুন · Save building';
+
+  @override
+  String get wizard_saving => 'সেভ হচ্ছে · Saving…';
+
+  @override
+  String get wizard_saved => 'বিল্ডিং সেভ হয়েছে · Building saved';
 }

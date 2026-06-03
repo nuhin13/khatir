@@ -544,4 +544,105 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get wizard_err_address => 'ঠিকানা দিন';
+
+  @override
+  String get wizard_title_units => 'ফ্ল্যাট/ইউনিট';
+
+  @override
+  String get wizard_title_review => 'সংক্ষিপ্ত';
+
+  @override
+  String get wizard_step3_hero_title => 'কয়টি ফ্ল্যাট?';
+
+  @override
+  String get wizard_step3_hero_sub => 'কয়টি ফ্ল্যাট, কোন ফ্লোরে';
+
+  @override
+  String get wizard_step4_hero_title => 'সব ঠিক?';
+
+  @override
+  String get wizard_step4_hero_sub => 'সব ঠিক আছে?';
+
+  @override
+  String get wizard_floors => 'মোট ফ্লোর';
+
+  @override
+  String get wizard_floors_sub => 'কয়টি তলা';
+
+  @override
+  String get wizard_per_floor => 'প্রতি ফ্লোরে ফ্ল্যাট';
+
+  @override
+  String get wizard_per_floor_sub => 'প্রতি তলায় কয়টি';
+
+  @override
+  String get wizard_scheme => 'নম্বরিং ধরন';
+
+  @override
+  String get wizard_scheme_letter => 'ফ্লোর + অক্ষর';
+
+  @override
+  String get wizard_scheme_number => 'ফ্লোর × ১০০';
+
+  @override
+  String wizard_units_count(int count) {
+    return 'ইউনিট তালিকা · $count টি';
+  }
+
+  @override
+  String get wizard_units_empty => 'ফ্লোর ও ফ্ল্যাট বাড়ান, অথবা কাস্টম যোগ করুন';
+
+  @override
+  String get wizard_units_footnote =>
+      'প্রতিটি ইউনিটে পরে ভাড়া ও ভাড়াটিয়া যোগ করবেন';
+
+  @override
+  String get wizard_add_custom => '+ কাস্টম';
+
+  @override
+  String get wizard_add_custom_title => 'কাস্টম ইউনিট';
+
+  @override
+  String get wizard_add_custom_hint => 'যেমন 8B, 2001';
+
+  @override
+  String get wizard_cancel => 'বাতিল';
+
+  @override
+  String get wizard_add => 'যোগ';
+
+  @override
+  String get wizard_next_review => 'পরবর্তী — দেখুন';
+
+  @override
+  String get wizard_review_building => 'বিল্ডিং';
+
+  @override
+  String get wizard_review_area => 'এলাকা';
+
+  @override
+  String get wizard_review_address => 'ঠিকানা';
+
+  @override
+  String get wizard_review_pin => 'ম্যাপ পিন';
+
+  @override
+  String get wizard_review_pin_saved => 'সংরক্ষিত';
+
+  @override
+  String get wizard_review_units => 'মোট ইউনিট';
+
+  @override
+  String wizard_review_units_value(int count, int floors, int perFloor) {
+    return '$count টি ($floors ফ্লোর × $perFloor)';
+  }
+
+  @override
+  String get wizard_save => 'বিল্ডিং সেভ করুন';
+
+  @override
+  String get wizard_saving => 'সেভ হচ্ছে…';
+
+  @override
+  String get wizard_saved => 'বিল্ডিং সেভ হয়েছে';
 }

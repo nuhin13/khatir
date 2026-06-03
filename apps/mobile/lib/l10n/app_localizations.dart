@@ -872,6 +872,102 @@ abstract class AppLocalizations {
 
   /// Validation error when the address is empty.
   String get wizard_err_address;
+
+  /// Top-bar title for the units step (3).
+  String get wizard_title_units;
+
+  /// Top-bar title for the review step (4).
+  String get wizard_title_review;
+
+  /// Step-3 hero headline (English).
+  String get wizard_step3_hero_title;
+
+  /// Step-3 hero subtitle (Bangla).
+  String get wizard_step3_hero_sub;
+
+  /// Step-4 hero headline (English).
+  String get wizard_step4_hero_title;
+
+  /// Step-4 hero subtitle (Bangla).
+  String get wizard_step4_hero_sub;
+
+  /// Stepper label for the number of floors.
+  String get wizard_floors;
+
+  /// Stepper sub-label for floors (Bangla).
+  String get wizard_floors_sub;
+
+  /// Stepper label for flats per floor.
+  String get wizard_per_floor;
+
+  /// Stepper sub-label for flats per floor (Bangla).
+  String get wizard_per_floor_sub;
+
+  /// Field label for the unit numbering scheme toggle.
+  String get wizard_scheme;
+
+  /// Letter scheme sub-label (floor + letter).
+  String get wizard_scheme_letter;
+
+  /// Number scheme sub-label (floor × 100).
+  String get wizard_scheme_number;
+
+  /// Header for the generated unit list with a count.
+  String wizard_units_count(int count);
+
+  /// Shown when no units would be generated.
+  String get wizard_units_empty;
+
+  /// Footnote under the unit list.
+  String get wizard_units_footnote;
+
+  /// Chip that opens the add-custom-unit dialog.
+  String get wizard_add_custom;
+
+  /// Title of the add-custom-unit dialog.
+  String get wizard_add_custom_title;
+
+  /// Hint for the custom unit label field.
+  String get wizard_add_custom_hint;
+
+  /// Dialog cancel action.
+  String get wizard_cancel;
+
+  /// Dialog add action.
+  String get wizard_add;
+
+  /// Step-3 primary button: advance to the review step.
+  String get wizard_next_review;
+
+  /// Review row label: building name.
+  String get wizard_review_building;
+
+  /// Review row label: area.
+  String get wizard_review_area;
+
+  /// Review row label: address.
+  String get wizard_review_address;
+
+  /// Review row label: map pin.
+  String get wizard_review_pin;
+
+  /// Review row value when a pin is set.
+  String get wizard_review_pin_saved;
+
+  /// Review row label: total units.
+  String get wizard_review_units;
+
+  /// Review row value summarising the unit count and grid.
+  String wizard_review_units_value(int count, int floors, int perFloor);
+
+  /// Step-4 primary button: persist the building and units.
+  String get wizard_save;
+
+  /// Save button label while the save is in flight.
+  String get wizard_saving;
+
+  /// Success toast shown after the building + units are saved.
+  String get wizard_saved;
 }
 
 class _AppLocalizationsDelegate

@@ -371,5 +371,149 @@
   "wizard_err_address": "ঠিকানা দিন · Enter an address",
   "@wizard_err_address": {
     "description": "Validation error when the address is empty."
+  },
+  "wizard_title_units": "ফ্ল্যাট/ইউনিট · Units",
+  "@wizard_title_units": {
+    "description": "Top-bar title for the units step (3)."
+  },
+  "wizard_title_review": "সংক্ষিপ্ত · Review",
+  "@wizard_title_review": {
+    "description": "Top-bar title for the review step (4)."
+  },
+  "wizard_step3_hero_title": "How many flats?",
+  "@wizard_step3_hero_title": {
+    "description": "Step-3 hero headline (English)."
+  },
+  "wizard_step3_hero_sub": "কয়টি ফ্ল্যাট, কোন ফ্লোরে",
+  "@wizard_step3_hero_sub": {
+    "description": "Step-3 hero subtitle (Bangla)."
+  },
+  "wizard_step4_hero_title": "Looks good?",
+  "@wizard_step4_hero_title": {
+    "description": "Step-4 hero headline (English)."
+  },
+  "wizard_step4_hero_sub": "সব ঠিক আছে?",
+  "@wizard_step4_hero_sub": {
+    "description": "Step-4 hero subtitle (Bangla)."
+  },
+  "wizard_floors": "মোট ফ্লোর · Floors",
+  "@wizard_floors": {
+    "description": "Stepper label for the number of floors."
+  },
+  "wizard_floors_sub": "কয়টি তলা",
+  "@wizard_floors_sub": {
+    "description": "Stepper sub-label for floors (Bangla)."
+  },
+  "wizard_per_floor": "প্রতি ফ্লোরে ফ্ল্যাট · Flats / floor",
+  "@wizard_per_floor": {
+    "description": "Stepper label for flats per floor."
+  },
+  "wizard_per_floor_sub": "প্রতি তলায় কয়টি",
+  "@wizard_per_floor_sub": {
+    "description": "Stepper sub-label for flats per floor (Bangla)."
+  },
+  "wizard_scheme": "নম্বরিং ধরন · Numbering scheme",
+  "@wizard_scheme": {
+    "description": "Field label for the unit numbering scheme toggle."
+  },
+  "wizard_scheme_letter": "ফ্লোর + অক্ষর",
+  "@wizard_scheme_letter": {
+    "description": "Letter scheme sub-label (floor + letter)."
+  },
+  "wizard_scheme_number": "ফ্লোর × ১০০",
+  "@wizard_scheme_number": {
+    "description": "Number scheme sub-label (floor × 100)."
+  },
+  "wizard_units_count": "ইউনিট তালিকা · {count} units",
+  "@wizard_units_count": {
+    "description": "Header for the generated unit list with a count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wizard_units_empty": "ফ্লোর ও ফ্ল্যাট বাড়ান, অথবা কাস্টম যোগ করুন · Add floors/flats or a custom unit",
+  "@wizard_units_empty": {
+    "description": "Shown when no units would be generated."
+  },
+  "wizard_units_footnote": "প্রতিটি ইউনিটে পরে ভাড়া ও ভাড়াটিয়া যোগ করবেন · Add rent & tenant per unit later",
+  "@wizard_units_footnote": {
+    "description": "Footnote under the unit list."
+  },
+  "wizard_add_custom": "+ কাস্টম · Custom",
+  "@wizard_add_custom": {
+    "description": "Chip that opens the add-custom-unit dialog."
+  },
+  "wizard_add_custom_title": "কাস্টম ইউনিট · Custom unit",
+  "@wizard_add_custom_title": {
+    "description": "Title of the add-custom-unit dialog."
+  },
+  "wizard_add_custom_hint": "যেমন 8B, 2001",
+  "@wizard_add_custom_hint": {
+    "description": "Hint for the custom unit label field."
+  },
+  "wizard_cancel": "বাতিল · Cancel",
+  "@wizard_cancel": {
+    "description": "Dialog cancel action."
+  },
+  "wizard_add": "যোগ · Add",
+  "@wizard_add": {
+    "description": "Dialog add action."
+  },
+  "wizard_next_review": "পরবর্তী — দেখুন · Review",
+  "@wizard_next_review": {
+    "description": "Step-3 primary button: advance to the review step."
+  },
+  "wizard_review_building": "বিল্ডিং · Building",
+  "@wizard_review_building": {
+    "description": "Review row label: building name."
+  },
+  "wizard_review_area": "এলাকা · Area",
+  "@wizard_review_area": {
+    "description": "Review row label: area."
+  },
+  "wizard_review_address": "ঠিকানা · Address",
+  "@wizard_review_address": {
+    "description": "Review row label: address."
+  },
+  "wizard_review_pin": "ম্যাপ পিন · Pin",
+  "@wizard_review_pin": {
+    "description": "Review row label: map pin."
+  },
+  "wizard_review_pin_saved": "সংরক্ষিত · Saved",
+  "@wizard_review_pin_saved": {
+    "description": "Review row value when a pin is set."
+  },
+  "wizard_review_units": "মোট ইউনিট · Units",
+  "@wizard_review_units": {
+    "description": "Review row label: total units."
+  },
+  "wizard_review_units_value": "{count} টি ({floors} ফ্লোর × {perFloor})",
+  "@wizard_review_units_value": {
+    "description": "Review row value summarising the unit count and grid.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "floors": {
+        "type": "int"
+      },
+      "perFloor": {
+        "type": "int"
+      }
+    }
+  },
+  "wizard_save": "বিল্ডিং সেভ করুন · Save building",
+  "@wizard_save": {
+    "description": "Step-4 primary button: persist the building and units."
+  },
+  "wizard_saving": "সেভ হচ্ছে · Saving…",
+  "@wizard_saving": {
+    "description": "Save button label while the save is in flight."
+  },
+  "wizard_saved": "বিল্ডিং সেভ হয়েছে · Building saved",
+  "@wizard_saved": {
+    "description": "Success toast shown after the building + units are saved."
   }
 }

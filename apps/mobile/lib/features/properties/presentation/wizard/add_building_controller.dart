@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../data/models/property_enums.dart';
+import 'unit_label_gen.dart';
 
 /// Immutable snapshot of the entire 4-step add-building wizard.
 ///
@@ -80,6 +81,20 @@ class AddBuildingState {
   /// Step-2 is complete when a non-blank address is set (the pin is optional).
   bool get step2Valid => address.trim().isNotEmpty;
 
+  /// The live, ordered unit labels for the current units config — the client
+  /// mirror of the backend generator (drives the step-3 preview and the step-4
+  /// review). See [generateUnitLabels].
+  List<String> get unitLabels => generateUnitLabels(
+        floors: floors,
+        perFloor: perFloor,
+        scheme: scheme,
+        custom: customLabels,
+        removed: removedLabels,
+      );
+
+  /// Step-3 is complete when at least one unit will be generated.
+  bool get step3Valid => unitLabels.isNotEmpty;
+
   AddBuildingState copyWith({
     int? step,
     String? name,
@@ -155,6 +170,65 @@ class AddBuildingController extends AutoDisposeNotifier<AddBuildingState> {
         customLabels: state.customLabels,
         removedLabels: state.removedLabels,
       );
+
+  // ── Step 3 mutations (units) ─────────────────────────────────────────────-
+  /// Sets the floor count, clamped to `1..20` (matches the prototype steppers).
+  void setFloors(int floors) =>
+      state = state.copyWith(floors: floors.clamp(1, 20));
+
+  /// Sets the per-floor count, clamped to `1..20`.
+  void setPerFloor(int perFloor) =>
+      state = state.copyWith(perFloor: perFloor.clamp(1, 20));
+
+  /// Bumps the floor count by [delta] (clamped `1..20`).
+  void changeFloors(int delta) => setFloors(state.floors + delta);
+
+  /// Bumps the per-floor count by [delta] (clamped `1..20`).
+  void changePerFloor(int delta) => setPerFloor(state.perFloor + delta);
+
+  /// Switches the numbering scheme. Generated labels regenerate; [customLabels]
+  /// and [removedLabels] are preserved (a custom `8B` survives a scheme flip).
+  void setScheme(UnitScheme scheme) => state = state.copyWith(scheme: scheme);
+
+  /// Appends a custom unit label. Blank/whitespace and already-present labels
+  /// are ignored so the generated list stays de-duplicated. If [label] was
+  /// previously removed, it is un-removed instead of duplicated.
+  void addCustomLabel(String label) {
+    final trimmed = label.trim();
+    if (trimmed.isEmpty) return;
+    if (state.removedLabels.contains(trimmed)) {
+      removeFromRemoved(trimmed);
+      return;
+    }
+    if (state.unitLabels.contains(trimmed)) return;
+    state = state.copyWith(
+      customLabels: [...state.customLabels, trimmed],
+    );
+  }
+
+  /// Removes a label from the generated list. A custom label is dropped from
+  /// [customLabels]; a scheme-generated label is added to [removedLabels] so it
+  /// stays hidden even as floors/per-floor change.
+  void removeLabel(String label) {
+    if (state.customLabels.contains(label)) {
+      state = state.copyWith(
+        customLabels:
+            state.customLabels.where((l) => l != label).toList(growable: false),
+      );
+    } else {
+      state = state.copyWith(
+        removedLabels: {...state.removedLabels, label},
+      );
+    }
+  }
+
+  /// Un-removes a previously removed label.
+  void removeFromRemoved(String label) {
+    if (!state.removedLabels.contains(label)) return;
+    state = state.copyWith(
+      removedLabels: state.removedLabels.where((l) => l != label).toSet(),
+    );
+  }
 
   // ── Navigation ─────────────────────────────────────────────────────────--
   /// Advances to the next step (capped at 4). Callers gate on the per-step
