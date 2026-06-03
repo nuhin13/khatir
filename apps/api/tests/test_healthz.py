@@ -23,6 +23,18 @@ def test_config_public_exposes_intro_slide_skip_allowed(api_client: APIClient) -
 
 
 @pytest.mark.django_db
+def test_area_options_in_public_config(api_client: APIClient) -> None:
+    # Seeded by the 0003_seed_area_options data migration.
+    response = api_client.get("/api/v1/config/public")
+    assert response.status_code == 200
+    areas = response.json()["config"]["area_options"]
+    assert isinstance(areas, list)
+    assert "uttara" in areas
+    assert "other" in areas
+    assert len(areas) == 10
+
+
+@pytest.mark.django_db
 def test_config_public_reflects_db_override(api_client: APIClient) -> None:
     SystemConfig.objects.filter(key="intro_slide_skip_allowed").update(value="false")
     SystemConfig.objects.get(key="intro_slide_skip_allowed").save()  # invalidate cache

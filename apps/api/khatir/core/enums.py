@@ -44,6 +44,21 @@ class SystemConfigType(models.TextChoices):
     BOOL = "bool", "Boolean"
 
 
+class Area(models.TextChoices):
+    """Dhaka zones — admin-extensible via the ``area_options`` SystemConfig."""
+
+    UTTARA = "uttara", "Uttara"
+    MIRPUR = "mirpur", "Mirpur"
+    MOHAMMADPUR = "mohammadpur", "Mohammadpur"
+    DHANMONDI = "dhanmondi", "Dhanmondi"
+    BANASREE = "banasree", "Banasree"
+    GULSHAN = "gulshan", "Gulshan"
+    BANANI = "banani", "Banani"
+    BASHUNDHARA = "bashundhara", "Bashundhara"
+    OLD_DHAKA = "old_dhaka", "Old Dhaka"
+    OTHER = "other", "Other"
+
+
 class ErrorCode(models.TextChoices):
     """API error-envelope codes (canonical, see ``04_coding_conventions.md`` §1)."""
 

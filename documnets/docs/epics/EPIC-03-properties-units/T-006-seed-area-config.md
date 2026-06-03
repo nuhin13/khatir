@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Seed area_options SystemConfig
 layer: backend
 size: XS
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-00.T-005]
 blocks: [T-010]
@@ -52,11 +52,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] Seed area_options from Area enum
-- [ ] Exposed in /config/public
-- [ ] Idempotent + reversible
-- [ ] Test
-- [ ] ruff clean
+- [x] Seed area_options from Area enum
+- [x] Exposed in /config/public
+- [x] Idempotent + reversible
+- [x] Test
+- [x] ruff clean
 
 ## 12. Test plan
 ### Automated
@@ -65,12 +65,21 @@ None.
 1. GET /config/public shows areas.
 
 ## 13. Acceptance criteria
-- [ ] area_options seeded + public; reversible; test passes.
+- [x] area_options seeded + public; reversible; test passes.
 
 ## 14. Self-review
-- [ ] Default matches Area enum
+- [x] Default matches Area enum
 ### Deviations from spec
+- `SystemConfigType` has no `json` variant, so `area_options` is stored as `text`
+  holding a JSON-encoded array; the view parses it back to a list.
+- Added a frozen `Area` TextChoices enum in `khatir/core/enums.py` (no properties
+  app exists yet); the migration mirrors the values per Django migration hygiene.
 ### Files touched (actual)
+- apps/api/khatir/core/enums.py (add `Area`)
+- apps/api/khatir/core/migrations/0003_seed_area_options.py (new)
+- apps/api/khatir/health/views.py (expose `area_options`)
+- apps/api/khatir/core/tests/test_seed_area_options.py (new)
+- apps/api/tests/test_healthz.py (add `test_area_options_in_public_config`)
 
 ## 15. Notes for the implementing agent
 - Areas from enums.md Area: uttara, mirpur, mohammadpur, dhanmondi, banasree, gulshan, banani, bashundhara, old_dhaka, other.
