@@ -50,6 +50,10 @@ LOCAL_APPS = [
     "khatir.accounts",
     "khatir.properties",
     "khatir.tenants",
+    "khatir.leases",
+    "khatir.maintenance",
+    "khatir.billing",
+    "khatir.admin_portal",
     "khatir.health",
 ]
 

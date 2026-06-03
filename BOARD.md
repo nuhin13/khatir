@@ -66,3 +66,7 @@
 2026-06-04 | EPIC-03/T-013 | mobile | claude | done | controller update()->save() rename (Riverpod clash); analyze+test green
 2026-06-04 | EPIC-03/T-014 | cross-cutting | claude | done | unit-label parity test green under flutter test
 2026-06-04 | EPIC-04/T-001 | backend | claude | done | tenants app: Tenant+TenantFamilyMember, VerificationStatus, migration; 12 model tests, ruff+mypy clean
+2026-06-04 | EPIC-06/T-001 | backend | claude | done | leases app: Lease + RentSchedule + enums; 26 tests; full suite 378 pass
+2026-06-04 | EPIC-08/T-001 | backend | claude | done | maintenance app: MaintenanceRequest + Expense + enums; 17 tests; 378 pass
+2026-06-04 | EPIC-10/T-001 | backend | claude | done | billing app: PricingTier + Subscription + enums; 17 tests; 378 pass
+2026-06-04 | EPIC-11/T-001 | backend | claude | done | admin_portal app: AdminUser (separate from User); 23 tests; 378 pass
