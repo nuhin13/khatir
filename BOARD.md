@@ -65,3 +65,4 @@
 2026-06-04 | EPIC-03/T-012 | mobile | claude | done | verified via flutter analyze+test (120 pass)
 2026-06-04 | EPIC-03/T-013 | mobile | claude | done | controller update()->save() rename (Riverpod clash); analyze+test green
 2026-06-04 | EPIC-03/T-014 | cross-cutting | claude | done | unit-label parity test green under flutter test
+2026-06-04 | EPIC-04/T-001 | backend | claude | done | tenants app: Tenant+TenantFamilyMember, VerificationStatus, migration; 12 model tests, ruff+mypy clean
