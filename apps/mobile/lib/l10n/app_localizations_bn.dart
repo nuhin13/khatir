@@ -18,6 +18,32 @@ class AppLocalizationsBn extends AppLocalizations {
   String get common_logout => 'লগ আউট';
 
   @override
+  String get nav_home => 'হোম';
+
+  @override
+  String get nav_charts => 'চার্ট';
+
+  @override
+  String get nav_add => 'যোগ';
+
+  @override
+  String get nav_rent => 'ভাড়া';
+
+  @override
+  String get nav_more => 'আরও';
+
+  @override
+  String get nav_maintenance => 'রক্ষণাবেক্ষণ';
+
+  @override
+  String get nav_receipts => 'রসিদ';
+
+  @override
+  String shell_placeholder_coming_soon(String tab) {
+    return '$tab — শীঘ্রই আসছে';
+  }
+
+  @override
   String get splash_loading => 'লোড হচ্ছে…';
 
   @override

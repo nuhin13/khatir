@@ -8,6 +8,44 @@
   "@common_toggle_language": {
     "description": "Label on the language toggle button. Shows the language it will switch TO."
   },
+  "nav_home": "হোম",
+  "@nav_home": {
+    "description": "Bottom-nav label: home tab."
+  },
+  "nav_charts": "চার্ট",
+  "@nav_charts": {
+    "description": "Bottom-nav label: charts/dashboard tab."
+  },
+  "nav_add": "যোগ",
+  "@nav_add": {
+    "description": "Bottom-nav label: center add action."
+  },
+  "nav_rent": "ভাড়া",
+  "@nav_rent": {
+    "description": "Bottom-nav label: rent tab."
+  },
+  "nav_more": "আরও",
+  "@nav_more": {
+    "description": "Bottom-nav label: more/settings tab."
+  },
+  "nav_maintenance": "রক্ষণাবেক্ষণ",
+  "@nav_maintenance": {
+    "description": "Bottom-nav label: tenant maintenance tab."
+  },
+  "nav_receipts": "রসিদ",
+  "@nav_receipts": {
+    "description": "Bottom-nav label: tenant receipts tab."
+  },
+  "shell_placeholder_coming_soon": "{tab} — শীঘ্রই আসছে",
+  "@shell_placeholder_coming_soon": {
+    "description": "Placeholder body shown in a role-shell tab until its feature epic fills it in.",
+    "placeholders": {
+      "tab": {
+        "type": "String",
+        "example": "হোম"
+      }
+    }
+  },
   "common_logout": "লগ আউট",
   "@common_logout": {
     "description": "Logout action label."

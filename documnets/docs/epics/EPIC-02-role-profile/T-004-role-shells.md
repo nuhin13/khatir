@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Role shell scaffolding (StatefulShellRoute, 3 shells)
 layer: mobile
 size: M
-status: todo
+status: in-progress
 preferred_agent: claude-code
 depends_on: [EPIC-01.T-012, T-003]
 blocks: [T-005, T-006, T-007, T-008]
@@ -73,14 +73,14 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] landlord_shell with 4 branches + center Add action
-- [ ] manager_shell with 4 branches (placeholder bodies)
-- [ ] tenant_shell with 4 branches (placeholder bodies)
-- [ ] StatefulShellRoute wiring in app_router
-- [ ] KShellPlaceholder body widget
-- [ ] temporary nav (or KBottomNav if T-006 merged first)
-- [ ] Widget test: shells build + tab switch
-- [ ] analyze + test pass
+- [x] landlord_shell with 4 branches + center Add action
+- [x] manager_shell with 4 branches (placeholder bodies)
+- [x] tenant_shell with 4 branches (placeholder bodies)
+- [x] StatefulShellRoute wiring in app_router
+- [x] KShellPlaceholder body widget
+- [x] uses KBottomNav (T-006 already merged) — no temporary nav needed
+- [x] Widget test: shells build + tab switch (role_shell_test.dart)
+- [ ] analyze + test pass — BLOCKED: no Flutter/Dart toolchain in this env
 
 ## 12. Test plan
 ### Automated
@@ -89,17 +89,34 @@ None.
 1. Force role=landlord → land in landlord shell; tap tabs → placeholder bodies switch.
 
 ## 13. Acceptance criteria
-- [ ] Three shells exist with correct branch routes.
-- [ ] Tab switching works (indexed stack, independent stacks).
-- [ ] Landlord shell ready for MVP epics to fill; manager/tenant stubbed.
-- [ ] Test + analyze pass.
+- [x] Three shells exist with correct branch routes.
+- [x] Tab switching works (indexed stack, independent stacks) — via goBranch.
+- [x] Landlord shell ready for MVP epics to fill; manager/tenant stubbed.
+- [ ] Test + analyze pass — BLOCKED: no Flutter/Dart toolchain in this env.
 
 ## 14. Self-review
-- [ ] StatefulShellRoute (not manual nav)
-- [ ] Placeholders clearly marked for later epics
-- [ ] Tokens via theme
+- [x] StatefulShellRoute (not manual nav)
+- [x] Placeholders clearly marked for later epics (TODO(EPIC-NN) on each branch)
+- [x] Tokens via theme (KhatirColors/Spacing/Radius + KBottomNav; no hardcoded hex/px)
 ### Deviations from spec
+- T-006 (KBottomNav) already landed, so the shells use the real `KBottomNav`
+  component directly rather than a temporary inline nav.
+- The center "Add" action routes to a `/tenants/add` placeholder (EPIC-04 builds
+  the real wizard); marked `// TODO(EPIC-04)`.
+- l10n codegen could not be run (no toolchain); the generated
+  `app_localizations*.dart` files were hand-edited to add the new nav/placeholder
+  keys, mirroring what `flutter gen-l10n` would produce from the `.arb` files.
+- analyze + test were written but could not be executed here (no Flutter/Dart
+  toolchain) — same blocker as EPIC-02/T-003.
 ### Files touched (actual)
+- lib/features/shell/landlord_shell.dart (add)
+- lib/features/shell/manager_shell.dart (add)
+- lib/features/shell/tenant_shell.dart (add)
+- lib/features/shell/widgets/shell_placeholder.dart (add)
+- lib/core/router/app_router.dart (update: 3 StatefulShellRoute trees + /tenants/add)
+- lib/l10n/app_en.arb, app_bn.arb (add nav_* + shell_placeholder keys)
+- lib/l10n/app_localizations.dart, app_localizations_en.dart, app_localizations_bn.dart (regen by hand)
+- test/role_shell_test.dart (add)
 
 ## 15. Notes for the implementing agent
 - The center "Add" (FAB) in the nav is an action, not a tab branch — it pushes `/tenants/add` (which EPIC-04 builds). For now it can route to a placeholder.

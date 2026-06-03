@@ -18,6 +18,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_logout => 'Log out';
 
   @override
+  String get nav_home => 'Home';
+
+  @override
+  String get nav_charts => 'Charts';
+
+  @override
+  String get nav_add => 'Add';
+
+  @override
+  String get nav_rent => 'Rent';
+
+  @override
+  String get nav_more => 'More';
+
+  @override
+  String get nav_maintenance => 'Maintenance';
+
+  @override
+  String get nav_receipts => 'Receipts';
+
+  @override
+  String shell_placeholder_coming_soon(String tab) {
+    return '$tab — coming soon';
+  }
+
+  @override
   String get splash_loading => 'Loading…';
 
   @override

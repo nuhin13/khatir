@@ -3,6 +3,23 @@
   "common_app_name": "Khatir",
   "common_toggle_language": "বাংলা",
   "common_logout": "Log out",
+  "nav_home": "Home",
+  "nav_charts": "Charts",
+  "nav_add": "Add",
+  "nav_rent": "Rent",
+  "nav_more": "More",
+  "nav_maintenance": "Maintenance",
+  "nav_receipts": "Receipts",
+  "shell_placeholder_coming_soon": "{tab} — coming soon",
+  "@shell_placeholder_coming_soon": {
+    "description": "Placeholder body shown in a role-shell tab until its feature epic fills it in.",
+    "placeholders": {
+      "tab": {
+        "type": "String",
+        "example": "Home"
+      }
+    }
+  },
   "splash_loading": "Loading…",
   "home_placeholder_welcome": "You're signed in",
   "placeholder_welcome": "Welcome to Khatir",

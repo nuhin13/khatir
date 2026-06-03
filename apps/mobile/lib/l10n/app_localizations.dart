@@ -116,6 +116,55 @@ abstract class AppLocalizations {
   /// **'লগ আউট'**
   String get common_logout;
 
+  /// Bottom-nav label: home tab.
+  ///
+  /// In bn, this message translates to:
+  /// **'হোম'**
+  String get nav_home;
+
+  /// Bottom-nav label: charts/dashboard tab.
+  ///
+  /// In bn, this message translates to:
+  /// **'চার্ট'**
+  String get nav_charts;
+
+  /// Bottom-nav label: center add action.
+  ///
+  /// In bn, this message translates to:
+  /// **'যোগ'**
+  String get nav_add;
+
+  /// Bottom-nav label: rent tab.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া'**
+  String get nav_rent;
+
+  /// Bottom-nav label: more/settings tab.
+  ///
+  /// In bn, this message translates to:
+  /// **'আরও'**
+  String get nav_more;
+
+  /// Bottom-nav label: tenant maintenance tab.
+  ///
+  /// In bn, this message translates to:
+  /// **'রক্ষণাবেক্ষণ'**
+  String get nav_maintenance;
+
+  /// Bottom-nav label: tenant receipts tab.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ'**
+  String get nav_receipts;
+
+  /// Placeholder body shown in a role-shell tab until its feature epic fills
+  /// it in.
+  ///
+  /// In bn, this message translates to:
+  /// **'{tab} — শীঘ্রই আসছে'**
+  String shell_placeholder_coming_soon(String tab);
+
   /// Loading copy shown on the splash while the session bootstraps.
   ///
   /// In bn, this message translates to:
