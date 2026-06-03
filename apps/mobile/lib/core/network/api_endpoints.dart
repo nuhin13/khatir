@@ -12,6 +12,9 @@ class ApiEndpoints {
   static const String logout = '$apiPrefix/auth/logout';
   static const String me = '$apiPrefix/auth/me';
 
+  // Profile (T-001): read + partial update of the caller's own profile.
+  static const String profile = '$apiPrefix/profile';
+
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 

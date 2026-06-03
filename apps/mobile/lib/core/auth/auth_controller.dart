@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../enums/role.dart';
 import '../network/api_endpoints.dart';
 import '../network/api_exception.dart';
 import '../network/dio_client.dart';
@@ -77,6 +78,49 @@ class AuthController extends AsyncNotifier<AuthState> {
     }
     await _tokens.clear();
     state = const AsyncValue.data(AuthState.unauthenticated);
+  }
+
+  /// Merges updated profile fields into the authenticated user's state so a
+  /// profile change (name/role/language) propagates app-wide without a network
+  /// round-trip. No-op unless the session is authenticated.
+  ///
+  /// Used by the profile controller (T-003) after a successful `PATCH /profile`
+  /// for an optimistic local update; [refreshMe] then reconciles with the DB.
+  void applyProfile({String? name, Role? role, String? language}) {
+    final current = state.valueOrNull;
+    if (current == null || !current.isAuthenticated) return;
+    final user = current.user ?? const SessionUser(id: '');
+    state = AsyncValue.data(
+      current.copyWith(
+        user: user.copyWith(
+          name: name ?? user.name,
+          role: role ?? user.role,
+          language: language ?? user.language,
+        ),
+      ),
+    );
+  }
+
+  /// Re-fetches `GET /auth/me` and refreshes the cached [SessionUser] so the
+  /// role/language in auth state match the DB (the documented source of truth).
+  /// Called after a role change so a stale token's role cannot win.
+  ///
+  /// On failure the existing state is left untouched (the caller already has a
+  /// best-effort optimistic update via [applyProfile]).
+  Future<void> refreshMe() async {
+    final current = state.valueOrNull;
+    if (current == null || !current.isAuthenticated) return;
+    try {
+      final res = await _dio.get<Map<String, dynamic>>(ApiEndpoints.me);
+      final data = res.data ?? const <String, dynamic>{};
+      state = AsyncValue.data(
+        current.copyWith(user: SessionUser.fromJson(data)),
+      );
+    } on ApiException {
+      // Keep the optimistic state; a later bootstrap will reconcile.
+    } on DioException {
+      // ignore
+    }
   }
 
   /// Marks the session unauthenticated *without* a network round-trip. Called

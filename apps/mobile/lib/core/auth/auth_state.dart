@@ -51,4 +51,8 @@ abstract class AuthState with _$AuthState {
       AuthState(status: AuthStatus.unauthenticated);
 
   bool get isAuthenticated => status == AuthStatus.authenticated;
+
+  /// The authenticated user's role, or `null` when unknown/unauthenticated.
+  /// The router and role shells (EPIC-02) branch on this.
+  Role? get role => user?.role;
 }
