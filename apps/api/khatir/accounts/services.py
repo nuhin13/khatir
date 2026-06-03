@@ -16,10 +16,12 @@ is T-006; verify returns the ``User`` for T-006 to mint tokens from.
 from __future__ import annotations
 
 import logging
+from typing import Any
 
 from django.conf import settings
 from django.utils import timezone
 
+from khatir.core.audit import audit
 from khatir.core.enums import Channel
 from khatir.core.exceptions import AuthInvalidError, RateLimitedError
 
@@ -42,10 +44,14 @@ __all__ = [
     "can_resend",
     "generate_otp",
     "request_otp",
+    "update_profile",
     "verify_otp",
     "verify_otp_and_get_user",
     "verify_otp_and_issue_tokens",
 ]
+
+# Profile fields a user may change about themselves (T-001 §2/§3).
+_PROFILE_FIELDS = ("name", "language", "role")
 
 
 def request_otp(phone: str) -> Channel:
@@ -101,3 +107,33 @@ def verify_otp_and_issue_tokens(phone: str, code: str) -> tuple[User, dict[str, 
 
     tokens = issue_tokens(user)
     return user, tokens
+
+
+def update_profile(user: User, **fields: Any) -> User:
+    """Apply a partial profile update to ``user`` and audit the change (T-001 §2).
+
+    Only ``name`` / ``language`` / ``role`` are accepted (validated upstream by
+    ``ProfileUpdateSerializer``); a user only ever updates their own row. The
+    changed fields are persisted and a ``profile.update`` :class:`AuditEntry` is
+    written recording the before/after for exactly the fields that changed —
+    important for tracing role switches (T-001 §15).
+    """
+    changes = {k: v for k, v in fields.items() if k in _PROFILE_FIELDS}
+    before = {k: getattr(user, k) for k in changes}
+    after = {k: v for k, v in changes.items() if v != before[k]}
+
+    if not after:
+        return user  # No-op update: nothing actually changed, nothing to audit.
+
+    for field, value in after.items():
+        setattr(user, field, value)
+    user.save(update_fields=[*after.keys(), "updated_at"])
+
+    audit(
+        actor=user,
+        action="profile.update",
+        target=user,
+        before={k: before[k] for k in after},
+        after=after,
+    )
+    return user

@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Profile endpoints (get/update role, name, language)
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-01.T-006]
 blocks: [T-003]
@@ -70,11 +70,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] ProfileSerializer + ProfileUpdateSerializer (role restricted to landlord/manager/tenant; language bn/en)
-- [ ] update_profile service with audit (action `profile.update`)
-- [ ] GET + PATCH /api/v1/profile (self only)
-- [ ] Tests: get, update name/language/role, invalid value rejected, cross-user blocked
-- [ ] ruff + mypy clean
+- [x] ProfileSerializer + ProfileUpdateSerializer (role restricted to landlord/manager/tenant; language bn/en)
+- [x] update_profile service with audit (action `profile.update`)
+- [x] GET + PATCH /api/v1/profile (self only)
+- [x] Tests: get, update name/language/role, invalid value rejected, cross-user blocked
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -86,16 +86,23 @@ None.
 1. PATCH role landlord→manager; GET reflects it.
 
 ## 13. Acceptance criteria
-- [ ] Profile read + partial update work for the authenticated user only.
-- [ ] Role limited to self-selectable set; language validated.
-- [ ] Update audited.
-- [ ] Tests + lint pass.
+- [x] Profile read + partial update work for the authenticated user only.
+- [x] Role limited to self-selectable set; language validated.
+- [x] Update audited.
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] Self-only (no cross-user writes)
-- [ ] Role restricted; audited
+- [x] Self-only (no cross-user writes)
+- [x] Role restricted; audited
 ### Deviations from spec
+- `/profile` mounted via a new `accounts/profile_urls.py` at `/api/v1/` (not the
+  `/auth/` namespace) since it is a top-level resource. Route name `profile:profile`.
+- `update_profile` is a no-op (no save, no audit) when a PATCH sets fields to
+  their existing values, so audit rows only record real changes.
 ### Files touched (actual)
+- `accounts/serializers.py`, `accounts/services.py`, `accounts/views.py`
+- `accounts/profile_urls.py` (new), `config/urls.py`
+- `accounts/tests/test_profile.py` (new)
 
 ## 15. Notes for the implementing agent
 - Role is also embedded in the JWT (EPIC-01 T-006). After a role change, the client should re-fetch `/auth/me` or refresh the token so its cached role matches DB. The DB is the source of truth — document this in §15 of the client task (T-003).

@@ -12,7 +12,12 @@ import re
 
 from rest_framework import serializers
 
+from .enums import Language, Role
 from .models import User
+
+# Roles a user may select for themselves (T-001 §2). caretaker/admin are
+# assigned, never self-chosen, so they are excluded from the profile update set.
+SELF_SELECTABLE_ROLES = (Role.LANDLORD, Role.MANAGER, Role.TENANT)
 
 # E.164 Bangladesh mobile: +880, leading 1, then 9 digits (e.g. +8801712345678).
 _BD_PHONE_RE = re.compile(r"^\+8801\d{9}$")
@@ -57,3 +62,41 @@ class UserSerializer(serializers.ModelSerializer[User]):
         model = User
         fields = ("id", "phone", "role", "name", "language")
         read_only_fields = fields
+
+
+class ProfileSerializer(serializers.ModelSerializer[User]):
+    """Read view of the current user's profile (T-001 §7).
+
+    Same shape as ``UserSerializer``; named for the profile endpoints so the
+    resource's intent is explicit at the call site.
+    """
+
+    id = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ("id", "phone", "name", "role", "language")
+        read_only_fields = fields
+
+
+class ProfileUpdateSerializer(serializers.Serializer[dict[str, str]]):
+    """Validates a partial profile update: ``name`` / ``language`` / ``role``.
+
+    All fields are optional (PATCH semantics). ``role`` is restricted to the
+    self-selectable set (landlord/manager/tenant — never caretaker/admin) and
+    ``language`` to the ``bn|en`` enum. Returns only the fields that were sent.
+    """
+
+    name = serializers.CharField(max_length=120, required=False, allow_blank=True)
+    language = serializers.ChoiceField(choices=Language.choices, required=False)
+    role = serializers.ChoiceField(
+        choices=[(r.value, r.label) for r in SELF_SELECTABLE_ROLES],
+        required=False,
+    )
+
+    def validate(self, attrs: dict[str, str]) -> dict[str, str]:
+        if not attrs:
+            raise serializers.ValidationError(
+                "Provide at least one of name, language, role to update."
+            )
+        return attrs

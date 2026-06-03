@@ -29,12 +29,14 @@ from khatir.core.responses import no_content, success
 
 from .models import User
 from .serializers import (
+    ProfileSerializer,
+    ProfileUpdateSerializer,
     RefreshSerializer,
     RequestOtpSerializer,
     UserSerializer,
     VerifyOtpSerializer,
 )
-from .services import request_otp, verify_otp_and_issue_tokens
+from .services import request_otp, update_profile, verify_otp_and_issue_tokens
 from .throttling import (
     RequestOtpIpThrottle,
     RequestOtpPhoneThrottle,
@@ -142,3 +144,26 @@ class MeView(APIView):
     def get(self, request: Request) -> Response:
         # IsAuthenticated guarantees a real User (never AnonymousUser) here.
         return success(UserSerializer(cast(User, request.user)).data)
+
+
+class ProfileView(APIView):
+    """``/api/v1/profile`` — read or partially update the caller's own profile.
+
+    Self-scoped by construction: every operation acts on ``request.user``, so a
+    user can never read or write another user's row. ``GET`` returns the profile;
+    ``PATCH`` validates the partial body, applies + audits the change via the
+    service, and returns the updated profile (T-001 §3/§7).
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request: Request) -> Response:
+        return success(ProfileSerializer(cast(User, request.user)).data)
+
+    def patch(self, request: Request) -> Response:
+        serializer = ProfileUpdateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = update_profile(cast(User, request.user), **serializer.validated_data)
+
+        return success(ProfileSerializer(user).data)
