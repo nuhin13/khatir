@@ -270,7 +270,13 @@ class _RouterAppState extends ConsumerState<_RouterApp> {
   @override
   void initState() {
     super.initState();
-    widget.seed(ref.read(addBuildingControllerProvider.notifier));
+    // Seed after the first frame: mutating the wizard provider synchronously
+    // inside initState marks the enclosing ProviderScope dirty mid-build, which
+    // trips a `!_dirty` framework assertion. Deferring to a post-frame callback
+    // applies the seed once the build phase has settled.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.seed(ref.read(addBuildingControllerProvider.notifier));
+    });
   }
 
   @override

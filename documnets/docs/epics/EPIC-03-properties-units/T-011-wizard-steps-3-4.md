@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Add-building wizard steps 3–4 (units generator, review, save)
 layer: mobile
 size: M
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [T-010]
 blocks: [T-014]

@@ -32,7 +32,7 @@ class _FakeUnitDetail extends UnitDetailController {
   }
 
   @override
-  Future<Unit> update({
+  Future<Unit> save({
     String? label,
     UnitType? type,
     double? rent,
@@ -143,7 +143,10 @@ void main() {
     await tester.pumpAndSettle();
 
     // Open the status menu (the value pill in the status tile) and pick Occupied.
-    await tester.tap(find.text(bn.unit_status_vacant).first);
+    // Target the status PopupMenuButton directly — the "vacant" label also shows
+    // on the rent hero chip, so a text-based tap would hit the (non-tappable)
+    // hero rather than the editable pill.
+    await tester.tap(find.byType(PopupMenuButton<UnitStatus>));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text(bn.unit_status_occupied).last);
@@ -163,6 +166,10 @@ void main() {
     await tester.pumpWidget(harness(unitResult: unit));
     await tester.pumpAndSettle();
 
+    // The CTA sits at the foot of a scrollable ListView; bring it on-screen
+    // before tapping so the hit-test lands on the button.
+    await tester.ensureVisible(find.text(bn.unit_add_tenant));
+    await tester.pumpAndSettle();
     await tester.tap(find.text(bn.unit_add_tenant));
     await tester.pumpAndSettle();
 

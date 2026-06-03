@@ -26,7 +26,7 @@ dependencies:
 
   # Maps (OSM tiles via flutter_map; free, no API key) + lat/lng types
   flutter_map: ^8.3.0
-  latlong2: ^0.10.1
+  latlong2: ^0.9.1
 
   # Secure storage (auth tokens)
   flutter_secure_storage: ^9.2.4

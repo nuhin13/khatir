@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Bottom nav component + per-role tabs
 layer: mobile
 size: M
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [T-004]
 blocks: []

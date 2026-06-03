@@ -8,7 +8,7 @@ import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../data/models/building.dart';
 import '../../data/properties_providers.dart';
-import '../screens/portfolio_screen.dart' show areaLabel;
+import '../screens/portfolio_screen.dart' show PortfolioScreen, areaLabel;
 import 'add_building_controller.dart';
 import 'wizard_widgets.dart';
 

@@ -141,6 +141,9 @@ void main() {
     expect(find.byType(FlutterMap), findsOneWidget);
 
     await tester.tap(find.byType(FlutterMap));
+    // flutter_map debounces a single tap against a double-tap for ~250ms before
+    // firing MapOptions.onTap; advance the clock past that window.
+    await tester.pump(const Duration(milliseconds: 300)); // confirm the tap
     await tester.pump(); // setState (pin)
     await tester.pump(); // resolve geocoder future
     await tester.pump();

@@ -65,7 +65,7 @@ class BuildingsController extends AsyncNotifier<List<Building>> {
   }
 
   /// Partially updates a building, then refreshes the list.
-  Future<Building> update(
+  Future<Building> updateBuilding(
     String id, {
     String? name,
     Area? area,
@@ -165,7 +165,7 @@ class BuildingUnitsController
   }
 
   /// Partially updates a unit in this building, then refreshes.
-  Future<Unit> update(
+  Future<Unit> updateUnit(
     String unitId, {
     String? label,
     UnitType? type,
@@ -226,7 +226,7 @@ class UnitDetailController extends FamilyAsyncNotifier<Unit, String> {
 
   /// Partially updates this unit, then replaces [state] with the returned unit.
   /// Only non-null fields are sent. Returns the updated unit.
-  Future<Unit> update({
+  Future<Unit> save({
     String? label,
     UnitType? type,
     double? rent,

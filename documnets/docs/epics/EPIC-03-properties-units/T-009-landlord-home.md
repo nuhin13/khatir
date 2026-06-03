@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Landlord home shell body
 layer: mobile
 size: M
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-02.T-004, T-007]
 blocks: []

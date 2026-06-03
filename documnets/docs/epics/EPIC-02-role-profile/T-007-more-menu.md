@@ -9,7 +9,7 @@ depends_on: [T-004, T-003]
 blocks: []
 external_services: []
 feature_flags: []
-status: in-progress
+status: done
 started_at: 2026-06-03
 completed_at:
 executed_by:

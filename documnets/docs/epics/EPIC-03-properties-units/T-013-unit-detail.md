@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Unit detail screen
 layer: mobile
 size: M
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [T-007]
 blocks: []

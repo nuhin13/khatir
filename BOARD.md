@@ -51,3 +51,17 @@
 2026-06-03 | EPIC-03/T-010 | mobile | claude | in-progress | no Flutter/Dart toolchain to run analyze+test
 2026-06-03 | EPIC-03/T-011 | mobile | claude | in-progress | no Flutter/Dart toolchain to run analyze+test
 2026-06-03 | EPIC-03/T-014 | cross-cutting | claude | in-progress | no Flutter/Dart toolchain to run Dart parity test
+2026-06-04 | EPIC-02/T-003 | mobile | claude | done | toolchain installed; flutter analyze+test green (120 pass)
+2026-06-04 | EPIC-02/T-004 | mobile | claude | done | verified via flutter analyze+test (120 pass)
+2026-06-04 | EPIC-02/T-005 | mobile | claude | done | verified via flutter analyze+test (120 pass)
+2026-06-04 | EPIC-02/T-006 | mobile | claude | done | verified via flutter analyze+test (120 pass)
+2026-06-04 | EPIC-02/T-007 | mobile | claude | done | verified via flutter analyze+test (120 pass)
+2026-06-04 | EPIC-02/T-008 | mobile | claude | done | verified via flutter analyze+test (120 pass)
+2026-06-04 | EPIC-03/T-007 | mobile | claude | done | verified via flutter analyze+test (120 pass)
+2026-06-04 | EPIC-03/T-008 | mobile | claude | done | flutter_map 8.x tap-debounce fix in test; analyze+test green
+2026-06-04 | EPIC-03/T-009 | mobile | claude | done | verified via flutter analyze+test (120 pass)
+2026-06-04 | EPIC-03/T-010 | mobile | claude | done | WizardField label RichText→Text fix; analyze+test green
+2026-06-04 | EPIC-03/T-011 | mobile | claude | done | provider seed deferred to post-frame; analyze+test green
+2026-06-04 | EPIC-03/T-012 | mobile | claude | done | verified via flutter analyze+test (120 pass)
+2026-06-04 | EPIC-03/T-013 | mobile | claude | done | controller update()->save() rename (Riverpod clash); analyze+test green
+2026-06-04 | EPIC-03/T-014 | cross-cutting | claude | done | unit-label parity test green under flutter test

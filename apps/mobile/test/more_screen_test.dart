@@ -197,6 +197,10 @@ void main() {
     await tester.pumpWidget(harness(role: Role.landlord));
     await tester.pumpAndSettle();
 
+    // The logout button sits at the foot of a scrollable column; bring it
+    // on-screen before tapping so the hit-test lands on the button.
+    await tester.ensureVisible(find.text(bn.more_logout));
+    await tester.pumpAndSettle();
     await tester.tap(find.text(bn.more_logout));
     await tester.pumpAndSettle();
 

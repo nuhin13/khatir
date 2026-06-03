@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Flutter profile repository + auth-state role integration
 layer: mobile
 size: S
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-01.T-011, T-001]
 blocks: [T-004, T-007]

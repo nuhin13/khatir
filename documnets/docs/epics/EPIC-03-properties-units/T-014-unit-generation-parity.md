@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Unit generation parity (UI↔API)
 layer: cross-cutting
 size: S
-status: in-progress
+status: done
 preferred_agent: codex
 depends_on: [T-004, T-011]
 blocks: []

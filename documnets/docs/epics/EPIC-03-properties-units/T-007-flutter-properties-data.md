@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Flutter properties data layer (repos, models, providers)
 layer: mobile
 size: M
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, T-004, T-005]
 blocks: [T-009, T-010, T-012, T-013]

@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Shared map-pin widget (flutter_map + OSM)
 layer: mobile
 size: M
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-00.T-008]
 blocks: [T-010]

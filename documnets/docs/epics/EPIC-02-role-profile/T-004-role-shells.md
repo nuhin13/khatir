@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Role shell scaffolding (StatefulShellRoute, 3 shells)
 layer: mobile
 size: M
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-01.T-012, T-003]
 blocks: [T-005, T-006, T-007, T-008]

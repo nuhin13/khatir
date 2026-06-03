@@ -508,8 +508,20 @@
   "area_old_dhaka": "পুরান ঢাকা",
   "area_other": "অন্যান্য",
   "unit_title": "ইউনিট {label}",
+  "@unit_title": {
+    "description": "Unit detail top-bar title (unit label appended).",
+    "placeholders": {
+      "label": { "type": "String", "example": "2C" }
+    }
+  },
   "unit_rent": "ভাড়া",
   "unit_rent_per_month": "৳{amount}",
+  "@unit_rent_per_month": {
+    "description": "Monthly rent amount on the unit hero (currency prefixed).",
+    "placeholders": {
+      "amount": { "type": "String", "example": "22,000" }
+    }
+  },
   "unit_per_month_suffix": "/মাস",
   "unit_status": "অবস্থা",
   "unit_type": "ধরন",
@@ -531,6 +543,12 @@
   "unit_type_garage": "গ্যারেজ",
   "unit_type_other": "অন্যান্য",
   "wizard_step_x_of_4": "ধাপ {step}/৪",
+  "@wizard_step_x_of_4": {
+    "description": "Add-building wizard progress caption (step N of 4).",
+    "placeholders": {
+      "step": { "type": "String", "example": "1" }
+    }
+  },
   "wizard_title_name": "নতুন বিল্ডিং",
   "wizard_title_address": "ঠিকানা",
   "wizard_step1_hero_title": "বিল্ডিংয়ের নাম দিন",
@@ -565,6 +583,12 @@
   "wizard_scheme_letter": "ফ্লোর + অক্ষর",
   "wizard_scheme_number": "ফ্লোর × ১০০",
   "wizard_units_count": "ইউনিট তালিকা · {count} টি",
+  "@wizard_units_count": {
+    "description": "Header for the generated unit list with a count.",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "wizard_units_empty": "ফ্লোর ও ফ্ল্যাট বাড়ান, অথবা কাস্টম যোগ করুন",
   "wizard_units_footnote": "প্রতিটি ইউনিটে পরে ভাড়া ও ভাড়াটিয়া যোগ করবেন",
   "wizard_add_custom": "+ কাস্টম",
@@ -580,6 +604,14 @@
   "wizard_review_pin_saved": "সংরক্ষিত",
   "wizard_review_units": "মোট ইউনিট",
   "wizard_review_units_value": "{count} টি ({floors} ফ্লোর × {perFloor})",
+  "@wizard_review_units_value": {
+    "description": "Review row value summarising the unit count and grid.",
+    "placeholders": {
+      "count": { "type": "int" },
+      "floors": { "type": "int" },
+      "perFloor": { "type": "int" }
+    }
+  },
   "wizard_save": "বিল্ডিং সেভ করুন",
   "wizard_saving": "সেভ হচ্ছে…",
   "wizard_saved": "বিল্ডিং সেভ হয়েছে"

@@ -110,12 +110,6 @@ abstract class AppLocalizations {
   /// **'English'**
   String get common_toggle_language;
 
-  /// Logout action label.
-  ///
-  /// In bn, this message translates to:
-  /// **'লগ আউট'**
-  String get common_logout;
-
   /// Bottom-nav label: home tab.
   ///
   /// In bn, this message translates to:
@@ -158,238 +152,21 @@ abstract class AppLocalizations {
   /// **'রসিদ'**
   String get nav_receipts;
 
-  /// Placeholder body shown in a role-shell tab until its feature epic fills
-  /// it in.
+  /// Placeholder body shown in a role-shell tab until its feature epic fills it in.
   ///
   /// In bn, this message translates to:
   /// **'{tab} — শীঘ্রই আসছে'**
   String shell_placeholder_coming_soon(String tab);
 
-  /// Loading copy shown on the splash while the session bootstraps.
+  /// Logout action label.
   ///
   /// In bn, this message translates to:
-  /// **'লোড হচ্ছে…'**
-  String get splash_loading;
-
-  /// Welcome message on the temporary authenticated home placeholder.
-  ///
-  /// In bn, this message translates to:
-  /// **'আপনি সাইন ইন করেছেন'**
-  String get home_placeholder_welcome;
-
-  /// Welcome message on the placeholder screen.
-  ///
-  /// In bn, this message translates to:
-  /// **'খাতিরে স্বাগতম'**
-  String get placeholder_welcome;
-
-  /// Onboarding slide 1 chip / kicker.
-  ///
-  /// In bn, this message translates to:
-  /// **'স্বাগতম'**
-  String get onboarding_slide1_kicker;
-
-  /// Onboarding slide 1 title (Bangla).
-  ///
-  /// In bn, this message translates to:
-  /// **'বাড়িওয়ালার ডিজিটাল খাতা'**
-  String get onboarding_slide1_title;
-
-  /// Onboarding slide 1 handwritten English accent line.
-  ///
-  /// In bn, this message translates to:
-  /// **'The landlord\'s digital ledger'**
-  String get onboarding_slide1_accent;
-
-  /// Onboarding slide 1 body copy.
-  ///
-  /// In bn, this message translates to:
-  /// **'কাগজের ঝামেলা শেষ। ভাড়াটিয়ার তথ্য, ভাড়ার হিসাব, খরচ — সব এক জায়গায়।'**
-  String get onboarding_slide1_body;
-
-  /// Onboarding slide 2 chip / kicker.
-  ///
-  /// In bn, this message translates to:
-  /// **'প্রধান সুবিধা'**
-  String get onboarding_slide2_kicker;
-
-  /// Onboarding slide 2 title (Bangla).
-  ///
-  /// In bn, this message translates to:
-  /// **'পুলিশ ফর্ম, ২ মিনিটে!'**
-  String get onboarding_slide2_title;
-
-  /// Onboarding slide 2 handwritten English accent line.
-  ///
-  /// In bn, this message translates to:
-  /// **'Police form, in 2 minutes'**
-  String get onboarding_slide2_accent;
-
-  /// Onboarding slide 2 body copy.
-  ///
-  /// In bn, this message translates to:
-  /// **'থানায় দৌড়ানো বন্ধ। NID-এর ছবি তুলুন, ফর্ম নিজে থেকেই পূরণ হবে।'**
-  String get onboarding_slide2_body;
-
-  /// Onboarding slide 3 chip / kicker.
-  ///
-  /// In bn, this message translates to:
-  /// **'একদম ফ্রি!'**
-  String get onboarding_slide3_kicker;
-
-  /// Onboarding slide 3 title (Bangla).
-  ///
-  /// In bn, this message translates to:
-  /// **'প্রথম ২ ভাড়াটিয়া ফ্রি'**
-  String get onboarding_slide3_title;
-
-  /// Onboarding slide 3 handwritten English accent line.
-  ///
-  /// In bn, this message translates to:
-  /// **'First 2 tenants free'**
-  String get onboarding_slide3_accent;
-
-  /// Onboarding slide 3 body copy.
-  ///
-  /// In bn, this message translates to:
-  /// **'কোনো খরচ ছাড়াই পুরো ব্যবস্থা ব্যবহার করুন। NID যাচাই ছাড়া সব ফিচার।'**
-  String get onboarding_slide3_body;
-
-  /// Skip button on the onboarding slides.
-  ///
-  /// In bn, this message translates to:
-  /// **'এড়িয়ে যান'**
-  String get onboarding_skip;
-
-  /// Next button on the onboarding slides.
-  ///
-  /// In bn, this message translates to:
-  /// **'পরবর্তী'**
-  String get onboarding_next;
-
-  /// Get-started button on the final onboarding slide.
-  ///
-  /// In bn, this message translates to:
-  /// **'শুরু করি!'**
-  String get onboarding_start;
-
-  /// Phone-entry hero greeting (Bangla).
-  ///
-  /// In bn, this message translates to:
-  /// **'স্বাগতম, বাড়িওয়ালা'**
-  String get auth_phone_hero;
-
-  /// Phone-entry subtitle / sign-in prompt.
-  ///
-  /// In bn, this message translates to:
-  /// **'মোবাইল নম্বর দিয়ে শুরু করুন'**
-  String get auth_phone_title;
-
-  /// Label above the phone number field.
-  ///
-  /// In bn, this message translates to:
-  /// **'মোবাইল নম্বর · Mobile number'**
-  String get auth_phone_label;
-
-  /// Placeholder/hint for the phone number input.
-  ///
-  /// In bn, this message translates to:
-  /// **'01XXXXXXXXX'**
-  String get auth_phone_hint;
-
-  /// Inline error when the entered phone number is invalid.
-  ///
-  /// In bn, this message translates to:
-  /// **'সঠিক ১১-সংখ্যার নম্বর দিন (01XXXXXXXXX)'**
-  String get auth_phone_invalid;
-
-  /// Submit button: request the OTP.
-  ///
-  /// In bn, this message translates to:
-  /// **'OTP পাঠান · Send code'**
-  String get auth_phone_submit;
-
-  /// Helper note that the code arrives via WhatsApp.
-  ///
-  /// In bn, this message translates to:
-  /// **'WhatsApp-এ কোড পাবেন · Code via WhatsApp'**
-  String get auth_phone_whatsapp;
-
-  /// Friendly message shown on HTTP 429 (rate limited).
-  ///
-  /// In bn, this message translates to:
-  /// **'অনেকবার চেষ্টা হয়েছে। একটু পরে আবার চেষ্টা করুন।'**
-  String get auth_rate_limited;
-
-  /// Generic network/connection error message with retry.
-  ///
-  /// In bn, this message translates to:
-  /// **'সংযোগে সমস্যা। আবার চেষ্টা করুন।'**
-  String get common_network_error;
-
-  /// Retry action label.
-  ///
-  /// In bn, this message translates to:
-  /// **'আবার চেষ্টা করুন'**
-  String get common_retry;
-
-  /// OTP screen app-bar title.
-  ///
-  /// In bn, this message translates to:
-  /// **'কোড যাচাই'**
-  String get auth_otp_appbar;
-
-  /// OTP screen hero heading.
-  ///
-  /// In bn, this message translates to:
-  /// **'কোড লিখুন · Enter code'**
-  String get auth_otp_title;
-
-  /// Subtitle telling the user where the code was sent.
-  ///
-  /// In bn, this message translates to:
-  /// **'{phone} নম্বরে পাঠানো কোড লিখুন'**
-  String auth_otp_sent_to(String phone);
-
-  /// Verify button label.
-  ///
-  /// In bn, this message translates to:
-  /// **'যাচাই করুন · Verify'**
-  String get auth_otp_verify;
-
-  /// Lead-in before the resend action / countdown.
-  ///
-  /// In bn, this message translates to:
-  /// **'কোড আসেনি?'**
-  String get auth_otp_no_code;
-
-  /// Resend action label (when the cooldown has elapsed).
-  ///
-  /// In bn, this message translates to:
-  /// **'আবার পাঠান'**
-  String get auth_otp_resend;
-
-  /// Resend label with the remaining cooldown countdown.
-  ///
-  /// In bn, this message translates to:
-  /// **'আবার পাঠান ({time})'**
-  String auth_otp_resend_in(String time);
-
-  /// Inline error for a wrong OTP code.
-  ///
-  /// In bn, this message translates to:
-  /// **'ভুল কোড। আবার চেষ্টা করুন।'**
-  String get auth_otp_invalid;
-
-  /// Inline error for an expired OTP code.
-  ///
-  /// In bn, this message translates to:
-  /// **'কোডের মেয়াদ শেষ। নতুন কোড নিন।'**
-  String get auth_otp_expired;
+  /// **'লগ আউট'**
+  String get common_logout;
 
   /// Role chooser handwritten English hero line.
   ///
-  /// In en, this message translates to:
+  /// In bn, this message translates to:
   /// **'Tell us who you are'**
   String get role_hero;
 
@@ -633,340 +410,910 @@ abstract class AppLocalizations {
   /// **'Free 1/2'**
   String get more_plan_chip;
 
+  /// Loading copy shown on the splash while the session bootstraps.
+  ///
+  /// In bn, this message translates to:
+  /// **'লোড হচ্ছে…'**
+  String get splash_loading;
+
+  /// Welcome message on the temporary authenticated home placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনি সাইন ইন করেছেন'**
+  String get home_placeholder_welcome;
+
+  /// Welcome message on the placeholder screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'খাতিরে স্বাগতম'**
+  String get placeholder_welcome;
+
+  /// Onboarding slide 1 chip / kicker.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্বাগতম'**
+  String get onboarding_slide1_kicker;
+
+  /// Onboarding slide 1 title (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'বাড়িওয়ালার ডিজিটাল খাতা'**
+  String get onboarding_slide1_title;
+
+  /// Onboarding slide 1 handwritten English accent line.
+  ///
+  /// In bn, this message translates to:
+  /// **'The landlord\'s digital ledger'**
+  String get onboarding_slide1_accent;
+
+  /// Onboarding slide 1 body copy.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাগজের ঝামেলা শেষ। ভাড়াটিয়ার তথ্য, ভাড়ার হিসাব, খরচ — সব এক জায়গায়।'**
+  String get onboarding_slide1_body;
+
+  /// Onboarding slide 2 chip / kicker.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রধান সুবিধা'**
+  String get onboarding_slide2_kicker;
+
+  /// Onboarding slide 2 title (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'পুলিশ ফর্ম, ২ মিনিটে!'**
+  String get onboarding_slide2_title;
+
+  /// Onboarding slide 2 handwritten English accent line.
+  ///
+  /// In bn, this message translates to:
+  /// **'Police form, in 2 minutes'**
+  String get onboarding_slide2_accent;
+
+  /// Onboarding slide 2 body copy.
+  ///
+  /// In bn, this message translates to:
+  /// **'থানায় দৌড়ানো বন্ধ। NID-এর ছবি তুলুন, ফর্ম নিজে থেকেই পূরণ হবে।'**
+  String get onboarding_slide2_body;
+
+  /// Onboarding slide 3 chip / kicker.
+  ///
+  /// In bn, this message translates to:
+  /// **'একদম ফ্রি!'**
+  String get onboarding_slide3_kicker;
+
+  /// Onboarding slide 3 title (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রথম ২ ভাড়াটিয়া ফ্রি'**
+  String get onboarding_slide3_title;
+
+  /// Onboarding slide 3 handwritten English accent line.
+  ///
+  /// In bn, this message translates to:
+  /// **'First 2 tenants free'**
+  String get onboarding_slide3_accent;
+
+  /// Onboarding slide 3 body copy.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো খরচ ছাড়াই পুরো ব্যবস্থা ব্যবহার করুন। NID যাচাই ছাড়া সব ফিচার।'**
+  String get onboarding_slide3_body;
+
+  /// Skip button on the onboarding slides.
+  ///
+  /// In bn, this message translates to:
+  /// **'এড়িয়ে যান'**
+  String get onboarding_skip;
+
+  /// Next button on the onboarding slides.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী'**
+  String get onboarding_next;
+
+  /// Get-started button on the final onboarding slide.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুরু করি!'**
+  String get onboarding_start;
+
+  /// Phone-entry hero greeting (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'স্বাগতম, বাড়িওয়ালা'**
+  String get auth_phone_hero;
+
+  /// Phone-entry subtitle / sign-in prompt.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল নম্বর দিয়ে শুরু করুন'**
+  String get auth_phone_title;
+
+  /// Label above the phone number field.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল নম্বর · Mobile number'**
+  String get auth_phone_label;
+
+  /// Placeholder/hint for the phone number input.
+  ///
+  /// In bn, this message translates to:
+  /// **'01XXXXXXXXX'**
+  String get auth_phone_hint;
+
+  /// Inline error when the entered phone number is invalid.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক ১১-সংখ্যার নম্বর দিন (01XXXXXXXXX)'**
+  String get auth_phone_invalid;
+
+  /// Submit button: request the OTP.
+  ///
+  /// In bn, this message translates to:
+  /// **'OTP পাঠান · Send code'**
+  String get auth_phone_submit;
+
+  /// Helper note that the code arrives via WhatsApp.
+  ///
+  /// In bn, this message translates to:
+  /// **'WhatsApp-এ কোড পাবেন · Code via WhatsApp'**
+  String get auth_phone_whatsapp;
+
+  /// Friendly message shown on HTTP 429 (rate limited).
+  ///
+  /// In bn, this message translates to:
+  /// **'অনেকবার চেষ্টা হয়েছে। একটু পরে আবার চেষ্টা করুন।'**
+  String get auth_rate_limited;
+
+  /// Generic network/connection error message with retry.
+  ///
+  /// In bn, this message translates to:
+  /// **'সংযোগে সমস্যা। আবার চেষ্টা করুন।'**
+  String get common_network_error;
+
+  /// Retry action label.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা করুন'**
+  String get common_retry;
+
+  /// OTP screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোড যাচাই'**
+  String get auth_otp_appbar;
+
+  /// OTP screen hero heading.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোড লিখুন · Enter code'**
+  String get auth_otp_title;
+
+  /// Subtitle telling the user where the code was sent.
+  ///
+  /// In bn, this message translates to:
+  /// **'{phone} নম্বরে পাঠানো কোড লিখুন'**
+  String auth_otp_sent_to(String phone);
+
+  /// Verify button label.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই করুন · Verify'**
+  String get auth_otp_verify;
+
+  /// Lead-in before the resend action / countdown.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোড আসেনি?'**
+  String get auth_otp_no_code;
+
+  /// Resend action label (when the cooldown has elapsed).
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার পাঠান'**
+  String get auth_otp_resend;
+
+  /// Resend label with the remaining cooldown countdown.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার পাঠান ({time})'**
+  String auth_otp_resend_in(String time);
+
+  /// Inline error for a wrong OTP code.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভুল কোড। আবার চেষ্টা করুন।'**
+  String get auth_otp_invalid;
+
+  /// Inline error for an expired OTP code.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোডের মেয়াদ শেষ। নতুন কোড নিন।'**
+  String get auth_otp_expired;
+
+  /// Overlay prompt on the map-pin picker, shown before a pin has been dropped.
+  ///
+  /// In bn, this message translates to:
+  /// **'ট্যাপ করে পিন দিন'**
+  String get map_picker_tap_hint;
+
+  /// Required OpenStreetMap tile attribution shown on the map-pin picker.
+  ///
+  /// In bn, this message translates to:
+  /// **'© OpenStreetMap contributors'**
+  String get map_picker_attribution;
+
   /// Landlord home handwritten greeting line above the user's name.
+  ///
+  /// In bn, this message translates to:
+  /// **'আসসালামু আলাইকুম,'**
   String get home_greeting;
 
   /// Fallback name in the home greeting when the user has no name.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাড়িওয়ালা'**
   String get home_name_fallback;
 
   /// Portfolio one-liner under the greeting: building + unit counts.
+  ///
+  /// In bn, this message translates to:
+  /// **'{buildings} বিল্ডিং · {units} ইউনিট'**
   String home_summary_line(String buildings, String units);
 
   /// Badge chip on the DMP hero CTA card.
+  ///
+  /// In bn, this message translates to:
+  /// **'⭐ সুপারিশ · FLAGSHIP'**
   String get home_dmp_cta_badge;
 
-  /// Hero DMP CTA title.
+  /// Hero DMP CTA title (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'পুলিশ ফর্ম, মাত্র ২ মিনিটে!'**
   String get home_dmp_cta;
 
   /// Hero DMP CTA subtitle/explainer.
+  ///
+  /// In bn, this message translates to:
+  /// **'Police form in 2 minutes — NID-এর ছবি তুলুন, বাকিটা আমরা করব ✨'**
   String get home_dmp_cta_sub;
 
   /// Hero DMP CTA action pill label.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুরু করি · Start'**
   String get home_dmp_cta_action;
 
   /// Quick-stat tile label: building count.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিং · Bldg'**
   String get home_stat_buildings;
 
   /// Quick-stat tile label: unit count.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট · Units'**
   String get home_stat_units;
 
   /// Quick-stat tile label: monthly rent total.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাসিক · /mo'**
   String get home_stat_monthly;
 
   /// Collection summary card heading.
+  ///
+  /// In bn, this message translates to:
+  /// **'এ মাসে আদায় · Collected this month'**
   String get home_collected;
 
   /// Placeholder note in the collection card for the charts region (EPIC-09).
+  ///
+  /// In bn, this message translates to:
+  /// **'বিস্তারিত আদায় ও চার্ট শীঘ্রই · Collection detail coming soon'**
   String get home_collected_todo;
 
   /// Empty-state primary action: add the first building.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিং যোগ করুন · Add building'**
   String get home_add_building;
 
   /// Empty-state title shown when the landlord has no buildings yet.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনার প্রথম বিল্ডিং যোগ করুন'**
   String get home_empty_title;
 
   /// Empty-state body shown when the landlord has no buildings yet.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো বিল্ডিং নেই। শুরু করতে একটি বিল্ডিং যোগ করুন।'**
   String get home_empty_body;
 
   /// Taka-prefixed amount used for rent totals on the home screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
   String home_currency_amount(String amount);
 
   /// Portfolio screen top-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'পোর্টফোলিও · Portfolio'**
   String get portfolio_title;
 
   /// Portfolio summary stat label: number of buildings.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিং · Buildings'**
   String get portfolio_stat_buildings;
 
   /// Portfolio summary stat label: occupied / total units.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া হয়েছে · Occupied'**
   String get portfolio_stat_occupied;
 
-  /// Occupied-over-total units, e.g. 11/14.
+  /// Occupied-over-total units, e.g. ১১/১৪.
+  ///
+  /// In bn, this message translates to:
+  /// **'{occupied}/{total}'**
   String portfolio_occupancy(String occupied, String total);
 
   /// Per-building footer caption: total units.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট'**
   String get portfolio_units;
 
   /// Per-building footer caption: occupied units.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া হয়েছে'**
   String get portfolio_occupied;
 
   /// Per-building footer caption: monthly rent total.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাসিক'**
   String get portfolio_monthly;
 
   /// Portfolio CTA: add a new building.
+  ///
+  /// In bn, this message translates to:
+  /// **'নতুন বিল্ডিং · Add building'**
   String get portfolio_add_building;
 
   /// Empty-state body shown when the landlord has no buildings.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো বিল্ডিং নেই। শুরু করতে একটি বিল্ডিং যোগ করুন।'**
   String get portfolio_empty;
 
   /// Empty-state title shown when the landlord has no buildings.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনার প্রথম বিল্ডিং যোগ করুন'**
   String get portfolio_empty_title;
 
-  /// Area display label: Uttara.
+  /// No description provided for @area_uttara.
+  ///
+  /// In bn, this message translates to:
+  /// **'উত্তরা'**
   String get area_uttara;
 
-  /// Area display label: Mirpur.
+  /// No description provided for @area_mirpur.
+  ///
+  /// In bn, this message translates to:
+  /// **'মিরপুর'**
   String get area_mirpur;
 
-  /// Area display label: Mohammadpur.
+  /// No description provided for @area_mohammadpur.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোহাম্মদপুর'**
   String get area_mohammadpur;
 
-  /// Area display label: Dhanmondi.
+  /// No description provided for @area_dhanmondi.
+  ///
+  /// In bn, this message translates to:
+  /// **'ধানমন্ডি'**
   String get area_dhanmondi;
 
-  /// Area display label: Banasree.
+  /// No description provided for @area_banasree.
+  ///
+  /// In bn, this message translates to:
+  /// **'বনশ্রী'**
   String get area_banasree;
 
-  /// Area display label: Gulshan.
+  /// No description provided for @area_gulshan.
+  ///
+  /// In bn, this message translates to:
+  /// **'গুলশান'**
   String get area_gulshan;
 
-  /// Area display label: Banani.
+  /// No description provided for @area_banani.
+  ///
+  /// In bn, this message translates to:
+  /// **'বনানী'**
   String get area_banani;
 
-  /// Area display label: Bashundhara.
+  /// No description provided for @area_bashundhara.
+  ///
+  /// In bn, this message translates to:
+  /// **'বসুন্ধরা'**
   String get area_bashundhara;
 
-  /// Area display label: Old Dhaka.
+  /// No description provided for @area_old_dhaka.
+  ///
+  /// In bn, this message translates to:
+  /// **'পুরান ঢাকা'**
   String get area_old_dhaka;
 
-  /// Area display label: Other.
+  /// No description provided for @area_other.
+  ///
+  /// In bn, this message translates to:
+  /// **'অন্যান্য'**
   String get area_other;
 
   /// Unit detail top-bar title (unit label appended).
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট {label}'**
   String unit_title(String label);
 
-  /// Label for the unit's monthly rent.
+  /// No description provided for @unit_rent.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া'**
   String get unit_rent;
 
   /// Monthly rent amount on the unit hero (currency prefixed).
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
   String unit_rent_per_month(String amount);
 
-  /// Per-month suffix shown next to the rent amount.
+  /// No description provided for @unit_per_month_suffix.
+  ///
+  /// In bn, this message translates to:
+  /// **'/মাস'**
   String get unit_per_month_suffix;
 
-  /// Label for the unit's occupancy status.
+  /// No description provided for @unit_status.
+  ///
+  /// In bn, this message translates to:
+  /// **'অবস্থা'**
   String get unit_status;
 
-  /// Label for the unit's type.
+  /// No description provided for @unit_type.
+  ///
+  /// In bn, this message translates to:
+  /// **'ধরন'**
   String get unit_type;
 
-  /// Label for the unit's amenities list.
+  /// No description provided for @unit_amenities.
+  ///
+  /// In bn, this message translates to:
+  /// **'সুবিধা'**
   String get unit_amenities;
 
-  /// Shown when a unit has no amenities listed.
+  /// No description provided for @unit_amenities_none.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো সুবিধা যোগ করা হয়নি'**
   String get unit_amenities_none;
 
-  /// CTA to add a tenant to this unit.
+  /// No description provided for @unit_add_tenant.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া যোগ করুন'**
   String get unit_add_tenant;
 
-  /// Empty-state title for the tenant/lease section (filled by EPIC-06).
+  /// No description provided for @unit_no_tenant.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো ভাড়াটিয়া নেই'**
   String get unit_no_tenant;
 
-  /// Empty-state body for the tenant/lease section.
+  /// No description provided for @unit_no_tenant_body.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই ইউনিটে একজন ভাড়াটিয়া যোগ করুন।'**
   String get unit_no_tenant_body;
 
-  /// Heading for the tenant/lease region.
+  /// No description provided for @unit_tenant_section.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া ও লিজ'**
   String get unit_tenant_section;
 
-  /// Title of the edit-unit bottom sheet and the edit action.
+  /// No description provided for @unit_edit.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পাদনা'**
   String get unit_edit;
 
-  /// Rent field label in the edit sheet.
+  /// No description provided for @unit_edit_rent_label.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাসিক ভাড়া (৳)'**
   String get unit_edit_rent_label;
 
-  /// Save button in the edit sheet.
+  /// No description provided for @unit_save.
+  ///
+  /// In bn, this message translates to:
+  /// **'সংরক্ষণ'**
   String get unit_save;
 
-  /// Display label for the occupied unit status.
+  /// No description provided for @unit_status_occupied.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া হয়েছে'**
   String get unit_status_occupied;
 
-  /// Display label for the vacant unit status.
+  /// No description provided for @unit_status_vacant.
+  ///
+  /// In bn, this message translates to:
+  /// **'খালি'**
   String get unit_status_vacant;
 
-  /// Display label for the maintenance unit status.
+  /// No description provided for @unit_status_maintenance.
+  ///
+  /// In bn, this message translates to:
+  /// **'রক্ষণাবেক্ষণ'**
   String get unit_status_maintenance;
 
-  /// Display label for the apartment unit type.
+  /// No description provided for @unit_type_apartment.
+  ///
+  /// In bn, this message translates to:
+  /// **'অ্যাপার্টমেন্ট'**
   String get unit_type_apartment;
 
-  /// Display label for the room unit type.
+  /// No description provided for @unit_type_room.
+  ///
+  /// In bn, this message translates to:
+  /// **'রুম'**
   String get unit_type_room;
 
-  /// Display label for the commercial unit type.
+  /// No description provided for @unit_type_commercial.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাণিজ্যিক'**
   String get unit_type_commercial;
 
-  /// Display label for the garage unit type.
+  /// No description provided for @unit_type_garage.
+  ///
+  /// In bn, this message translates to:
+  /// **'গ্যারেজ'**
   String get unit_type_garage;
 
-  /// Display label for the other unit type.
+  /// No description provided for @unit_type_other.
+  ///
+  /// In bn, this message translates to:
+  /// **'অন্যান্য'**
   String get unit_type_other;
 
   /// Add-building wizard progress caption (step N of 4).
+  ///
+  /// In bn, this message translates to:
+  /// **'ধাপ {step}/৪'**
   String wizard_step_x_of_4(String step);
 
-  /// Add-building wizard step-1 top-bar title.
+  /// No description provided for @wizard_title_name.
+  ///
+  /// In bn, this message translates to:
+  /// **'নতুন বিল্ডিং'**
   String get wizard_title_name;
 
-  /// Add-building wizard step-2 top-bar title.
+  /// No description provided for @wizard_title_address.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঠিকানা'**
   String get wizard_title_address;
 
-  /// Add-building wizard step-1 hero (English line).
+  /// No description provided for @wizard_step1_hero_title.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিংয়ের নাম দিন'**
   String get wizard_step1_hero_title;
 
-  /// Add-building wizard step-1 hero (Bangla line).
+  /// No description provided for @wizard_step1_hero_sub.
+  ///
+  /// In bn, this message translates to:
+  /// **'নতুন বিল্ডিং যোগ করুন'**
   String get wizard_step1_hero_sub;
 
-  /// Add-building wizard step-2 hero (English line).
+  /// No description provided for @wizard_step2_hero_title.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঠিকানা কোথায়?'**
   String get wizard_step2_hero_title;
 
-  /// Add-building wizard step-2 hero (Bangla line).
+  /// No description provided for @wizard_step2_hero_sub.
+  ///
+  /// In bn, this message translates to:
+  /// **'ম্যাপ থেকে ঠিকানা নিন'**
   String get wizard_step2_hero_sub;
 
-  /// Label for the building-name field (required).
+  /// No description provided for @building_name.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিংয়ের নাম'**
   String get building_name;
 
-  /// Placeholder for the building-name field.
+  /// No description provided for @building_name_hint.
+  ///
+  /// In bn, this message translates to:
+  /// **'যেমন: করিম মঞ্জিল'**
   String get building_name_hint;
 
-  /// Label for the building-area chip group (required).
+  /// No description provided for @building_area.
+  ///
+  /// In bn, this message translates to:
+  /// **'এলাকা'**
   String get building_area;
 
-  /// Label for the building-address field (required).
+  /// No description provided for @building_address.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পূর্ণ ঠিকানা'**
   String get building_address;
 
-  /// Placeholder for the building-address field.
+  /// No description provided for @building_address_hint.
+  ///
+  /// In bn, this message translates to:
+  /// **'ম্যাপ থেকে নিন অথবা হাতে লিখুন'**
   String get building_address_hint;
 
-  /// Suffix shown on the address label when it was auto-filled from the map.
+  /// No description provided for @building_address_auto.
+  ///
+  /// In bn, this message translates to:
+  /// **'(স্বয়ংক্রিয়)'**
   String get building_address_auto;
 
-  /// Button that opens the map picker in step 2.
+  /// No description provided for @wizard_pick_on_map.
+  ///
+  /// In bn, this message translates to:
+  /// **'ম্যাপ থেকে বেছে নিন'**
   String get wizard_pick_on_map;
 
-  /// Confirmation chip shown after a pin is dropped.
+  /// No description provided for @wizard_map_filled.
+  ///
+  /// In bn, this message translates to:
+  /// **'ম্যাপ থেকে ঠিকানা নেওয়া হয়েছে'**
   String get wizard_map_filled;
 
-  /// Clears the dropped map pin.
+  /// No description provided for @wizard_reset_pin.
+  ///
+  /// In bn, this message translates to:
+  /// **'রিসেট'**
   String get wizard_reset_pin;
 
-  /// Advances to the next wizard step.
+  /// No description provided for @wizard_next.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী'**
   String get wizard_next;
 
-  /// Step-2 primary button: advance to the units step.
+  /// No description provided for @wizard_next_units.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী — ইউনিট'**
   String get wizard_next_units;
 
-  /// Validation error when the building name is empty.
+  /// No description provided for @wizard_err_name.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিংয়ের নাম দিন'**
   String get wizard_err_name;
 
-  /// Validation error when no area is selected.
+  /// No description provided for @wizard_err_area.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি এলাকা বেছে নিন'**
   String get wizard_err_area;
 
-  /// Validation error when the address is empty.
+  /// No description provided for @wizard_err_address.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঠিকানা দিন'**
   String get wizard_err_address;
 
-  /// Top-bar title for the units step (3).
+  /// No description provided for @wizard_title_units.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্ল্যাট/ইউনিট'**
   String get wizard_title_units;
 
-  /// Top-bar title for the review step (4).
+  /// No description provided for @wizard_title_review.
+  ///
+  /// In bn, this message translates to:
+  /// **'সংক্ষিপ্ত'**
   String get wizard_title_review;
 
-  /// Step-3 hero headline (English).
+  /// No description provided for @wizard_step3_hero_title.
+  ///
+  /// In bn, this message translates to:
+  /// **'কয়টি ফ্ল্যাট?'**
   String get wizard_step3_hero_title;
 
-  /// Step-3 hero subtitle (Bangla).
+  /// No description provided for @wizard_step3_hero_sub.
+  ///
+  /// In bn, this message translates to:
+  /// **'কয়টি ফ্ল্যাট, কোন ফ্লোরে'**
   String get wizard_step3_hero_sub;
 
-  /// Step-4 hero headline (English).
+  /// No description provided for @wizard_step4_hero_title.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব ঠিক?'**
   String get wizard_step4_hero_title;
 
-  /// Step-4 hero subtitle (Bangla).
+  /// No description provided for @wizard_step4_hero_sub.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব ঠিক আছে?'**
   String get wizard_step4_hero_sub;
 
-  /// Stepper label for the number of floors.
+  /// No description provided for @wizard_floors.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোট ফ্লোর'**
   String get wizard_floors;
 
-  /// Stepper sub-label for floors (Bangla).
+  /// No description provided for @wizard_floors_sub.
+  ///
+  /// In bn, this message translates to:
+  /// **'কয়টি তলা'**
   String get wizard_floors_sub;
 
-  /// Stepper label for flats per floor.
+  /// No description provided for @wizard_per_floor.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রতি ফ্লোরে ফ্ল্যাট'**
   String get wizard_per_floor;
 
-  /// Stepper sub-label for flats per floor (Bangla).
+  /// No description provided for @wizard_per_floor_sub.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রতি তলায় কয়টি'**
   String get wizard_per_floor_sub;
 
-  /// Field label for the unit numbering scheme toggle.
+  /// No description provided for @wizard_scheme.
+  ///
+  /// In bn, this message translates to:
+  /// **'নম্বরিং ধরন'**
   String get wizard_scheme;
 
-  /// Letter scheme sub-label (floor + letter).
+  /// No description provided for @wizard_scheme_letter.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্লোর + অক্ষর'**
   String get wizard_scheme_letter;
 
-  /// Number scheme sub-label (floor × 100).
+  /// No description provided for @wizard_scheme_number.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্লোর × ১০০'**
   String get wizard_scheme_number;
 
   /// Header for the generated unit list with a count.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট তালিকা · {count} টি'**
   String wizard_units_count(int count);
 
-  /// Shown when no units would be generated.
+  /// No description provided for @wizard_units_empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্লোর ও ফ্ল্যাট বাড়ান, অথবা কাস্টম যোগ করুন'**
   String get wizard_units_empty;
 
-  /// Footnote under the unit list.
+  /// No description provided for @wizard_units_footnote.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রতিটি ইউনিটে পরে ভাড়া ও ভাড়াটিয়া যোগ করবেন'**
   String get wizard_units_footnote;
 
-  /// Chip that opens the add-custom-unit dialog.
+  /// No description provided for @wizard_add_custom.
+  ///
+  /// In bn, this message translates to:
+  /// **'+ কাস্টম'**
   String get wizard_add_custom;
 
-  /// Title of the add-custom-unit dialog.
+  /// No description provided for @wizard_add_custom_title.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাস্টম ইউনিট'**
   String get wizard_add_custom_title;
 
-  /// Hint for the custom unit label field.
+  /// No description provided for @wizard_add_custom_hint.
+  ///
+  /// In bn, this message translates to:
+  /// **'যেমন 8B, 2001'**
   String get wizard_add_custom_hint;
 
-  /// Dialog cancel action.
+  /// No description provided for @wizard_cancel.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
   String get wizard_cancel;
 
-  /// Dialog add action.
+  /// No description provided for @wizard_add.
+  ///
+  /// In bn, this message translates to:
+  /// **'যোগ'**
   String get wizard_add;
 
-  /// Step-3 primary button: advance to the review step.
+  /// No description provided for @wizard_next_review.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী — দেখুন'**
   String get wizard_next_review;
 
-  /// Review row label: building name.
+  /// No description provided for @wizard_review_building.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিং'**
   String get wizard_review_building;
 
-  /// Review row label: area.
+  /// No description provided for @wizard_review_area.
+  ///
+  /// In bn, this message translates to:
+  /// **'এলাকা'**
   String get wizard_review_area;
 
-  /// Review row label: address.
+  /// No description provided for @wizard_review_address.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঠিকানা'**
   String get wizard_review_address;
 
-  /// Review row label: map pin.
+  /// No description provided for @wizard_review_pin.
+  ///
+  /// In bn, this message translates to:
+  /// **'ম্যাপ পিন'**
   String get wizard_review_pin;
 
-  /// Review row value when a pin is set.
+  /// No description provided for @wizard_review_pin_saved.
+  ///
+  /// In bn, this message translates to:
+  /// **'সংরক্ষিত'**
   String get wizard_review_pin_saved;
 
-  /// Review row label: total units.
+  /// No description provided for @wizard_review_units.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোট ইউনিট'**
   String get wizard_review_units;
 
   /// Review row value summarising the unit count and grid.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি ({floors} ফ্লোর × {perFloor})'**
   String wizard_review_units_value(int count, int floors, int perFloor);
 
-  /// Step-4 primary button: persist the building and units.
+  /// No description provided for @wizard_save.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিং সেভ করুন'**
   String get wizard_save;
 
-  /// Save button label while the save is in flight.
+  /// No description provided for @wizard_saving.
+  ///
+  /// In bn, this message translates to:
+  /// **'সেভ হচ্ছে…'**
   String get wizard_saving;
 
-  /// Success toast shown after the building + units are saved.
+  /// No description provided for @wizard_saved.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিং সেভ হয়েছে'**
   String get wizard_saved;
 }
 

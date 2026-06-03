@@ -74,6 +74,9 @@ void main() {
 
     // Tap the centre of the map.
     await tester.tap(find.byType(FlutterMap));
+    // flutter_map debounces a single tap against a double-tap for ~250ms before
+    // firing MapOptions.onTap; advance the clock past that window.
+    await tester.pump(const Duration(milliseconds: 300)); // confirm the tap
     await tester.pump(); // run setState
     await tester.pump(); // resolve the (async) geocoder future
 

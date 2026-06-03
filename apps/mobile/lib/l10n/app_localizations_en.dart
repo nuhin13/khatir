@@ -15,9 +15,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_toggle_language => 'বাংলা';
 
   @override
-  String get common_logout => 'Log out';
-
-  @override
   String get nav_home => 'Home';
 
   @override
@@ -42,6 +39,132 @@ class AppLocalizationsEn extends AppLocalizations {
   String shell_placeholder_coming_soon(String tab) {
     return '$tab — coming soon';
   }
+
+  @override
+  String get common_logout => 'Log out';
+
+  @override
+  String get role_hero => 'Tell us who you are';
+
+  @override
+  String get role_title => 'Who are you?';
+
+  @override
+  String get role_subtitle => 'Pick your role to get the right features';
+
+  @override
+  String get role_most_common => '⭐ Most common';
+
+  @override
+  String get role_change_later => 'Change later in More';
+
+  @override
+  String get role_landlord_bn => 'Landlord';
+
+  @override
+  String get role_landlord_en => 'Landlord';
+
+  @override
+  String get role_landlord_desc => 'Manage my own buildings & tenants';
+
+  @override
+  String get role_landlord_perk1 => 'DMP form';
+
+  @override
+  String get role_landlord_perk2 => 'Rent collection';
+
+  @override
+  String get role_landlord_perk3 => 'Expense tracking';
+
+  @override
+  String get role_manager_bn => 'Building Manager';
+
+  @override
+  String get role_manager_en => 'Building Manager';
+
+  @override
+  String get role_manager_desc => 'Manage multiple owners\' properties';
+
+  @override
+  String get role_manager_perk1 => 'Multi-owner';
+
+  @override
+  String get role_manager_perk2 => 'Team access';
+
+  @override
+  String get role_manager_perk3 => 'Unified reports';
+
+  @override
+  String get role_tenant_bn => 'Tenant';
+
+  @override
+  String get role_tenant_en => 'Tenant';
+
+  @override
+  String get role_tenant_desc => 'I rent a flat';
+
+  @override
+  String get role_tenant_perk1 => 'Pay rent';
+
+  @override
+  String get role_tenant_perk2 => 'Receipts';
+
+  @override
+  String get role_tenant_perk3 => 'Repairs';
+
+  @override
+  String get more_title => 'More';
+
+  @override
+  String get more_profile => 'Profile';
+
+  @override
+  String get more_profile_en => 'Profile';
+
+  @override
+  String get more_plan => 'Plan & billing';
+
+  @override
+  String get more_plan_en => 'Plan & billing';
+
+  @override
+  String get more_lease => 'AI lease';
+
+  @override
+  String get more_lease_en => 'AI lease';
+
+  @override
+  String get more_warnings => 'Warnings & complaints';
+
+  @override
+  String get more_warnings_en => 'Warnings';
+
+  @override
+  String get more_language => 'Language · বাংলা/EN';
+
+  @override
+  String get more_language_en => 'Language';
+
+  @override
+  String get more_switch_role => 'Switch role';
+
+  @override
+  String get more_switch_role_en => 'Switch role';
+
+  @override
+  String get more_about => 'About Khatir';
+
+  @override
+  String get more_about_en => 'About Khatir';
+
+  @override
+  String get more_logout => 'Log out';
+
+  @override
+  String get more_name_fallback => 'User';
+
+  @override
+  String get more_plan_chip => 'Free 1/2';
 
   @override
   String get splash_loading => 'Loading…';
@@ -163,127 +286,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get auth_otp_expired => 'Code expired. Request a new one.';
 
   @override
-  String get role_hero => 'Tell us who you are';
+  String get map_picker_tap_hint => 'Tap to drop pin';
 
   @override
-  String get role_title => 'Who are you?';
-
-  @override
-  String get role_subtitle => 'Pick your role to get the right features';
-
-  @override
-  String get role_most_common => '⭐ Most common';
-
-  @override
-  String get role_change_later => 'Change later in More';
-
-  @override
-  String get role_landlord_bn => 'Landlord';
-
-  @override
-  String get role_landlord_en => 'Landlord';
-
-  @override
-  String get role_landlord_desc => 'Manage my own buildings & tenants';
-
-  @override
-  String get role_landlord_perk1 => 'DMP form';
-
-  @override
-  String get role_landlord_perk2 => 'Rent collection';
-
-  @override
-  String get role_landlord_perk3 => 'Expense tracking';
-
-  @override
-  String get role_manager_bn => 'Building Manager';
-
-  @override
-  String get role_manager_en => 'Building Manager';
-
-  @override
-  String get role_manager_desc => "Manage multiple owners' properties";
-
-  @override
-  String get role_manager_perk1 => 'Multi-owner';
-
-  @override
-  String get role_manager_perk2 => 'Team access';
-
-  @override
-  String get role_manager_perk3 => 'Unified reports';
-
-  @override
-  String get role_tenant_bn => 'Tenant';
-
-  @override
-  String get role_tenant_en => 'Tenant';
-
-  @override
-  String get role_tenant_desc => 'I rent a flat';
-
-  @override
-  String get role_tenant_perk1 => 'Pay rent';
-
-  @override
-  String get role_tenant_perk2 => 'Receipts';
-
-  @override
-  String get role_tenant_perk3 => 'Repairs';
-
-  @override
-  String get more_title => 'More';
-
-  @override
-  String get more_profile => 'Profile';
-
-  @override
-  String get more_profile_en => 'Profile';
-
-  @override
-  String get more_plan => 'Plan & billing';
-
-  @override
-  String get more_plan_en => 'Plan & billing';
-
-  @override
-  String get more_lease => 'AI lease';
-
-  @override
-  String get more_lease_en => 'AI lease';
-
-  @override
-  String get more_warnings => 'Warnings & complaints';
-
-  @override
-  String get more_warnings_en => 'Warnings';
-
-  @override
-  String get more_language => 'Language · বাংলা/EN';
-
-  @override
-  String get more_language_en => 'Language';
-
-  @override
-  String get more_switch_role => 'Switch role';
-
-  @override
-  String get more_switch_role_en => 'Switch role';
-
-  @override
-  String get more_about => 'About Khatir';
-
-  @override
-  String get more_about_en => 'About Khatir';
-
-  @override
-  String get more_logout => 'Log out';
-
-  @override
-  String get more_name_fallback => 'User';
-
-  @override
-  String get more_plan_chip => 'Free 1/2';
+  String get map_picker_attribution => '© OpenStreetMap contributors';
 
   @override
   String get home_greeting => 'Assalamu alaikum,';
@@ -331,7 +337,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_empty_title => 'Add your first building';
 
   @override
-  String get home_empty_body => 'No buildings yet. Add a building to get started.';
+  String get home_empty_body =>
+      'No buildings yet. Add a building to get started.';
 
   @override
   String home_currency_amount(String amount) {

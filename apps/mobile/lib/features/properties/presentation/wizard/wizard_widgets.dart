@@ -58,25 +58,27 @@ class WizardField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final labelStyle = AppTextStyles.labelLarge.copyWith(
+      color: KhatirColors.mutedDk,
+      fontWeight: FontWeight.w700,
+      fontSize: 12.5,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RichText(
-          text: TextSpan(
-            style: AppTextStyles.labelLarge.copyWith(
-              color: KhatirColors.mutedDk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12.5,
-            ),
-            children: [
-              if (required)
-                const TextSpan(
-                  text: '★ ',
-                  style: TextStyle(color: KhatirColors.rose),
-                ),
-              TextSpan(text: label),
-            ],
-          ),
+        // Keep the label as a plain Text (not a RichText span) so it stays a
+        // findable, accessible string; the required ★ is a separate leading
+        // glyph rather than part of the label run.
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (required)
+              Text(
+                '★ ',
+                style: labelStyle.copyWith(color: KhatirColors.rose),
+              ),
+            Text(label, style: labelStyle),
+          ],
         ),
         const SizedBox(height: KhatirSpacing.s2 - 2),
         child,

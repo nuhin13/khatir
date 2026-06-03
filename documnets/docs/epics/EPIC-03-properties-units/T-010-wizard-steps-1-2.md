@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Add-building wizard steps 1–2 (name/area, address/map)
 layer: mobile
 size: M
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [T-007, T-008]
 blocks: [T-011]

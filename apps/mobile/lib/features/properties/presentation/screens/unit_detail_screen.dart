@@ -83,9 +83,9 @@ class UnitDetailScreen extends ConsumerWidget {
             onEdit: () => _openEditSheet(context, ref, unit),
             onPatchStatus: (status) => ref
                 .read(unitDetailProvider(unitId).notifier)
-                .update(status: status),
+                .save(status: status),
             onPatchType: (type) =>
-                ref.read(unitDetailProvider(unitId).notifier).update(type: type),
+                ref.read(unitDetailProvider(unitId).notifier).save(type: type),
             onAddTenant: () => _addTenant(context),
           ),
         ),
@@ -107,7 +107,7 @@ class UnitDetailScreen extends ConsumerWidget {
       builder: (_) => _EditUnitSheet(unit: unit),
     );
     if (result == null) return;
-    await ref.read(unitDetailProvider(unitId).notifier).update(
+    await ref.read(unitDetailProvider(unitId).notifier).save(
           rent: result.rent,
           status: result.status,
           type: result.type,

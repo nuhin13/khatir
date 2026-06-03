@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Router role-redirect guards + replace EPIC-01 /home seam
 layer: mobile
 size: S
-status: in-progress
+status: done
 preferred_agent: claude-code
 depends_on: [T-004, T-005]
 blocks: []
