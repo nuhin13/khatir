@@ -19,6 +19,7 @@ urlpatterns = [
     path("healthz", healthz, name="healthz"),
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
+    path("api/v1/", include("khatir.properties.urls")),
     path("api/v1/auth/", include("khatir.accounts.urls")),
     # OpenAPI schema + interactive docs (drf-spectacular).
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
