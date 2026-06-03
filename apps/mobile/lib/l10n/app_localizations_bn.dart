@@ -343,4 +343,67 @@ class AppLocalizationsBn extends AppLocalizations {
   String home_currency_amount(String amount) {
     return '৳$amount';
   }
+
+  @override
+  String get portfolio_title => 'পোর্টফোলিও · Portfolio';
+
+  @override
+  String get portfolio_stat_buildings => 'বিল্ডিং · Buildings';
+
+  @override
+  String get portfolio_stat_occupied => 'ভাড়া হয়েছে · Occupied';
+
+  @override
+  String portfolio_occupancy(String occupied, String total) {
+    return '$occupied/$total';
+  }
+
+  @override
+  String get portfolio_units => 'ইউনিট';
+
+  @override
+  String get portfolio_occupied => 'ভাড়া হয়েছে';
+
+  @override
+  String get portfolio_monthly => 'মাসিক';
+
+  @override
+  String get portfolio_add_building => 'নতুন বিল্ডিং · Add building';
+
+  @override
+  String get portfolio_empty =>
+      'এখনো কোনো বিল্ডিং নেই। শুরু করতে একটি বিল্ডিং যোগ করুন।';
+
+  @override
+  String get portfolio_empty_title => 'আপনার প্রথম বিল্ডিং যোগ করুন';
+
+  @override
+  String get area_uttara => 'উত্তরা';
+
+  @override
+  String get area_mirpur => 'মিরপুর';
+
+  @override
+  String get area_mohammadpur => 'মোহাম্মদপুর';
+
+  @override
+  String get area_dhanmondi => 'ধানমন্ডি';
+
+  @override
+  String get area_banasree => 'বনশ্রী';
+
+  @override
+  String get area_gulshan => 'গুলশান';
+
+  @override
+  String get area_banani => 'বনানী';
+
+  @override
+  String get area_bashundhara => 'বসুন্ধরা';
+
+  @override
+  String get area_old_dhaka => 'পুরান ঢাকা';
+
+  @override
+  String get area_other => 'অন্যান্য';
 }

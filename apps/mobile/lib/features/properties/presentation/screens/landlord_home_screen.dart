@@ -308,6 +308,8 @@ class _StatTiles extends StatelessWidget {
     final rent = l10n.home_currency_amount(
       BanglaNumerals.format(totals.totalRent.round(), localeCode),
     );
+    // Buildings/units tiles open the portfolio list (T-012).
+    void openPortfolio() => context.pushNamed('portfolio');
     return Row(
       children: [
         Expanded(
@@ -315,6 +317,7 @@ class _StatTiles extends StatelessWidget {
             icon: Icons.apartment_outlined,
             value: BanglaNumerals.format(totals.buildings, localeCode),
             label: l10n.home_stat_buildings,
+            onTap: openPortfolio,
           ),
         ),
         const SizedBox(width: KhatirSpacing.s3),
@@ -323,6 +326,7 @@ class _StatTiles extends StatelessWidget {
             icon: Icons.meeting_room_outlined,
             value: BanglaNumerals.format(totals.totalUnits, localeCode),
             label: l10n.home_stat_units,
+            onTap: openPortfolio,
           ),
         ),
         const SizedBox(width: KhatirSpacing.s3),
@@ -346,6 +350,7 @@ class _StatTile extends StatelessWidget {
     required this.value,
     required this.label,
     this.highlight = false,
+    this.onTap,
   });
 
   final IconData icon;
@@ -356,18 +361,22 @@ class _StatTile extends StatelessWidget {
   /// prototype's emphasised money box.
   final bool highlight;
 
+  /// Optional tap handler (buildings/units tiles open the portfolio).
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     final bg = highlight ? KhatirColors.butterBg : KhatirColors.card;
     final fg = highlight ? KhatirColors.roseDk : KhatirColors.sageDk;
-    return Container(
+    final radius = BorderRadius.circular(KhatirRadius.card);
+    final tile = Container(
       padding: const EdgeInsets.symmetric(
         vertical: KhatirSpacing.s4,
         horizontal: KhatirSpacing.s2,
       ),
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(KhatirRadius.card),
+        borderRadius: radius,
       ),
       child: Column(
         children: [
@@ -403,6 +412,16 @@ class _StatTile extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+    if (onTap == null) return tile;
+    return Material(
+      color: Colors.transparent,
+      borderRadius: radius,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: radius,
+        child: tile,
       ),
     );
   }

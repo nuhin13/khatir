@@ -680,6 +680,66 @@ abstract class AppLocalizations {
 
   /// Taka-prefixed amount used for rent totals on the home screen.
   String home_currency_amount(String amount);
+
+  /// Portfolio screen top-bar title.
+  String get portfolio_title;
+
+  /// Portfolio summary stat label: number of buildings.
+  String get portfolio_stat_buildings;
+
+  /// Portfolio summary stat label: occupied / total units.
+  String get portfolio_stat_occupied;
+
+  /// Occupied-over-total units, e.g. 11/14.
+  String portfolio_occupancy(String occupied, String total);
+
+  /// Per-building footer caption: total units.
+  String get portfolio_units;
+
+  /// Per-building footer caption: occupied units.
+  String get portfolio_occupied;
+
+  /// Per-building footer caption: monthly rent total.
+  String get portfolio_monthly;
+
+  /// Portfolio CTA: add a new building.
+  String get portfolio_add_building;
+
+  /// Empty-state body shown when the landlord has no buildings.
+  String get portfolio_empty;
+
+  /// Empty-state title shown when the landlord has no buildings.
+  String get portfolio_empty_title;
+
+  /// Area display label: Uttara.
+  String get area_uttara;
+
+  /// Area display label: Mirpur.
+  String get area_mirpur;
+
+  /// Area display label: Mohammadpur.
+  String get area_mohammadpur;
+
+  /// Area display label: Dhanmondi.
+  String get area_dhanmondi;
+
+  /// Area display label: Banasree.
+  String get area_banasree;
+
+  /// Area display label: Gulshan.
+  String get area_gulshan;
+
+  /// Area display label: Banani.
+  String get area_banani;
+
+  /// Area display label: Bashundhara.
+  String get area_bashundhara;
+
+  /// Area display label: Old Dhaka.
+  String get area_old_dhaka;
+
+  /// Area display label: Other.
+  String get area_other;
 }
 
 class _AppLocalizationsDelegate

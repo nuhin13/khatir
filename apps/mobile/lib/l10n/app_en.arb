@@ -132,5 +132,59 @@
     "placeholders": {
       "amount": { "type": "String", "example": "97,000" }
     }
-  }
+  },
+  "portfolio_title": "পোর্টফোলিও · Portfolio",
+  "@portfolio_title": {
+    "description": "Portfolio screen top-bar title."
+  },
+  "portfolio_stat_buildings": "Buildings · বিল্ডিং",
+  "@portfolio_stat_buildings": {
+    "description": "Portfolio summary stat label: number of buildings."
+  },
+  "portfolio_stat_occupied": "Occupied · ভাড়া হয়েছে",
+  "@portfolio_stat_occupied": {
+    "description": "Portfolio summary stat label: occupied / total units."
+  },
+  "portfolio_occupancy": "{occupied}/{total}",
+  "@portfolio_occupancy": {
+    "description": "Occupied-over-total units, e.g. 11/14.",
+    "placeholders": {
+      "occupied": { "type": "String", "example": "11" },
+      "total": { "type": "String", "example": "14" }
+    }
+  },
+  "portfolio_units": "Units",
+  "@portfolio_units": {
+    "description": "Per-building footer caption: total units."
+  },
+  "portfolio_occupied": "Occupied",
+  "@portfolio_occupied": {
+    "description": "Per-building footer caption: occupied units."
+  },
+  "portfolio_monthly": "Monthly",
+  "@portfolio_monthly": {
+    "description": "Per-building footer caption: monthly rent total."
+  },
+  "portfolio_add_building": "নতুন বিল্ডিং · Add building",
+  "@portfolio_add_building": {
+    "description": "Portfolio CTA: add a new building."
+  },
+  "portfolio_empty": "এখনো কোনো বিল্ডিং নেই। শুরু করতে একটি বিল্ডিং যোগ করুন।",
+  "@portfolio_empty": {
+    "description": "Empty-state body shown when the landlord has no buildings."
+  },
+  "portfolio_empty_title": "আপনার প্রথম বিল্ডিং যোগ করুন",
+  "@portfolio_empty_title": {
+    "description": "Empty-state title shown when the landlord has no buildings."
+  },
+  "area_uttara": "Uttara",
+  "area_mirpur": "Mirpur",
+  "area_mohammadpur": "Mohammadpur",
+  "area_dhanmondi": "Dhanmondi",
+  "area_banasree": "Banasree",
+  "area_gulshan": "Gulshan",
+  "area_banani": "Banani",
+  "area_bashundhara": "Bashundhara",
+  "area_old_dhaka": "Old Dhaka",
+  "area_other": "Other"
 }
