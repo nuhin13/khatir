@@ -186,5 +186,103 @@
   "area_banani": "Banani",
   "area_bashundhara": "Bashundhara",
   "area_old_dhaka": "Old Dhaka",
-  "area_other": "Other"
+  "area_other": "Other",
+  "unit_title": "ইউনিট · Unit {label}",
+  "@unit_title": {
+    "description": "Unit detail top-bar title (unit label appended).",
+    "placeholders": {
+      "label": { "type": "String", "example": "2C" }
+    }
+  },
+  "unit_rent": "ভাড়া · Rent",
+  "@unit_rent": {
+    "description": "Label for the unit's monthly rent."
+  },
+  "unit_rent_per_month": "৳{amount}",
+  "@unit_rent_per_month": {
+    "description": "Monthly rent amount on the unit hero (currency prefixed).",
+    "placeholders": {
+      "amount": { "type": "String", "example": "22,000" }
+    }
+  },
+  "unit_per_month_suffix": "/মাস · /mo",
+  "@unit_per_month_suffix": {
+    "description": "Per-month suffix shown next to the rent amount."
+  },
+  "unit_status": "অবস্থা · Status",
+  "@unit_status": {
+    "description": "Label for the unit's occupancy status."
+  },
+  "unit_type": "ধরন · Type",
+  "@unit_type": {
+    "description": "Label for the unit's type."
+  },
+  "unit_amenities": "সুবিধা · Amenities",
+  "@unit_amenities": {
+    "description": "Label for the unit's amenities list."
+  },
+  "unit_amenities_none": "কোনো সুবিধা যোগ করা হয়নি · None yet",
+  "@unit_amenities_none": {
+    "description": "Shown when a unit has no amenities listed."
+  },
+  "unit_add_tenant": "ভাড়াটিয়া যোগ করুন · Add tenant",
+  "@unit_add_tenant": {
+    "description": "CTA to add a tenant to this unit."
+  },
+  "unit_no_tenant": "এখনো কোনো ভাড়াটিয়া নেই · No tenant yet",
+  "@unit_no_tenant": {
+    "description": "Empty-state title for the tenant/lease section (filled by EPIC-06)."
+  },
+  "unit_no_tenant_body": "এই ইউনিটে একজন ভাড়াটিয়া যোগ করুন।",
+  "@unit_no_tenant_body": {
+    "description": "Empty-state body for the tenant/lease section."
+  },
+  "unit_tenant_section": "ভাড়াটিয়া ও লিজ · Tenant & lease",
+  "@unit_tenant_section": {
+    "description": "Heading for the tenant/lease region."
+  },
+  "unit_edit": "সম্পাদনা · Edit",
+  "@unit_edit": {
+    "description": "Title of the edit-unit bottom sheet and the edit action."
+  },
+  "unit_edit_rent_label": "মাসিক ভাড়া · Monthly rent (৳)",
+  "@unit_edit_rent_label": {
+    "description": "Rent field label in the edit sheet."
+  },
+  "unit_save": "সংরক্ষণ · Save",
+  "@unit_save": {
+    "description": "Save button in the edit sheet."
+  },
+  "unit_status_occupied": "ভাড়া হয়েছে · Occupied",
+  "@unit_status_occupied": {
+    "description": "Display label for the occupied unit status."
+  },
+  "unit_status_vacant": "খালি · Vacant",
+  "@unit_status_vacant": {
+    "description": "Display label for the vacant unit status."
+  },
+  "unit_status_maintenance": "রক্ষণাবেক্ষণ · Maintenance",
+  "@unit_status_maintenance": {
+    "description": "Display label for the maintenance unit status."
+  },
+  "unit_type_apartment": "অ্যাপার্টমেন্ট · Apartment",
+  "@unit_type_apartment": {
+    "description": "Display label for the apartment unit type."
+  },
+  "unit_type_room": "রুম · Room",
+  "@unit_type_room": {
+    "description": "Display label for the room unit type."
+  },
+  "unit_type_commercial": "বাণিজ্যিক · Commercial",
+  "@unit_type_commercial": {
+    "description": "Display label for the commercial unit type."
+  },
+  "unit_type_garage": "গ্যারেজ · Garage",
+  "@unit_type_garage": {
+    "description": "Display label for the garage unit type."
+  },
+  "unit_type_other": "অন্যান্য · Other",
+  "@unit_type_other": {
+    "description": "Display label for the other unit type."
+  }
 }

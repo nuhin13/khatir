@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Unit detail screen
 layer: mobile
 size: M
-status: todo
+status: in-progress
 preferred_agent: claude-code
 depends_on: [T-007]
 blocks: []
@@ -58,13 +58,13 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] unit_detail_screen matches design
-- [ ] editable rent/status/type/amenities (PATCH)
-- [ ] add-tenant CTA (placeholder route)
-- [ ] tenant/lease placeholder region (TODO EPIC-06)
-- [ ] all states
-- [ ] ARB bn + en; widget test
-- [ ] analyze + test pass
+- [x] unit_detail_screen matches design
+- [x] editable rent/status/type/amenities (PATCH)
+- [x] add-tenant CTA (placeholder route)
+- [x] tenant/lease placeholder region (TODO EPIC-06)
+- [x] all states (loading/error/data — no empty: a unit always exists or 404s)
+- [x] ARB bn + en; widget test
+- [ ] analyze + test pass — BLOCKED: no Flutter/Dart toolchain in this environment
 
 ## 12. Test plan
 ### Automated
@@ -73,14 +73,43 @@ None.
 1. Open unit → change status vacant→occupied → persists.
 
 ## 13. Acceptance criteria
-- [ ] Unit detail matches design; edits persist; states present.
-- [ ] **Screen `unit` built** (ledger row).
-- [ ] Test + analyze pass.
+- [x] Unit detail matches design; edits persist (PATCH replaces state in place); states present.
+- [x] **Screen `unit` built** (ledger row).
+- [~] Test + analyze pass — tests written; NOT verified (no Flutter/Dart toolchain in env).
 
 ## 14. Self-review
-- [ ] Matches design; tokens; tenant region marked for EPIC-06
+- [x] Matches design (sage-gradient rent hero + facts grid + tenant region); all
+      values from `packages/design-tokens`; tenant region marked `// TODO(EPIC-06)`.
 ### Deviations from spec
+- Edit surface: the prototype `unit` screen shows its edit affordance as a
+  pencil in the top bar; rent/status/type/amenities are edited via a bottom
+  sheet (`_EditUnitSheet`) opened from that pencil, plus inline tap-to-PATCH
+  menus on the status and type tiles for the common quick-edit. Amenities are
+  comma-separated text in the sheet (free-form, matching the backend list field).
+- The prototype's tenant rowcard + quick-action grid (DMP/Rent/Verify/Warning)
+  belong to EPIC-04/05/07/17/20; per this task's §8 the tenant/lease region is a
+  clean empty-state placeholder for EPIC-06, with the add-tenant CTA → `/tenants/add`.
+- No "empty" state: a unit always exists or the request 404s into the error
+  branch, so the screen has loading/error/data (the three meaningful states).
+- A new `UnitDetailController` family + `unitDetailProvider` were added to
+  `properties_providers.dart` (the existing `unitProvider` is a read-only
+  `FutureProvider`; the detail screen needs PATCH-and-update-in-place).
+- l10n: no Flutter toolchain to run `gen-l10n`, so the generated
+  `app_localizations*.dart` getters were hand-written to match the committed
+  generator output (same as the ARB edits), faithfully following the existing
+  style in those files.
+- **Blocker:** no Flutter/Dart toolchain in this environment (`flutter`/`dart`
+  not on PATH; `~/Downloads/flutter` absent), so `flutter analyze` and
+  `flutter test` could not be run — identical blocker to EPIC-03/T-007,
+  EPIC-02/T-008, EPIC-03/T-008. The DoD test-pass gate cannot be confirmed, so
+  status is `in-progress` per the finish protocol.
 ### Files touched (actual)
+- Add: `lib/features/properties/presentation/screens/unit_detail_screen.dart`
+- Add: `test/unit_detail_test.dart`
+- Update: `lib/features/properties/data/properties_providers.dart` (UnitDetailController + unitDetailProvider)
+- Update: `lib/core/router/app_router.dart` (`/properties/unit/:id` → real screen)
+- Update: `lib/l10n/app_en.arb`, `lib/l10n/app_bn.arb` (unit_* keys)
+- Update: `lib/l10n/app_localizations.dart`, `app_localizations_en.dart`, `app_localizations_bn.dart` (generated getters, hand-written)
 
 ## 15. Notes for the implementing agent
 - Keep the tenant/lease block as a clean empty-state with a `// TODO(EPIC-06)` so leases drop in later without redesign.

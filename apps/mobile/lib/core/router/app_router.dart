@@ -10,6 +10,7 @@ import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/more_screen.dart';
 import '../../features/properties/presentation/screens/landlord_home_screen.dart';
 import '../../features/properties/presentation/screens/portfolio_screen.dart';
+import '../../features/properties/presentation/screens/unit_detail_screen.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
@@ -370,15 +371,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const PortfolioScreen(),
         routes: [
           GoRoute(
-            // Unit detail (T-013). Registered here as a placeholder so the
-            // portfolio's unit chips have a live drill-down target; T-013
-            // replaces the builder with the real unit screen.
-            // TODO(EPIC-03 · T-013) replace with the real unit detail screen.
+            // Unit detail (T-013): rent/status/type/amenities + editable PATCH,
+            // an add-tenant CTA, and a tenant/lease region (empty until
+            // EPIC-06). Sits on the root navigator so it covers the shell.
             path: 'unit/:id',
-            name: 'propertiesUnit',
+            name: UnitDetailScreen.routeName,
             parentNavigatorKey: _rootNavigatorKey,
-            builder: (context, state) => KShellPlaceholder(
-              tabLabel: AppLocalizations.of(context).portfolio_title,
+            builder: (context, state) => UnitDetailScreen(
+              unitId: state.pathParameters['id'] ?? '',
             ),
           ),
         ],

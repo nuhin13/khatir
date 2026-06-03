@@ -740,6 +740,75 @@ abstract class AppLocalizations {
 
   /// Area display label: Other.
   String get area_other;
+
+  /// Unit detail top-bar title (unit label appended).
+  String unit_title(String label);
+
+  /// Label for the unit's monthly rent.
+  String get unit_rent;
+
+  /// Monthly rent amount on the unit hero (currency prefixed).
+  String unit_rent_per_month(String amount);
+
+  /// Per-month suffix shown next to the rent amount.
+  String get unit_per_month_suffix;
+
+  /// Label for the unit's occupancy status.
+  String get unit_status;
+
+  /// Label for the unit's type.
+  String get unit_type;
+
+  /// Label for the unit's amenities list.
+  String get unit_amenities;
+
+  /// Shown when a unit has no amenities listed.
+  String get unit_amenities_none;
+
+  /// CTA to add a tenant to this unit.
+  String get unit_add_tenant;
+
+  /// Empty-state title for the tenant/lease section (filled by EPIC-06).
+  String get unit_no_tenant;
+
+  /// Empty-state body for the tenant/lease section.
+  String get unit_no_tenant_body;
+
+  /// Heading for the tenant/lease region.
+  String get unit_tenant_section;
+
+  /// Title of the edit-unit bottom sheet and the edit action.
+  String get unit_edit;
+
+  /// Rent field label in the edit sheet.
+  String get unit_edit_rent_label;
+
+  /// Save button in the edit sheet.
+  String get unit_save;
+
+  /// Display label for the occupied unit status.
+  String get unit_status_occupied;
+
+  /// Display label for the vacant unit status.
+  String get unit_status_vacant;
+
+  /// Display label for the maintenance unit status.
+  String get unit_status_maintenance;
+
+  /// Display label for the apartment unit type.
+  String get unit_type_apartment;
+
+  /// Display label for the room unit type.
+  String get unit_type_room;
+
+  /// Display label for the commercial unit type.
+  String get unit_type_commercial;
+
+  /// Display label for the garage unit type.
+  String get unit_type_garage;
+
+  /// Display label for the other unit type.
+  String get unit_type_other;
 }
 
 class _AppLocalizationsDelegate

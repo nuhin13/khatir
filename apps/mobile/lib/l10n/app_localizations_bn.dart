@@ -406,4 +406,77 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get area_other => 'অন্যান্য';
+
+  @override
+  String unit_title(String label) {
+    return 'ইউনিট $label';
+  }
+
+  @override
+  String get unit_rent => 'ভাড়া';
+
+  @override
+  String unit_rent_per_month(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String get unit_per_month_suffix => '/মাস';
+
+  @override
+  String get unit_status => 'অবস্থা';
+
+  @override
+  String get unit_type => 'ধরন';
+
+  @override
+  String get unit_amenities => 'সুবিধা';
+
+  @override
+  String get unit_amenities_none => 'কোনো সুবিধা যোগ করা হয়নি';
+
+  @override
+  String get unit_add_tenant => 'ভাড়াটিয়া যোগ করুন';
+
+  @override
+  String get unit_no_tenant => 'এখনো কোনো ভাড়াটিয়া নেই';
+
+  @override
+  String get unit_no_tenant_body => 'এই ইউনিটে একজন ভাড়াটিয়া যোগ করুন।';
+
+  @override
+  String get unit_tenant_section => 'ভাড়াটিয়া ও লিজ';
+
+  @override
+  String get unit_edit => 'সম্পাদনা';
+
+  @override
+  String get unit_edit_rent_label => 'মাসিক ভাড়া (৳)';
+
+  @override
+  String get unit_save => 'সংরক্ষণ';
+
+  @override
+  String get unit_status_occupied => 'ভাড়া হয়েছে';
+
+  @override
+  String get unit_status_vacant => 'খালি';
+
+  @override
+  String get unit_status_maintenance => 'রক্ষণাবেক্ষণ';
+
+  @override
+  String get unit_type_apartment => 'অ্যাপার্টমেন্ট';
+
+  @override
+  String get unit_type_room => 'রুম';
+
+  @override
+  String get unit_type_commercial => 'বাণিজ্যিক';
+
+  @override
+  String get unit_type_garage => 'গ্যারেজ';
+
+  @override
+  String get unit_type_other => 'অন্যান্য';
 }

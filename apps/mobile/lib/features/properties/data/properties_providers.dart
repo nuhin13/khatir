@@ -205,6 +205,55 @@ final unitProvider = FutureProvider.family<Unit, String>(
   (ref, id) => ref.watch(unitRepositoryProvider).getUnit(id),
 );
 
+/// Loads and mutates a single unit (the unit-detail screen, T-013), exposing
+/// [AsyncValue]. Keyed by unit id via [family].
+///
+/// [build] fetches `GET /units/{id}`. [update] PATCHes the unit and replaces
+/// [state] with the server's response (the source of truth) so edits to rent /
+/// status / type / amenities persist and re-render in place without a separate
+/// re-fetch.
+class UnitDetailController extends FamilyAsyncNotifier<Unit, String> {
+  @override
+  Future<Unit> build(String unitId) => _repo.getUnit(unitId);
+
+  UnitRepository get _repo => ref.read(unitRepositoryProvider);
+
+  /// Re-fetches this unit into [state].
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() => _repo.getUnit(arg));
+  }
+
+  /// Partially updates this unit, then replaces [state] with the returned unit.
+  /// Only non-null fields are sent. Returns the updated unit.
+  Future<Unit> update({
+    String? label,
+    UnitType? type,
+    double? rent,
+    List<String>? amenities,
+    UnitStatus? status,
+    DateTime? availableFrom,
+  }) async {
+    final unit = await _repo.updateUnit(
+      arg,
+      label: label,
+      type: type,
+      rent: rent,
+      amenities: amenities,
+      status: status,
+      availableFrom: availableFrom,
+    );
+    state = AsyncValue.data(unit);
+    return unit;
+  }
+}
+
+/// Single-unit detail/edit state, keyed by unit id.
+final unitDetailProvider =
+    AsyncNotifierProvider.family<UnitDetailController, Unit, String>(
+  UnitDetailController.new,
+);
+
 // ── Portfolio ────────────────────────────────────────────────────────────--
 
 /// Loads the caller's portfolio summary, exposing [AsyncValue].
