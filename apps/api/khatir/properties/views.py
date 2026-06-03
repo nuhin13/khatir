@@ -21,6 +21,7 @@ from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from khatir.accounts.models import User
 from khatir.core.permissions import ForUserQuerySetMixin, IsLandlordOrManager
@@ -28,6 +29,7 @@ from khatir.core.responses import created, no_content, success
 
 from .models import Building, Unit
 from .permissions import IsOwnerOfBuilding, IsOwnerOfUnit
+from .selectors import portfolio_for_user
 from .serializers import (
     BuildingCreateSerializer,
     BuildingSerializer,
@@ -172,3 +174,20 @@ class UnitViewSet(
         unit = self.get_object()
         delete_unit(actor=cast(User, request.user), unit=unit)
         return no_content()
+
+
+class PortfolioView(APIView):
+    """Portfolio summary at ``/api/v1/portfolio`` (T-005 §3/§7).
+
+    A single read endpoint returning the requesting landlord/manager's buildings
+    — each annotated with unit counts, occupancy breakdown, and total rent — plus
+    a top-level ``totals`` object. Reads are scoped through ``for_user`` inside
+    the selector, so the response only ever covers the caller's own portfolio
+    (others' buildings are invisible, not 403). Role-gated to landlord/manager;
+    tenants/anonymous never reach the aggregation.
+    """
+
+    permission_classes = [IsLandlordOrManager]
+
+    def get(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        return success(portfolio_for_user(cast(User, request.user)))

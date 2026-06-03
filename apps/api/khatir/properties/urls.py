@@ -10,9 +10,10 @@ single-unit detail/update/delete at ``/api/v1/units/{id}``.
 
 from __future__ import annotations
 
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import BuildingViewSet, UnitViewSet
+from .views import BuildingViewSet, PortfolioView, UnitViewSet
 
 app_name = "properties"
 
@@ -20,4 +21,7 @@ router = DefaultRouter(trailing_slash=False)
 router.register("buildings", BuildingViewSet, basename="building")
 router.register("units", UnitViewSet, basename="unit")
 
-urlpatterns = router.urls
+urlpatterns = [
+    path("portfolio", PortfolioView.as_view(), name="portfolio"),
+    *router.urls,
+]
