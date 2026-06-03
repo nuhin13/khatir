@@ -36,3 +36,14 @@ class UnitStatus(models.TextChoices):
     OCCUPIED = "occupied", "Occupied"
     VACANT = "vacant", "Vacant"
     MAINTENANCE = "maintenance", "Maintenance"
+
+
+class UnitScheme(models.TextChoices):
+    """Numbering scheme for the bulk-generate endpoint (T-004).
+
+    Not persisted on a model — the scheme is a request-time input that decides
+    how labels are produced. Lives here so the wire values stay in one place.
+    """
+
+    LETTER = "letter", "Letter (1A, 1B, 2A)"
+    NUMBER = "number", "Number (101, 102, 201)"
