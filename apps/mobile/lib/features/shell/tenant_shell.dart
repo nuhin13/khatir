@@ -4,20 +4,25 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 
 import '../../core/widgets/k_bottom_nav.dart';
 import '../../l10n/app_localizations.dart';
+import 'shell_nav_config.dart';
 
 /// Tenant role shell. Four bottom-nav branches (home, maintenance, receipts,
-/// more) in an indexed stack. Tenants have no center Add action, so every nav
-/// slot maps 1:1 to a branch. Branch bodies are stubbed until EPIC-19 fills the
-/// tenant experience.
+/// more) in an indexed stack via [ShellNavConfig.tenant]. Tenants have no
+/// center Add action, so every nav slot maps 1:1 to a branch. Branch bodies are
+/// stubbed until EPIC-19 fills the tenant experience.
 class TenantShell extends StatelessWidget {
   const TenantShell({super.key, required this.navigationShell});
 
   final StatefulNavigationShell navigationShell;
 
-  void _onTap(int index) {
+  static final ShellNavConfig _config = ShellNavConfig.tenant;
+
+  void _onTap(int slot) {
+    final branch = _config.branchForSlot(slot);
+    if (branch == null) return;
     navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
+      branch,
+      initialLocation: branch == navigationShell.currentIndex,
     );
   }
 
@@ -28,19 +33,15 @@ class TenantShell extends StatelessWidget {
       backgroundColor: KhatirColors.cream,
       body: navigationShell,
       bottomNavigationBar: KBottomNav(
-        currentIndex: navigationShell.currentIndex,
+        currentIndex: _config.slotForBranch(navigationShell.currentIndex),
         onTap: _onTap,
         items: [
-          KBottomNavItem(icon: Icons.home_outlined, label: l10n.nav_home),
-          KBottomNavItem(
-            icon: Icons.build_outlined,
-            label: l10n.nav_maintenance,
-          ),
-          KBottomNavItem(
-            icon: Icons.receipt_long_outlined,
-            label: l10n.nav_receipts,
-          ),
-          KBottomNavItem(icon: Icons.menu, label: l10n.nav_more),
+          for (final slot in _config.slots)
+            KBottomNavItem(
+              icon: slot.icon,
+              label: slot.label(l10n),
+              fab: slot.fab,
+            ),
         ],
       ),
     );

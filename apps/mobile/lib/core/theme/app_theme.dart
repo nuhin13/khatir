@@ -17,6 +17,16 @@ class AppTheme {
     ),
   ];
 
+  /// Sage-tinted elevation for accent surfaces (e.g. the bottom-nav center FAB),
+  /// mirroring the prototype's `--sh-sage`. Derived from [KhatirColors.sage].
+  static const List<BoxShadow> sageShadow = [
+    BoxShadow(
+      color: Color(0x4D7BA084), // sage @ 30%
+      blurRadius: 14,
+      offset: Offset(0, 6),
+    ),
+  ];
+
   static ThemeData light() {
     final colorScheme = const ColorScheme.light().copyWith(
       primary: KhatirColors.sage,

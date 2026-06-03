@@ -4,7 +4,7 @@ epic: EPIC-02
 title: Bottom nav component + per-role tabs
 layer: mobile
 size: M
-status: todo
+status: in-progress
 preferred_agent: claude-code
 depends_on: [T-004]
 blocks: []
@@ -69,12 +69,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] KBottomNav: 5 slots, center FAB, active highlight (sage), tokens
-- [ ] shell_nav_config per-role tab sets (landlord/manager/tenant)
-- [ ] integrated into all 3 shells (temp nav removed)
-- [ ] icons from design set; bn/en labels via ARB
-- [ ] Widget test: 5 slots, active state, FAB action
-- [ ] analyze + test pass; no inline colors/strings
+- [x] KBottomNav: 5 slots, center FAB, active highlight (sage), tokens
+- [x] shell_nav_config per-role tab sets (landlord/manager/tenant)
+- [x] integrated into all 3 shells (temp nav removed)
+- [x] icons from design set; bn/en labels via ARB
+- [x] Widget test: 5 slots, active state, FAB action
+- [ ] analyze + test pass; no inline colors/strings — BLOCKED: no Flutter/Dart toolchain in this env
 
 ## 12. Test plan
 ### Automated
@@ -83,16 +83,30 @@ None.
 1. In each shell, confirm correct tabs + labels; active highlight; FAB opens add.
 
 ## 13. Acceptance criteria
-- [ ] KBottomNav matches design (5 slots, center FAB).
-- [ ] Per-role tab sets correct (tenant differs).
-- [ ] Used by all three shells.
-- [ ] Test + analyze pass.
+- [x] KBottomNav matches design (5 slots, center FAB).
+- [x] Per-role tab sets correct (tenant differs).
+- [x] Used by all three shells.
+- [ ] Test + analyze pass — BLOCKED: no Flutter/Dart toolchain in this env.
 
 ## 14. Self-review
-- [ ] Single shared nav widget (no per-shell duplication)
-- [ ] Tokens/icons/strings from shared sources
+- [x] Single shared nav widget (no per-shell duplication)
+- [x] Tokens/icons/strings from shared sources
 ### Deviations from spec
+- No new screens or l10n keys needed: the `nav_*` ARB keys (bn+en) already
+  landed in T-004, so this task only consumes them.
+- The center FAB sage shadow uses a new `AppTheme.sageShadow` token (mirrors the
+  prototype's `--sh-sage`), derived from `KhatirColors.sage` — no inline hex.
+- Per-role nav definitions live in `shell_nav_config.dart` (labels resolved
+  lazily from `AppLocalizations`, plus the branch↔slot map and FAB route). The
+  three shells now share this config instead of duplicating item lists.
+- analyze + test written but not executable here (no Flutter/Dart toolchain) —
+  same blocker as EPIC-02/T-003..T-005.
 ### Files touched (actual)
+- lib/core/widgets/k_bottom_nav.dart (update: FAB slot, active sage-bg circle, top border)
+- lib/core/theme/app_theme.dart (update: add sageShadow token)
+- lib/features/shell/shell_nav_config.dart (add: per-role tab definitions)
+- lib/features/shell/landlord_shell.dart, manager_shell.dart, tenant_shell.dart (update: consume ShellNavConfig)
+- test/bottom_nav_test.dart (add: 5 slots, active highlight, FAB action, tenant 4-slot, branch↔slot map)
 
 ## 15. Notes for the implementing agent
 - Landlord/Manager tabs: Home · Charts · ➕ · Rent · More. Tenant tabs: Home · Maintenance · ➕(pay?) · Receipts · More — confirm against `tenHome` design; if tenant has no center-add, render a 4-slot variant. Follow the design.
