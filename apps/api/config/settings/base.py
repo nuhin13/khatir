@@ -54,6 +54,11 @@ LOCAL_APPS = [
     "khatir.maintenance",
     "khatir.billing",
     "khatir.admin_portal",
+    "khatir.dmpforms",
+    "khatir.featureflags",
+    "khatir.ai_providers",
+    "khatir.notifications",
+    "khatir.compliance",
     "khatir.health",
 ]
 

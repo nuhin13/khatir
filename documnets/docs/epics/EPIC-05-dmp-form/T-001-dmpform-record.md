@@ -4,16 +4,13 @@ epic: EPIC-05
 title: DMPFormRecord model + migration
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-04.T-001]
 blocks: [T-005]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
-reviewed_at:
+started_at: 2026-06-04completed_at: 2026-06-04executed_by: claudereviewed_at:
 reviewed_by:
 review_outcome:
 ---

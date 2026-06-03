@@ -70,3 +70,8 @@
 2026-06-04 | EPIC-08/T-001 | backend | claude | done | maintenance app: MaintenanceRequest + Expense + enums; 17 tests; 378 pass
 2026-06-04 | EPIC-10/T-001 | backend | claude | done | billing app: PricingTier + Subscription + enums; 17 tests; 378 pass
 2026-06-04 | EPIC-11/T-001 | backend | claude | done | admin_portal app: AdminUser (separate from User); 23 tests; 378 pass
+2026-06-04 | EPIC-05/T-001 | backend | claude | done | dmpforms app: DMPFormRecord; 11 tests; full suite 471 pass
+2026-06-04 | EPIC-13/T-001 | backend | claude | done | featureflags app: FeatureFlag + KillSwitchEvent; 19 tests; 471 pass
+2026-06-04 | EPIC-14/T-001 | backend | claude | done | ai_providers app: AIProvider + AIUsageLog; 17 tests; 471 pass
+2026-06-04 | EPIC-15/T-001 | backend | claude | done | notifications app: Notification+Delivery+Template; sender FK->AdminUser; 28 tests; 471 pass
+2026-06-04 | EPIC-16/T-001 | backend | claude | done | compliance app: ConsentRecord + DataRequest; 18 tests; 471 pass

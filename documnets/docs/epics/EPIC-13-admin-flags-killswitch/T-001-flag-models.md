@@ -4,16 +4,13 @@ epic: EPIC-13
 title: FeatureFlag + KillSwitchEvent models
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-00.T-005]
 blocks: [T-002, T-003, T-004]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
-reviewed_at:
+started_at: 2026-06-04completed_at: 2026-06-04executed_by: claudereviewed_at:
 reviewed_by:
 review_outcome:
 ---
