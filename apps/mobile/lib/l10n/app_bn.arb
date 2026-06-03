@@ -373,5 +373,13 @@
   "auth_otp_expired": "কোডের মেয়াদ শেষ। নতুন কোড নিন।",
   "@auth_otp_expired": {
     "description": "Inline error for an expired OTP code."
+  },
+  "map_picker_tap_hint": "ট্যাপ করে পিন দিন",
+  "@map_picker_tap_hint": {
+    "description": "Overlay prompt on the map-pin picker, shown before a pin has been dropped."
+  },
+  "map_picker_attribution": "© OpenStreetMap contributors",
+  "@map_picker_attribution": {
+    "description": "Required OpenStreetMap tile attribution shown on the map-pin picker."
   }
 }

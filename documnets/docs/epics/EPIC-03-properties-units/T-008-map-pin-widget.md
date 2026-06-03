@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Shared map-pin widget (flutter_map + OSM)
 layer: mobile
 size: M
-status: todo
+status: in-progress
 preferred_agent: claude-code
 depends_on: [EPIC-00.T-008]
 blocks: [T-010]
@@ -56,12 +56,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] KMapPicker (flutter_map + OSM tiles)
-- [ ] tap → drop pin → onChanged(LatLng)
-- [ ] pluggable reverse-geocode (stub ok now)
-- [ ] OSM attribution shown
-- [ ] Widget test
-- [ ] analyze + test pass
+- [x] KMapPicker (flutter_map + OSM tiles)
+- [x] tap → drop pin → onChanged(LatLng)
+- [x] pluggable reverse-geocode (stub ok now)
+- [x] OSM attribution shown
+- [x] Widget test
+- [ ] analyze + test pass — BLOCKED: no Flutter/Dart toolchain in this environment
 
 ## 12. Test plan
 ### Automated
@@ -70,12 +70,25 @@ None.
 1. Tap map → pin drops → callback fires with coords.
 
 ## 13. Acceptance criteria
-- [ ] Reusable map-pin widget with OSM + attribution; tests + analyze pass.
+- [x] Reusable map-pin widget with OSM + attribution; tests written. (analyze/test not run — no toolchain here)
 
 ## 14. Self-review
-- [ ] Attribution present; tiles cached; tokens used
+- [x] Attribution present; tiles cached; tokens used
 ### Deviations from spec
+- Prototype shows a Google-Maps mock; per the task note we use OSM tiles
+  (`tile.openstreetmap.org`) with the required `© OpenStreetMap contributors`
+  attribution via `RichAttributionWidget`. Visual parity comes from tokens
+  (sage/rose, card radius, soft shadow), not Google branding.
+- Reverse-geocode is a pluggable `ReverseGeocoder` typedef; the default
+  `coordsAsTextGeocoder` renders coords-as-text (e.g. `23.8103°N, 90.4125°E`).
+  Address is returned via `onAddressResolved` so the caller keeps it editable.
+- analyze + test were NOT executed: this environment has no Flutter/Dart
+  toolchain. flutter_map v8 API usage verified against current upstream docs.
 ### Files touched (actual)
+- Add: lib/core/widgets/k_map_picker.dart
+- Add: test/map_picker_test.dart
+- Update: pubspec.yaml (flutter_map ^8.3.0, latlong2 ^0.10.1)
+- Update: lib/l10n/app_en.arb, lib/l10n/app_bn.arb (map_picker_* keys)
 
 ## 15. Notes for the implementing agent
 - The prototype shows a Google-Maps-styled mock; we use OSM (free, no key) — visual parity via our tokens, not Google branding. Address stays editable even when pin auto-fills it.

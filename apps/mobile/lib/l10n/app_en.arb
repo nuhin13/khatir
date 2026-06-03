@@ -97,5 +97,13 @@
   "auth_otp_resend": "Resend",
   "auth_otp_resend_in": "Resend ({time})",
   "auth_otp_invalid": "Wrong code. Please try again.",
-  "auth_otp_expired": "Code expired. Request a new one."
+  "auth_otp_expired": "Code expired. Request a new one.",
+  "map_picker_tap_hint": "Tap to drop pin",
+  "@map_picker_tap_hint": {
+    "description": "Overlay prompt on the map-pin picker, shown before a pin has been dropped."
+  },
+  "map_picker_attribution": "© OpenStreetMap contributors",
+  "@map_picker_attribution": {
+    "description": "Required OpenStreetMap tile attribution shown on the map-pin picker."
+  }
 }
