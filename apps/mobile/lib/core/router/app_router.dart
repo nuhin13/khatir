@@ -8,6 +8,7 @@ import '../../features/auth/presentation/screens/phone_entry_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/more_screen.dart';
+import '../../features/properties/presentation/screens/landlord_home_screen.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
@@ -250,12 +251,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state, navigationShell) =>
             LandlordShell(navigationShell: navigationShell),
         branches: [
-          _placeholderBranch(
-            // TODO(EPIC-03/09) replace with the landlord home (DMP CTA,
-            // portfolio).
-            path: '/landlord/home',
-            name: 'landlordHome',
-            label: (l) => l.nav_home,
+          // Landlord home (T-009): greeting + DMP CTA + portfolio summary.
+          // Charts/late-payers land in EPIC-09/07.
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/landlord/home',
+                name: 'landlordHome',
+                builder: (context, state) => const LandlordHomeScreen(),
+              ),
+            ],
           ),
           _placeholderBranch(
             // TODO(EPIC-09) replace with the landlord dashboard/charts.

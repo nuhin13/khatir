@@ -105,5 +105,32 @@
   "map_picker_attribution": "© OpenStreetMap contributors",
   "@map_picker_attribution": {
     "description": "Required OpenStreetMap tile attribution shown on the map-pin picker."
+  },
+  "home_greeting": "Assalamu alaikum,",
+  "home_name_fallback": "Landlord",
+  "home_summary_line": "{buildings} buildings · {units} units",
+  "@home_summary_line": {
+    "placeholders": {
+      "buildings": { "type": "String", "example": "2" },
+      "units": { "type": "String", "example": "14" }
+    }
+  },
+  "home_dmp_cta_badge": "⭐ Recommended · FLAGSHIP",
+  "home_dmp_cta": "Police form, in just 2 minutes!",
+  "home_dmp_cta_sub": "Police form in 2 minutes — snap the NID, we do the rest ✨",
+  "home_dmp_cta_action": "Start · শুরু করি",
+  "home_stat_buildings": "Bldg · বিল্ডিং",
+  "home_stat_units": "Units · ইউনিট",
+  "home_stat_monthly": "/mo · মাসিক",
+  "home_collected": "Collected this month · এ মাসে আদায়",
+  "home_collected_todo": "Collection detail & charts coming soon",
+  "home_add_building": "Add building · বিল্ডিং যোগ করুন",
+  "home_empty_title": "Add your first building",
+  "home_empty_body": "No buildings yet. Add a building to get started.",
+  "home_currency_amount": "৳{amount}",
+  "@home_currency_amount": {
+    "placeholders": {
+      "amount": { "type": "String", "example": "97,000" }
+    }
   }
 }

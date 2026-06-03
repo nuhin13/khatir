@@ -288,4 +288,59 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get more_plan_chip => 'Free 1/2';
+
+  @override
+  String get home_greeting => 'আসসালামু আলাইকুম,';
+
+  @override
+  String get home_name_fallback => 'বাড়িওয়ালা';
+
+  @override
+  String home_summary_line(String buildings, String units) {
+    return '$buildings বিল্ডিং · $units ইউনিট';
+  }
+
+  @override
+  String get home_dmp_cta_badge => '⭐ সুপারিশ · FLAGSHIP';
+
+  @override
+  String get home_dmp_cta => 'পুলিশ ফর্ম, মাত্র ২ মিনিটে!';
+
+  @override
+  String get home_dmp_cta_sub =>
+      'Police form in 2 minutes — NID-এর ছবি তুলুন, বাকিটা আমরা করব ✨';
+
+  @override
+  String get home_dmp_cta_action => 'শুরু করি · Start';
+
+  @override
+  String get home_stat_buildings => 'বিল্ডিং · Bldg';
+
+  @override
+  String get home_stat_units => 'ইউনিট · Units';
+
+  @override
+  String get home_stat_monthly => 'মাসিক · /mo';
+
+  @override
+  String get home_collected => 'এ মাসে আদায় · Collected this month';
+
+  @override
+  String get home_collected_todo =>
+      'বিস্তারিত আদায় ও চার্ট শীঘ্রই · Collection detail coming soon';
+
+  @override
+  String get home_add_building => 'বিল্ডিং যোগ করুন · Add building';
+
+  @override
+  String get home_empty_title => 'আপনার প্রথম বিল্ডিং যোগ করুন';
+
+  @override
+  String get home_empty_body =>
+      'এখনো কোনো বিল্ডিং নেই। শুরু করতে একটি বিল্ডিং যোগ করুন।';
+
+  @override
+  String home_currency_amount(String amount) {
+    return '৳$amount';
+  }
 }

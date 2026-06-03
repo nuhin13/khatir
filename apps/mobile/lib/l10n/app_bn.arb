@@ -381,5 +381,76 @@
   "map_picker_attribution": "© OpenStreetMap contributors",
   "@map_picker_attribution": {
     "description": "Required OpenStreetMap tile attribution shown on the map-pin picker."
+  },
+  "home_greeting": "আসসালামু আলাইকুম,",
+  "@home_greeting": {
+    "description": "Landlord home handwritten greeting line above the user's name."
+  },
+  "home_name_fallback": "বাড়িওয়ালা",
+  "@home_name_fallback": {
+    "description": "Fallback name in the home greeting when the user has no name."
+  },
+  "home_summary_line": "{buildings} বিল্ডিং · {units} ইউনিট",
+  "@home_summary_line": {
+    "description": "Portfolio one-liner under the greeting: building + unit counts.",
+    "placeholders": {
+      "buildings": { "type": "String", "example": "২" },
+      "units": { "type": "String", "example": "১৪" }
+    }
+  },
+  "home_dmp_cta_badge": "⭐ সুপারিশ · FLAGSHIP",
+  "@home_dmp_cta_badge": {
+    "description": "Badge chip on the DMP hero CTA card."
+  },
+  "home_dmp_cta": "পুলিশ ফর্ম, মাত্র ২ মিনিটে!",
+  "@home_dmp_cta": {
+    "description": "Hero DMP CTA title (Bangla)."
+  },
+  "home_dmp_cta_sub": "Police form in 2 minutes — NID-এর ছবি তুলুন, বাকিটা আমরা করব ✨",
+  "@home_dmp_cta_sub": {
+    "description": "Hero DMP CTA subtitle/explainer."
+  },
+  "home_dmp_cta_action": "শুরু করি · Start",
+  "@home_dmp_cta_action": {
+    "description": "Hero DMP CTA action pill label."
+  },
+  "home_stat_buildings": "বিল্ডিং · Bldg",
+  "@home_stat_buildings": {
+    "description": "Quick-stat tile label: building count."
+  },
+  "home_stat_units": "ইউনিট · Units",
+  "@home_stat_units": {
+    "description": "Quick-stat tile label: unit count."
+  },
+  "home_stat_monthly": "মাসিক · /mo",
+  "@home_stat_monthly": {
+    "description": "Quick-stat tile label: monthly rent total."
+  },
+  "home_collected": "এ মাসে আদায় · Collected this month",
+  "@home_collected": {
+    "description": "Collection summary card heading."
+  },
+  "home_collected_todo": "বিস্তারিত আদায় ও চার্ট শীঘ্রই · Collection detail coming soon",
+  "@home_collected_todo": {
+    "description": "Placeholder note in the collection card for the charts region (EPIC-09)."
+  },
+  "home_add_building": "বিল্ডিং যোগ করুন · Add building",
+  "@home_add_building": {
+    "description": "Empty-state primary action: add the first building."
+  },
+  "home_empty_title": "আপনার প্রথম বিল্ডিং যোগ করুন",
+  "@home_empty_title": {
+    "description": "Empty-state title shown when the landlord has no buildings yet."
+  },
+  "home_empty_body": "এখনো কোনো বিল্ডিং নেই। শুরু করতে একটি বিল্ডিং যোগ করুন।",
+  "@home_empty_body": {
+    "description": "Empty-state body shown when the landlord has no buildings yet."
+  },
+  "home_currency_amount": "৳{amount}",
+  "@home_currency_amount": {
+    "description": "Taka-prefixed amount used for rent totals on the home screen.",
+    "placeholders": {
+      "amount": { "type": "String", "example": "৯৭,০০০" }
+    }
   }
 }

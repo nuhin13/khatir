@@ -632,6 +632,54 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'Free 1/2'**
   String get more_plan_chip;
+
+  /// Landlord home handwritten greeting line above the user's name.
+  String get home_greeting;
+
+  /// Fallback name in the home greeting when the user has no name.
+  String get home_name_fallback;
+
+  /// Portfolio one-liner under the greeting: building + unit counts.
+  String home_summary_line(String buildings, String units);
+
+  /// Badge chip on the DMP hero CTA card.
+  String get home_dmp_cta_badge;
+
+  /// Hero DMP CTA title.
+  String get home_dmp_cta;
+
+  /// Hero DMP CTA subtitle/explainer.
+  String get home_dmp_cta_sub;
+
+  /// Hero DMP CTA action pill label.
+  String get home_dmp_cta_action;
+
+  /// Quick-stat tile label: building count.
+  String get home_stat_buildings;
+
+  /// Quick-stat tile label: unit count.
+  String get home_stat_units;
+
+  /// Quick-stat tile label: monthly rent total.
+  String get home_stat_monthly;
+
+  /// Collection summary card heading.
+  String get home_collected;
+
+  /// Placeholder note in the collection card for the charts region (EPIC-09).
+  String get home_collected_todo;
+
+  /// Empty-state primary action: add the first building.
+  String get home_add_building;
+
+  /// Empty-state title shown when the landlord has no buildings yet.
+  String get home_empty_title;
+
+  /// Empty-state body shown when the landlord has no buildings yet.
+  String get home_empty_body;
+
+  /// Taka-prefixed amount used for rent totals on the home screen.
+  String home_currency_amount(String amount);
 }
 
 class _AppLocalizationsDelegate

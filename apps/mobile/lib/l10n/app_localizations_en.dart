@@ -284,4 +284,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get more_plan_chip => 'Free 1/2';
+
+  @override
+  String get home_greeting => 'Assalamu alaikum,';
+
+  @override
+  String get home_name_fallback => 'Landlord';
+
+  @override
+  String home_summary_line(String buildings, String units) {
+    return '$buildings buildings · $units units';
+  }
+
+  @override
+  String get home_dmp_cta_badge => '⭐ Recommended · FLAGSHIP';
+
+  @override
+  String get home_dmp_cta => 'Police form, in just 2 minutes!';
+
+  @override
+  String get home_dmp_cta_sub =>
+      'Police form in 2 minutes — snap the NID, we do the rest ✨';
+
+  @override
+  String get home_dmp_cta_action => 'Start · শুরু করি';
+
+  @override
+  String get home_stat_buildings => 'Bldg · বিল্ডিং';
+
+  @override
+  String get home_stat_units => 'Units · ইউনিট';
+
+  @override
+  String get home_stat_monthly => '/mo · মাসিক';
+
+  @override
+  String get home_collected => 'Collected this month · এ মাসে আদায়';
+
+  @override
+  String get home_collected_todo => 'Collection detail & charts coming soon';
+
+  @override
+  String get home_add_building => 'Add building · বিল্ডিং যোগ করুন';
+
+  @override
+  String get home_empty_title => 'Add your first building';
+
+  @override
+  String get home_empty_body => 'No buildings yet. Add a building to get started.';
+
+  @override
+  String home_currency_amount(String amount) {
+    return '৳$amount';
+  }
 }
