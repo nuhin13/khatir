@@ -4,15 +4,15 @@ epic: EPIC-09
 title: Dashboard performance test
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-001]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -38,9 +38,9 @@ No DB changes; backend only; no external; no flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] fixture: 5 buildings, 20 units, 50 payments, 20 expenses
-- [ ] assertNumQueries within bound
-- [ ] test passes + added to CI
+- [x] fixture: 5 buildings, 20 units, 50 payments, 20 expenses
+- [x] assertNumQueries within bound
+- [x] test passes + added to CI
 
 ## 12. Test plan
 ### Automated
@@ -49,10 +49,15 @@ No DB changes; backend only; no external; no flags.
 1. Introduce a deliberate N+1 → test fails.
 
 ## 13. Acceptance criteria
-- [ ] Query count bounded; test catches regressions.
+- [x] Query count bounded; test catches regressions.
 ## 14. Self-review
-- [ ] Bound is tight enough to catch real N+1s
+- [x] Bound is tight enough to catch real N+1s
 ### Deviations from spec
+- Used `CaptureQueriesContext` with an upper-bound (`assertLessEqual`) rather
+  than exact `assertNumQueries`, per §15 guidance to leave room for legitimate
+  joins while still catching per-row loops. Budget = 12 (selectors issue ~8
+  aggregate passes; any N+1 over the 50 schedules / 20 units adds tens).
 ### Files touched (actual)
+- khatir/dashboard/tests/test_perf.py (add)
 ## 15. Notes
 - Don't over-tighten the bound — leave room for legitimate joins. Focus on catching loops.
