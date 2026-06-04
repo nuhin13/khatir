@@ -923,4 +923,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dmp_retry => 'Retry';
+
+  @override
+  String get dmp_pdf_title => 'DMP PDF · ডিএমপি পিডিএফ';
+
+  @override
+  String get dmp_generating => 'Generating your form…';
+
+  @override
+  String get dmp_pdf_download => 'Download · নামান';
+
+  @override
+  String get dmp_pdf_share => 'Share · শেয়ার';
+
+  @override
+  String get dmp_pdf_whatsapp => 'Share on WhatsApp · WhatsApp-এ পাঠান';
+
+  @override
+  String get dmp_pdf_error => 'Could not generate the PDF. Please try again.';
+
+  @override
+  String get dmp_pdf_action_failed =>
+      'Could not complete that. Please try again.';
 }

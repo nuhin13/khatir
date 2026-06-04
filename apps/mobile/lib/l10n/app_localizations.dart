@@ -1837,6 +1837,48 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'আবার চেষ্টা'**
   String get dmp_retry;
+
+  /// Title of the DMP PDF preview + share screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP PDF · ডিএমপি পিডিএফ'**
+  String get dmp_pdf_title;
+
+  /// Loading message while the DMP PDF is generated + downloaded.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনার ফর্ম তৈরি হচ্ছে…'**
+  String get dmp_generating;
+
+  /// Primary action: download/save the generated DMP PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'নামান · Download'**
+  String get dmp_pdf_download;
+
+  /// Secondary action: share the DMP PDF via the OS sheet (WhatsApp/system).
+  ///
+  /// In bn, this message translates to:
+  /// **'শেয়ার · Share'**
+  String get dmp_pdf_share;
+
+  /// WhatsApp-specific share label for the DMP PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'WhatsApp-এ পাঠান · Share on WhatsApp'**
+  String get dmp_pdf_whatsapp;
+
+  /// Error state message when DMP PDF generation fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'পিডিএফ তৈরি করা যায়নি। আবার চেষ্টা করুন।'**
+  String get dmp_pdf_error;
+
+  /// Snackbar shown when a share/download action fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
+  String get dmp_pdf_action_failed;
 }
 
 class _AppLocalizationsDelegate

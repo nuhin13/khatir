@@ -57,6 +57,12 @@ class ApiEndpoints {
   /// tenant (masked NID). Consumed by the DMP preview screen (EPIC-05 T-007).
   static String tenantDmpForm(String tenantId) => '$tenants/$tenantId/dmpform';
 
+  /// `/api/v1/tenants/{id}/dmpform/pdf` — generate the DMP PDF for a tenant
+  /// (assemble → render → store → record), returning a signed download URL.
+  /// Consumed by the DMP PDF screen (EPIC-05 T-008).
+  static String tenantDmpFormPdf(String tenantId) =>
+      '$tenants/$tenantId/dmpform/pdf';
+
   /// `/api/v1/units/{id}/tenants` — tenants holding a lease on a unit.
   static String unitTenants(String unitId) => '$units/$unitId/tenants';
 

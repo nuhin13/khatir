@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../features/auth/presentation/screens/otp_entry_screen.dart';
 import '../../features/auth/presentation/screens/phone_entry_screen.dart';
+import '../../features/dmpform/presentation/screens/dmp_pdf_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -20,7 +21,6 @@ import '../../features/shell/tenant_shell.dart';
 import '../../features/shell/widgets/shell_placeholder.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
-import '../../features/tenants/presentation/screens/dmp_placeholder_screen.dart';
 import '../../features/tenants/presentation/screens/manual_tenant_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_review_args.dart';
@@ -451,13 +451,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
         routes: [
           GoRoute(
-            // DMP PDF preview (T-008): the "Generate PDF" action lands here at
-            // `/dmpform/{tenantId}/pdf`. Registered as a placeholder so the
-            // generate flow resolves until T-008 fills in the real PDF screen.
+            // DMP PDF preview + share (T-008): the "Generate PDF" action lands
+            // here at `/dmpform/{tenantId}/pdf`. Generates the police-form PDF,
+            // renders it, and offers Download + WhatsApp/system share. This is
+            // the real screen (replacing the EPIC-05 T-007 placeholder).
             path: 'pdf',
-            name: 'dmpFormPdf',
+            name: DmpPdfScreen.routeName,
             parentNavigatorKey: _rootNavigatorKey,
-            builder: (context, state) => DmpPlaceholderScreen(
+            builder: (context, state) => DmpPdfScreen(
               tenantId: state.pathParameters['tenantId'] ?? '',
             ),
           ),

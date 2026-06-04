@@ -867,5 +867,33 @@
   "dmp_retry": "Retry",
   "@dmp_retry": {
     "description": "Retry button on the DMP preview error state."
+  },
+  "dmp_pdf_title": "DMP PDF · ডিএমপি পিডিএফ",
+  "@dmp_pdf_title": {
+    "description": "Title of the DMP PDF preview + share screen."
+  },
+  "dmp_generating": "Generating your form…",
+  "@dmp_generating": {
+    "description": "Loading message while the DMP PDF is generated + downloaded."
+  },
+  "dmp_pdf_download": "Download · নামান",
+  "@dmp_pdf_download": {
+    "description": "Primary action: download/save the generated DMP PDF."
+  },
+  "dmp_pdf_share": "Share · শেয়ার",
+  "@dmp_pdf_share": {
+    "description": "Secondary action: share the DMP PDF via the OS sheet (WhatsApp/system)."
+  },
+  "dmp_pdf_whatsapp": "Share on WhatsApp · WhatsApp-এ পাঠান",
+  "@dmp_pdf_whatsapp": {
+    "description": "WhatsApp-specific share label for the DMP PDF."
+  },
+  "dmp_pdf_error": "Could not generate the PDF. Please try again.",
+  "@dmp_pdf_error": {
+    "description": "Error state message when DMP PDF generation fails."
+  },
+  "dmp_pdf_action_failed": "Could not complete that. Please try again.",
+  "@dmp_pdf_action_failed": {
+    "description": "Snackbar shown when a share/download action fails."
   }
 }
