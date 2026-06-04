@@ -32,6 +32,10 @@ urlpatterns = [
     # Public, no-login tenant pay page (token-scoped). Browser HTML, so it
     # lives at the root rather than under ``/api/v1/``.
     path("", include("khatir.rent.web_urls")),
+    # Public, no-login tenant maintenance report form (token-scoped, EPIC-08
+    # T-005). Browser HTML, so it lives at the root rather than under
+    # ``/api/v1/``.
+    path("", include("khatir.maintenance.web_urls")),
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
     path("api/v1/", include("khatir.properties.urls")),

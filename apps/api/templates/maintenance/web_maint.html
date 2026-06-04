@@ -1,0 +1,74 @@
+{% extends "rent/_web_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Report a problem" %} · Khatir{% endblock %}
+
+{% block content %}
+  {% if submitted %}
+    <div class="center" style="padding-top:48px;">
+      <div class="icon" aria-hidden="true">✅</div>
+      <div class="title" style="font-size:18px;margin-top:14px;">আপনার অনুরোধ পাঠানো হয়েছে</div>
+      <div class="muted" lang="en" style="margin-top:6px;">Your request has been sent to the landlord.</div>
+      <div class="card soft-sage" style="margin-top:18px;text-align:left;">
+        <div style="font-size:13px;color:var(--sage-dk);font-weight:600;line-height:1.6;">
+          মালিক শীঘ্রই দেখবেন।<br>
+          <span lang="en">The landlord will review it soon.</span>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">Khatir · খতির</div>
+  {% else %}
+    <div class="center">
+      <div class="icon" aria-hidden="true">🔧</div>
+      <div class="title" style="font-size:17px;margin-top:8px;">
+        {% translate "Report a problem" %}
+      </div>
+      <div class="muted" style="font-size:12px;">সমস্যা জানান</div>
+    </div>
+
+    <div class="center muted" style="font-size:12px;margin-top:6px;">
+      {{ building_name }} · {% translate "Flat" %} {{ unit_label }}
+    </div>
+
+    <form method="post" action="{% url 'maintenance_web:web-submit' token=token %}"
+          enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="field">
+        <div class="lab">{% translate "Category" %} · ধরন</div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;">
+          {% for value, label in categories %}
+            <label style="display:inline-flex;align-items:center;gap:6px;
+                          padding:8px 13px;border-radius:var(--r-pill);
+                          background:var(--sage-bg);color:var(--sage-dk);
+                          font-size:12px;font-weight:700;
+                          font-family:var(--f-title);cursor:pointer;">
+              <input type="radio" name="category" value="{{ value }}"
+                     {% if forloop.first %}checked{% endif %}>
+              {{ label }}
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="lab">{% translate "Description" %} · বিবরণ</div>
+        <textarea class="input" name="description" rows="3" required
+                  style="resize:none;"
+                  placeholder="{% translate 'What is wrong?' %}"></textarea>
+      </div>
+
+      <div class="field">
+        <div class="lab">{% translate "Photo" %} · ছবি</div>
+        <input class="input" type="file" name="photo" accept="image/*"
+               capture="environment">
+      </div>
+
+      <button class="btn rose lg" type="submit" style="margin-top:14px;">
+        ✉ {% translate "Send" %} · পাঠান
+      </button>
+    </form>
+
+    <div class="footnote">{% translate "Loads in <2s on 3G · no account, no install" %}</div>
+  {% endif %}
+{% endblock %}
