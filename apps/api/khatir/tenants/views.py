@@ -22,12 +22,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from khatir.accounts.models import User
+from khatir.core.exceptions import FeatureDisabledError
 from khatir.core.permissions import ForUserQuerySetMixin, IsLandlordOrManager
 from khatir.core.responses import created, success
 from khatir.core.storage import store_encrypted
 from khatir.properties.models import Unit
 
-from .extraction import get_ocr_provider
+from .extraction import get_asr_provider, get_ocr_provider
+from .flags import VOICE_TENANT_ENTRY, is_feature_enabled
 from .models import Tenant
 from .permissions import IsLeaseHolderForUser
 from .serializers import (
@@ -36,9 +38,11 @@ from .serializers import (
     TenantCreateSerializer,
     TenantSerializer,
     TenantUpdateSerializer,
+    VoiceRequestSerializer,
+    VoiceResponseSerializer,
 )
 from .services import create_tenant, update_tenant
-from .throttling import OcrUserThrottle
+from .throttling import OcrUserThrottle, VoiceUserThrottle
 
 
 class TenantViewSet(
@@ -116,6 +120,45 @@ class TenantOcrView(APIView):
 
         payload = OcrResponseSerializer.from_extraction(extracted, photo_ref)
         return success(OcrResponseSerializer(payload).data)
+
+
+class TenantVoiceView(APIView):
+    """``POST /api/v1/tenants/voice`` — Bangla audio → editable fields (T-006 §1).
+
+    Accepts a multipart ``audio`` clip of a landlord/tenant reading the NID
+    details, transcribes + extracts fields via the swappable ASR extraction
+    provider (T-004), and returns the normalized, editable
+    :class:`ExtractedTenant` fields. It does **not** create the tenant (that is
+    T-007/T-012, the voice-fill review screen) and does **not** retain the audio:
+    the clip is read into memory, handed to the provider, then discarded —
+    nothing is stored and the raw transcript never leaves the server (privacy,
+    §2/§14).
+
+    Gated by the ``voice_tenant_entry`` flag (§10, default on): when disabled the
+    endpoint returns the standard ``feature_disabled`` 403 envelope before any
+    provider call. Landlord/manager only; per-user rate-limited because each call
+    hits a paid external ASR provider.
+    """
+
+    permission_classes = [IsLandlordOrManager]
+    throttle_classes = [VoiceUserThrottle]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        if not is_feature_enabled(VOICE_TENANT_ENTRY, default=True):
+            raise FeatureDisabledError("Voice tenant entry is disabled.")
+
+        serializer = VoiceRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        audio = serializer.validated_data["audio"]
+        audio_bytes = audio.read()
+
+        # Extract, then let the bytes fall out of scope — the audio is never
+        # persisted (privacy, §2). Only the normalized fields are returned.
+        extracted = get_asr_provider().extract_from_audio(audio_bytes)
+
+        payload = VoiceResponseSerializer.from_extraction(extracted)
+        return success(VoiceResponseSerializer(payload).data)
 
 
 class UnitTenantsView(APIView):

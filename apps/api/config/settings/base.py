@@ -247,6 +247,9 @@ REST_FRAMEWORK = {
         # external OCR provider, so cap volume per landlord/manager. Tunable per
         # environment without code changes.
         "tenant_ocr": env("THROTTLE_TENANT_OCR", default="30/hour"),
+        # Per-user cap on the voice endpoint (EPIC-04.T-006): each call hits a
+        # paid external ASR provider, same cost profile as OCR. Tunable per env.
+        "tenant_voice": env("THROTTLE_TENANT_VOICE", default="30/hour"),
     },
 }
 

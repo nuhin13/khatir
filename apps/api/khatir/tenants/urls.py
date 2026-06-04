@@ -11,7 +11,7 @@ from __future__ import annotations
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import TenantOcrView, TenantViewSet, UnitTenantsView
+from .views import TenantOcrView, TenantViewSet, TenantVoiceView, UnitTenantsView
 
 app_name = "tenants"
 
@@ -19,9 +19,10 @@ router = DefaultRouter(trailing_slash=False)
 router.register("tenants", TenantViewSet, basename="tenant")
 
 urlpatterns = [
-    # Declared before the router so ``tenants/ocr`` resolves to the OCR action
-    # rather than the viewset's ``tenants/<pk>`` detail route.
+    # Declared before the router so ``tenants/ocr`` / ``tenants/voice`` resolve
+    # to their actions rather than the viewset's ``tenants/<pk>`` detail route.
     path("tenants/ocr", TenantOcrView.as_view(), name="tenant-ocr"),
+    path("tenants/voice", TenantVoiceView.as_view(), name="tenant-voice"),
     path(
         "units/<int:unit_pk>/tenants",
         UnitTenantsView.as_view(),

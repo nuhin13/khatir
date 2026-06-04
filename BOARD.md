@@ -94,3 +94,4 @@
 2026-06-04 | EPIC-04/T-003 | backend | claude | done | S3 boto3 storage (SSE, private ACL, presigned URLs) + FS fallback; pytest 634
 2026-06-04 | EPIC-04/T-004 | backend | claude | done | TenantExtractionProvider ABC + OCR/ASR impls, normalized DTO, config-driven selection; pytest 642
 2026-06-04 | EPIC-04/T-005 | backend | claude | done | POST /tenants/ocr: encrypted image store + provider extract, per-user rate-limit, masked-only fields; pytest 651
+2026-06-04 | EPIC-04/T-006 | backend | claude | done | POST /tenants/voice: Bangla audio -> ASR fields, voice_tenant_entry flag gate (default on), audio discarded, per-user rate-limit; pytest 661

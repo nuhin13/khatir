@@ -21,10 +21,12 @@ from rest_framework.throttling import SimpleRateThrottle
 from rest_framework.views import APIView
 
 
-class OcrUserThrottle(SimpleRateThrottle):
-    """Cap OCR extractions per authenticated user (external provider cost)."""
+class _PerUserScopedThrottle(SimpleRateThrottle):
+    """Base: cap calls per authenticated user for a settings-tunable scope.
 
-    scope = "tenant_ocr"
+    Shared by the OCR and voice endpoints — both call paid external providers
+    (OCR/ASR) on every request, so each is rate-limited per user, keyed by id.
+    """
 
     def get_rate(self) -> str | None:
         """Read the scope's rate from live settings.
@@ -44,3 +46,15 @@ class OcrUserThrottle(SimpleRateThrottle):
         if not (user and user.is_authenticated):
             return None  # unauthenticated requests are rejected by permissions
         return self.cache_format % {"scope": self.scope, "ident": user.pk}
+
+
+class OcrUserThrottle(_PerUserScopedThrottle):
+    """Cap OCR extractions per authenticated user (external provider cost)."""
+
+    scope = "tenant_ocr"
+
+
+class VoiceUserThrottle(_PerUserScopedThrottle):
+    """Cap voice extractions per authenticated user (external ASR cost)."""
+
+    scope = "tenant_voice"

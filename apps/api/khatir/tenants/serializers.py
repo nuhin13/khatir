@@ -113,6 +113,18 @@ class OcrRequestSerializer(serializers.Serializer[dict[str, object]]):
     image = serializers.FileField(write_only=True)
 
 
+class VoiceRequestSerializer(serializers.Serializer[dict[str, object]]):
+    """Validates the multipart voice body — a single Bangla ``audio`` clip (T-006 §1).
+
+    The clip is read in the view, handed to the ASR extraction provider, and
+    **discarded** after extraction (privacy, §14) — it is never stored. A
+    ``FileField`` keeps intake codec-agnostic; the ASR provider, not the API,
+    interprets the audio bytes.
+    """
+
+    audio = serializers.FileField(write_only=True)
+
+
 class _ExtractedFieldSerializer(serializers.Serializer[dict[str, object]]):
     """One extracted value + its optional 0–1 confidence (``ExtractedField``)."""
 
@@ -144,15 +156,46 @@ class OcrResponseSerializer(serializers.Serializer[dict[str, object]]):
         through as-is (already normalized text or ``None``).
         """
 
-        def _field(name: str) -> dict[str, object | None]:
-            ef = getattr(extracted, name)
-            value = ef.value.isoformat() if hasattr(ef.value, "isoformat") else ef.value
-            return {"value": value, "confidence": ef.confidence}
+        payload = _extracted_fields(extracted)
+        payload["photo_ref"] = photo_ref
+        return payload
 
-        return {
-            "name": _field("name"),
-            "nid_number": _field("nid_number"),
-            "dob": _field("dob"),
-            "address": _field("address"),
-            "photo_ref": photo_ref,
-        }
+
+class VoiceResponseSerializer(serializers.Serializer[dict[str, object]]):
+    """Editable extraction result returned by ``POST /tenants/voice`` (T-006 §1).
+
+    Mirrors :class:`OcrResponseSerializer` minus ``photo_ref``: voice has no
+    stored artefact — the audio clip is discarded after extraction (§14), so the
+    response carries only the normalized, per-field :class:`ExtractedTenant`.
+    The raw transcript/provider payload is never part of this shape (privacy).
+    """
+
+    name = _ExtractedFieldSerializer()
+    nid_number = _ExtractedFieldSerializer()
+    dob = _ExtractedFieldSerializer()
+    address = _ExtractedFieldSerializer()
+
+    @staticmethod
+    def from_extraction(extracted: ExtractedTenant) -> dict[str, object]:
+        """Build the response payload from an ``ExtractedTenant`` (no photo_ref)."""
+        return _extracted_fields(extracted)
+
+
+def _extracted_fields(extracted: ExtractedTenant) -> dict[str, object]:
+    """Normalized ``{field: {value, confidence}}`` map shared by OCR/voice.
+
+    ``dob`` is serialized as an ISO date string; all other values pass through
+    as-is (already normalized text or ``None``).
+    """
+
+    def _field(name: str) -> dict[str, object | None]:
+        ef = getattr(extracted, name)
+        value = ef.value.isoformat() if hasattr(ef.value, "isoformat") else ef.value
+        return {"value": value, "confidence": ef.confidence}
+
+    return {
+        "name": _field("name"),
+        "nid_number": _field("nid_number"),
+        "dob": _field("dob"),
+        "address": _field("address"),
+    }
