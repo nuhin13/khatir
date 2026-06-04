@@ -4,15 +4,15 @@ epic: EPIC-14
 title: Admin AI providers endpoints
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-11.T-002]
 blocks: [T-011, T-012]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-04
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -47,23 +47,30 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] CRUD (api_key encrypted on save)
-- [ ] DPA constraint (ocr + non-BD → dpa_reference required)
-- [ ] test-connection (calls gateway)
-- [ ] usage endpoint (aggregated from AIUsageLog)
-- [ ] admin audit
-- [ ] super+ops gate
-- [ ] Tests: CRUD, DPA gate, test-connection, usage
-- [ ] ruff + mypy clean
+- [x] CRUD (api_key encrypted on save) — `ad`
+- [x] DPA constraint (ocr + non-BD → dpa_reference required) — `ad`
+- [x] test-connection (calls gateway) — `ad`
+- [x] usage endpoint (aggregated from AIUsageLog) — `ad`
+- [x] admin audit — `ad`
+- [x] super+ops gate — `ad`
+- [x] Tests: CRUD, DPA gate, test-connection, usage — `ad`
+- [x] ruff + mypy clean — `ad`
 
 ## 12. Test plan
 ### Automated
 - test_create_provider, test_dpa_required_for_ocr, test_connection_ok
 ## 13. Acceptance criteria
-- [ ] Provider CRUD + DPA constraint + test-connection; audited; tests + lint pass.
+- [x] Provider CRUD + DPA constraint + test-connection; audited; tests + lint pass.
 ## 14. Self-review
-- [ ] API key encrypted; DPA enforced; audit present
+- [x] API key encrypted; DPA enforced; audit present
 ### Deviations from spec
+- PATCH detail route plus dedicated test-connection + usage views live in
+  `ai_providers/admin_views.py`; URL wiring is in `admin_portal/admin_urls.py`
+  (not `urls.py`) where all admin-portal routes are registered.
 ### Files touched (actual)
+- khatir/ai_providers/admin_views.py
+- khatir/ai_providers/serializers.py
+- khatir/ai_providers/tests/test_providers_admin.py
+- khatir/admin_portal/admin_urls.py
 ## 15. Notes
 - DPA rule: any non-BD OCR provider (based on endpoint domain) requires a dpa_reference. Enforce at serializer validation.
