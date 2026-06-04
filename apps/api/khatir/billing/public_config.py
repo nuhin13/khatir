@@ -23,6 +23,25 @@ from .enums import SubscriptionStatus
 from .models import PricingTier, Subscription
 from .serializers import TierSerializer
 
+#: Cache key under which a future caching layer may memoise the public-config
+#: tier catalogue. Centralised here so writers (admin pricing edits) and the
+#: cache layer (EPIC-12 T-002) agree on a single key.
+PUBLIC_CONFIG_CACHE_KEY = "billing:config_public:tiers"
+
+
+def invalidate_public_config_cache() -> None:
+    """Drop any cached ``/config/public`` tier catalogue.
+
+    Called whenever a :class:`PricingTier` is mutated so the public config
+    reflects the change on the next request. ``/config/public`` is currently
+    computed live, so this is a safe no-op delete today; EPIC-12 T-002 layers a
+    real cache on top of the same :data:`PUBLIC_CONFIG_CACHE_KEY`, at which point
+    this becomes the single, shared bust point.
+    """
+    from django.core.cache import cache
+
+    cache.delete(PUBLIC_CONFIG_CACHE_KEY)
+
 
 def active_tiers() -> list[PricingTier]:
     """Return every active :class:`PricingTier` in plan-picker order."""
