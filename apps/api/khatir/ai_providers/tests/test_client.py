@@ -16,6 +16,7 @@ from khatir.ai_providers.client import (
     AIGatewayError,
     AIGatewayResult,
     call_gateway,
+    extract_nid,
 )
 from khatir.ai_providers.enums import AICategory
 
@@ -164,6 +165,26 @@ def test_unexpected_shape_raises(configured: None) -> None:
 
 
 # --- token is never logged ---------------------------------------------------
+
+
+# --- extract_nid OCR helper (EPIC-14.T-008) ----------------------------------
+
+
+def test_extract_nid_posts_base64_image_to_ocr(configured: None) -> None:
+    import base64
+
+    body = {"data": {"name": {"value": "Karim", "confidence": 0.9}}}
+    with mock.patch(
+        "khatir.ai_providers.client.requests.post",
+        return_value=_FakeResponse(json_body=body),
+    ) as post:
+        result = extract_nid(b"\x89PNG-bytes")
+
+    assert isinstance(result, AIGatewayResult)
+    assert result.data == body["data"]
+    assert post.call_args.args[0] == f"{GATEWAY_URL}/v1/ocr"
+    sent = post.call_args.kwargs["json"]
+    assert sent["image"] == base64.b64encode(b"\x89PNG-bytes").decode("ascii")
 
 
 def test_token_not_in_exception_message(configured: None) -> None:

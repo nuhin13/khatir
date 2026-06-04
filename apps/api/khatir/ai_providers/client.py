@@ -20,6 +20,7 @@ Design notes:
 
 from __future__ import annotations
 
+import base64
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -28,7 +29,7 @@ from django.conf import settings
 
 from .enums import AICategory
 
-__all__ = ["AIGatewayError", "AIGatewayResult", "call_gateway"]
+__all__ = ["AIGatewayError", "AIGatewayResult", "call_gateway", "extract_nid"]
 
 
 class AIGatewayError(Exception):
@@ -135,3 +136,17 @@ def call_gateway(
         raise AIGatewayError("AI gateway returned an unexpected response shape.")
 
     return AIGatewayResult.from_response(body)
+
+
+def extract_nid(
+    image: bytes, *, timeout: float | None = None
+) -> AIGatewayResult:
+    """Run NID OCR on ``image`` through the gateway (EPIC-14.T-008).
+
+    Convenience wrapper over :func:`call_gateway` for the ``ocr`` category: the
+    raw image bytes are base64-encoded for JSON transport and posted to the
+    gateway, which selects the vendor and returns the normalized per-field
+    envelope. The image bytes themselves are never logged.
+    """
+    payload = {"image": base64.b64encode(image).decode("ascii")}
+    return call_gateway(AICategory.OCR, payload, timeout=timeout)

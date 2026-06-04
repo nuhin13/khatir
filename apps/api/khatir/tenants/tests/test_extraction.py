@@ -14,6 +14,7 @@ from unittest import mock
 
 import pytest
 
+from khatir.ai_providers.client import AIGatewayResult
 from khatir.tenants.extraction import (
     ExtractedTenant,
     TenantExtractionProvider,
@@ -22,7 +23,10 @@ from khatir.tenants.extraction import (
 )
 from khatir.tenants.extraction.asr_provider import DefaultAsrProvider
 from khatir.tenants.extraction.dto import ExtractedField
-from khatir.tenants.extraction.ocr_provider import DefaultOcrProvider
+from khatir.tenants.extraction.ocr_provider import (
+    DefaultOcrProvider,
+    GatewayOcrProvider,
+)
 
 # A loose, provider-shaped payload (extra key + messy values) to normalize.
 _RAW_OCR = {
@@ -131,3 +135,73 @@ def test_wrong_modality_raises() -> None:
         DefaultOcrProvider().extract_from_audio(b"x")
     with pytest.raises(NotImplementedError):
         DefaultAsrProvider().extract_from_image(b"x")
+
+
+# --- gateway-backed OCR provider (EPIC-14.T-008) -----------------------------
+
+# The gateway returns each field as a {value, confidence} envelope; dob arrives
+# as an ISO string. extra/odd keys degrade gracefully to None.
+_GATEWAY_OCR_DATA = {
+    "name": {"value": "  Karim Uddin ", "confidence": 0.97},
+    "nid_number": {"value": "1234 5678 7788", "confidence": 0.88},
+    "dob": {"value": "1990-03-05", "confidence": None},
+    "address": {"value": " Mirpur, Dhaka ", "confidence": 0.5},
+}
+
+
+def test_gateway_ocr_provider_normalizes_envelope() -> None:
+    """The gateway provider forwards the image via ``extract_nid`` and maps the
+    gateway's per-field envelope onto the normalized DTO."""
+    result = AIGatewayResult(data=_GATEWAY_OCR_DATA, provider_key="google_vision")
+    with mock.patch(
+        "khatir.tenants.extraction.ocr_provider.aiproxy_client.extract_nid",
+        return_value=result,
+    ) as extract:
+        out = GatewayOcrProvider().extract_from_image(b"\x89PNG-fake-bytes")
+
+    extract.assert_called_once_with(b"\x89PNG-fake-bytes")
+    assert isinstance(out, ExtractedTenant)
+    assert out.name.value == "Karim Uddin"  # stripped
+    assert out.nid_number.value == "123456787788"  # digits only
+    assert out.dob.value == date(1990, 3, 5)  # iso string parsed to date
+    assert out.address.value == "Mirpur, Dhaka"
+    assert out.name.confidence == pytest.approx(0.97)
+    assert out.nid_number.confidence == pytest.approx(0.88)
+    assert out.dob.confidence is None
+
+
+def test_gateway_ocr_provider_empty_data_yields_empty_dto() -> None:
+    result = AIGatewayResult(data={})
+    with mock.patch(
+        "khatir.tenants.extraction.ocr_provider.aiproxy_client.extract_nid",
+        return_value=result,
+    ):
+        out = GatewayOcrProvider().extract_from_image(b"unreadable")
+    assert out.is_empty() is True
+
+
+def test_gateway_ocr_provider_tolerates_odd_field_shape() -> None:
+    """A missing/non-dict field envelope degrades to ``None`` rather than raising."""
+    result = AIGatewayResult(data={"name": "not-an-envelope", "nid_number": None})
+    with mock.patch(
+        "khatir.tenants.extraction.ocr_provider.aiproxy_client.extract_nid",
+        return_value=result,
+    ):
+        out = GatewayOcrProvider().extract_from_image(b"x")
+    assert out.name.value is None
+    assert out.nid_number.value is None
+
+
+def test_gateway_ocr_provider_rejects_audio() -> None:
+    with pytest.raises(NotImplementedError):
+        GatewayOcrProvider().extract_from_audio(b"x")
+
+
+@pytest.mark.django_db
+def test_gateway_provider_selected_by_config() -> None:
+    """Setting ``ocr_provider_key=gateway`` routes OCR through the gateway impl."""
+    with mock.patch(
+        "khatir.tenants.extraction.ocr_provider.get_config",
+        return_value="gateway",
+    ):
+        assert isinstance(get_ocr_provider(), GatewayOcrProvider)
