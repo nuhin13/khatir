@@ -22,6 +22,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from khatir.accounts.models import User
+from khatir.billing.services import check_can_verify
 from khatir.core.exceptions import FeatureDisabledError
 from khatir.core.permissions import ForUserQuerySetMixin, IsLandlordOrManager
 from khatir.core.responses import created, success
@@ -110,6 +111,11 @@ class TenantOcrView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        # Tier gate (T-009): OCR is a paid-tier feature. Free-tier users get the
+        # ``feature_requires_upgrade`` envelope before any image is stored or any
+        # paid provider call is made; manual tenant entry stays open to them.
+        check_can_verify(request.user)
+
         serializer = OcrRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         image = serializer.validated_data["image"]
@@ -149,6 +155,10 @@ class TenantVoiceView(APIView):
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         if not is_feature_enabled(VOICE_TENANT_ENTRY, default=True):
             raise FeatureDisabledError("Voice tenant entry is disabled.")
+
+        # Tier gate (T-009): voice extraction is a paid-tier feature. Free-tier
+        # users get ``feature_requires_upgrade`` before any paid provider call.
+        check_can_verify(request.user)
 
         serializer = VoiceRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

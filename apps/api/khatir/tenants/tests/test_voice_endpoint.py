@@ -50,8 +50,26 @@ def landlord() -> User:
     return created
 
 
+def _grant_verification(user: User) -> None:
+    """Put ``user`` on a paid tier that bundles NID verification (T-009 gate).
+
+    Voice extraction is tier-gated, so these tests run as users whose plan
+    includes verification; the free-tier block is covered in
+    ``billing/tests/test_tier_gate.py``.
+    """
+    from khatir.billing.enums import SubscriptionStatus
+    from khatir.billing.tests.factories import (
+        PricingTierFactory,
+        SubscriptionFactory,
+    )
+
+    tier = PricingTierFactory(includes_verification=True)
+    SubscriptionFactory(user=user, tier=tier, status=SubscriptionStatus.ACTIVE)
+
+
 @pytest.fixture
 def client(landlord: User) -> APIClient:
+    _grant_verification(landlord)
     api = APIClient()
     api.force_authenticate(user=landlord)
     return api
@@ -134,6 +152,7 @@ def test_requires_landlord(landlord: User) -> None:
 
 def test_manager_allowed(landlord: User) -> None:
     manager = UserFactory(role=Role.MANAGER)
+    _grant_verification(manager)
     api = APIClient()
     api.force_authenticate(user=manager)
 

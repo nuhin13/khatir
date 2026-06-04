@@ -57,8 +57,30 @@ def landlord() -> User:
     return created
 
 
+def _grant_verification(user: User) -> None:
+    """Put ``user`` on a paid tier that bundles NID verification (T-009 gate).
+
+    OCR is tier-gated, so these field/storage/rate-limit tests run as users whose
+    plan includes verification; the free-tier block is covered in
+    ``billing/tests/test_tier_gate.py``.
+    """
+    from khatir.billing.enums import SubscriptionStatus
+    from khatir.billing.tests.factories import (
+        PricingTierFactory,
+        SubscriptionFactory,
+    )
+
+    tier = PricingTierFactory(includes_verification=True)
+    SubscriptionFactory(user=user, tier=tier, status=SubscriptionStatus.ACTIVE)
+
+
 @pytest.fixture
-def client(landlord: User) -> APIClient:
+def verified_plan(landlord: User) -> None:
+    _grant_verification(landlord)
+
+
+@pytest.fixture
+def client(landlord: User, verified_plan: None) -> APIClient:
     api = APIClient()
     api.force_authenticate(user=landlord)
     return api
@@ -126,6 +148,7 @@ def test_requires_landlord(landlord: User) -> None:
 
 def test_manager_allowed(landlord: User) -> None:
     manager = UserFactory(role=Role.MANAGER)
+    _grant_verification(manager)
     api = APIClient()
     api.force_authenticate(user=manager)
 
@@ -176,6 +199,7 @@ def test_rate_limited(client: APIClient) -> None:
 @override_settings(REST_FRAMEWORK=_rest_with_rate("2/hour"))
 def test_rate_limit_is_per_user(landlord: User) -> None:
     cache.clear()
+    _grant_verification(landlord)
     api = APIClient()
     api.force_authenticate(user=landlord)
     assert _post(api).status_code == status.HTTP_200_OK
@@ -184,6 +208,7 @@ def test_rate_limit_is_per_user(landlord: User) -> None:
 
     # A different user has an independent bucket.
     other = UserFactory(role=Role.LANDLORD)
+    _grant_verification(other)
     other_api = APIClient()
     other_api.force_authenticate(user=other)
     assert _post(other_api).status_code == status.HTTP_200_OK

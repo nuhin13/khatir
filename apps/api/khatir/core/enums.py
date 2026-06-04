@@ -73,4 +73,5 @@ class ErrorCode(models.TextChoices):
     FEATURE_DISABLED = "feature_disabled", "Feature disabled"
     PAYMENT_REQUIRED = "payment_required", "Payment required"
     TIER_LIMIT_EXCEEDED = "tier_limit_exceeded", "Tier limit exceeded"
+    FEATURE_REQUIRES_UPGRADE = "feature_requires_upgrade", "Feature requires upgrade"
     SERVER_ERROR = "server_error", "Server error"

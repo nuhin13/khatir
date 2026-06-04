@@ -30,7 +30,11 @@ from django.utils import timezone
 from khatir.accounts.models import User
 from khatir.core.audit import audit
 from khatir.core.config import get_config
-from khatir.core.exceptions import TierLimitExceeded, ValidationError
+from khatir.core.exceptions import (
+    TierFeatureGated,
+    TierLimitExceeded,
+    ValidationError,
+)
 
 from .enums import BillingCycle, SubscriptionStatus
 from .models import PricingTier, Subscription
@@ -84,6 +88,30 @@ def check_tenant_limit(user: Any) -> None:
             raise TierLimitExceeded(
                 details={"limit": limit, "tenants_used": current},
             )
+
+
+def check_can_verify(user: Any) -> None:
+    """Raise :class:`TierFeatureGated` if ``user``'s plan excludes NID verification.
+
+    NID OCR/voice extraction and verification (EPIC-04 T-005/T-006, EPIC-17) are a
+    paid-tier feature (EPIC-10 T-009 §2). Verification is allowed only when the
+    user holds an **active** subscription whose tier has
+    ``includes_verification == True``. A free-tier user (no active subscription)
+    or a paid tier that does not bundle verification is blocked with the
+    ``feature_requires_upgrade`` envelope (402), which the client routes to the
+    upgrade prompt. Free-tier users can still add tenants by manual entry — only
+    the OCR/voice/verification path is gated, never tenant creation itself.
+    """
+    subscription = (
+        Subscription.objects.filter(user=user, status=SubscriptionStatus.ACTIVE)
+        .select_related("tier")
+        .order_by("-created_at")
+        .first()
+    )
+    if subscription is not None and subscription.tier.includes_verification:
+        return
+
+    raise TierFeatureGated(details={"feature": "nid_verification"})
 
 
 # --- subscribe / upgrade (EPIC-10 T-004) -------------------------------------

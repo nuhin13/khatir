@@ -114,6 +114,12 @@ class TierLimitExceeded(AppError):
     default_detail = "You have reached your plan's tenant limit. Upgrade to add more."
 
 
+class TierFeatureGated(AppError):
+    error_code = ErrorCode.FEATURE_REQUIRES_UPGRADE
+    status_code = status.HTTP_402_PAYMENT_REQUIRED
+    default_detail = "This feature is not included in your plan. Upgrade to unlock it."
+
+
 class ServerError(AppError):
     error_code = ErrorCode.SERVER_ERROR
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
