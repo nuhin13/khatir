@@ -181,6 +181,19 @@ class VoiceResponseSerializer(serializers.Serializer[dict[str, object]]):
         return _extracted_fields(extracted)
 
 
+class UsageSerializer(serializers.Serializer):
+    """Read-only free-tier usage payload (T-008 §7).
+
+    Serializes a :class:`~khatir.tenants.usage.TenantUsage`: the caller's
+    current tenant count, the configured free limit, and whether they are over
+    it. No write path — usage is derived, not set.
+    """
+
+    tenants_used = serializers.IntegerField(read_only=True)
+    free_limit = serializers.IntegerField(read_only=True)
+    is_over_free = serializers.BooleanField(read_only=True)
+
+
 def _extracted_fields(extracted: ExtractedTenant) -> dict[str, object]:
     """Normalized ``{field: {value, confidence}}`` map shared by OCR/voice.
 

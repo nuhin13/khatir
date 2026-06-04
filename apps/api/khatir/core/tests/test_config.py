@@ -12,7 +12,12 @@ pytestmark = pytest.mark.django_db
 
 
 def test_get_config_typed_int() -> None:
-    SystemConfig.objects.create(key="free_tier_tenant_limit", value="2", type="int")
+    # ``free_tier_tenant_limit`` is seeded by a core data migration (EPIC-04.T-008),
+    # so upsert rather than create to tolerate the pre-seeded row.
+    SystemConfig.objects.update_or_create(
+        key="free_tier_tenant_limit", defaults={"value": "2", "type": "int"}
+    )
+    invalidate_config("free_tier_tenant_limit")
     val = get_config("free_tier_tenant_limit")
     assert val == 2
     assert isinstance(val, int)

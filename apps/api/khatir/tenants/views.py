@@ -38,11 +38,13 @@ from .serializers import (
     TenantCreateSerializer,
     TenantSerializer,
     TenantUpdateSerializer,
+    UsageSerializer,
     VoiceRequestSerializer,
     VoiceResponseSerializer,
 )
 from .services import create_tenant, update_tenant
 from .throttling import OcrUserThrottle, VoiceUserThrottle
+from .usage import tenant_usage
 
 
 class TenantViewSet(
@@ -159,6 +161,23 @@ class TenantVoiceView(APIView):
 
         payload = VoiceResponseSerializer.from_extraction(extracted)
         return success(VoiceResponseSerializer(payload).data)
+
+
+class UsageView(APIView):
+    """``GET /api/v1/usage`` — the caller's tenant count + free-tier status.
+
+    Returns ``{tenants_used, free_limit, is_over_free}`` so the UI can show the
+    "1/2 free" indicator and EPIC-10 can drive the upgrade prompt. The count is
+    scoped to the caller via ``Tenant.objects.for_user`` and the limit comes from
+    the ``free_tier_tenant_limit`` config (T-008 §3/§7). This is a soft signal —
+    it never blocks tenant creation; enforcement is EPIC-10 (T-008 §15).
+    """
+
+    permission_classes = [IsLandlordOrManager]
+
+    def get(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        usage = tenant_usage(request.user)
+        return success(UsageSerializer(usage).data)
 
 
 class UnitTenantsView(APIView):

@@ -11,7 +11,13 @@ from __future__ import annotations
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import TenantOcrView, TenantViewSet, TenantVoiceView, UnitTenantsView
+from .views import (
+    TenantOcrView,
+    TenantViewSet,
+    TenantVoiceView,
+    UnitTenantsView,
+    UsageView,
+)
 
 app_name = "tenants"
 
@@ -28,5 +34,7 @@ urlpatterns = [
         UnitTenantsView.as_view(),
         name="unit-tenants",
     ),
+    # Free-tier counter consumed by More/plan + EPIC-10 (T-008 §7/§8).
+    path("usage", UsageView.as_view(), name="usage"),
     *router.urls,
 ]
