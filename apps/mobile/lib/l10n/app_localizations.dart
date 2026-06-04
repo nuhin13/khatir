@@ -1573,6 +1573,96 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'ভয়েস ফর্ম এখন বন্ধ আছে।'**
   String get voice_unavailable;
+
+  /// App-bar title of the manual tenant-entry form.
+  ///
+  /// In bn, this message translates to:
+  /// **'হাতে DMP ফর্ম'**
+  String get manual_title;
+
+  /// Intro banner explaining the manual form fills the DMP fields by hand.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরকারি ভাড়াটিয়া তথ্য ফরমের সব ঘর হাতে পূরণ করুন।'**
+  String get manual_intro;
+
+  /// Section heading for the landlord block of the manual form.
+  ///
+  /// In bn, this message translates to:
+  /// **'১. বাড়িওয়ালা'**
+  String get manual_section_landlord;
+
+  /// Section heading for the tenant block of the manual form.
+  ///
+  /// In bn, this message translates to:
+  /// **'২. ভাড়াটিয়া'**
+  String get manual_section_tenant;
+
+  /// Section heading for the current-unit block of the manual form.
+  ///
+  /// In bn, this message translates to:
+  /// **'৩. বর্তমান বাসা'**
+  String get manual_section_unit;
+
+  /// Section heading for the family & staff block of the manual form.
+  ///
+  /// In bn, this message translates to:
+  /// **'৪. পরিবার ও কর্মচারী'**
+  String get manual_section_family;
+
+  /// Tenant full-name field label (required).
+  ///
+  /// In bn, this message translates to:
+  /// **'পূর্ণ নাম'**
+  String get manual_full_name;
+
+  /// Tenant occupation field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেশা'**
+  String get manual_occupation;
+
+  /// Tenant permanent-address field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্থায়ী ঠিকানা'**
+  String get manual_permanent_address;
+
+  /// Current-unit building field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিং'**
+  String get manual_building;
+
+  /// Current-unit unit field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট'**
+  String get manual_unit;
+
+  /// Current-unit monthly rent field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া'**
+  String get manual_rent;
+
+  /// Current-unit move-in date field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ওঠার তারিখ'**
+  String get manual_move_in;
+
+  /// Shared mobile-number field label for tenant forms.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল'**
+  String get tenant_mobile;
+
+  /// Proceed button on the manual form — builds the DMP form.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফর্ম তৈরি ও PDF দেখুন 🚀'**
+  String get manual_proceed;
 }
 
 class _AppLocalizationsDelegate

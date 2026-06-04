@@ -783,4 +783,50 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get voice_unavailable => 'ভয়েস ফর্ম এখন বন্ধ আছে।';
+
+  @override
+  String get manual_title => 'হাতে DMP ফর্ম';
+
+  @override
+  String get manual_intro =>
+      'সরকারি ভাড়াটিয়া তথ্য ফরমের সব ঘর হাতে পূরণ করুন।';
+
+  @override
+  String get manual_section_landlord => '১. বাড়িওয়ালা';
+
+  @override
+  String get manual_section_tenant => '২. ভাড়াটিয়া';
+
+  @override
+  String get manual_section_unit => '৩. বর্তমান বাসা';
+
+  @override
+  String get manual_section_family => '৪. পরিবার ও কর্মচারী';
+
+  @override
+  String get manual_full_name => 'পূর্ণ নাম';
+
+  @override
+  String get manual_occupation => 'পেশা';
+
+  @override
+  String get manual_permanent_address => 'স্থায়ী ঠিকানা';
+
+  @override
+  String get manual_building => 'বিল্ডিং';
+
+  @override
+  String get manual_unit => 'ইউনিট';
+
+  @override
+  String get manual_rent => 'ভাড়া';
+
+  @override
+  String get manual_move_in => 'ওঠার তারিখ';
+
+  @override
+  String get tenant_mobile => 'মোবাইল';
+
+  @override
+  String get manual_proceed => 'ফর্ম তৈরি ও PDF দেখুন 🚀';
 }

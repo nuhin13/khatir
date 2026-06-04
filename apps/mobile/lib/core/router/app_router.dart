@@ -19,6 +19,7 @@ import '../../features/shell/tenant_shell.dart';
 import '../../features/shell/widgets/shell_placeholder.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
+import '../../features/tenants/presentation/screens/manual_tenant_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_review_args.dart';
 import '../../features/tenants/presentation/screens/ocr_review_screen.dart';
@@ -416,12 +417,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
           ),
           GoRoute(
-            // TODO(EPIC-04) replace with the manual tenant-entry screen.
-            path: 'manual',
+            // Manual tenant entry (T-013): the fallback hand-entry form that
+            // fills every DMP field by hand, carrying the optional unit context.
+            // `onProceed` is the seam the shared save action (T-016) wires to
+            // persist the tenant and route to the DMP form; until then proceed
+            // validates but does not navigate.
+            path: ManualTenantScreen.routePath,
             name: AddTenantScreen.manualRouteName,
             parentNavigatorKey: _rootNavigatorKey,
-            builder: (context, state) => KShellPlaceholder(
-              tabLabel: AppLocalizations.of(context).add_tenant_manual,
+            builder: (context, state) => ManualTenantScreen(
+              unitId: state.uri.queryParameters['unit'],
             ),
           ),
         ],

@@ -687,5 +687,65 @@
   "voice_unavailable": "ভয়েস ফর্ম এখন বন্ধ আছে · Voice entry is currently unavailable.",
   "@voice_unavailable": {
     "description": "Shown when the voice_tenant_entry feature flag is off."
+  },
+  "manual_title": "হাতে DMP ফর্ম · Manual form",
+  "@manual_title": {
+    "description": "App-bar title of the manual tenant-entry form."
+  },
+  "manual_intro": "সরকারি ভাড়াটিয়া তথ্য ফরমের সব ঘর হাতে পূরণ করুন · Fill every official field by hand.",
+  "@manual_intro": {
+    "description": "Intro banner explaining the manual form fills the DMP fields by hand."
+  },
+  "manual_section_landlord": "১. বাড়িওয়ালা · Landlord",
+  "@manual_section_landlord": {
+    "description": "Section heading for the landlord block of the manual form."
+  },
+  "manual_section_tenant": "২. ভাড়াটিয়া · Tenant",
+  "@manual_section_tenant": {
+    "description": "Section heading for the tenant block of the manual form."
+  },
+  "manual_section_unit": "৩. বর্তমান বাসা · Current unit",
+  "@manual_section_unit": {
+    "description": "Section heading for the current-unit block of the manual form."
+  },
+  "manual_section_family": "৪. পরিবার ও কর্মচারী · Family & staff",
+  "@manual_section_family": {
+    "description": "Section heading for the family & staff block of the manual form."
+  },
+  "manual_full_name": "পূর্ণ নাম · Full name",
+  "@manual_full_name": {
+    "description": "Tenant full-name field label (required)."
+  },
+  "manual_occupation": "পেশা · Occupation",
+  "@manual_occupation": {
+    "description": "Tenant occupation field label."
+  },
+  "manual_permanent_address": "স্থায়ী ঠিকানা · Permanent address",
+  "@manual_permanent_address": {
+    "description": "Tenant permanent-address field label."
+  },
+  "manual_building": "বিল্ডিং · Building",
+  "@manual_building": {
+    "description": "Current-unit building field label."
+  },
+  "manual_unit": "ইউনিট · Unit",
+  "@manual_unit": {
+    "description": "Current-unit unit field label."
+  },
+  "manual_rent": "ভাড়া · Rent",
+  "@manual_rent": {
+    "description": "Current-unit monthly rent field label."
+  },
+  "manual_move_in": "ওঠার তারিখ · Move-in",
+  "@manual_move_in": {
+    "description": "Current-unit move-in date field label."
+  },
+  "tenant_mobile": "মোবাইল · Mobile",
+  "@tenant_mobile": {
+    "description": "Shared mobile-number field label for tenant forms."
+  },
+  "manual_proceed": "ফর্ম তৈরি ও PDF দেখুন · Generate PDF 🚀",
+  "@manual_proceed": {
+    "description": "Proceed button on the manual form — builds the DMP form."
   }
 }

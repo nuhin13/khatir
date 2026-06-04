@@ -786,4 +786,50 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get voice_unavailable =>
       'ভয়েস ফর্ম এখন বন্ধ আছে · Voice entry is currently unavailable.';
+
+  @override
+  String get manual_title => 'হাতে DMP ফর্ম · Manual form';
+
+  @override
+  String get manual_intro =>
+      'সরকারি ভাড়াটিয়া তথ্য ফরমের সব ঘর হাতে পূরণ করুন · Fill every official field by hand.';
+
+  @override
+  String get manual_section_landlord => '১. বাড়িওয়ালা · Landlord';
+
+  @override
+  String get manual_section_tenant => '২. ভাড়াটিয়া · Tenant';
+
+  @override
+  String get manual_section_unit => '৩. বর্তমান বাসা · Current unit';
+
+  @override
+  String get manual_section_family => '৪. পরিবার ও কর্মচারী · Family & staff';
+
+  @override
+  String get manual_full_name => 'পূর্ণ নাম · Full name';
+
+  @override
+  String get manual_occupation => 'পেশা · Occupation';
+
+  @override
+  String get manual_permanent_address => 'স্থায়ী ঠিকানা · Permanent address';
+
+  @override
+  String get manual_building => 'বিল্ডিং · Building';
+
+  @override
+  String get manual_unit => 'ইউনিট · Unit';
+
+  @override
+  String get manual_rent => 'ভাড়া · Rent';
+
+  @override
+  String get manual_move_in => 'ওঠার তারিখ · Move-in';
+
+  @override
+  String get tenant_mobile => 'মোবাইল · Mobile';
+
+  @override
+  String get manual_proceed => 'ফর্ম তৈরি ও PDF দেখুন · Generate PDF 🚀';
 }
