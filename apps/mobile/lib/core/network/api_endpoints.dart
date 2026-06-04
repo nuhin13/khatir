@@ -53,6 +53,10 @@ class ApiEndpoints {
   /// `/api/v1/tenants/{id}` — single tenant detail/update.
   static String tenant(String id) => '$tenants/$id';
 
+  /// `/api/v1/tenants/{id}/dmpform` — assembled DMP-form preview data for a
+  /// tenant (masked NID). Consumed by the DMP preview screen (EPIC-05 T-007).
+  static String tenantDmpForm(String tenantId) => '$tenants/$tenantId/dmpform';
+
   /// `/api/v1/units/{id}/tenants` — tenants holding a lease on a unit.
   static String unitTenants(String unitId) => '$units/$unitId/tenants';
 

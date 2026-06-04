@@ -863,4 +863,64 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get dmp_placeholder_body =>
       'The DMP (police) form will be generated here soon.';
+
+  @override
+  String get dmp_title => 'DMP form · ডিএমপি ফর্ম';
+
+  @override
+  String get dmp_ready => 'Ready';
+
+  @override
+  String get dmp_hero_title => 'All done!';
+
+  @override
+  String get dmp_hero_sub => 'Your form is ready to generate';
+
+  @override
+  String get dmp_org => 'Dhaka Metropolitan Police';
+
+  @override
+  String get dmp_org_sub => 'DMP · CIMS · TENANT INFORMATION';
+
+  @override
+  String get dmp_org_badge => 'Tenant information form';
+
+  @override
+  String get dmp_field_tenant => 'Tenant · ভাড়াটিয়া';
+
+  @override
+  String get dmp_field_nid => 'NID';
+
+  @override
+  String get dmp_field_landlord => 'Landlord · বাড়িওয়ালা';
+
+  @override
+  String get dmp_field_address => 'Address · ঠিকানা';
+
+  @override
+  String get dmp_field_present => 'Present address';
+
+  @override
+  String get dmp_field_permanent => 'Permanent address';
+
+  @override
+  String get dmp_field_dob => 'Date of birth';
+
+  @override
+  String get dmp_field_phone => 'Phone · মোবাইল';
+
+  @override
+  String get dmp_field_family => 'Family · পরিবার';
+
+  @override
+  String get dmp_generate => 'Generate PDF · PDF তৈরি করুন';
+
+  @override
+  String get dmp_edit => 'Edit · সম্পাদনা';
+
+  @override
+  String get dmp_error => 'Could not load the form. Please try again.';
+
+  @override
+  String get dmp_retry => 'Retry';
 }

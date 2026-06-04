@@ -859,4 +859,64 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get dmp_placeholder_body => 'DMP (পুলিশ) ফর্ম শীঘ্রই এখানে তৈরি হবে।';
+
+  @override
+  String get dmp_title => 'ডিএমপি ফর্ম · DMP form';
+
+  @override
+  String get dmp_ready => 'প্রস্তুত';
+
+  @override
+  String get dmp_hero_title => 'সব হয়ে গেছে!';
+
+  @override
+  String get dmp_hero_sub => 'ফর্ম তৈরি হয়েছে';
+
+  @override
+  String get dmp_org => 'ঢাকা মেট্রোপলিটন পুলিশ';
+
+  @override
+  String get dmp_org_sub => 'DMP · CIMS · TENANT INFORMATION';
+
+  @override
+  String get dmp_org_badge => 'ভাড়াটিয়া তথ্য ফরম';
+
+  @override
+  String get dmp_field_tenant => 'ভাড়াটিয়া · Tenant';
+
+  @override
+  String get dmp_field_nid => 'NID';
+
+  @override
+  String get dmp_field_landlord => 'বাড়িওয়ালা · Landlord';
+
+  @override
+  String get dmp_field_address => 'ঠিকানা · Address';
+
+  @override
+  String get dmp_field_present => 'বর্তমান ঠিকানা';
+
+  @override
+  String get dmp_field_permanent => 'স্থায়ী ঠিকানা';
+
+  @override
+  String get dmp_field_dob => 'জন্ম তারিখ';
+
+  @override
+  String get dmp_field_phone => 'মোবাইল · Phone';
+
+  @override
+  String get dmp_field_family => 'পরিবার · Family';
+
+  @override
+  String get dmp_generate => 'PDF তৈরি করুন · Generate PDF';
+
+  @override
+  String get dmp_edit => 'সম্পাদনা · Edit';
+
+  @override
+  String get dmp_error => 'ফর্ম লোড করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get dmp_retry => 'আবার চেষ্টা';
 }

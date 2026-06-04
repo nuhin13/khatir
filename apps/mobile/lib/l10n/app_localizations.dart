@@ -1717,6 +1717,126 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'DMP (পুলিশ) ফর্ম শীঘ্রই এখানে তৈরি হবে।'**
   String get dmp_placeholder_body;
+
+  /// App-bar title of the DMP form preview screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ডিএমপি ফর্ম · DMP form'**
+  String get dmp_title;
+
+  /// Top-bar chip indicating the DMP form is assembled and ready.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রস্তুত'**
+  String get dmp_ready;
+
+  /// Celebratory heading on the DMP preview — the form is assembled.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব হয়ে গেছে!'**
+  String get dmp_hero_title;
+
+  /// Subheading under the DMP preview hero.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফর্ম তৈরি হয়েছে'**
+  String get dmp_hero_sub;
+
+  /// Organisation name printed at the top of the DMP form card.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঢাকা মেট্রোপলিটন পুলিশ'**
+  String get dmp_org;
+
+  /// Sub-label under the DMP org name on the form card.
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP · CIMS · TENANT INFORMATION'**
+  String get dmp_org_sub;
+
+  /// Pill badge describing the DMP form type.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া তথ্য ফরম'**
+  String get dmp_org_badge;
+
+  /// Field label: tenant name.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া · Tenant'**
+  String get dmp_field_tenant;
+
+  /// Field label: national ID (masked).
+  ///
+  /// In bn, this message translates to:
+  /// **'NID'**
+  String get dmp_field_nid;
+
+  /// Field label: landlord name.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাড়িওয়ালা · Landlord'**
+  String get dmp_field_landlord;
+
+  /// Field label: building/rented address.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঠিকানা · Address'**
+  String get dmp_field_address;
+
+  /// Field label: tenant present address.
+  ///
+  /// In bn, this message translates to:
+  /// **'বর্তমান ঠিকানা'**
+  String get dmp_field_present;
+
+  /// Field label: tenant permanent address.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্থায়ী ঠিকানা'**
+  String get dmp_field_permanent;
+
+  /// Field label: date of birth.
+  ///
+  /// In bn, this message translates to:
+  /// **'জন্ম তারিখ'**
+  String get dmp_field_dob;
+
+  /// Field label: landlord phone.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল · Phone'**
+  String get dmp_field_phone;
+
+  /// Section label for the household members table.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিবার · Family'**
+  String get dmp_field_family;
+
+  /// Primary action: generate the DMP PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF তৈরি করুন · Generate PDF'**
+  String get dmp_generate;
+
+  /// Secondary action: go back to edit the tenant.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পাদনা · Edit'**
+  String get dmp_edit;
+
+  /// Error state message on the DMP preview.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফর্ম লোড করা যায়নি। আবার চেষ্টা করুন।'**
+  String get dmp_error;
+
+  /// Retry button on the DMP preview error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get dmp_retry;
 }
 
 class _AppLocalizationsDelegate

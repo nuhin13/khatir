@@ -886,5 +886,85 @@
   "dmp_placeholder_body": "DMP (পুলিশ) ফর্ম শীঘ্রই এখানে তৈরি হবে।",
   "@dmp_placeholder_body": {
     "description": "Body on the DMP placeholder explaining the real form lands in EPIC-05."
+  },
+  "dmp_title": "ডিএমপি ফর্ম · DMP form",
+  "@dmp_title": {
+    "description": "App-bar title of the DMP form preview screen."
+  },
+  "dmp_ready": "প্রস্তুত",
+  "@dmp_ready": {
+    "description": "Top-bar chip indicating the DMP form is assembled and ready."
+  },
+  "dmp_hero_title": "সব হয়ে গেছে!",
+  "@dmp_hero_title": {
+    "description": "Celebratory heading on the DMP preview — the form is assembled."
+  },
+  "dmp_hero_sub": "ফর্ম তৈরি হয়েছে",
+  "@dmp_hero_sub": {
+    "description": "Subheading under the DMP preview hero."
+  },
+  "dmp_org": "ঢাকা মেট্রোপলিটন পুলিশ",
+  "@dmp_org": {
+    "description": "Organisation name printed at the top of the DMP form card."
+  },
+  "dmp_org_sub": "DMP · CIMS · TENANT INFORMATION",
+  "@dmp_org_sub": {
+    "description": "Sub-label under the DMP org name on the form card."
+  },
+  "dmp_org_badge": "ভাড়াটিয়া তথ্য ফরম",
+  "@dmp_org_badge": {
+    "description": "Pill badge describing the DMP form type."
+  },
+  "dmp_field_tenant": "ভাড়াটিয়া · Tenant",
+  "@dmp_field_tenant": {
+    "description": "Field label: tenant name."
+  },
+  "dmp_field_nid": "NID",
+  "@dmp_field_nid": {
+    "description": "Field label: national ID (masked)."
+  },
+  "dmp_field_landlord": "বাড়িওয়ালা · Landlord",
+  "@dmp_field_landlord": {
+    "description": "Field label: landlord name."
+  },
+  "dmp_field_address": "ঠিকানা · Address",
+  "@dmp_field_address": {
+    "description": "Field label: building/rented address."
+  },
+  "dmp_field_present": "বর্তমান ঠিকানা",
+  "@dmp_field_present": {
+    "description": "Field label: tenant present address."
+  },
+  "dmp_field_permanent": "স্থায়ী ঠিকানা",
+  "@dmp_field_permanent": {
+    "description": "Field label: tenant permanent address."
+  },
+  "dmp_field_dob": "জন্ম তারিখ",
+  "@dmp_field_dob": {
+    "description": "Field label: date of birth."
+  },
+  "dmp_field_phone": "মোবাইল · Phone",
+  "@dmp_field_phone": {
+    "description": "Field label: landlord phone."
+  },
+  "dmp_field_family": "পরিবার · Family",
+  "@dmp_field_family": {
+    "description": "Section label for the household members table."
+  },
+  "dmp_generate": "PDF তৈরি করুন · Generate PDF",
+  "@dmp_generate": {
+    "description": "Primary action: generate the DMP PDF."
+  },
+  "dmp_edit": "সম্পাদনা · Edit",
+  "@dmp_edit": {
+    "description": "Secondary action: go back to edit the tenant."
+  },
+  "dmp_error": "ফর্ম লোড করা যায়নি। আবার চেষ্টা করুন।",
+  "@dmp_error": {
+    "description": "Error state message on the DMP preview."
+  },
+  "dmp_retry": "আবার চেষ্টা",
+  "@dmp_retry": {
+    "description": "Retry button on the DMP preview error state."
   }
 }

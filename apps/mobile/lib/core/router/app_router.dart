@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../features/auth/presentation/screens/otp_entry_screen.dart';
 import '../../features/auth/presentation/screens/phone_entry_screen.dart';
+import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/more_screen.dart';
@@ -432,18 +433,35 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
 
-      // ── DMP form (EPIC-05 target; placeholder until then, T-016) ────────
+      // ── DMP form preview (EPIC-05 T-007) ────────────────────────────────
       // The convergent success destination of the add-tenant flow: all three
       // intake paths (OCR / voice / manual) save the tenant then route here at
-      // `/dmpform/{tenantId}`. EPIC-05 replaces this placeholder with the real
-      // police-form screen. Sits on the root navigator so it covers the shell.
+      // `/dmpform/{tenantId}`. This is the real preview screen (replacing the
+      // EPIC-04 placeholder): it loads the assembled, masked-NID form data and
+      // offers "Generate PDF" → the PDF screen (T-008, nested `/pdf` below) and
+      // "Edit" → back to the tenant flow. Sits on the root navigator so it
+      // covers the shell. The route name is unchanged (`dmpForm`) so the save
+      // action (T-016) keeps routing here.
       GoRoute(
         path: '/dmpform/:tenantId',
-        name: DmpPlaceholderScreen.routeName,
+        name: DmpPreviewScreen.routeName,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => DmpPlaceholderScreen(
+        builder: (context, state) => DmpPreviewScreen(
           tenantId: state.pathParameters['tenantId'] ?? '',
         ),
+        routes: [
+          GoRoute(
+            // DMP PDF preview (T-008): the "Generate PDF" action lands here at
+            // `/dmpform/{tenantId}/pdf`. Registered as a placeholder so the
+            // generate flow resolves until T-008 fills in the real PDF screen.
+            path: 'pdf',
+            name: 'dmpFormPdf',
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) => DmpPlaceholderScreen(
+              tenantId: state.pathParameters['tenantId'] ?? '',
+            ),
+          ),
+        ],
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────

@@ -209,7 +209,7 @@ When a screen task needs one of these, it uses the shared widget — it does not
 | 11 | `ocr` | NID OCR scan | Landlord | screens-landlord2.js | EPIC-04 | T-010,T-011 | ☐ |
 | 12 | `voice` | Voice fill | Landlord | screens-landlord2.js | EPIC-04 | T-012 | ☐ |
 | 13 | `manualTenant` | Manual DMP form | Landlord | screens-landlord2.js | EPIC-04 | T-013 | ☐ |
-| 14 | `dmp` | DMP form (review) | Landlord | screens-landlord2.js | EPIC-05 | T-007 | ☐ |
+| 14 | `dmp` | DMP form (review) | Landlord | screens-landlord2.js | EPIC-05 | T-007 | ☑ |
 | 15 | `dmpPdf` | DMP PDF preview | Landlord | screens-landlord2.js | EPIC-05 | T-008 | ☐ |
 | 16 | `rentReq` | Rent request | Landlord | screens-landlord2.js | EPIC-07 | T-011 | ☐ |
 | 17 | `verifyPay` | Verify payment | Landlord | screens-landlord2.js | EPIC-07 | T-012 | ☐ |
