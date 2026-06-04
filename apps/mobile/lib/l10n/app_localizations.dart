@@ -1514,6 +1514,30 @@ abstract class AppLocalizations {
   /// **'সরান'**
   String get ocr_family_remove;
 
+  /// Shared family sub-form: add a family-member row.
+  ///
+  /// In bn, this message translates to:
+  /// **'+ সদস্য যোগ'**
+  String get family_add;
+
+  /// Shared family sub-form: label for a family-member name field.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম'**
+  String get family_name;
+
+  /// Shared family sub-form: label for a family-member relation field.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পর্ক'**
+  String get family_relation;
+
+  /// Shared family sub-form: tooltip to remove a family-member row.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরান'**
+  String get family_remove;
+
   /// Proceed button that saves the reviewed tenant and continues to the DMP form.
   ///
   /// In bn, this message translates to:

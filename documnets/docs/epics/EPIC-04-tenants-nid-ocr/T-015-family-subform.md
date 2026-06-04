@@ -4,15 +4,15 @@ epic: EPIC-04
 title: Family-members sub-form (shared)
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-014]
 blocks: [T-016]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -52,11 +52,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] dynamic add/remove rows (name + relation)
-- [ ] used by ocr/voice/manual forms
-- [ ] ARB bn + en
-- [ ] widget test (add/remove)
-- [ ] analyze + test pass
+- [x] dynamic add/remove rows (name + relation)
+- [x] used by ocr/voice/manual forms
+- [x] ARB bn + en
+- [x] widget test (add/remove)
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -65,12 +65,16 @@ None.
 1. Add 2 family members → save → present on tenant.
 
 ## 13. Acceptance criteria
-- [ ] Reusable family sub-form; used by all 3 paths; tests pass.
+- [x] Reusable family sub-form; used by all 3 paths; tests pass.
 
 ## 14. Self-review
-- [ ] Single shared widget (no duplication)
+- [x] Single shared widget (no duplication)
 ### Deviations from spec
+- New canonical i18n keys `family_add/family_name/family_relation/family_remove` (bn template + en) per §8; the older inline `ocr_family_*` keys remain for the OCR section heading but the shared widget now uses the `family_*` keys (identical values).
+- Voice path uses the shared widget transitively: the voice screen (T-012) navigates to the OCR review screen, which embeds `FamilyMembersField`. No separate voice form exists.
 ### Files touched (actual)
+- Add: `lib/features/tenants/presentation/widgets/family_members_field.dart`; `test/family_members_field_test.dart`; ARB `family_*` keys in `lib/l10n/app_bn.arb` + `lib/l10n/app_en.arb`.
+- Update: `ocr_review_screen.dart` + `manual_tenant_screen.dart` now embed the shared widget (removed their duplicated `_FamilyDraftRow`/`_FamilyRow`/`_AddFamilyButton`).
 
 ## 15. Notes for the implementing agent
 - Relation can be a free text or a small enum (spouse/child/parent/other) — follow design; keep it simple.

@@ -747,6 +747,22 @@
   "@ocr_family_remove": {
     "description": "Tooltip/label to remove a family-member row."
   },
+  "family_add": "+ সদস্য যোগ",
+  "@family_add": {
+    "description": "Shared family sub-form: add a family-member row."
+  },
+  "family_name": "নাম",
+  "@family_name": {
+    "description": "Shared family sub-form: label for a family-member name field."
+  },
+  "family_relation": "সম্পর্ক",
+  "@family_relation": {
+    "description": "Shared family sub-form: label for a family-member relation field."
+  },
+  "family_remove": "সরান",
+  "@family_remove": {
+    "description": "Shared family sub-form: tooltip to remove a family-member row."
+  },
   "ocr_confirm": "পরবর্তী — ফর্ম তৈরি 🚀",
   "@ocr_confirm": {
     "description": "Proceed button that saves the reviewed tenant and continues to the DMP form."

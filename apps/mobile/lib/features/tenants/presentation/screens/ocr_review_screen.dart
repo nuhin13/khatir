@@ -6,6 +6,7 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../data/models/extracted_tenant.dart';
+import '../widgets/family_members_field.dart';
 import 'ocr_review_args.dart';
 
 /// OCR review/edit stage, mirroring the `ocr` prototype review state
@@ -54,16 +55,7 @@ class OcrReviewScreen extends HookConsumerWidget {
         useTextEditingController(text: extracted.address.value ?? '');
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
-    final family = useState<List<_FamilyDraftRow>>(const []);
-
-    void addFamily() {
-      family.value = [...family.value, _FamilyDraftRow()];
-    }
-
-    void removeFamily(_FamilyDraftRow row) {
-      row.dispose();
-      family.value = family.value.where((r) => r != row).toList();
-    }
+    final family = useState<List<FamilyMemberDraft>>(const []);
 
     void proceed() {
       if (!(formKey.currentState?.validate() ?? false)) return;
@@ -72,14 +64,7 @@ class OcrReviewScreen extends HookConsumerWidget {
         nidNumber: nidCtrl.text.trim(),
         dob: dobCtrl.text.trim(),
         address: addressCtrl.text.trim(),
-        family: [
-          for (final row in family.value)
-            if (row.nameCtrl.text.trim().isNotEmpty)
-              FamilyMemberDraft(
-                name: row.nameCtrl.text.trim(),
-                relation: row.relationCtrl.text.trim(),
-              ),
-        ],
+        family: family.value,
         photoRef: extracted.photoRef,
         unitId: args.unitId,
       );
@@ -164,21 +149,9 @@ class OcrReviewScreen extends HookConsumerWidget {
               const SizedBox(height: KhatirSpacing.s5),
               _SectionLabel(text: l10n.ocr_family_section),
               const SizedBox(height: KhatirSpacing.s3),
-              for (final row in family.value) ...[
-                _FamilyRow(
-                  key: ObjectKey(row),
-                  row: row,
-                  nameLabel: l10n.ocr_family_name,
-                  relationLabel: l10n.ocr_family_relation,
-                  removeTooltip: l10n.ocr_family_remove,
-                  onRemove: () => removeFamily(row),
-                ),
-                const SizedBox(height: KhatirSpacing.s3),
-              ],
-              _AddFamilyButton(
-                key: const ValueKey('ocrFamilyAdd'),
-                label: l10n.ocr_family_add,
-                onTap: addFamily,
+              FamilyMembersField(
+                keyPrefix: 'ocr',
+                onChanged: (members) => family.value = members,
               ),
               const SizedBox(height: KhatirSpacing.s6),
               SizedBox(
@@ -206,22 +179,6 @@ class OcrReviewScreen extends HookConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-/// Mutable controllers backing one family-member row. Held in state so the
-/// row's text survives rebuilds; disposed when the row is removed.
-class _FamilyDraftRow {
-  _FamilyDraftRow()
-      : nameCtrl = TextEditingController(),
-        relationCtrl = TextEditingController();
-
-  final TextEditingController nameCtrl;
-  final TextEditingController relationCtrl;
-
-  void dispose() {
-    nameCtrl.dispose();
-    relationCtrl.dispose();
   }
 }
 
@@ -376,113 +333,3 @@ class _ReviewField extends StatelessWidget {
   }
 }
 
-/// One editable family-member row (name + relation) with a remove action.
-class _FamilyRow extends StatelessWidget {
-  const _FamilyRow({
-    super.key,
-    required this.row,
-    required this.nameLabel,
-    required this.relationLabel,
-    required this.removeTooltip,
-    required this.onRemove,
-  });
-
-  final _FamilyDraftRow row;
-  final String nameLabel;
-  final String relationLabel;
-  final String removeTooltip;
-  final VoidCallback onRemove;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          flex: 3,
-          child: TextField(
-            key: const ValueKey('ocrFamilyName'),
-            controller: row.nameCtrl,
-            style: AppTextStyles.bodyMedium,
-            decoration: _familyDecoration(nameLabel),
-          ),
-        ),
-        const SizedBox(width: KhatirSpacing.s2),
-        Expanded(
-          flex: 2,
-          child: TextField(
-            key: const ValueKey('ocrFamilyRelation'),
-            controller: row.relationCtrl,
-            style: AppTextStyles.bodyMedium,
-            decoration: _familyDecoration(relationLabel),
-          ),
-        ),
-        IconButton(
-          tooltip: removeTooltip,
-          onPressed: onRemove,
-          icon: const Icon(Icons.remove_circle_outline,
-              color: KhatirColors.roseDk),
-        ),
-      ],
-    );
-  }
-
-  InputDecoration _familyDecoration(String label) => InputDecoration(
-        labelText: label,
-        labelStyle: AppTextStyles.bodySmall.copyWith(
-          color: KhatirColors.mutedDk,
-          fontWeight: FontWeight.w600,
-        ),
-        isDense: true,
-        filled: true,
-        fillColor: KhatirColors.card,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: KhatirSpacing.s3,
-          vertical: KhatirSpacing.s3,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(KhatirRadius.sm),
-          borderSide: const BorderSide(color: KhatirColors.line),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(KhatirRadius.sm),
-          borderSide: const BorderSide(color: KhatirColors.line),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(KhatirRadius.sm),
-          borderSide: const BorderSide(color: KhatirColors.sage, width: 2),
-        ),
-      );
-}
-
-/// The dashed "add family member" affordance.
-class _AddFamilyButton extends StatelessWidget {
-  const _AddFamilyButton({
-    super.key,
-    required this.label,
-    required this.onTap,
-  });
-
-  final String label;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: OutlinedButton(
-        onPressed: onTap,
-        style: OutlinedButton.styleFrom(
-          foregroundColor: KhatirColors.sageDk,
-          side: const BorderSide(color: KhatirColors.sage, width: 1.5),
-          padding: const EdgeInsets.symmetric(vertical: KhatirSpacing.s3),
-          textStyle: AppTextStyles.labelLarge,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(KhatirRadius.button),
-          ),
-        ),
-        child: Text(label),
-      ),
-    );
-  }
-}

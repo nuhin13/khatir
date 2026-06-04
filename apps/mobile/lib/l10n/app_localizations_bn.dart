@@ -754,6 +754,18 @@ class AppLocalizationsBn extends AppLocalizations {
   String get ocr_family_remove => 'সরান';
 
   @override
+  String get family_add => '+ সদস্য যোগ';
+
+  @override
+  String get family_name => 'নাম';
+
+  @override
+  String get family_relation => 'সম্পর্ক';
+
+  @override
+  String get family_remove => 'সরান';
+
+  @override
   String get ocr_confirm => 'পরবর্তী — ফর্ম তৈরি 🚀';
 
   @override
