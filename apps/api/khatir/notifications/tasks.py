@@ -243,3 +243,101 @@ def deliver_to_recipient(notification_id: int, user_id: int, channel: str) -> st
         final_status,
     )
     return final_status
+
+
+# ── post-send state transitions (T-004) ─────────────────────────────────────
+#
+# After the per-recipient task above leaves a delivery in ``sent`` (remote
+# channels) or ``delivered`` (in-app/email), two later signals advance it:
+#
+# * a **provider webhook** confirms a remote channel actually delivered
+#   (``sent`` -> ``delivered``);
+# * an **open beacon** (1×1 tracking pixel / link hit) records the recipient
+#   opened it (``-> opened``).
+#
+# Both are idempotent and bump the parent's aggregate counters exactly once,
+# under a row-locking transaction so concurrent webhook + beacon hits can never
+# double-count.
+
+#: Delivery states that may still progress to ``delivered`` via a provider
+#: webhook. ``queued`` is included so an out-of-order webhook (arriving before
+#: the send task committed) is not silently dropped.
+_CONFIRMABLE = frozenset(
+    {NotificationDeliveryStatus.QUEUED, NotificationDeliveryStatus.SENT}
+)
+
+#: Delivery states from which an open is a meaningful forward transition. A
+#: recipient can only open something that was at least sent, and ``opened`` is
+#: terminal so a repeat beacon is a no-op.
+_OPENABLE = frozenset(
+    {NotificationDeliveryStatus.SENT, NotificationDeliveryStatus.DELIVERED}
+)
+
+
+def confirm_delivered(delivery_id: int) -> bool:
+    """Mark a delivery ``delivered`` on a provider webhook confirmation.
+
+    Idempotent: only a ``queued``/``sent`` row transitions, and only then is the
+    parent's ``delivered_count`` bumped — so a duplicate webhook (providers
+    retry liberally) never double-counts. Returns ``True`` iff this call was the
+    one that advanced the row. A missing/already-terminal delivery returns
+    ``False``.
+    """
+    with transaction.atomic():
+        delivery = (
+            NotificationDelivery.objects.select_for_update()
+            .filter(pk=delivery_id)
+            .first()
+        )
+        if delivery is None or delivery.status not in _CONFIRMABLE:
+            return False
+
+        now = timezone.now()
+        NotificationDelivery.objects.filter(pk=delivery.pk).update(
+            status=NotificationDeliveryStatus.DELIVERED,
+            delivered_at=delivery.delivered_at or now,
+            error="",
+        )
+        Notification.objects.filter(pk=delivery.notification_id).update(
+            delivered_count=F("delivered_count") + 1
+        )
+    logger.info("delivery #%s confirmed delivered by webhook", delivery_id)
+    return True
+
+
+def mark_opened(delivery_id: int) -> bool:
+    """Mark a delivery ``opened`` from a web open beacon (tracking pixel/link).
+
+    Idempotent: only a ``sent``/``delivered`` row transitions to ``opened`` and
+    only then is the parent's ``opened_count`` bumped, so reloading the page (a
+    pixel re-fetch) never inflates the count. Returns ``True`` iff this call
+    recorded the open. A missing/already-opened/failed delivery returns
+    ``False``.
+    """
+    with transaction.atomic():
+        delivery = (
+            NotificationDelivery.objects.select_for_update()
+            .filter(pk=delivery_id)
+            .first()
+        )
+        if delivery is None or delivery.status not in _OPENABLE:
+            return False
+
+        now = timezone.now()
+        NotificationDelivery.objects.filter(pk=delivery.pk).update(
+            status=NotificationDeliveryStatus.OPENED,
+            opened_at=now,
+            # An open implies delivery; backfill it if the channel never sent a
+            # delivery webhook (e.g. SMS/WhatsApp left in ``sent``).
+            delivered_at=delivery.delivered_at or now,
+        )
+        count_fields: dict[str, Any] = {"opened_count": F("opened_count") + 1}
+        if delivery.status == NotificationDeliveryStatus.SENT:
+            # The row never reached ``delivered`` (no webhook); the open proves
+            # it landed, so count the delivery too — exactly once.
+            count_fields["delivered_count"] = F("delivered_count") + 1
+        Notification.objects.filter(pk=delivery.notification_id).update(
+            **count_fields
+        )
+    logger.info("delivery #%s marked opened by web beacon", delivery_id)
+    return True

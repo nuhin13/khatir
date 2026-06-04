@@ -36,6 +36,10 @@ urlpatterns = [
     # T-005). Browser HTML, so it lives at the root rather than under
     # ``/api/v1/``.
     path("", include("khatir.maintenance.web_urls")),
+    # Public notification delivery tracking (EPIC-15 T-004): open beacon
+    # (/n/<token>/open.gif) and provider delivery webhook (/n/<token>/delivered).
+    # Token-scoped, hit by browsers/providers, so rooted outside ``/api/v1/``.
+    path("", include("khatir.notifications.web_urls")),
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
     path("api/v1/", include("khatir.properties.urls")),
