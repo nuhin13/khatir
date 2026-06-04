@@ -67,11 +67,13 @@ export const NAV_ITEMS: readonly NavItem[] = [
     roles: [],
   },
   {
+    // Notification endpoints are gated on the `platform` section (super + ops)
+    // in notifications/views.py (EPIC-15.T-007). `navForRole` grants super every
+    // item, so only `ops` needs naming. Built in EPIC-15.T-010.
     label: "Notifications",
     href: "/notifications",
     icon: Send,
-    roles: [],
-    comingSoon: true,
+    roles: ["ops"],
   },
   {
     // AI-provider endpoints are gated on the `platform` section (super + ops)
