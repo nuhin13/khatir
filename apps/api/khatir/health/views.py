@@ -15,6 +15,7 @@ from rest_framework.response import Response
 from khatir.billing.public_config import serialized_tiers, subscription_block
 from khatir.core.config import get_config
 from khatir.core.enums import Area
+from khatir.featureflags.services import public_flags
 from khatir.maintenance.enums import ExpenseCategory, MaintenanceCategory
 
 
@@ -68,7 +69,7 @@ def config_public(request: Request) -> Response:
     client-side (EPIC-10 T-005 §2). No prices/dates/payment data are exposed.
     """
     payload: dict[str, object] = {
-        "flags": {},
+        "flags": public_flags(),
         "config": {
             "intro_slide_skip_allowed": get_config(
                 "intro_slide_skip_allowed", default=True
