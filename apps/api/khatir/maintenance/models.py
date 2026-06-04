@@ -25,6 +25,7 @@ from django.db import models
 from khatir.core.models import SoftDeleteModel
 
 from .enums import ExpenseCategory, ExpenseSource, MaintenanceCategory, MaintenanceStatus
+from .managers import ExpenseManager, MaintenanceRequestManager
 
 
 class MaintenanceRequest(SoftDeleteModel):
@@ -84,6 +85,8 @@ class MaintenanceRequest(SoftDeleteModel):
         help_text="Notes on the fix.",
     )
 
+    objects = MaintenanceRequestManager()
+
     class Meta:
         ordering = ("-created_at",)
         indexes = [models.Index(fields=["unit", "status"])]
@@ -100,6 +103,19 @@ class Expense(SoftDeleteModel):
         on_delete=models.PROTECT,
         related_name="expenses",
         help_text="Which unit the expense is for.",
+    )
+    request = models.OneToOneField(
+        "maintenance.MaintenanceRequest",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        default=None,
+        related_name="expense",
+        help_text=(
+            "The maintenance request this expense was auto-created from "
+            "(source=request). Null for manual expenses. One-to-one so a "
+            "request can resolve to at most one expense (idempotent resolve)."
+        ),
     )
     category = models.CharField(
         max_length=16,
@@ -131,6 +147,8 @@ class Expense(SoftDeleteModel):
         default="",
         help_text="Receipt image in object storage.",
     )
+
+    objects = ExpenseManager()
 
     class Meta:
         ordering = ("-date", "-created_at")

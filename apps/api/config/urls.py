@@ -27,6 +27,7 @@ urlpatterns = [
     path("api/v1/", include("khatir.leases.urls")),
     path("api/v1/", include("khatir.dmpforms.urls")),
     path("api/v1/", include("khatir.rent.urls")),
+    path("api/v1/", include("khatir.maintenance.urls")),
     path("api/v1/", include("khatir.billing.urls")),
     path("api/v1/auth/", include("khatir.accounts.urls")),
     # OpenAPI schema + interactive docs (drf-spectacular).
