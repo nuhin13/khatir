@@ -181,8 +181,17 @@ FIELD_ENCRYPTION_KEY = env("FIELD_ENCRYPTION_KEY", default="")
 
 # ── Encrypted object storage (EPIC-04 T-003 / core/storage.py) ─────────
 # Sensitive files (NID images, payment proofs, generated DMP PDFs) live in
-# S3-compatible storage in prod; until that backend lands, a local filesystem
-# root keeps the pipeline runnable. Never serve this root publicly.
+# S3-compatible storage in prod, encrypted at rest (SSE) and never
+# public-readable; retrieval is via short-lived signed URLs. When no S3 bucket
+# is configured (dev/test), a local filesystem root under a non-public path
+# keeps the pipeline runnable. Never serve either backend publicly.
+S3_ENDPOINT_URL = env("S3_ENDPOINT_URL", default="")
+S3_ACCESS_KEY = env("S3_ACCESS_KEY", default="")
+S3_SECRET_KEY = env("S3_SECRET_KEY", default="")
+S3_BUCKET = env("S3_BUCKET", default="")
+S3_REGION = env("S3_REGION", default="")
+# Server-side encryption header for stored objects (AES256 or aws:kms).
+S3_SSE = env("S3_SSE", default="AES256")
 ENCRYPTED_STORAGE_ROOT = env("ENCRYPTED_STORAGE_ROOT", default=str(BASE_DIR / "private_media"))
 ENCRYPTED_STORAGE_PUBLIC_BASE = env(
     "ENCRYPTED_STORAGE_PUBLIC_BASE", default="https://storage.local"
