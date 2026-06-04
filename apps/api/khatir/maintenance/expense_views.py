@@ -36,6 +36,7 @@ from khatir.core.responses import created, no_content, success
 
 from .models import Expense
 from .permissions import IsOwnerOfExpense
+from .selectors import expense_total_by_category, expense_total_by_month
 from .serializers import (
     ExpenseCreateSerializer,
     ExpenseSerializer,
@@ -88,6 +89,20 @@ class ExpenseViewSet(
     serializer_class = ExpenseSerializer
     permission_classes = [IsLandlordOrManager & IsOwnerOfExpense]
 
+    def _filter_kwargs(self) -> dict[str, Any]:
+        """Parse the optional ``building`` / ``unit`` / ``date_*`` query params.
+
+        Shared by the list/export filtering and the summary selectors so the two
+        paths apply identical filters.
+        """
+        params = self.request.query_params
+        return {
+            "unit": params.get("unit") or None,
+            "building": params.get("building") or None,
+            "date_from": _parse_date(params.get("date_from")),
+            "date_to": _parse_date(params.get("date_to")),
+        }
+
     def _filtered_queryset(self) -> QuerySet[Expense]:
         """The user-scoped queryset narrowed by the request's filter params.
 
@@ -96,19 +111,15 @@ class ExpenseViewSet(
         narrow the already-isolated set.
         """
         qs = self.get_queryset()
-        params = self.request.query_params
-        unit = params.get("unit")
-        if unit:
-            qs = qs.filter(unit_id=unit)
-        building = params.get("building")
-        if building:
-            qs = qs.filter(unit__building_id=building)
-        date_from = _parse_date(params.get("date_from"))
-        if date_from is not None:
-            qs = qs.filter(date__gte=date_from)
-        date_to = _parse_date(params.get("date_to"))
-        if date_to is not None:
-            qs = qs.filter(date__lte=date_to)
+        filters = self._filter_kwargs()
+        if filters["unit"]:
+            qs = qs.filter(unit_id=filters["unit"])
+        if filters["building"]:
+            qs = qs.filter(unit__building_id=filters["building"])
+        if filters["date_from"] is not None:
+            qs = qs.filter(date__gte=filters["date_from"])
+        if filters["date_to"] is not None:
+            qs = qs.filter(date__lte=filters["date_to"])
         return qs
 
     def list(self, request: Request, *args: Any, **kwargs: Any) -> Response:
@@ -174,3 +185,29 @@ class ExpenseViewSet(
         response = StreamingHttpResponse(rows(), content_type="text/csv")
         response["Content-Disposition"] = 'attachment; filename="expenses.csv"'
         return response
+
+    @action(detail=False, methods=["get"], url_path="summary")
+    def summary(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        """Expense totals by category + by month for the dashboard (T-012 §7).
+
+        Read-only: delegates to the ``selectors`` aggregation (scoped to the user
+        and narrowed by the same ``building`` / ``unit`` / ``date_*`` filters as
+        the list). Amounts are serialized as strings to preserve Decimal
+        precision; each month bucket is the first day of that month (ISO date).
+        """
+        actor = cast(User, request.user)
+        filters = self._filter_kwargs()
+        by_category = expense_total_by_category(actor, **filters)
+        by_month = expense_total_by_month(actor, **filters)
+        return success(
+            {
+                "by_category": [
+                    {"category": row["category"], "total": str(row["total"])}
+                    for row in by_category
+                ],
+                "by_month": [
+                    {"month": row["month"].isoformat(), "total": str(row["total"])}
+                    for row in by_month
+                ],
+            }
+        )
