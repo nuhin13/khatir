@@ -10,10 +10,12 @@ from __future__ import annotations
 
 from django.urls import path
 
-from .web_views import web_pay
+from .web_views import submit_proof, web_pay, web_receipt
 
 app_name = "rent_web"
 
 urlpatterns = [
     path("r/<str:token>", web_pay, name="web-pay"),
+    path("r/<str:token>/proof", submit_proof, name="web-proof"),
+    path("r/<str:token>/receipt", web_receipt, name="web-receipt"),
 ]

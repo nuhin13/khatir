@@ -9,6 +9,9 @@
     {% if reason == "expired" %}
       <div class="title" style="font-size:18px;margin-top:14px;">এই লিংকের মেয়াদ শেষ</div>
       <div class="muted" lang="en" style="margin-top:6px;">This payment link has expired.</div>
+    {% elif reason == "rate_limited" %}
+      <div class="title" style="font-size:18px;margin-top:14px;">একটু পরে আবার চেষ্টা করুন</div>
+      <div class="muted" lang="en" style="margin-top:6px;">Too many attempts. Please try again in a few minutes.</div>
     {% else %}
       <div class="title" style="font-size:18px;margin-top:14px;">লিংকটি খুঁজে পাওয়া যায়নি</div>
       <div class="muted" lang="en" style="margin-top:6px;">This link is invalid or no longer exists.</div>

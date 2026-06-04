@@ -4,15 +4,15 @@ epic: EPIC-07
 title: Proof submit + web receipt page
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-005]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -54,12 +54,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] POST proof (txn/screenshot/note) → PaymentProof + status proof_submitted
-- [ ] screenshot via encrypted storage
-- [ ] webReceipt page (pending vs ready)
-- [ ] rate-limit per token
-- [ ] Tests: submit, receipt before/after verify
-- [ ] ruff clean
+- [x] POST proof (txn/screenshot/note) → PaymentProof + status proof_submitted
+- [x] screenshot via encrypted storage
+- [x] webReceipt page (pending vs ready)
+- [x] rate-limit per token
+- [x] Tests: submit, receipt before/after verify
+- [x] ruff clean
 
 ## 12. Test plan
 ### Automated
@@ -68,14 +68,25 @@ None.
 1. Submit proof on the web page → landlord sees it; after verify → receipt shows.
 
 ## 13. Acceptance criteria
-- [ ] Proof submit + web receipt per design; token-scoped + rate-limited.
-- [ ] **Screen `webReceipt` built** (ledger row).
-- [ ] Tests + lint pass.
+- [x] Proof submit + web receipt per design; token-scoped + rate-limited.
+- [x] **Screen `webReceipt` built** (ledger row).
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] Token-scoped; rate-limited; screenshot encrypted
+- [x] Token-scoped; rate-limited; screenshot encrypted
 ### Deviations from spec
+- web_views.py / web_urls.py / web_pay.html / web_pay_error.html already existed
+  from T-005; extended them in place rather than re-adding. PRG pattern: proof
+  POST redirects to the receipt page. Per-token rate limit uses the cache
+  backend directly (plain Django view, not a DRF throttle) — cap/window tunable
+  via SystemConfig (rent_proof_submit_max_per_window / _window_seconds).
 ### Files touched (actual)
+- khatir/rent/web_views.py (submit_proof + web_receipt + rate limit + proof build)
+- khatir/rent/web_urls.py (/r/<token>/proof POST, /r/<token>/receipt GET)
+- templates/rent/web_pay.html (form → proof endpoint; screenshot + note fields)
+- templates/rent/web_pay_error.html (rate_limited reason)
+- templates/rent/web_receipt.html (new — pending vs ready)
+- khatir/rent/tests/test_web_proof.py (new)
 
 ## 15. Notes for the implementing agent
 - Reuse encrypted storage (EPIC-04 T-003) for screenshots. Receipt PDF generation is T-007; this page links/embeds it once ready.
