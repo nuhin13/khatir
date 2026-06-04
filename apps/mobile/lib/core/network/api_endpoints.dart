@@ -46,6 +46,16 @@ class ApiEndpoints {
   // returns the same editable fields as OCR, minus `photo_ref` (no artefact).
   static const String tenantVoice = '$apiPrefix/tenants/voice';
 
+  // `tenants` — create a tenant from reviewed fields (POST) + the tenants
+  // collection root used to build the single-tenant detail route.
+  static const String tenants = '$apiPrefix/tenants';
+
+  /// `/api/v1/tenants/{id}` — single tenant detail/update.
+  static String tenant(String id) => '$tenants/$id';
+
+  /// `/api/v1/units/{id}/tenants` — tenants holding a lease on a unit.
+  static String unitTenants(String unitId) => '$units/$unitId/tenants';
+
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 

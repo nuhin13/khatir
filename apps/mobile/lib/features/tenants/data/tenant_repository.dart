@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import '../../../core/network/api_endpoints.dart';
 import '../../../core/network/api_exception.dart';
 import 'models/extracted_tenant.dart';
+import 'models/family_member.dart';
+import 'models/tenant.dart';
 
 /// Network access for the add-tenant flows (EPIC-04). For now this owns the OCR
 /// extraction call consumed by the NID capture (T-010) and review (T-011)
@@ -68,6 +70,70 @@ class TenantRepository {
       throw _asApiException(e);
     }
   }
+
+  /// `POST /tenants` — create a tenant from reviewed fields (T-007).
+  ///
+  /// Sends the masked-by-default create body: [name] (required) plus only the
+  /// supplied optional fields. [nidNumber] is the **plaintext** NID reviewed by
+  /// the user (write-only; the server encrypts it and never echoes it back) and
+  /// is sent only when non-null/non-empty. [photoRef] carries the opaque OCR
+  /// image handle when the tenant came from the NID-scan flow. [familyMembers]
+  /// are written nested (`{name, relation}` each). Returns the persisted,
+  /// **masked** [Tenant] — the response never contains the full NID.
+  Future<Tenant> createTenant({
+    required String name,
+    String? nidNumber,
+    DateTime? dob,
+    String? address,
+    String? photoRef,
+    List<FamilyMember>? familyMembers,
+  }) async {
+    final body = <String, dynamic>{
+      'name': name,
+      if (nidNumber != null && nidNumber.isNotEmpty) 'nid_number': nidNumber,
+      if (dob != null) 'dob': _date(dob),
+      if (address != null) 'address': address,
+      if (photoRef != null && photoRef.isNotEmpty) 'photo_ref': photoRef,
+      if (familyMembers != null)
+        'family_members':
+            familyMembers.map(FamilyMember.toCreateJson).toList(growable: false),
+    };
+    try {
+      final res = await _dio.post<Map<String, dynamic>>(
+        ApiEndpoints.tenants,
+        data: body,
+      );
+      return Tenant.fromJson(res.data ?? const <String, dynamic>{});
+    } on DioException catch (e) {
+      throw _asApiException(e);
+    }
+  }
+
+  /// `GET /units/{id}/tenants` — the tenants holding a lease on a unit (T-007).
+  ///
+  /// The unit is scoped server-side (`for_user`), so a foreign/unknown unit
+  /// yields an empty list rather than a leak. The endpoint returns a bare JSON
+  /// array of **masked** tenants (no `{results, pagination}` envelope).
+  Future<List<Tenant>> listUnitTenants(String unitId) async {
+    try {
+      final res = await _dio.get<List<dynamic>>(
+        ApiEndpoints.unitTenants(unitId),
+      );
+      final data = res.data ?? const <dynamic>[];
+      return data
+          .whereType<Map<String, dynamic>>()
+          .map(Tenant.fromJson)
+          .toList(growable: false);
+    } on DioException catch (e) {
+      throw _asApiException(e);
+    }
+  }
+
+  /// `YYYY-MM-DD` — the wire shape DRF `DateField` expects.
+  static String _date(DateTime d) =>
+      '${d.year.toString().padLeft(4, '0')}-'
+      '${d.month.toString().padLeft(2, '0')}-'
+      '${d.day.toString().padLeft(2, '0')}';
 
   ApiException _asApiException(DioException e) {
     final err = e.error;

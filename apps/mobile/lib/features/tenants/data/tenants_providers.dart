@@ -6,11 +6,65 @@ import 'package:image_picker/image_picker.dart';
 import 'package:record/record.dart';
 
 import '../../../core/network/dio_client.dart';
+import 'models/family_member.dart';
+import 'models/tenant.dart';
 import 'tenant_repository.dart';
 
 /// The shared [TenantRepository], backed by the app-wide dio client.
 final tenantRepositoryProvider = Provider<TenantRepository>(
   (ref) => TenantRepository(ref.watch(dioClientProvider)),
+);
+
+// ── Tenants of a unit ────────────────────────────────────────────────────--
+
+/// Loads and mutates the tenants holding a lease on one unit, exposing
+/// [AsyncValue]. Keyed by unit id via [family] — shared by the add-tenant flows
+/// (manual/OCR/voice) so creating a tenant refreshes the unit's list in place.
+///
+/// [build] fetches `GET /units/{id}/tenants`. [create] POSTs the reviewed
+/// fields then re-fetches so the list stays consistent with the server (the
+/// source of truth); it returns the new (masked) tenant for callers that route
+/// on it.
+class UnitTenantsController extends FamilyAsyncNotifier<List<Tenant>, String> {
+  @override
+  Future<List<Tenant>> build(String unitId) => _repo.listUnitTenants(unitId);
+
+  TenantRepository get _repo => ref.read(tenantRepositoryProvider);
+
+  /// Re-fetches this unit's tenants into [state].
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() => _repo.listUnitTenants(arg));
+  }
+
+  /// Creates a tenant (from reviewed fields), then refreshes this unit's list.
+  /// [nidNumber] is the plaintext NID the server encrypts; it is never echoed
+  /// back. Returns the persisted, masked tenant.
+  Future<Tenant> create({
+    required String name,
+    String? nidNumber,
+    DateTime? dob,
+    String? address,
+    String? photoRef,
+    List<FamilyMember>? familyMembers,
+  }) async {
+    final tenant = await _repo.createTenant(
+      name: name,
+      nidNumber: nidNumber,
+      dob: dob,
+      address: address,
+      photoRef: photoRef,
+      familyMembers: familyMembers,
+    );
+    await refresh();
+    return tenant;
+  }
+}
+
+/// Tenants of a unit, keyed by unit id.
+final unitTenantsProvider = AsyncNotifierProvider.family<UnitTenantsController,
+    List<Tenant>, String>(
+  UnitTenantsController.new,
 );
 
 /// The bytes + filename of a picked image, decoupled from the picker plugin so
