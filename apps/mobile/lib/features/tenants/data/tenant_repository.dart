@@ -7,6 +7,7 @@ import '../../../core/network/api_exception.dart';
 import 'models/extracted_tenant.dart';
 import 'models/family_member.dart';
 import 'models/tenant.dart';
+import 'models/tenant_create_result.dart';
 
 /// Network access for the add-tenant flows (EPIC-04). For now this owns the OCR
 /// extraction call consumed by the NID capture (T-010) and review (T-011)
@@ -88,6 +89,31 @@ class TenantRepository {
     String? photoRef,
     List<FamilyMember>? familyMembers,
   }) async {
+    final result = await createTenantDetailed(
+      name: name,
+      nidNumber: nidNumber,
+      dob: dob,
+      address: address,
+      photoRef: photoRef,
+      familyMembers: familyMembers,
+    );
+    return result.tenant;
+  }
+
+  /// `POST /tenants` — like [createTenant], but also surfaces the optional
+  /// free-tier usage echoed on the create response (`tenants_used`,
+  /// `free_limit`, `is_over_free`, T-008) so the convergent save action (T-016)
+  /// can show the "1/2 free" toast. When the server omits those fields,
+  /// [TenantCreateResult.usage] is `null` and the toast is skipped. The persisted
+  /// tenant is always **masked** — the full NID never comes back.
+  Future<TenantCreateResult> createTenantDetailed({
+    required String name,
+    String? nidNumber,
+    DateTime? dob,
+    String? address,
+    String? photoRef,
+    List<FamilyMember>? familyMembers,
+  }) async {
     final body = <String, dynamic>{
       'name': name,
       if (nidNumber != null && nidNumber.isNotEmpty) 'nid_number': nidNumber,
@@ -103,7 +129,11 @@ class TenantRepository {
         ApiEndpoints.tenants,
         data: body,
       );
-      return Tenant.fromJson(res.data ?? const <String, dynamic>{});
+      final data = res.data ?? const <String, dynamic>{};
+      return TenantCreateResult(
+        tenant: Tenant.fromJson(data),
+        usage: TenantUsage.maybeFromJson(data),
+      );
     } on DioException catch (e) {
       throw _asApiException(e);
     }

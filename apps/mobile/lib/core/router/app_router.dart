@@ -19,6 +19,7 @@ import '../../features/shell/tenant_shell.dart';
 import '../../features/shell/widgets/shell_placeholder.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
+import '../../features/tenants/presentation/screens/dmp_placeholder_screen.dart';
 import '../../features/tenants/presentation/screens/manual_tenant_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_review_args.dart';
@@ -386,9 +387,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 // successful extraction. A direct/deep visit without args is
                 // not a valid state, so fall back to the capture screen.
                 //
-                // `onProceed` is the seam the shared save action (T-016) wires
-                // to persist the reviewed tenant and route to the DMP form;
-                // until then proceed validates but does not navigate.
+                // The screen runs the shared save+route action (T-016) on
+                // proceed: leaving `onProceed` null makes it persist the
+                // reviewed tenant and route to the DMP form. This is also the
+                // voice path's convergence point (T-012 reuses this screen).
                 path: OcrReviewArgs.routePath,
                 name: OcrReviewArgs.routeName,
                 parentNavigatorKey: _rootNavigatorKey,
@@ -399,7 +401,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       unitId: state.uri.queryParameters['unit'],
                     );
                   }
-                  // TODO(EPIC-04 T-016): pass onProceed → saveTenantAndContinue.
                   return OcrReviewScreen(args: args);
                 },
               ),
@@ -419,9 +420,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             // Manual tenant entry (T-013): the fallback hand-entry form that
             // fills every DMP field by hand, carrying the optional unit context.
-            // `onProceed` is the seam the shared save action (T-016) wires to
-            // persist the tenant and route to the DMP form; until then proceed
-            // validates but does not navigate.
+            // Leaving `onProceed` null makes the screen run the shared save+route
+            // action (T-016): persist the tenant and route to the DMP form.
             path: ManualTenantScreen.routePath,
             name: AddTenantScreen.manualRouteName,
             parentNavigatorKey: _rootNavigatorKey,
@@ -430,6 +430,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
           ),
         ],
+      ),
+
+      // ── DMP form (EPIC-05 target; placeholder until then, T-016) ────────
+      // The convergent success destination of the add-tenant flow: all three
+      // intake paths (OCR / voice / manual) save the tenant then route here at
+      // `/dmpform/{tenantId}`. EPIC-05 replaces this placeholder with the real
+      // police-form screen. Sits on the root navigator so it covers the shell.
+      GoRoute(
+        path: '/dmpform/:tenantId',
+        name: DmpPlaceholderScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => DmpPlaceholderScreen(
+          tenantId: state.pathParameters['tenantId'] ?? '',
+        ),
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────

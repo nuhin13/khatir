@@ -1687,6 +1687,36 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'ফর্ম তৈরি ও PDF দেখুন 🚀'**
   String get manual_proceed;
+
+  /// Snackbar shown when saving a tenant fails (network/server error).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটে সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।'**
+  String get tenant_save_error;
+
+  /// Free-tier usage toast after saving a tenant (e.g. 1/2 used).
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্রি প্ল্যান: {used}/{limit} ভাড়াটে ব্যবহৃত'**
+  String tenant_free_tier_status(int used, int limit);
+
+  /// App-bar title of the DMP form placeholder screen (until EPIC-05).
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP ফর্ম'**
+  String get dmp_placeholder_title;
+
+  /// Heading on the DMP placeholder confirming the tenant was saved.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটে সংরক্ষিত হয়েছে!'**
+  String get dmp_placeholder_heading;
+
+  /// Body on the DMP placeholder explaining the real form lands in EPIC-05.
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP (পুলিশ) ফর্ম শীঘ্রই এখানে তৈরি হবে।'**
+  String get dmp_placeholder_body;
 }
 
 class _AppLocalizationsDelegate

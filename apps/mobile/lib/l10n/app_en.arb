@@ -763,5 +763,29 @@
   "manual_proceed": "ফর্ম তৈরি ও PDF দেখুন · Generate PDF 🚀",
   "@manual_proceed": {
     "description": "Proceed button on the manual form — builds the DMP form."
+  },
+  "tenant_save_error": "Couldn't save the tenant. Please try again.",
+  "@tenant_save_error": {
+    "description": "Snackbar shown when saving a tenant fails (network/server error)."
+  },
+  "tenant_free_tier_status": "Free plan: {used}/{limit} tenants used",
+  "@tenant_free_tier_status": {
+    "description": "Free-tier usage toast after saving a tenant (e.g. 1/2 used).",
+    "placeholders": {
+      "used": { "type": "int" },
+      "limit": { "type": "int" }
+    }
+  },
+  "dmp_placeholder_title": "DMP form",
+  "@dmp_placeholder_title": {
+    "description": "App-bar title of the DMP form placeholder screen (until EPIC-05)."
+  },
+  "dmp_placeholder_heading": "Tenant saved!",
+  "@dmp_placeholder_heading": {
+    "description": "Heading on the DMP placeholder confirming the tenant was saved."
+  },
+  "dmp_placeholder_body": "The DMP (police) form will be generated here soon.",
+  "@dmp_placeholder_body": {
+    "description": "Body on the DMP placeholder explaining the real form lands in EPIC-05."
   }
 }

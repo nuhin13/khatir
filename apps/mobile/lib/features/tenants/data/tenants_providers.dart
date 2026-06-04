@@ -8,6 +8,7 @@ import 'package:record/record.dart';
 import '../../../core/network/dio_client.dart';
 import 'models/family_member.dart';
 import 'models/tenant.dart';
+import 'models/tenant_create_result.dart';
 import 'tenant_repository.dart';
 
 /// The shared [TenantRepository], backed by the app-wide dio client.
@@ -48,7 +49,30 @@ class UnitTenantsController extends FamilyAsyncNotifier<List<Tenant>, String> {
     String? photoRef,
     List<FamilyMember>? familyMembers,
   }) async {
-    final tenant = await _repo.createTenant(
+    final result = await createDetailed(
+      name: name,
+      nidNumber: nidNumber,
+      dob: dob,
+      address: address,
+      photoRef: photoRef,
+      familyMembers: familyMembers,
+    );
+    return result.tenant;
+  }
+
+  /// Like [create], but returns the full [TenantCreateResult] (masked tenant +
+  /// optional free-tier usage) so the convergent save action (T-016) can route
+  /// on the tenant *and* surface the "1/2 free" toast. Refreshes this unit's
+  /// list after the create so it stays consistent with the server.
+  Future<TenantCreateResult> createDetailed({
+    required String name,
+    String? nidNumber,
+    DateTime? dob,
+    String? address,
+    String? photoRef,
+    List<FamilyMember>? familyMembers,
+  }) async {
+    final result = await _repo.createTenantDetailed(
       name: name,
       nidNumber: nidNumber,
       dob: dob,
@@ -57,7 +81,7 @@ class UnitTenantsController extends FamilyAsyncNotifier<List<Tenant>, String> {
       familyMembers: familyMembers,
     );
     await refresh();
-    return tenant;
+    return result;
   }
 }
 

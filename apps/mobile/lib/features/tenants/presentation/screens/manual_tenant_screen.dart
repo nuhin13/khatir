@@ -5,6 +5,7 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../controllers/tenant_save_controller.dart';
 import '../widgets/family_members_field.dart';
 import 'ocr_review_args.dart';
 
@@ -31,10 +32,12 @@ class ManualTenantScreen extends HookConsumerWidget {
   /// carried through to the downstream save so it knows the unit context.
   final String? unitId;
 
-  /// Invoked with the entered [ManualTenantDraft] when proceed is tapped and
-  /// validation passes. Defaults to `null`; the shared save+route action
-  /// (T-016) supplies the real implementation. Exposed so widget tests can
-  /// assert the entered values flow through.
+  /// Test seam: invoked with the entered [ManualTenantDraft] when proceed is
+  /// tapped and validation passes. When `null` (the default, and what the router
+  /// supplies) the screen runs the shared save+route action (T-016) instead —
+  /// persisting the tenant and routing to the DMP form. Widget tests pass a
+  /// callback to assert the entered values flow through without hitting the
+  /// network.
   final void Function(ManualTenantDraft draft)? onProceed;
 
   /// Sub-route under `/tenants/add`.
@@ -64,8 +67,10 @@ class ManualTenantScreen extends HookConsumerWidget {
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final family = useState<List<FamilyMemberDraft>>(const []);
+    final saving = useState<bool>(false);
 
-    void proceed() {
+    Future<void> proceed() async {
+      if (saving.value) return;
       if (!(formKey.currentState?.validate() ?? false)) return;
       final draft = ManualTenantDraft(
         landlordName: landlordNameCtrl.text.trim(),
@@ -84,7 +89,27 @@ class ManualTenantScreen extends HookConsumerWidget {
         family: family.value,
         unitId: unitId,
       );
-      onProceed?.call(draft);
+      // Test seam: a supplied callback short-circuits the network save so widget
+      // tests can assert the entered values. The router leaves it null → run the
+      // shared save+route action (T-016).
+      final onProceed = this.onProceed;
+      if (onProceed != null) {
+        onProceed(draft);
+        return;
+      }
+      saving.value = true;
+      final ok = await TenantSaveController(ref).saveAndContinue(
+        context,
+        TenantSaveDraft(
+          name: draft.name,
+          nidNumber: draft.nidNumber,
+          dob: draft.dob,
+          address: draft.address,
+          family: draft.family,
+          unitId: draft.unitId,
+        ),
+      );
+      if (context.mounted && !ok) saving.value = false;
     }
 
     return Scaffold(
@@ -302,10 +327,12 @@ class ManualTenantScreen extends HookConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   key: const ValueKey('manualProceed'),
-                  onPressed: proceed,
+                  onPressed: saving.value ? null : proceed,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: KhatirColors.sage,
                     foregroundColor: KhatirColors.cream,
+                    disabledBackgroundColor: KhatirColors.sage,
+                    disabledForegroundColor: KhatirColors.cream,
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(
                       vertical: KhatirSpacing.s4,
@@ -315,7 +342,16 @@ class ManualTenantScreen extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(KhatirRadius.button),
                     ),
                   ),
-                  child: Text(l10n.manual_proceed),
+                  child: saving.value
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            color: KhatirColors.cream,
+                          ),
+                        )
+                      : Text(l10n.manual_proceed),
                 ),
               ),
             ],

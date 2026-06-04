@@ -6,6 +6,7 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../data/models/extracted_tenant.dart';
+import '../controllers/tenant_save_controller.dart';
 import '../widgets/family_members_field.dart';
 import 'ocr_review_args.dart';
 
@@ -28,10 +29,12 @@ class OcrReviewScreen extends HookConsumerWidget {
   /// The extracted fields + `photo_ref` + optional unit id from capture.
   final OcrReviewArgs args;
 
-  /// Invoked with the landlord-confirmed [TenantReviewDraft] when the proceed
-  /// button is tapped and validation passes. Defaults to `null`; the shared
-  /// save+route action (T-016) supplies the real implementation. Exposed as a
-  /// parameter so widget tests can assert the edited values flow through.
+  /// Test seam: invoked with the landlord-confirmed [TenantReviewDraft] when the
+  /// proceed button is tapped and validation passes. When `null` (the default,
+  /// and what the router supplies) the screen runs the shared save+route action
+  /// (T-016) instead — persisting the tenant and routing to the DMP form. Widget
+  /// tests pass a callback to assert the edited values flow through without
+  /// hitting the network.
   final void Function(TenantReviewDraft draft)? onProceed;
 
   static const String routeName = OcrReviewArgs.routeName;
@@ -56,8 +59,10 @@ class OcrReviewScreen extends HookConsumerWidget {
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final family = useState<List<FamilyMemberDraft>>(const []);
+    final saving = useState<bool>(false);
 
-    void proceed() {
+    Future<void> proceed() async {
+      if (saving.value) return;
       if (!(formKey.currentState?.validate() ?? false)) return;
       final draft = TenantReviewDraft(
         name: nameCtrl.text.trim(),
@@ -68,7 +73,18 @@ class OcrReviewScreen extends HookConsumerWidget {
         photoRef: extracted.photoRef,
         unitId: args.unitId,
       );
-      onProceed?.call(draft);
+      // Test seam: a supplied callback short-circuits the network save so widget
+      // tests can assert the edited values. The router leaves it null → run the
+      // shared save+route action (T-016).
+      final onProceed = this.onProceed;
+      if (onProceed != null) {
+        onProceed(draft);
+        return;
+      }
+      saving.value = true;
+      final ok = await TenantSaveController(ref)
+          .saveAndContinue(context, TenantSaveDraft.fromReview(draft));
+      if (context.mounted && !ok) saving.value = false;
     }
 
     bool isLow(ExtractedField f) =>
@@ -158,10 +174,12 @@ class OcrReviewScreen extends HookConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   key: const ValueKey('ocrProceed'),
-                  onPressed: proceed,
+                  onPressed: saving.value ? null : proceed,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: KhatirColors.sage,
                     foregroundColor: KhatirColors.cream,
+                    disabledBackgroundColor: KhatirColors.sage,
+                    disabledForegroundColor: KhatirColors.cream,
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(
                       vertical: KhatirSpacing.s4,
@@ -171,7 +189,16 @@ class OcrReviewScreen extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(KhatirRadius.button),
                     ),
                   ),
-                  child: Text(l10n.ocr_confirm),
+                  child: saving.value
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            color: KhatirColors.cream,
+                          ),
+                        )
+                      : Text(l10n.ocr_confirm),
                 ),
               ),
             ],

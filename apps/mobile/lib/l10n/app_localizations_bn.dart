@@ -841,4 +841,22 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get manual_proceed => 'ফর্ম তৈরি ও PDF দেখুন 🚀';
+
+  @override
+  String get tenant_save_error =>
+      'ভাড়াটে সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String tenant_free_tier_status(int used, int limit) {
+    return 'ফ্রি প্ল্যান: $used/$limit ভাড়াটে ব্যবহৃত';
+  }
+
+  @override
+  String get dmp_placeholder_title => 'DMP ফর্ম';
+
+  @override
+  String get dmp_placeholder_heading => 'ভাড়াটে সংরক্ষিত হয়েছে!';
+
+  @override
+  String get dmp_placeholder_body => 'DMP (পুলিশ) ফর্ম শীঘ্রই এখানে তৈরি হবে।';
 }

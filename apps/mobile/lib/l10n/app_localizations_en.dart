@@ -844,4 +844,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manual_proceed => 'ফর্ম তৈরি ও PDF দেখুন · Generate PDF 🚀';
+
+  @override
+  String get tenant_save_error =>
+      'Couldn\'t save the tenant. Please try again.';
+
+  @override
+  String tenant_free_tier_status(int used, int limit) {
+    return 'Free plan: $used/$limit tenants used';
+  }
+
+  @override
+  String get dmp_placeholder_title => 'DMP form';
+
+  @override
+  String get dmp_placeholder_heading => 'Tenant saved!';
+
+  @override
+  String get dmp_placeholder_body =>
+      'The DMP (police) form will be generated here soon.';
 }
