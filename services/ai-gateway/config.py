@@ -36,10 +36,29 @@ class Settings(BaseSettings):
     # required (and enforced) in any deployment that sets it.
     ai_gateway_internal_token: str = ""
 
+    # Where per-call usage is shipped after every provider call (T-006). The
+    # gateway POSTs UsageRecords to `${django_base_url}${ai_usage_path}` with the
+    # internal token as a bearer credential. When `django_base_url` is empty
+    # (local dev / tests) usage logging falls back to a no-op so calls still
+    # succeed without a Django backend.
+    django_base_url: str = ""
+    ai_usage_path: str = "/admin/api/ai-usage"
+    ai_usage_timeout_seconds: float = 5.0
+
     @property
     def auth_enabled(self) -> bool:
         """Whether inbound calls must carry the internal token."""
         return bool(self.ai_gateway_internal_token)
+
+    @property
+    def usage_logging_enabled(self) -> bool:
+        """Whether per-call usage should be POSTed to Django."""
+        return bool(self.django_base_url)
+
+    @property
+    def ai_usage_url(self) -> str:
+        """Absolute URL of Django's ai-usage ingest endpoint."""
+        return f"{self.django_base_url.rstrip('/')}{self.ai_usage_path}"
 
 
 @lru_cache
