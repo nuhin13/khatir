@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ROLES, LANGUAGES } from "@/types/enums";
+import { ROLES, LANGUAGES, BILLING_CYCLES, SUBSCRIPTION_STATUSES } from "@/types/enums";
 import { apiFetch } from "./client";
 
 /**
@@ -68,4 +68,118 @@ export function fetchUsers(
   filters: UserSearchFilters = {},
 ): Promise<AdminUserPage> {
   return apiFetch(usersSearchPath(filters), adminUserPageSchema);
+}
+
+/* ------------------------------------------------------------------------- *
+ * User detail + actions — EPIC-12.T-008.
+ *
+ * Consumes the detail + action endpoints committed by EPIC-12.T-003:
+ *
+ * - `GET  /admin/api/users/{id}`                      — profile + subscription
+ *   + usage counters + recent admin audit trail (`UserDetailView`).
+ * - `POST /admin/api/users/{id}/suspend`              — deactivate; `reason`
+ *   mandatory (`UserSuspendView`). Returns the updated user row.
+ * - `POST /admin/api/users/{id}/reactivate`           — re-enable; optional
+ *   `reason` (`UserReactivateView`). Returns the updated user row.
+ * - `POST /admin/api/users/{id}/upgrade-subscription` — manual tier override;
+ *   `tier_id` + mandatory `reason` (`UserUpgradeSubscriptionView`). Returns the
+ *   updated subscription.
+ *
+ * The backend returns each resource body directly (`core.responses.success`).
+ * Every payload is zod-validated at the boundary (coding standards §5).
+ * ------------------------------------------------------------------------- */
+
+/** A user's current subscription (AdminSubscriptionSerializer, T-003). */
+export const adminSubscriptionSchema = z.object({
+  id: z.union([z.string(), z.number()]),
+  tier: z.union([z.string(), z.number()]),
+  tier_key: z.string(),
+  tier_label: z.string(),
+  billing_cycle: z.enum(BILLING_CYCLES),
+  status: z.enum(SUBSCRIPTION_STATUSES),
+  start_at: z.string().nullable(),
+  next_billing_at: z.string().nullable(),
+});
+export type AdminSubscription = z.infer<typeof adminSubscriptionSchema>;
+
+/** A single audit-trail row (AdminAuditTrailSerializer, T-003). */
+export const adminAuditTrailRowSchema = z.object({
+  id: z.union([z.string(), z.number()]),
+  action: z.string(),
+  admin_user: z.union([z.string(), z.number()]).nullable(),
+  reason: z.string().nullable(),
+  before_json: z.record(z.string(), z.unknown()).nullable(),
+  after_json: z.record(z.string(), z.unknown()).nullable(),
+  created_at: z.string(),
+});
+export type AdminAuditTrailRow = z.infer<typeof adminAuditTrailRowSchema>;
+
+/** Lightweight platform-usage counters (`_usage`, T-003). */
+export const adminUsageSchema = z.object({
+  buildings: z.number(),
+  tenant_profiles: z.number(),
+  subscriptions: z.number(),
+});
+export type AdminUsage = z.infer<typeof adminUsageSchema>;
+
+/** Full user-detail payload (UserDetailView envelope, T-003). */
+export const adminUserDetailSchema = z.object({
+  user: adminUserRowSchema,
+  subscription: adminSubscriptionSchema.nullable(),
+  usage: adminUsageSchema,
+  audit_trail: z.array(adminAuditTrailRowSchema),
+});
+export type AdminUserDetail = z.infer<typeof adminUserDetailSchema>;
+
+/** TanStack Query key for a single user's detail. */
+export function userDetailQueryKey(id: string | number) {
+  return ["admin", "users", "detail", String(id)] as const;
+}
+
+/** Fetch + validate the full detail payload for one user. */
+export function fetchUserDetail(
+  id: string | number,
+): Promise<AdminUserDetail> {
+  return apiFetch(`/admin/api/users/${id}`, adminUserDetailSchema);
+}
+
+/** Suspend a user (deactivate + JWT blacklist). `reason` is mandatory. */
+export function suspendUser(
+  id: string | number,
+  reason: string,
+): Promise<AdminUserRow> {
+  return apiFetch(`/admin/api/users/${id}/suspend`, adminUserRowSchema, {
+    method: "POST",
+    body: { reason },
+  });
+}
+
+/** Reactivate a suspended user. `reason` is optional. */
+export function reactivateUser(
+  id: string | number,
+  reason = "",
+): Promise<AdminUserRow> {
+  return apiFetch(`/admin/api/users/${id}/reactivate`, adminUserRowSchema, {
+    method: "POST",
+    body: { reason },
+  });
+}
+
+/** Manually move a user onto `tierId` (optionally a different cycle). */
+export function upgradeSubscription(
+  id: string | number,
+  args: { tierId: number; billingCycle?: string; reason: string },
+): Promise<AdminSubscription> {
+  return apiFetch(
+    `/admin/api/users/${id}/upgrade-subscription`,
+    adminSubscriptionSchema,
+    {
+      method: "POST",
+      body: {
+        tier_id: args.tierId,
+        billing_cycle: args.billingCycle ?? "",
+        reason: args.reason,
+      },
+    },
+  );
 }
