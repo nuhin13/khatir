@@ -209,6 +209,16 @@ WHATSAPP_PHONE_ID = env("WHATSAPP_PHONE_ID", default="")
 SMS_GATEWAY_URL = env("SMS_GATEWAY_URL", default="")
 SMS_GATEWAY_KEY = env("SMS_GATEWAY_KEY", default="")
 
+# ── AI gateway (EPIC-14) ──────────────────────────────────────────────
+# Base URL of the FastAPI ai-gateway microservice and the shared internal
+# token Django presents on every call (see services/ai-gateway, EPIC-14.T-002).
+# Both default to empty so the app boots without the gateway running; the
+# Django-side client (khatir.ai_providers.client) raises a clear configuration
+# error when AI_GATEWAY_URL is unset rather than failing silently.
+AI_GATEWAY_URL = env("AI_GATEWAY_URL", default="")
+AI_GATEWAY_INTERNAL_TOKEN = env("AI_GATEWAY_INTERNAL_TOKEN", default="")
+AI_GATEWAY_TIMEOUT = env.float("AI_GATEWAY_TIMEOUT", default=30.0)
+
 # ── Observability (T-015) ─────────────────────────────────────────────
 # Structured logging: JSON in prod (DEBUG=False), human-readable in dev. A
 # PII-masking filter (core/logging.py) strips NID/OTP/token/secret/trx values

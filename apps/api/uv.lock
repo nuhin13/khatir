@@ -643,6 +643,7 @@ dependencies = [
     { name = "pyotp" },
     { name = "python-json-logger" },
     { name = "redis" },
+    { name = "requests" },
     { name = "sentry-sdk", extra = ["django"] },
 ]
 
@@ -675,6 +676,7 @@ requires-dist = [
     { name = "pyotp", specifier = ">=2.9.0" },
     { name = "python-json-logger", specifier = ">=4.1.0" },
     { name = "redis", specifier = ">=6.4.0" },
+    { name = "requests", specifier = ">=2.32.0" },
     { name = "sentry-sdk", extras = ["django"], specifier = ">=2.61.1" },
 ]
 
