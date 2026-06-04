@@ -2,11 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_ITEMS } from "@/app/(dashboard)/_nav";
+import { navForRole } from "@/app/(dashboard)/_nav";
+import type { AdminRole } from "@/types/enums";
 import { cn } from "@/lib/utils/cn";
 
-export function Sidebar() {
+/**
+ * Role-aware sidebar — EPIC-11.T-008. Shows only the nav items the signed-in
+ * admin's role may reach (e.g. a compliance admin never sees Pricing). `super`
+ * sees everything. See `_nav.ts` / Admin Portal spec §2.1.
+ */
+export function Sidebar({ role }: { role: AdminRole }) {
   const pathname = usePathname();
+  const items = navForRole(role);
 
   return (
     <aside className="flex w-64 shrink-0 flex-col border-r border-line bg-card">
@@ -15,7 +22,7 @@ export function Sidebar() {
         <span className="font-hand text-sm text-sageDk">admin</span>
       </div>
       <nav className="flex-1 space-y-s1 overflow-y-auto p-s3">
-        {NAV_ITEMS.map((item) => {
+        {items.map((item) => {
           const active =
             pathname === item.href || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;
