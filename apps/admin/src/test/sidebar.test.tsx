@@ -88,9 +88,11 @@ describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
     expect(new Set(hrefs).size).toBe(hrefs.length);
   });
 
-  it("marks every unbuilt module as coming-soon and Dashboard as live", () => {
+  it("marks every unbuilt module as coming-soon and built pages as live", () => {
+    // Live pages shipped so far: Dashboard (T-009), Audit log (T-011).
+    const livePages = new Set(["Dashboard", "Audit log"]);
     for (const item of NAV_ITEMS) {
-      if (item.label === "Dashboard") {
+      if (livePages.has(item.label)) {
         expect(item.comingSoon).toBeFalsy();
       } else {
         expect(item.comingSoon).toBe(true);

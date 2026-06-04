@@ -4,15 +4,15 @@ epic: EPIC-11
 title: Audit log viewer page (Next.js)
 layer: admin
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002, T-008]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -47,13 +47,13 @@ DB reads; admin 🟣; no external; no flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] backend GET /audit-log (paginated, filterable)
-- [ ] audit_table component (filters + pagination)
-- [ ] before/after JSON diff expander
-- [ ] compliance role access
-- [ ] no delete/edit on entries
-- [ ] tests: render, filter, pagination
-- [ ] eslint + tsc pass
+- [x] backend GET /audit-log (paginated, filterable)
+- [x] audit_table component (filters + pagination)
+- [x] before/after JSON diff expander
+- [x] compliance role access
+- [x] no delete/edit on entries
+- [x] tests: render, filter, pagination
+- [x] eslint + tsc pass
 
 ## 12. Test plan
 ### Automated
@@ -62,11 +62,30 @@ DB reads; admin 🟣; no external; no flags.
 1. Admin action → appears in audit log with diff.
 
 ## 13. Acceptance criteria
-- [ ] Audit log viewer; filterable; diff expander; compliance role; no delete; tests pass.
+- [x] Audit log viewer; filterable; diff expander; compliance role; no delete; tests pass.
 ## 14. Self-review
-- [ ] Immutable; compliance-accessible
+- [x] Immutable; compliance-accessible
 ### Deviations from spec
+- Backend `GET /admin/api/audit-log` uses the current admin JWT realm
+  (`AdminJWTAuthentication` + `request.admin_user`) gated on the `audit` section
+  (super + compliance), matching the newer T-012/T-003+ endpoints rather than the
+  older `permissions._decode_admin_principal` style. Cursor pagination
+  (`StandardCursorPagination`) per `core.pagination` guidance for append-only sets.
+- Read-only by construction: no create/update/delete route; non-GET methods 405.
+- Frontend nav adds an "Audit log" item at `/audit` (compliance-gated) beside the
+  existing coming-soon Compliance stub; the `sidebar` "all unbuilt = comingSoon"
+  test was widened to allow built pages (Dashboard + Audit log).
 ### Files touched (actual)
+- apps/api/khatir/admin_portal/audit_serializers.py (add)
+- apps/api/khatir/admin_portal/audit_views.py (add)
+- apps/api/khatir/admin_portal/admin_urls.py (route)
+- apps/api/khatir/admin_portal/tests/test_audit_log_view.py (add)
+- apps/admin/src/lib/api/audit.ts (add)
+- apps/admin/src/components/admin/audit_table.tsx (add)
+- apps/admin/src/app/(dashboard)/audit/page.tsx (add)
+- apps/admin/src/app/(dashboard)/_nav.ts (nav item)
+- apps/admin/src/test/audit.test.tsx (add)
+- apps/admin/src/test/sidebar.test.tsx (live-pages assertion)
 
 ## 15. Notes for the implementing agent
 - Backend endpoint already has audit entries from T-002 writer (called by T-003+ on every action).

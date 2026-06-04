@@ -8,6 +8,7 @@ import {
   Send,
   Bot,
   ClipboardCheck,
+  ScrollText,
   Settings,
   LifeBuoy,
   UserCog,
@@ -69,6 +70,12 @@ export const NAV_ITEMS: readonly NavItem[] = [
     icon: Bot,
     roles: [],
     comingSoon: true,
+  },
+  {
+    label: "Audit log",
+    href: "/audit",
+    icon: ScrollText,
+    roles: ["compliance"],
   },
   {
     label: "Compliance",
