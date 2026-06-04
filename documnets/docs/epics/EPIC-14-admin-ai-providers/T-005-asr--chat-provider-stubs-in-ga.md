@@ -4,15 +4,15 @@ epic: EPIC-14
 title: ASR + chat provider stubs (in gateway)
 layer: infra
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
