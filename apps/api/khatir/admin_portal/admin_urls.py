@@ -12,6 +12,12 @@ below the dashboard entry (keep additions additive — never reorder/remove).
 from django.urls import path
 
 from .dashboard_views import PlatformDashboardView
+from .pricing_views import (
+    PricingTierEditView,
+    PricingTierListView,
+    PricingTierPreviewView,
+)
+from .refund_views import RefundProcessView, RefundQueueView
 from .user_views import (
     UserDetailView,
     UserReactivateView,
@@ -41,5 +47,24 @@ urlpatterns = [
         "users/<int:user_id>/upgrade-subscription",
         UserUpgradeSubscriptionView.as_view(),
         name="users-upgrade-subscription",
+    ),
+    # EPIC-12.T-001 — pricing tier list + impact preview + edit.
+    path("pricing/tiers", PricingTierListView.as_view(), name="pricing-tiers"),
+    path(
+        "pricing/tiers/<str:key>",
+        PricingTierEditView.as_view(),
+        name="pricing-tier-edit",
+    ),
+    path(
+        "pricing/tiers/<str:key>/preview",
+        PricingTierPreviewView.as_view(),
+        name="pricing-tier-preview",
+    ),
+    # EPIC-12.T-004 — finance refund queue + process.
+    path("billing/refunds", RefundQueueView.as_view(), name="refunds-queue"),
+    path(
+        "billing/refunds/<int:intent_id>/process",
+        RefundProcessView.as_view(),
+        name="refunds-process",
     ),
 ]
