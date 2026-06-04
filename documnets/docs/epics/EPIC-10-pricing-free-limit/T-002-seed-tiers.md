@@ -4,15 +4,15 @@ epic: EPIC-10
 title: Seed 6 default pricing tiers
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001]
 blocks: [T-003, T-005]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-04
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:

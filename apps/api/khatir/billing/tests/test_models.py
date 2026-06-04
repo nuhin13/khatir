@@ -20,7 +20,7 @@ pytestmark = pytest.mark.django_db
 
 def test_tier_create() -> None:
     tier: PricingTier = PricingTierFactory(  # type: ignore[assignment]
-        key="free",
+        key="test_free",
         label="Free",
         label_bn="বিনামূল্যে",
         tenant_min=0,
@@ -33,7 +33,7 @@ def test_tier_create() -> None:
         sort_order=1,
     )
     assert tier.pk is not None
-    assert tier.key == "free"
+    assert tier.key == "test_free"
     assert tier.label == "Free"
     assert tier.label_bn == "বিনামূল্যে"
     assert tier.tenant_min == 0
@@ -44,12 +44,12 @@ def test_tier_create() -> None:
     assert tier.included_credits == 0
     assert tier.active is True
     assert tier.sort_order == 1
-    assert str(tier) == "Free (free)"
+    assert str(tier) == "Free (test_free)"
 
 
 def test_tier_with_prices() -> None:
     tier: PricingTier = PricingTierFactory(  # type: ignore[assignment]
-        key="bundle_20",
+        key="test_bundle_20",
         label="Bundle 20",
         monthly_price=Decimal("499.00"),
         annual_price=Decimal("4999.00"),
@@ -65,7 +65,7 @@ def test_tier_with_prices() -> None:
 
 
 def test_tier_tenant_max_null_means_unlimited() -> None:
-    tier: PricingTier = PricingTierFactory(key="unlimited_monthly", tenant_max=None)  # type: ignore[assignment]
+    tier: PricingTier = PricingTierFactory(key="test_unlimited_monthly", tenant_max=None)  # type: ignore[assignment]
     tier.refresh_from_db()
     assert tier.tenant_max is None
 
