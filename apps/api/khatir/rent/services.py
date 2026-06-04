@@ -21,17 +21,23 @@ from __future__ import annotations
 from decimal import Decimal
 from typing import Any, cast
 
+from django.conf import settings
 from django.db import transaction
+from django.utils import timezone
 
 from khatir.accounts.models import User
+from khatir.core import storage
 from khatir.core.audit import audit
 from khatir.core.enums import Role
-from khatir.core.exceptions import NotFoundError
+from khatir.core.exceptions import ConflictError, NotFoundError
 from khatir.leases.enums import RentScheduleStatus
 from khatir.leases.models import Lease, RentSchedule
+from khatir.messaging.factory import send_with_fallback
 
+from .enums import RentRequestStatus
 from .messaging import send_rent_link
-from .models import RentRequest
+from .models import Payment, RentRequest
+from .receipts import render_receipt_pdf
 from .tokens import make_token
 
 
@@ -158,5 +164,151 @@ def send_rent_request(*, actor: User, request: RentRequest) -> RentRequest:
         target=request,
         before=before,
         after=_snapshot(request),
+    )
+    return request
+
+
+# ── settle: verify / mark-received / reject (T-007) ─────────────────────────────
+
+# A request can only be settled (verified / received / rejected) from an open
+# state; settling an already-settled request is a 409 (not a silent no-op) so a
+# double-verify never mints a second Payment + receipt.
+_OPEN_STATUSES = frozenset(
+    {RentRequestStatus.SENT, RentRequestStatus.PROOF_SUBMITTED}
+)
+
+
+def _receipt_link(rent_request: RentRequest) -> str:
+    """Build the public ``/r/{token}/receipt`` URL for the settled request."""
+    base = getattr(settings, "PUBLIC_WEB_BASE_URL", "") or "https://khatir.app"
+    return f"{base.rstrip('/')}/r/{rent_request.link_token}/receipt"
+
+
+def _notify_tenant_receipt(rent_request: RentRequest) -> None:
+    """Notify the tenant their payment was confirmed, linking the web receipt.
+
+    Reuses the EPIC-01 :func:`send_with_fallback` (WhatsApp → SMS, console in
+    dev). A missing tenant contact is non-fatal here — verification already
+    succeeded and the receipt is viewable at the existing link — so a delivery
+    failure is swallowed rather than rolling back the confirmed payment.
+    """
+    tenant = rent_request.lease.tenant
+    user = getattr(tenant, "linked_user", None)
+    phone = getattr(user, "phone", "") if user else ""
+    if not phone:
+        return
+    link = _receipt_link(rent_request)
+    amount = f"{rent_request.amount:.0f}"
+    message = (
+        f"আপনার {rent_request.period} মাসের ভাড়া ৳{amount} নিশ্চিত হয়েছে। "
+        f"রসিদ: {link}\n"
+        f"Your rent of ৳{amount} for {rent_request.period} is confirmed. "
+        f"Receipt: {link}"
+    )
+    try:
+        send_with_fallback(phone, message)
+    except Exception:  # noqa: BLE001 — receipt delivery is best-effort, never fatal
+        pass
+
+
+def _mark_schedule_paid(rent_request: RentRequest) -> None:
+    """Mark the source ``RentSchedule`` month paid, if one is linked."""
+    schedule = rent_request.rent_schedule
+    if schedule is not None and schedule.status != RentScheduleStatus.PAID:
+        schedule.status = RentScheduleStatus.PAID
+        schedule.save(update_fields=["status", "updated_at"])
+
+
+def _settle_payment(*, actor: User, rent_request: RentRequest, action: str) -> Payment:
+    """Shared verify / mark-received path: Payment + receipt + schedule + notify.
+
+    Creates the :class:`Payment` (``verified_by``/``verified_at``), renders and
+    stores the receipt PDF (reusing the EPIC-05 renderer + EPIC-04 storage seam),
+    moves the request to ``verified`` and the schedule to ``paid``, then audits
+    under ``action``. Notification is sent after commit (best-effort). The DB
+    work is atomic; a settled request cannot be re-settled (409).
+    """
+    if rent_request.status not in _OPEN_STATUSES:
+        raise ConflictError(
+            f"RentRequest #{rent_request.pk} is already {rent_request.status}."
+        )
+
+    before = _snapshot(rent_request)
+    with transaction.atomic():
+        now = timezone.now()
+        payment = Payment.objects.create(
+            rent_request=rent_request,
+            verified_by=actor,
+            verified_at=now,
+        )
+        receipt_bytes = render_receipt_pdf(rent_request, payment)
+        payment.receipt_ref = storage.store_encrypted(receipt_bytes, kind="pdf")
+        payment.save(update_fields=["receipt_ref", "updated_at"])
+
+        rent_request.status = RentRequestStatus.VERIFIED
+        rent_request.save(update_fields=["status", "updated_at"])
+        _mark_schedule_paid(rent_request)
+
+    audit(
+        actor=actor,
+        action=action,
+        target=rent_request,
+        before=before,
+        after=_snapshot(rent_request),
+    )
+    _notify_tenant_receipt(rent_request)
+    return payment
+
+
+def verify_rent_request(*, actor: User, request: RentRequest) -> Payment:
+    """Verify a submitted proof: create the Payment + receipt and settle.
+
+    Confirms the tenant's submitted proof. See :func:`_settle_payment` for the
+    shared mechanics; audited as ``rent.payment.verify``.
+    """
+    return _settle_payment(
+        actor=actor, rent_request=request, action="rent.payment.verify"
+    )
+
+
+def mark_received(*, actor: User, request: RentRequest) -> Payment:
+    """Record an off-platform (cash) payment with no proof and settle.
+
+    Same outcome as :func:`verify_rent_request` — Payment, receipt PDF, schedule
+    paid, tenant notified — for a landlord who collected cash directly. Audited
+    as ``rent.payment.mark_received``.
+    """
+    return _settle_payment(
+        actor=actor, rent_request=request, action="rent.payment.mark_received"
+    )
+
+
+def reject_rent_request(
+    *, actor: User, request: RentRequest, reason: str
+) -> RentRequest:
+    """Reject a request (e.g. a bad/missing proof) with a reason; no Payment.
+
+    Moves the request to ``rejected`` and audits the change under
+    ``rent.payment.reject`` with the supplied ``reason`` captured in the audit
+    ``after`` snapshot. A request that is already settled cannot be rejected
+    (409). No receipt, no schedule change, no notification.
+    """
+    if request.status not in _OPEN_STATUSES:
+        raise ConflictError(
+            f"RentRequest #{request.pk} is already {request.status}."
+        )
+
+    before = _snapshot(request)
+    request.status = RentRequestStatus.REJECTED
+    request.save(update_fields=["status", "updated_at"])
+
+    after = _snapshot(request)
+    after["reject_reason"] = reason
+    audit(
+        actor=actor,
+        action="rent.payment.reject",
+        target=request,
+        before=before,
+        after=after,
     )
     return request

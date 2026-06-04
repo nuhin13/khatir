@@ -89,3 +89,9 @@ class RentRequestCreateSerializer(serializers.Serializer[dict[str, object]]):
                 "A manual request requires both `amount` and `period`."
             )
         return attrs
+
+
+class RentRejectSerializer(serializers.Serializer[dict[str, object]]):
+    """Validates a reject body — a non-empty reason is required (T-007 §2)."""
+
+    reason = serializers.CharField(max_length=500, allow_blank=False, trim_whitespace=True)

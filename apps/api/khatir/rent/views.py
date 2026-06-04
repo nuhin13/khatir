@@ -27,8 +27,18 @@ from khatir.core.responses import created, success
 
 from .models import RentRequest
 from .permissions import IsOwnerOfRentRequest
-from .serializers import RentRequestCreateSerializer, RentRequestSerializer
-from .services import create_rent_request, send_rent_request
+from .serializers import (
+    RentRejectSerializer,
+    RentRequestCreateSerializer,
+    RentRequestSerializer,
+)
+from .services import (
+    create_rent_request,
+    mark_received,
+    reject_rent_request,
+    send_rent_request,
+    verify_rent_request,
+)
 
 
 class RentRequestViewSet(
@@ -78,5 +88,39 @@ class RentRequestViewSet(
         rent_request = self.get_object()
         rent_request = send_rent_request(
             actor=cast(User, request.user), request=rent_request
+        )
+        return success(RentRequestSerializer(rent_request).data)
+
+    @action(detail=True, methods=["post"])
+    def verify(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        """Verify the submitted proof → Payment + receipt PDF + schedule paid (T-007).
+
+        Object-scoped by ``get_object`` (foreign requests resolve to 404); the
+        service creates the confirmed payment, generates the receipt, settles the
+        request and schedule, and notifies the tenant. A re-verify is a 409.
+        """
+        rent_request = self.get_object()
+        verify_rent_request(actor=cast(User, request.user), request=rent_request)
+        rent_request.refresh_from_db()
+        return success(RentRequestSerializer(rent_request).data)
+
+    @action(detail=True, methods=["post"], url_path="mark-received")
+    def mark_received(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        """Record an off-platform (cash) payment with no proof and settle (T-007)."""
+        rent_request = self.get_object()
+        mark_received(actor=cast(User, request.user), request=rent_request)
+        rent_request.refresh_from_db()
+        return success(RentRequestSerializer(rent_request).data)
+
+    @action(detail=True, methods=["post"])
+    def reject(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        """Reject the request with a required reason; no Payment is created (T-007)."""
+        rent_request = self.get_object()
+        serializer = RentRejectSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        rent_request = reject_rent_request(
+            actor=cast(User, request.user),
+            request=rent_request,
+            reason=cast(str, serializer.validated_data["reason"]),
         )
         return success(RentRequestSerializer(rent_request).data)
