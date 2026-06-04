@@ -82,7 +82,8 @@ describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
 
   it("links every nav item to a distinct absolute route", () => {
     for (const item of NAV_ITEMS) {
-      expect(item.href).toMatch(/^\/[a-z-]+$/);
+      // Single- or multi-segment absolute path (e.g. /billing/refunds).
+      expect(item.href).toMatch(/^\/[a-z-]+(\/[a-z-]+)*$/);
     }
     const hrefs = NAV_ITEMS.map((i) => i.href);
     expect(new Set(hrefs).size).toBe(hrefs.length);
@@ -90,8 +91,14 @@ describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
 
   it("marks every unbuilt module as coming-soon and built pages as live", () => {
     // Live pages shipped so far: Dashboard (T-009), Audit log (T-011),
-    // Pricing (EPIC-12.T-005), Users (EPIC-12.T-007).
-    const livePages = new Set(["Dashboard", "Audit log", "Pricing", "Users"]);
+    // Pricing (EPIC-12.T-005), Users (EPIC-12.T-007), Refunds (EPIC-12.T-009).
+    const livePages = new Set([
+      "Dashboard",
+      "Audit log",
+      "Pricing",
+      "Users",
+      "Refunds",
+    ]);
     for (const item of NAV_ITEMS) {
       if (livePages.has(item.label)) {
         expect(item.comingSoon).toBeFalsy();

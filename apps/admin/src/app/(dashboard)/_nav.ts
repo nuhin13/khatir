@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   Users,
   DollarSign,
+  Receipt,
   Rocket,
   Power,
   Send,
@@ -49,6 +50,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, roles: ["ops", "finance", "compliance", "support"] },
   { label: "Users", href: "/users", icon: Users, roles: ["ops", "support"] },
   { label: "Pricing", href: "/pricing", icon: DollarSign, roles: ["finance"] },
+  { label: "Refunds", href: "/billing/refunds", icon: Receipt, roles: ["finance"] },
   { label: "Features", href: "/features", icon: Rocket, roles: ["compliance"], comingSoon: true },
   {
     label: "Kill-switch",
