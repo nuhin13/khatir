@@ -72,15 +72,23 @@ def test_status_sent_on_send() -> None:
 
 
 def test_message_carries_public_link_and_is_bilingual() -> None:
-    """The body contains the /r/{token} URL and both Bangla and English copy."""
+    """The body comes from the rent_reminder_due template: link + both languages.
+
+    EPIC-15.T-006 sources the copy from the admin-editable
+    ``rent_reminder_due`` template, so the body carries the rendered English and
+    Bangla wording (and the public link) rather than a hard-coded string.
+    """
     req = RentRequestFactory(link_token="tok_msg", period="2026-07")
     link = _public_link(req.link_token)
     body = _render_message(req, link)
 
     assert "/r/tok_msg" in link
     assert link in body
-    assert "Pay your rent" in body  # English
+    assert "Please pay using this link" in body  # English (template copy)
     assert "ভাড়া" in body  # Bangla
+    # Variables are interpolated, not left as raw {placeholder} tokens.
+    assert "{payment_link}" not in body
+    assert req.lease.tenant.name in body
 
 
 def test_missing_contact_raises() -> None:

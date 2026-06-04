@@ -3,8 +3,12 @@
 T-008 (reminder cadence) re-uses the same send path it uses for the first send,
 so the delivery logic lives here in one place. It reuses the EPIC-01
 :func:`~khatir.messaging.factory.send_with_fallback` (WhatsApp → SMS, console in
-dev) rather than building a new sender. EPIC-15 will template these messages;
-keep the copy in one place (``_render_message``).
+dev) rather than building a new sender. EPIC-15.T-006 retrofits the copy onto
+the admin-editable ``rent_reminder_due`` :class:`NotificationTemplate`: the body
+text now comes from :func:`~khatir.notifications.models.get_template` rather than
+a hard-coded string, so back-office staff can edit the rent-link wording without
+a deploy. The delivery behaviour (bilingual Bangla + English body carrying the
+public ``/r/{token}`` link, WhatsApp → SMS fallback) is unchanged.
 """
 
 from __future__ import annotations
@@ -15,9 +19,13 @@ from django.utils import timezone
 
 from khatir.core.exceptions import ValidationError
 from khatir.messaging.factory import send_with_fallback
+from khatir.notifications.models import get_template
 
 from .enums import RentRequestStatus
 from .models import RentRequest
+
+#: Stable key of the admin-editable template that backs the rent-link message.
+_RENT_REMINDER_TEMPLATE_KEY = "rent_reminder_due"
 
 
 def _public_link(token: str) -> str:
@@ -26,13 +34,36 @@ def _public_link(token: str) -> str:
     return f"{base.rstrip('/')}/r/{token}"
 
 
+def _template_variables(rent_request: RentRequest, link: str) -> dict[str, str]:
+    """Build the ``rent_reminder_due`` template variables for this request.
+
+    Mirrors the placeholder names declared on the seeded template
+    (``tenant_name``, ``amount``, ``property_name``, ``due_date``,
+    ``payment_link``). Amount is the whole-Taka string the prior hard-coded copy
+    used; ``due_date`` is the rent ``period`` (YYYY-MM).
+    """
+    lease = rent_request.lease
+    return {
+        "tenant_name": lease.tenant.name,
+        "amount": f"৳{rent_request.amount:.0f}",
+        "property_name": lease.unit.building.name,
+        "due_date": rent_request.period,
+        "payment_link": link,
+    }
+
+
 def _render_message(rent_request: RentRequest, link: str) -> str:
-    """Render the bilingual (Bangla + English) rent-link message body."""
-    amount = f"{rent_request.amount:.0f}"
-    return (
-        f"আপনার {rent_request.period} মাসের ভাড়া ৳{amount} পরিশোধ করুন: {link}\n"
-        f"Pay your rent of ৳{amount} for {rent_request.period}: {link}"
+    """Render the bilingual (Bangla + English) rent-link message body.
+
+    The copy is sourced from the admin-editable ``rent_reminder_due``
+    :class:`NotificationTemplate` (EPIC-15.T-006). Both language bodies are
+    rendered with the request's variables and joined Bangla-first, preserving
+    the prior single bilingual-string delivery contract.
+    """
+    rendered = get_template(_RENT_REMINDER_TEMPLATE_KEY).render(
+        _template_variables(rent_request, link)
     )
+    return f"{rendered['body_bn']}\n{rendered['body_en']}"
 
 
 def _resolve_recipient(rent_request: RentRequest) -> str:
