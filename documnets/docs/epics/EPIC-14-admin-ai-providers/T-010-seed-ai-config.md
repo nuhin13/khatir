@@ -4,15 +4,15 @@ epic: EPIC-14
 title: Seed AI provider config keys
 layer: backend
 size: XS
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-00.T-005]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -34,17 +34,17 @@ Seed `ai_gateway_url` and `ai_gateway_secret` SystemConfig keys + the gateway ca
 SystemConfig rows.
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] seed ai_gateway_url, ai_gateway_secret, ai_provider_cache_ttl_seconds
-- [ ] idempotent + reversible
-- [ ] test
+- [x] seed ai_gateway_url, ai_gateway_secret, ai_provider_cache_ttl_seconds
+- [x] idempotent + reversible
+- [x] test
 
 ## 12. Test plan
 ### Automated
 - test_ai_config_seeded
 ## 13. Acceptance criteria
-- [ ] Keys seeded; test passes.
+- [x] Keys seeded; test passes.
 ## 14. Self-review
-- [ ] ai_gateway_secret treated as sensitive (not logged)
+- [x] ai_gateway_secret treated as sensitive (not logged)
 ### Deviations from spec
 ### Files touched (actual)
 ## 15. Notes
