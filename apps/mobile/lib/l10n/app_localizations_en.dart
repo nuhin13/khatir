@@ -648,4 +648,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wizard_saved => 'বিল্ডিং সেভ হয়েছে · Building saved';
+
+  @override
+  String get add_tenant_title => 'ভাড়াটিয়া যোগ · Add tenant';
+
+  @override
+  String get add_tenant_hero_title => 'Let\'s add a tenant';
+
+  @override
+  String get add_tenant_hero_sub =>
+      'কীভাবে শুরু করবেন? · How would you like to start?';
+
+  @override
+  String get add_tenant_ocr => 'NID-এর ছবি তুলুন · Snap the NID';
+
+  @override
+  String get add_tenant_ocr_sub => 'Snap the NID — AI fills everything';
+
+  @override
+  String get add_tenant_voice => 'ভয়েস দিয়ে বলুন · Say it with voice';
+
+  @override
+  String get add_tenant_voice_sub => 'Just say it in Bangla';
+
+  @override
+  String get add_tenant_manual => 'হাতে লিখুন · Fill it in yourself';
+
+  @override
+  String get add_tenant_manual_sub => 'Type the details yourself';
+
+  @override
+  String get add_tenant_tip =>
+      'Tip: the NID photo method is fastest — done in 2 minutes';
 }

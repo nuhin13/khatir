@@ -6,6 +6,7 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 import '../../../../core/i18n/bangla_numerals.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../tenants/presentation/screens/add_tenant_screen.dart';
 import '../../data/models/property_enums.dart';
 import '../../data/models/unit.dart';
 import '../../data/properties_providers.dart';
@@ -115,11 +116,13 @@ class UnitDetailScreen extends ConsumerWidget {
         );
   }
 
-  /// Add-tenant CTA. The real add-tenant flow (`/tenants/add`) is registered as
-  /// a placeholder by EPIC-04; routing there now keeps the action live.
-  // TODO(EPIC-04) lands the real add-tenant method chooser at /tenants/add.
-  static void _addTenant(BuildContext context) {
-    GoRouter.of(context).push('/tenants/add');
+  /// Add-tenant CTA → the add-tenant method chooser (EPIC-04 T-009), carrying
+  /// this unit's id as the target so the chosen intake flow onboards into it.
+  void _addTenant(BuildContext context) {
+    GoRouter.of(context).pushNamed(
+      AddTenantScreen.routeName,
+      queryParameters: {'unit': unitId},
+    );
   }
 }
 

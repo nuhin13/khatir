@@ -13,11 +13,18 @@ class PublicConfig {
   const PublicConfig({
     this.introSlideSkipAllowed = true,
     this.areaOptions = Area.values,
+    this.voiceTenantEntry = true,
   });
 
   /// Whether the onboarding slides may be skipped (SystemConfig
   /// `intro_slide_skip_allowed`).
   final bool introSlideSkipAllowed;
+
+  /// Whether the voice tenant-entry method is available (FeatureFlag
+  /// `voice_tenant_entry` in the `flags` block). Hides the voice card on the
+  /// add-tenant chooser when off. Defaults **on** to match the backend's
+  /// task-declared default so an unseeded environment still offers voice.
+  final bool voiceTenantEntry;
 
   /// Selectable Dhaka areas for the property wizard (SystemConfig
   /// `area_options`). Wire values are mapped to [Area]; unknown values are
@@ -39,7 +46,29 @@ class PublicConfig {
         _ => true,
       },
       areaOptions: _parseAreaOptions(root['area_options']),
+      voiceTenantEntry: _parseFlag(
+        root['flags'],
+        'voice_tenant_entry',
+        defaultValue: true,
+      ),
     );
+  }
+
+  /// Reads a boolean from the `flags` block (`{ "<key>": true/false }`),
+  /// tolerating string-encoded booleans. Returns [defaultValue] when the block
+  /// or key is missing so an unconfigured flag keeps its task-declared default.
+  static bool _parseFlag(
+    Object? flags,
+    String key, {
+    required bool defaultValue,
+  }) {
+    if (flags is! Map) return defaultValue;
+    return switch (flags[key]) {
+      final bool b => b,
+      'true' => true,
+      'false' => false,
+      _ => defaultValue,
+    };
   }
 
   /// Parses the `area_options` wire value (a JSON array of wire strings) into a

@@ -18,6 +18,7 @@ import '../../features/shell/manager_shell.dart';
 import '../../features/shell/tenant_shell.dart';
 import '../../features/shell/widgets/shell_placeholder.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
 import '../../l10n/app_localizations.dart';
 import '../auth/auth_controller.dart';
 import '../auth/auth_state.dart';
@@ -351,15 +352,48 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
 
+      // ── Add-tenant flow (EPIC-04) ───────────────────────────────────────
+      // Center "Add" action target for the landlord/manager nav, and the
+      // unit-detail "Add tenant" CTA. The method chooser (T-009) routes to the
+      // OCR / voice / manual sub-flows, carrying the optional target unit id as
+      // a `?unit=` query parameter. The three method screens themselves land in
+      // later EPIC-04 tasks (OCR T-010/T-011, voice T-012, manual T-013); they
+      // are registered as placeholders here so the chooser routes resolve.
       GoRoute(
-        // Center "Add" action target for the landlord/manager nav. EPIC-04
-        // builds the real add-tenant wizard here; for now it is a placeholder.
-        // TODO(EPIC-04) replace with the /tenants/add method chooser.
-        path: '/tenants/add',
-        name: 'tenantsAdd',
+        path: AddTenantScreen.routePath,
+        name: AddTenantScreen.routeName,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) =>
-            KShellPlaceholder(tabLabel: AppLocalizations.of(context).nav_add),
+            AddTenantScreen(unitId: state.uri.queryParameters['unit']),
+        routes: [
+          GoRoute(
+            // TODO(EPIC-04) replace with the NID OCR scan screen.
+            path: 'ocr',
+            name: AddTenantScreen.ocrRouteName,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) => KShellPlaceholder(
+              tabLabel: AppLocalizations.of(context).add_tenant_ocr,
+            ),
+          ),
+          GoRoute(
+            // TODO(EPIC-04) replace with the voice-fill screen.
+            path: 'voice',
+            name: AddTenantScreen.voiceRouteName,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) => KShellPlaceholder(
+              tabLabel: AppLocalizations.of(context).add_tenant_voice,
+            ),
+          ),
+          GoRoute(
+            // TODO(EPIC-04) replace with the manual tenant-entry screen.
+            path: 'manual',
+            name: AddTenantScreen.manualRouteName,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) => KShellPlaceholder(
+              tabLabel: AppLocalizations.of(context).add_tenant_manual,
+            ),
+          ),
+        ],
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────

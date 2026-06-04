@@ -614,5 +614,45 @@
   },
   "wizard_save": "বিল্ডিং সেভ করুন",
   "wizard_saving": "সেভ হচ্ছে…",
-  "wizard_saved": "বিল্ডিং সেভ হয়েছে"
+  "wizard_saved": "বিল্ডিং সেভ হয়েছে",
+  "add_tenant_title": "ভাড়াটিয়া যোগ · Add tenant",
+  "@add_tenant_title": {
+    "description": "Add-tenant method chooser top-bar title (bilingual)."
+  },
+  "add_tenant_hero_title": "চলুন একজন ভাড়াটিয়া যোগ করি",
+  "@add_tenant_hero_title": {
+    "description": "Add-tenant chooser hero headline."
+  },
+  "add_tenant_hero_sub": "কীভাবে শুরু করবেন?",
+  "@add_tenant_hero_sub": {
+    "description": "Add-tenant chooser hero sub-prompt (handwritten accent)."
+  },
+  "add_tenant_ocr": "NID-এর ছবি তুলুন",
+  "@add_tenant_ocr": {
+    "description": "OCR method card title."
+  },
+  "add_tenant_ocr_sub": "ছবি তুলুন — AI সব পূরণ করবে",
+  "@add_tenant_ocr_sub": {
+    "description": "OCR method card subtitle."
+  },
+  "add_tenant_voice": "ভয়েস দিয়ে বলুন",
+  "@add_tenant_voice": {
+    "description": "Voice method card title."
+  },
+  "add_tenant_voice_sub": "বাংলায় বলুন",
+  "@add_tenant_voice_sub": {
+    "description": "Voice method card subtitle."
+  },
+  "add_tenant_manual": "হাতে লিখুন",
+  "@add_tenant_manual": {
+    "description": "Manual method card title."
+  },
+  "add_tenant_manual_sub": "নিজে পূরণ করুন",
+  "@add_tenant_manual_sub": {
+    "description": "Manual method card subtitle."
+  },
+  "add_tenant_tip": "টিপ: NID ছবি পদ্ধতি সবচেয়ে দ্রুত — ২ মিনিটে শেষ",
+  "@add_tenant_tip": {
+    "description": "Tip card under the method list."
+  }
 }

@@ -652,4 +652,35 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get wizard_saved => 'বিল্ডিং সেভ হয়েছে';
+
+  @override
+  String get add_tenant_title => 'ভাড়াটিয়া যোগ · Add tenant';
+
+  @override
+  String get add_tenant_hero_title => 'চলুন একজন ভাড়াটিয়া যোগ করি';
+
+  @override
+  String get add_tenant_hero_sub => 'কীভাবে শুরু করবেন?';
+
+  @override
+  String get add_tenant_ocr => 'NID-এর ছবি তুলুন';
+
+  @override
+  String get add_tenant_ocr_sub => 'ছবি তুলুন — AI সব পূরণ করবে';
+
+  @override
+  String get add_tenant_voice => 'ভয়েস দিয়ে বলুন';
+
+  @override
+  String get add_tenant_voice_sub => 'বাংলায় বলুন';
+
+  @override
+  String get add_tenant_manual => 'হাতে লিখুন';
+
+  @override
+  String get add_tenant_manual_sub => 'নিজে পূরণ করুন';
+
+  @override
+  String get add_tenant_tip =>
+      'টিপ: NID ছবি পদ্ধতি সবচেয়ে দ্রুত — ২ মিনিটে শেষ';
 }

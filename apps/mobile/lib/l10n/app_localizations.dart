@@ -1315,6 +1315,66 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'বিল্ডিং সেভ হয়েছে'**
   String get wizard_saved;
+
+  /// Add-tenant method chooser top-bar title (bilingual).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া যোগ · Add tenant'**
+  String get add_tenant_title;
+
+  /// Add-tenant chooser hero headline.
+  ///
+  /// In bn, this message translates to:
+  /// **'চলুন একজন ভাড়াটিয়া যোগ করি'**
+  String get add_tenant_hero_title;
+
+  /// Add-tenant chooser hero sub-prompt (handwritten accent).
+  ///
+  /// In bn, this message translates to:
+  /// **'কীভাবে শুরু করবেন?'**
+  String get add_tenant_hero_sub;
+
+  /// OCR method card title.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID-এর ছবি তুলুন'**
+  String get add_tenant_ocr;
+
+  /// OCR method card subtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি তুলুন — AI সব পূরণ করবে'**
+  String get add_tenant_ocr_sub;
+
+  /// Voice method card title.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভয়েস দিয়ে বলুন'**
+  String get add_tenant_voice;
+
+  /// Voice method card subtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাংলায় বলুন'**
+  String get add_tenant_voice_sub;
+
+  /// Manual method card title.
+  ///
+  /// In bn, this message translates to:
+  /// **'হাতে লিখুন'**
+  String get add_tenant_manual;
+
+  /// Manual method card subtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'নিজে পূরণ করুন'**
+  String get add_tenant_manual_sub;
+
+  /// Tip card under the method list.
+  ///
+  /// In bn, this message translates to:
+  /// **'টিপ: NID ছবি পদ্ধতি সবচেয়ে দ্রুত — ২ মিনিটে শেষ'**
+  String get add_tenant_tip;
 }
 
 class _AppLocalizationsDelegate
