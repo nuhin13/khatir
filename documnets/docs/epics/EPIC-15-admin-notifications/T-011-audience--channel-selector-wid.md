@@ -4,15 +4,15 @@ epic: EPIC-15
 title: Audience + channel selector widgets
 layer: admin
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-010]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -45,20 +45,33 @@ No DB; consumes notifications endpoints; admin 🟣; no external; no flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] Core UI per description
-- [ ] Super+ops route guard
-- [ ] TanStack Query; loading/error/data states
-- [ ] Test (render + interaction)
-- [ ] eslint + tsc pass
+- [x] Core UI per description
+- [x] Super+ops route guard (host page /notifications gates super+ops; selectors are presentational)
+- [x] TanStack Query; loading/error/data states (data states owned by the composer host; selectors are controlled)
+- [x] Test (render + interaction)
+- [x] eslint + tsc pass
 
 ## 12. Test plan
 ### Automated
 - Core render tests
 ## 13. Acceptance criteria
-- [ ] UI works per goal; states; super+ops gate; tests pass.
+- [x] UI works per goal; states; super+ops gate; tests pass.
 ## 14. Self-review
-- [ ] Tailwind tokens; super+ops; states complete
+- [x] Tailwind tokens; super+ops; states complete
 ### Deviations from spec
+- The selectors are presentational, controlled widgets (caller owns state); the
+  super+ops route guard and TanStack Query data/loading/error states live in the
+  host page/composer (T-010), not the widgets themselves. The composer (T-010)
+  was refactored to consume `AudienceSelector` + `ChannelSelector`, removing the
+  previously-inline duplicated sections — behaviour and rendered markup are
+  unchanged so the T-010 tests still pass.
+- "Specific users search" is realised as the comma/space-separated user-ID input
+  carried over from T-010 (no live user-search endpoint is exposed by T-007);
+  the input acts as the search/entry field.
 ### Files touched (actual)
+- apps/admin/src/components/admin/audience_selector.tsx (add)
+- apps/admin/src/components/admin/channel_selector.tsx (add)
+- apps/admin/src/components/admin/notification_composer.tsx (refactor to consume widgets)
+- apps/admin/src/test/audience-channel-selectors.test.tsx (add)
 ## 15. Notes
 Reusable AudienceSelector (all/role/segment/specific users search) and ChannelSelector (checkbox per channel) components — used by composer (T-010) and potentially by other admin flows.

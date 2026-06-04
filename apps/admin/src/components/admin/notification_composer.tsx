@@ -6,11 +6,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
+import { AudienceSelector } from "@/components/admin/audience_selector";
 import {
-  AUDIENCE_TYPES,
-  CHANNELS,
-  CHANNEL_COST_BDT,
-  CUSTOMER_ROLES,
+  ChannelSelector,
+  CHANNEL_LABELS,
+} from "@/components/admin/channel_selector";
+import {
   SCHEDULE_TYPES,
   TEMPLATE_VARIABLES,
   composeNotification,
@@ -42,31 +43,10 @@ import {
  * from Notun Din token classes — no hardcoded prototype hex/px.
  */
 
-const AUDIENCE_LABELS: Record<AudienceType, string> = {
-  all: "All users",
-  role: "By role",
-  segment: "By segment",
-  specific: "Specific users",
-};
-
-const CHANNEL_LABELS: Record<ChannelValue, string> = {
-  inapp: "In-app",
-  whatsapp: "WhatsApp",
-  sms: "SMS",
-  email: "Email",
-};
-
 const SCHEDULE_LABELS: Record<ScheduleType, string> = {
   now: "Immediately",
   scheduled: "Scheduled",
   recurring: "Recurring",
-};
-
-const ROLE_LABELS: Record<CustomerRole, string> = {
-  landlord: "Landlord",
-  manager: "Manager",
-  tenant: "Tenant",
-  caretaker: "Caretaker",
 };
 
 const INPUT_CLASS =
@@ -258,16 +238,22 @@ export function NotificationComposer() {
 
       <div className="grid gap-s5 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-s5">
-          <AudienceSection
-            audienceType={audienceType}
-            onAudienceType={setAudienceType}
-            roles={roles}
-            onToggleRole={toggleRole}
-            userIds={userIds}
-            onUserIds={setUserIds}
-          />
+          <Card className="space-y-s4">
+            <CardTitle>Audience</CardTitle>
+            <AudienceSelector
+              audienceType={audienceType}
+              onAudienceType={setAudienceType}
+              roles={roles}
+              onToggleRole={toggleRole}
+              userIds={userIds}
+              onUserIds={setUserIds}
+            />
+          </Card>
 
-          <ChannelsSection channels={channels} onToggle={toggleChannel} />
+          <Card className="space-y-s4">
+            <CardTitle>Channels</CardTitle>
+            <ChannelSelector value={channels} onToggle={toggleChannel} />
+          </Card>
 
           <CompositionSection
             titleEn={titleEn}
@@ -308,157 +294,6 @@ export function NotificationComposer() {
         />
       </div>
     </div>
-  );
-}
-
-interface AudienceSectionProps {
-  audienceType: AudienceType;
-  onAudienceType: (t: AudienceType) => void;
-  roles: CustomerRole[];
-  onToggleRole: (r: CustomerRole) => void;
-  userIds: string;
-  onUserIds: (v: string) => void;
-}
-
-function AudienceSection({
-  audienceType,
-  onAudienceType,
-  roles,
-  onToggleRole,
-  userIds,
-  onUserIds,
-}: AudienceSectionProps) {
-  return (
-    <Card className="space-y-s4">
-      <CardTitle>Audience</CardTitle>
-      <div
-        role="radiogroup"
-        aria-label="Audience type"
-        className="flex flex-wrap gap-s2"
-      >
-        {AUDIENCE_TYPES.map((type) => {
-          const selected = type === audienceType;
-          return (
-            <button
-              key={type}
-              type="button"
-              role="radio"
-              aria-checked={selected}
-              onClick={() => onAudienceType(type)}
-              className={
-                "rounded-button px-s4 py-s2 font-title text-sm font-semibold transition-colors " +
-                (selected
-                  ? "bg-ink text-card"
-                  : "bg-sageBg text-ink hover:bg-line")
-              }
-            >
-              {AUDIENCE_LABELS[type]}
-            </button>
-          );
-        })}
-      </div>
-
-      {audienceType === "role" || audienceType === "segment" ? (
-        <fieldset className="space-y-s2">
-          <legend className={FIELD_LABEL_CLASS}>
-            {audienceType === "role" ? "Roles" : "Segment role cohort"}
-          </legend>
-          <div className="flex flex-wrap gap-s2">
-            {CUSTOMER_ROLES.map((role) => {
-              const selected = roles.includes(role);
-              return (
-                <label
-                  key={role}
-                  className={
-                    "cursor-pointer rounded-button px-s4 py-s2 font-title text-sm font-semibold transition-colors " +
-                    (selected
-                      ? "bg-sage text-card"
-                      : "bg-sageBg text-ink hover:bg-line")
-                  }
-                >
-                  <input
-                    type="checkbox"
-                    className="sr-only"
-                    checked={selected}
-                    onChange={() => onToggleRole(role)}
-                  />
-                  {ROLE_LABELS[role]}
-                </label>
-              );
-            })}
-          </div>
-        </fieldset>
-      ) : null}
-
-      {audienceType === "specific" ? (
-        <label className="block">
-          <span className={FIELD_LABEL_CLASS}>
-            User IDs{" "}
-            <span className="font-body font-normal text-muted">
-              (comma or space separated)
-            </span>
-          </span>
-          <textarea
-            value={userIds}
-            onChange={(e) => onUserIds(e.target.value)}
-            rows={2}
-            placeholder="e.g. 1024, 1187, 2390"
-            className={INPUT_CLASS}
-          />
-        </label>
-      ) : null}
-
-      {audienceType === "all" ? (
-        <p className="text-sm text-muted">
-          This message will reach every active user on the platform.
-        </p>
-      ) : null}
-    </Card>
-  );
-}
-
-interface ChannelsSectionProps {
-  channels: ChannelValue[];
-  onToggle: (c: ChannelValue) => void;
-}
-
-function ChannelsSection({ channels, onToggle }: ChannelsSectionProps) {
-  return (
-    <Card className="space-y-s4">
-      <CardTitle>Channels</CardTitle>
-      <div className="grid gap-s2 sm:grid-cols-2">
-        {CHANNELS.map((channel) => {
-          const selected = channels.includes(channel);
-          const cost = CHANNEL_COST_BDT[channel];
-          return (
-            <label
-              key={channel}
-              className={
-                "flex cursor-pointer items-center justify-between rounded-card border px-s4 py-s3 transition-colors " +
-                (selected
-                  ? "border-sage bg-sageBg"
-                  : "border-line bg-card hover:bg-sageBg")
-              }
-            >
-              <span className="flex items-center gap-s2">
-                <input
-                  type="checkbox"
-                  checked={selected}
-                  onChange={() => onToggle(channel)}
-                  className="h-4 w-4 accent-sage"
-                />
-                <span className="font-title text-sm font-semibold text-ink">
-                  {CHANNEL_LABELS[channel]}
-                </span>
-              </span>
-              <Chip tone={cost === 0 ? "sage" : "butter"}>
-                {cost === 0 ? "Free" : `৳${cost}/msg`}
-              </Chip>
-            </label>
-          );
-        })}
-      </div>
-    </Card>
   );
 }
 
