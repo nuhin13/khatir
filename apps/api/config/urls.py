@@ -22,6 +22,11 @@ urlpatterns = [
     path("admin/api/", include("khatir.admin_portal.admin_urls")),
     # Admin feature-flag CRUD/toggle (EPIC-13.T-002) — /admin/api/flags.
     path("admin/api/", include("khatir.featureflags.urls")),
+    # Admin notification-template CRUD (EPIC-15.T-008) —
+    # /admin/api/notification-templates.
+    path("admin/api/", include("khatir.notifications.urls")),
+    # Admin compliance API (EPIC-16.T-003) — /admin/api/consent-records.
+    path("admin/api/", include("khatir.compliance.urls")),
     path("admin/", admin.site.urls),
     path("healthz", healthz, name="healthz"),
     # Public, no-login tenant pay page (token-scoped). Browser HTML, so it
