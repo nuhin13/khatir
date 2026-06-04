@@ -47,7 +47,7 @@ export interface NavItem {
  */
 export const NAV_ITEMS: readonly NavItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, roles: ["ops", "finance", "compliance", "support"] },
-  { label: "Users", href: "/users", icon: Users, roles: ["ops", "support"], comingSoon: true },
+  { label: "Users", href: "/users", icon: Users, roles: ["ops", "support"] },
   { label: "Pricing", href: "/pricing", icon: DollarSign, roles: ["finance"] },
   { label: "Features", href: "/features", icon: Rocket, roles: ["compliance"], comingSoon: true },
   {
