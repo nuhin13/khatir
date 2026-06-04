@@ -40,7 +40,9 @@ export interface NavItem {
  * - Dashboard / Analytics: visible to every role (overview, metrics).
  * - Users / Support: ops + support (the `users` backend section).
  * - Pricing: finance (the `billing`/`pricing` sections).
- * - Features / Kill-switch / Compliance: compliance (audit + kill-switches).
+ * - Features: ops (the `platform` section — flags are super/ops-gated in
+ *   `featureflags/views.py`, EPIC-13.T-002).
+ * - Kill-switch / Compliance: compliance (audit + kill-switches).
  * - Notifications / AI providers / System / Admin users / Security: super only
  *   (no scoped role owns these in §2.1, so they stay super-exclusive).
  *
@@ -51,7 +53,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { label: "Users", href: "/users", icon: Users, roles: ["ops", "support"] },
   { label: "Pricing", href: "/pricing", icon: DollarSign, roles: ["finance"] },
   { label: "Refunds", href: "/billing/refunds", icon: Receipt, roles: ["finance"] },
-  { label: "Features", href: "/features", icon: Rocket, roles: ["compliance"], comingSoon: true },
+  { label: "Features", href: "/features", icon: Rocket, roles: ["ops"] },
   {
     label: "Kill-switch",
     href: "/kill-switch",
