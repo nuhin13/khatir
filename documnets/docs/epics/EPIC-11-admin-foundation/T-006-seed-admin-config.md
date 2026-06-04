@@ -4,15 +4,15 @@ epic: EPIC-11
 title: Seed admin session config
 layer: backend
 size: XS
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-00.T-005]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -37,19 +37,22 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] seed admin_session_timeout_minutes=60, admin_mfa_required=true
-- [ ] idempotent + reversible
-- [ ] test
-- [ ] ruff clean
+- [x] seed admin_session_timeout_minutes=60, admin_mfa_required=true
+- [x] idempotent + reversible
+- [x] test
+- [x] ruff clean
 
 ## 12. Test plan
 ### Automated
 - test_admin_config_seeded
 ## 13. Acceptance criteria
-- [ ] Keys seeded; reversible; test passes.
+- [x] Keys seeded; reversible; test passes.
 ## 14. Self-review
-- [ ] Used by T-003
+- [x] Used by T-003
 ### Deviations from spec
+None.
 ### Files touched (actual)
+- apps/api/khatir/core/migrations/0009_seed_admin_config.py (new)
+- apps/api/khatir/core/tests/test_seed_admin_config.py (new)
 ## 15. Notes
 - int + bool types.
