@@ -4,15 +4,15 @@ epic: EPIC-07
 title: WhatsApp/SMS rent-link send (NotificationSender)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, EPIC-01.T-004]
 blocks: [T-008]
 external_services: [whatsapp, sms]
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -49,11 +49,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] build /r/{token} URL + bilingual message
-- [ ] send via NotificationSender (console dev)
-- [ ] status→sent on success; fallback on failure
-- [ ] Tests (mocked, fallback path)
-- [ ] ruff + mypy clean
+- [x] build /r/{token} URL + bilingual message
+- [x] send via NotificationSender (console dev)
+- [x] status→sent on success; fallback on failure
+- [x] Tests (mocked, fallback path)
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -62,12 +62,24 @@ None.
 1. Create+send (dev) → link logged to console.
 
 ## 13. Acceptance criteria
-- [ ] Link sent via WhatsApp/SMS (console dev); status updated; tests + lint pass.
+- [x] Link sent via WhatsApp/SMS (console dev); status updated; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Reuses NotificationSender; no secret logged
+- [x] Reuses NotificationSender; no secret logged
 ### Deviations from spec
+- `send_rent_link` already existed (committed in the EPIC-07 integration) and is
+  reused by the T-008 reminder task; this task completes it by stamping
+  `status→sent` on a successful send, adds the explicit `POST
+  /api/v1/rent-requests/{id}/send` endpoint + `send_rent_request` service
+  (audited `rent.request.send`), and adds the test suite. No auto-send on create
+  (create already leaves the request in `sent` per the model default, ready to
+  dispatch); send is an explicit, re-runnable action — matching the "or via POST
+  /{id}/send" option in §5.
 ### Files touched (actual)
+- `apps/api/khatir/rent/messaging.py` (stamp status→sent on send)
+- `apps/api/khatir/rent/services.py` (`send_rent_request` + audit; sent_at in snapshot)
+- `apps/api/khatir/rent/views.py` (`POST /{id}/send` action)
+- `apps/api/khatir/rent/tests/test_send.py` (new — 9 tests)
 
 ## 15. Notes for the implementing agent
 - Reuse EPIC-01 NotificationSender (don't build new). EPIC-15 will template these messages; keep copy in one place.

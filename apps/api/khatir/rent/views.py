@@ -17,6 +17,7 @@ from typing import Any, cast
 
 from django.db.models import QuerySet
 from rest_framework import mixins, viewsets
+from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -27,7 +28,7 @@ from khatir.core.responses import created, success
 from .models import RentRequest
 from .permissions import IsOwnerOfRentRequest
 from .serializers import RentRequestCreateSerializer, RentRequestSerializer
-from .services import create_rent_request
+from .services import create_rent_request, send_rent_request
 
 
 class RentRequestViewSet(
@@ -65,3 +66,17 @@ class RentRequestViewSet(
             actor=cast(User, request.user), **serializer.validated_data
         )
         return created(RentRequestSerializer(rent_request).data)
+
+    @action(detail=True, methods=["post"])
+    def send(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        """Deliver (or re-deliver) the rent link to the tenant (T-004).
+
+        Object-scoped by ``get_object`` (foreign requests resolve to 404), then
+        delegated to the service which reuses the EPIC-01 NotificationSender
+        (WhatsApp → SMS, console in dev) and stamps the sent fields.
+        """
+        rent_request = self.get_object()
+        rent_request = send_rent_request(
+            actor=cast(User, request.user), request=rent_request
+        )
+        return success(RentRequestSerializer(rent_request).data)

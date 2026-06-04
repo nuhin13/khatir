@@ -16,6 +16,7 @@ from django.utils import timezone
 from khatir.core.exceptions import ValidationError
 from khatir.messaging.factory import send_with_fallback
 
+from .enums import RentRequestStatus
 from .models import RentRequest
 
 
@@ -56,9 +57,13 @@ def send_rent_link(rent_request: RentRequest, *, is_reminder: bool = False) -> R
     """Send (or re-send) the rent link to the tenant and record the delivery.
 
     Builds the ``/r/{token}`` URL and a bilingual message, delivers it via
-    :func:`send_with_fallback`, then stamps ``sent_via``/``sent_at``. When
+    :func:`send_with_fallback`, then stamps ``status``/``sent_via``/``sent_at``.
+    On a successful first send the request moves to ``sent`` (the model default,
+    re-affirmed here so a manual re-send recovers a request left un-sent). When
     ``is_reminder`` is set the reminder counters are bumped too so the cadence
-    task can enforce its window and max-reminder cap. Returns the saved request.
+    task can enforce its window and max-reminder cap. A failure to deliver
+    propagates out of :func:`send_with_fallback` (it re-raises the last channel
+    error), leaving the request untouched. Returns the saved request.
     """
     link = _public_link(rent_request.link_token)
     recipient = _resolve_recipient(rent_request)
@@ -66,6 +71,9 @@ def send_rent_link(rent_request: RentRequest, *, is_reminder: bool = False) -> R
 
     rent_request.sent_via = channel.value
     update_fields = ["sent_via", "updated_at"]
+    if rent_request.status != RentRequestStatus.SENT:
+        rent_request.status = RentRequestStatus.SENT
+        update_fields.append("status")
     if rent_request.sent_at is None:
         rent_request.sent_at = timezone.now()
         update_fields.append("sent_at")

@@ -30,6 +30,7 @@ from khatir.core.exceptions import NotFoundError
 from khatir.leases.enums import RentScheduleStatus
 from khatir.leases.models import Lease, RentSchedule
 
+from .messaging import send_rent_link
 from .models import RentRequest
 from .tokens import make_token
 
@@ -79,6 +80,7 @@ def _snapshot(req: RentRequest) -> dict[str, Any]:
         "amount": str(req.amount),
         "period": req.period,
         "sent_via": req.sent_via,
+        "sent_at": req.sent_at.isoformat() if req.sent_at else None,
         "status": req.status,
     }
 
@@ -135,6 +137,26 @@ def create_rent_request(
         action="rent.request.create",
         target=request,
         before=None,
+        after=_snapshot(request),
+    )
+    return request
+
+
+def send_rent_request(*, actor: User, request: RentRequest) -> RentRequest:
+    """Deliver (or re-deliver) the rent link for ``request`` and audit it.
+
+    Thin wrapper over the EPIC-01-backed :func:`send_rent_link` delivery so the
+    view stays a validate→service→serialize shell. The before/after snapshot
+    captures the ``status``/``sent_via``/``sent_at`` change for the audit trail;
+    a delivery failure propagates (no partial save, no audit row).
+    """
+    before = _snapshot(request)
+    send_rent_link(request)
+    audit(
+        actor=actor,
+        action="rent.request.send",
+        target=request,
+        before=before,
         after=_snapshot(request),
     )
     return request
