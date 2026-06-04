@@ -22,3 +22,49 @@ class OcrReviewArgs {
   /// Sub-route path segment under `/tenants/add/ocr`.
   static const String routePath = 'review';
 }
+
+/// One family member captured in the review screen's sub-form (T-011, the
+/// inline slice ahead of the reusable T-015 widget). Plain value type so it can
+/// flow into the shared save action (T-016) and on to the DMP form.
+class FamilyMemberDraft {
+  const FamilyMemberDraft({required this.name, required this.relation});
+
+  final String name;
+  final String relation;
+
+  @override
+  bool operator ==(Object other) =>
+      other is FamilyMemberDraft &&
+      other.name == name &&
+      other.relation == relation;
+
+  @override
+  int get hashCode => Object.hash(name, relation);
+}
+
+/// The landlord-confirmed tenant fields emitted when the OCR review screen's
+/// proceed button is tapped. This is the seam the shared save action (T-016)
+/// consumes: it carries the *edited* (never the raw OCR) values, the family
+/// list, the opaque `photoRef`, and the optional target unit id.
+///
+/// OCR is never trusted blindly — these are the values the user verified, not
+/// the extracted ones (T-011 §2).
+class TenantReviewDraft {
+  const TenantReviewDraft({
+    required this.name,
+    required this.nidNumber,
+    required this.dob,
+    required this.address,
+    required this.family,
+    required this.photoRef,
+    this.unitId,
+  });
+
+  final String name;
+  final String nidNumber;
+  final String dob;
+  final String address;
+  final List<FamilyMemberDraft> family;
+  final String photoRef;
+  final String? unitId;
+}

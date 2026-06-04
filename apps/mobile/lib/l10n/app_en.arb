@@ -591,5 +591,65 @@
   "ocr_retry": "আবার চেষ্টা · Try again",
   "@ocr_retry": {
     "description": "Retry button shown on the OCR error state."
+  },
+  "ocr_review_title": "যাচাই করুন · Review",
+  "@ocr_review_title": {
+    "description": "Top-bar title for the OCR review/edit screen."
+  },
+  "ocr_review_banner": "AI বুঝে নিয়েছে — যাচাই করুন · AI extracted, please confirm",
+  "@ocr_review_banner": {
+    "description": "Banner reminding the landlord to verify the extracted fields."
+  },
+  "ocr_low_confidence": "এটি ভালোভাবে পড়া যায়নি — যাচাই করুন · Read with low confidence — please check",
+  "@ocr_low_confidence": {
+    "description": "Hint shown under a field the OCR extracted with low confidence."
+  },
+  "tenant_name": "নাম · Name",
+  "@tenant_name": {
+    "description": "Label for the tenant name field."
+  },
+  "tenant_nid": "NID নম্বর · NID number",
+  "@tenant_nid": {
+    "description": "Label for the tenant NID number field."
+  },
+  "tenant_dob": "জন্ম তারিখ · Date of birth",
+  "@tenant_dob": {
+    "description": "Label for the tenant date-of-birth field."
+  },
+  "tenant_address": "ঠিকানা · Address",
+  "@tenant_address": {
+    "description": "Label for the tenant address field."
+  },
+  "ocr_err_name": "নাম দিন · Name is required",
+  "@ocr_err_name": {
+    "description": "Validation error when the name field is empty."
+  },
+  "ocr_err_nid": "NID নম্বর দিন · NID number is required",
+  "@ocr_err_nid": {
+    "description": "Validation error when the NID field is empty."
+  },
+  "ocr_family_section": "পরিবার সদস্য · Family members",
+  "@ocr_family_section": {
+    "description": "Section heading for the family-members sub-form."
+  },
+  "ocr_family_add": "+ সদস্য যোগ · Add member",
+  "@ocr_family_add": {
+    "description": "Button to add a family-member row."
+  },
+  "ocr_family_name": "নাম · Name",
+  "@ocr_family_name": {
+    "description": "Label for a family-member name field."
+  },
+  "ocr_family_relation": "সম্পর্ক · Relation",
+  "@ocr_family_relation": {
+    "description": "Label for a family-member relation field."
+  },
+  "ocr_family_remove": "সরান · Remove",
+  "@ocr_family_remove": {
+    "description": "Tooltip/label to remove a family-member row."
+  },
+  "ocr_confirm": "পরবর্তী — ফর্ম তৈরি · Build form 🚀",
+  "@ocr_confirm": {
+    "description": "Proceed button that saves the reviewed tenant and continues to the DMP form."
   }
 }

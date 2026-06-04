@@ -710,4 +710,49 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get ocr_retry => 'আবার চেষ্টা';
+
+  @override
+  String get ocr_review_title => 'যাচাই করুন';
+
+  @override
+  String get ocr_review_banner => 'AI বুঝে নিয়েছে — যাচাই করুন';
+
+  @override
+  String get ocr_low_confidence => 'এটি ভালোভাবে পড়া যায়নি — যাচাই করুন';
+
+  @override
+  String get tenant_name => 'নাম';
+
+  @override
+  String get tenant_nid => 'NID নম্বর';
+
+  @override
+  String get tenant_dob => 'জন্ম তারিখ';
+
+  @override
+  String get tenant_address => 'ঠিকানা';
+
+  @override
+  String get ocr_err_name => 'নাম দিন';
+
+  @override
+  String get ocr_err_nid => 'NID নম্বর দিন';
+
+  @override
+  String get ocr_family_section => 'পরিবার সদস্য';
+
+  @override
+  String get ocr_family_add => '+ সদস্য যোগ';
+
+  @override
+  String get ocr_family_name => 'নাম';
+
+  @override
+  String get ocr_family_relation => 'সম্পর্ক';
+
+  @override
+  String get ocr_family_remove => 'সরান';
+
+  @override
+  String get ocr_confirm => 'পরবর্তী — ফর্ম তৈরি 🚀';
 }

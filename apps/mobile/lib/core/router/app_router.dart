@@ -21,6 +21,7 @@ import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_review_args.dart';
+import '../../features/tenants/presentation/screens/ocr_review_screen.dart';
 import '../../l10n/app_localizations.dart';
 import '../auth/auth_controller.dart';
 import '../auth/auth_state.dart';
@@ -378,15 +379,27 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             routes: [
               GoRoute(
-                // TODO(EPIC-04 T-011) replace with the OCR review screen. The
-                // capture screen (T-010) navigates here with typed
-                // [OcrReviewArgs] via `extra` on a successful extraction.
+                // OCR review/edit (T-011): the capture screen (T-010)
+                // navigates here with typed [OcrReviewArgs] via `extra` on a
+                // successful extraction. A direct/deep visit without args is
+                // not a valid state, so fall back to the capture screen.
+                //
+                // `onProceed` is the seam the shared save action (T-016) wires
+                // to persist the reviewed tenant and route to the DMP form;
+                // until then proceed validates but does not navigate.
                 path: OcrReviewArgs.routePath,
                 name: OcrReviewArgs.routeName,
                 parentNavigatorKey: _rootNavigatorKey,
-                builder: (context, state) => KShellPlaceholder(
-                  tabLabel: AppLocalizations.of(context).ocr_capture_title,
-                ),
+                builder: (context, state) {
+                  final args = state.extra;
+                  if (args is! OcrReviewArgs) {
+                    return OcrCaptureScreen(
+                      unitId: state.uri.queryParameters['unit'],
+                    );
+                  }
+                  // TODO(EPIC-04 T-016): pass onProceed → saveTenantAndContinue.
+                  return OcrReviewScreen(args: args);
+                },
               ),
             ],
           ),

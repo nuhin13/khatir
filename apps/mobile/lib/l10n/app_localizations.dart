@@ -1429,6 +1429,96 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'আবার চেষ্টা'**
   String get ocr_retry;
+
+  /// Top-bar title for the OCR review/edit screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই করুন'**
+  String get ocr_review_title;
+
+  /// Banner reminding the landlord to verify the extracted fields.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI বুঝে নিয়েছে — যাচাই করুন'**
+  String get ocr_review_banner;
+
+  /// Hint shown under a field the OCR extracted with low confidence.
+  ///
+  /// In bn, this message translates to:
+  /// **'এটি ভালোভাবে পড়া যায়নি — যাচাই করুন'**
+  String get ocr_low_confidence;
+
+  /// Label for the tenant name field.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম'**
+  String get tenant_name;
+
+  /// Label for the tenant NID number field.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID নম্বর'**
+  String get tenant_nid;
+
+  /// Label for the tenant date-of-birth field.
+  ///
+  /// In bn, this message translates to:
+  /// **'জন্ম তারিখ'**
+  String get tenant_dob;
+
+  /// Label for the tenant address field.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঠিকানা'**
+  String get tenant_address;
+
+  /// Validation error when the name field is empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম দিন'**
+  String get ocr_err_name;
+
+  /// Validation error when the NID field is empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID নম্বর দিন'**
+  String get ocr_err_nid;
+
+  /// Section heading for the family-members sub-form.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিবার সদস্য'**
+  String get ocr_family_section;
+
+  /// Button to add a family-member row.
+  ///
+  /// In bn, this message translates to:
+  /// **'+ সদস্য যোগ'**
+  String get ocr_family_add;
+
+  /// Label for a family-member name field.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম'**
+  String get ocr_family_name;
+
+  /// Label for a family-member relation field.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পর্ক'**
+  String get ocr_family_relation;
+
+  /// Tooltip/label to remove a family-member row.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরান'**
+  String get ocr_family_remove;
+
+  /// Proceed button that saves the reviewed tenant and continues to the DMP form.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী — ফর্ম তৈরি 🚀'**
+  String get ocr_confirm;
 }
 
 class _AppLocalizationsDelegate

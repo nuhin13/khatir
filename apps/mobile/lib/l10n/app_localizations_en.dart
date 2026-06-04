@@ -709,4 +709,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ocr_retry => 'আবার চেষ্টা · Try again';
+
+  @override
+  String get ocr_review_title => 'যাচাই করুন · Review';
+
+  @override
+  String get ocr_review_banner =>
+      'AI বুঝে নিয়েছে — যাচাই করুন · AI extracted, please confirm';
+
+  @override
+  String get ocr_low_confidence =>
+      'এটি ভালোভাবে পড়া যায়নি — যাচাই করুন · Read with low confidence — please check';
+
+  @override
+  String get tenant_name => 'নাম · Name';
+
+  @override
+  String get tenant_nid => 'NID নম্বর · NID number';
+
+  @override
+  String get tenant_dob => 'জন্ম তারিখ · Date of birth';
+
+  @override
+  String get tenant_address => 'ঠিকানা · Address';
+
+  @override
+  String get ocr_err_name => 'নাম দিন · Name is required';
+
+  @override
+  String get ocr_err_nid => 'NID নম্বর দিন · NID number is required';
+
+  @override
+  String get ocr_family_section => 'পরিবার সদস্য · Family members';
+
+  @override
+  String get ocr_family_add => '+ সদস্য যোগ · Add member';
+
+  @override
+  String get ocr_family_name => 'নাম · Name';
+
+  @override
+  String get ocr_family_relation => 'সম্পর্ক · Relation';
+
+  @override
+  String get ocr_family_remove => 'সরান · Remove';
+
+  @override
+  String get ocr_confirm => 'পরবর্তী — ফর্ম তৈরি · Build form 🚀';
 }
