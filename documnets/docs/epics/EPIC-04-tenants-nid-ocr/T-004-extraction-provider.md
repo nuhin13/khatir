@@ -4,15 +4,15 @@ epic: EPIC-04
 title: TenantExtractionProvider interface (OCR/ASR abstraction)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001]
 blocks: [T-005, T-006]
 external_services: [ocr, asr]
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -51,13 +51,13 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] TenantExtractionProvider ABC
-- [ ] ExtractedTenant DTO (fields + optional confidence)
-- [ ] OCR impl (image → fields)
-- [ ] ASR impl (audio → fields)
-- [ ] provider selected via config
-- [ ] Tests (mocked)
-- [ ] ruff + mypy clean
+- [x] TenantExtractionProvider ABC
+- [x] ExtractedTenant DTO (fields + optional confidence)
+- [x] OCR impl (image → fields)
+- [x] ASR impl (audio → fields)
+- [x] provider selected via config
+- [x] Tests (mocked)
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -66,12 +66,20 @@ None.
 1. Feed a sample image to the OCR impl (or mock) → normalized fields.
 
 ## 13. Acceptance criteria
-- [ ] Swappable extraction interface with OCR + ASR impls; tests + lint pass.
+- [x] Swappable extraction interface with OCR + ASR impls; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Interface generic; EPIC-14-ready; store result not raw payload
+- [x] Interface generic; EPIC-14-ready; store result not raw payload
 ### Deviations from spec
+- Added a small `extraction/normalize.py` (pure field coercers) shared by both
+  providers to avoid duplicating name/NID/date normalization; and an
+  `extraction/__init__.py` re-exporting the public surface. No DB changes.
+- Provider selection reads `ocr_provider_key` / `asr_provider_key` via
+  `core.config.get_config` with a `"default"` fallback — no migration/seed
+  needed (§6 says none), unknown/unset keys resolve to the built-in provider.
 ### Files touched (actual)
+- khatir/tenants/extraction/{__init__,base,dto,normalize,ocr_provider,asr_provider}.py
+- khatir/tenants/tests/test_extraction.py
 
 ## 15. Notes for the implementing agent
 - Return only the normalized result; never persist the raw provider payload (privacy). EPIC-14 swaps the impl to call services/ai-gateway over HTTP.
