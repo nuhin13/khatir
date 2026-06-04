@@ -8,6 +8,7 @@ only what they need. All configuration is read from the environment via
 from pathlib import Path
 
 import environ
+from celery.schedules import crontab
 
 # apps/api/ — manage.py lives here; config/ is a package under it.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -51,6 +52,7 @@ LOCAL_APPS = [
     "khatir.properties",
     "khatir.tenants",
     "khatir.leases",
+    "khatir.rent",
     "khatir.maintenance",
     "khatir.billing",
     "khatir.admin_portal",
@@ -132,6 +134,26 @@ CELERY_TIMEZONE = "UTC"  # keep in sync with TIME_ZONE below
 CELERY_TASK_ALWAYS_EAGER = env.bool("CELERY_TASK_ALWAYS_EAGER", default=False)
 # DB-backed schedule for Celery Beat; later epics register periodic tasks here.
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+# Static Beat entries. The DatabaseScheduler still honours CELERY_BEAT_SCHEDULE,
+# syncing these definitions into its DB table on startup.
+CELERY_BEAT_SCHEDULE = {
+    # Daily roll-forward + overdue flagging for active leases (EPIC-06.T-005).
+    # Runs every day at 02:00 UTC: idempotent schedule generation to the rolling
+    # horizon plus marking unpaid rent past its grace window as overdue.
+    "leases-roll-schedules-and-flag-overdue": {
+        "task": "khatir.leases.tasks.roll_schedules_and_flag_overdue",
+        "schedule": crontab(hour=2, minute=0),
+    },
+    # Rent reminders (EPIC-07.T-008) run hourly; the task reads the cadence
+    # thresholds + max from SystemConfig, so this only sets the wake-up rate.
+    "send-rent-reminders": {
+        "task": "khatir.rent.tasks.send_rent_reminders",
+        "schedule": 3600.0,  # every hour
+    },
+}
+
+# Public base URL the tenant-facing rent link (/r/{token}) is built from (T-004).
+PUBLIC_WEB_BASE_URL = env("PUBLIC_WEB_BASE_URL", default="https://khatir.app")
 
 # ── Password validation ───────────────────────────────────────────────
 AUTH_PASSWORD_VALIDATORS = [
@@ -156,6 +178,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ── Field encryption ──────────────────────────────────────────────────
 # Fernet key for personal/sensitive fields (NID, etc.). See core/encryption.py.
 FIELD_ENCRYPTION_KEY = env("FIELD_ENCRYPTION_KEY", default="")
+
+# ── Encrypted object storage (EPIC-04 T-003 / core/storage.py) ─────────
+# Sensitive files (NID images, payment proofs, generated DMP PDFs) live in
+# S3-compatible storage in prod; until that backend lands, a local filesystem
+# root keeps the pipeline runnable. Never serve this root publicly.
+ENCRYPTED_STORAGE_ROOT = env("ENCRYPTED_STORAGE_ROOT", default=str(BASE_DIR / "private_media"))
+ENCRYPTED_STORAGE_PUBLIC_BASE = env(
+    "ENCRYPTED_STORAGE_PUBLIC_BASE", default="https://storage.local"
+)
 
 # ── Messaging / notification channels (T-004) ─────────────────────────
 # Credentials for the WhatsApp Business API and the SMS gateway. All default to

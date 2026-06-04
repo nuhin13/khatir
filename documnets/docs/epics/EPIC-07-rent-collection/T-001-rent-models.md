@@ -4,14 +4,14 @@ epic: EPIC-07
 title: RentRequest/PaymentProof/Payment models
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-06.T-001]
 blocks: [T-002, T-003, T-007]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
+completed_at: 2026-06-04
 executed_by:
 reviewed_at:
 reviewed_by:

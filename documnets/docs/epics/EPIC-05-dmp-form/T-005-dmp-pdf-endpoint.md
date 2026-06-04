@@ -4,14 +4,14 @@ epic: EPIC-05
 title: DMP PDF generate endpoint (+ store, signed URL)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, EPIC-04.T-003]
 blocks: [T-008]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
+completed_at: 2026-06-04
 executed_by:
 reviewed_at:
 reviewed_by:

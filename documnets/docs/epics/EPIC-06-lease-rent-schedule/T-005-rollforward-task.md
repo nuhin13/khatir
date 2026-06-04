@@ -4,14 +4,14 @@ epic: EPIC-06
 title: Monthly roll-forward + overdue Celery task
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002, EPIC-00.T-006]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
+completed_at: 2026-06-04
 executed_by:
 reviewed_at:
 reviewed_by:
