@@ -35,6 +35,11 @@ dependencies:
   # then discarded — never persisted on device beyond the upload.
   image_picker: ^1.2.2
 
+  # Voice tenant entry (EPIC-04 T-012). Records a short Bangla clip (handles the
+  # mic permission prompt) that is uploaded then discarded — never persisted on
+  # device beyond the upload.
+  record: ^6.2.0
+
   # Models / serialization (annotations; codegen via build_runner)
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0

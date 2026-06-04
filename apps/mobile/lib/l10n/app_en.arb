@@ -651,5 +651,41 @@
   "ocr_confirm": "পরবর্তী — ফর্ম তৈরি · Build form 🚀",
   "@ocr_confirm": {
     "description": "Proceed button that saves the reviewed tenant and continues to the DMP form."
+  },
+  "voice_title": "ভয়েস ফর্ম · Voice",
+  "@voice_title": {
+    "description": "App-bar title for the voice tenant-entry screen."
+  },
+  "voice_heading": "Talk to me!",
+  "@voice_heading": {
+    "description": "Handwritten hero greeting above the mic on the voice screen."
+  },
+  "voice_tap_to_record": "মাইক চাপুন · Tap the mic",
+  "@voice_tap_to_record": {
+    "description": "Prompt/label inviting the user to press the mic to start recording."
+  },
+  "voice_recording": "শুনছি… ছেড়ে দিন · Listening… release to stop",
+  "@voice_recording": {
+    "description": "Label shown under the mic while recording is in progress."
+  },
+  "voice_processing": "AI বুঝছে… · Understanding…",
+  "@voice_processing": {
+    "description": "Loading label while the clip uploads and ASR extracts fields."
+  },
+  "voice_error": "শোনা যায়নি — আবার চেষ্টা করুন · Couldn't catch that — please try again",
+  "@voice_error": {
+    "description": "Error message when recording, mic permission, or upload fails."
+  },
+  "voice_example_label": "উদাহরণ · Example",
+  "@voice_example_label": {
+    "description": "Label above the example phrasing card on the voice screen."
+  },
+  "voice_example": "\"নতুন ভাড়াটিয়া, নাম রহিম উদ্দিন, ফ্ল্যাট ৪বি, ভাড়া ছাব্বিশ হাজার, মার্চ থেকে…\"",
+  "@voice_example": {
+    "description": "Example Bangla phrasing the landlord can speak."
+  },
+  "voice_unavailable": "ভয়েস ফর্ম এখন বন্ধ আছে · Voice entry is currently unavailable.",
+  "@voice_unavailable": {
+    "description": "Shown when the voice_tenant_entry feature flag is off."
   }
 }

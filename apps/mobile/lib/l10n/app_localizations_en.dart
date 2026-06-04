@@ -756,4 +756,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ocr_confirm => 'পরবর্তী — ফর্ম তৈরি · Build form 🚀';
+
+  @override
+  String get voice_title => 'ভয়েস ফর্ম · Voice';
+
+  @override
+  String get voice_heading => 'Talk to me!';
+
+  @override
+  String get voice_tap_to_record => 'মাইক চাপুন · Tap the mic';
+
+  @override
+  String get voice_recording => 'শুনছি… ছেড়ে দিন · Listening… release to stop';
+
+  @override
+  String get voice_processing => 'AI বুঝছে… · Understanding…';
+
+  @override
+  String get voice_error =>
+      'শোনা যায়নি — আবার চেষ্টা করুন · Couldn\'t catch that — please try again';
+
+  @override
+  String get voice_example_label => 'উদাহরণ · Example';
+
+  @override
+  String get voice_example =>
+      '\"নতুন ভাড়াটিয়া, নাম রহিম উদ্দিন, ফ্ল্যাট ৪বি, ভাড়া ছাব্বিশ হাজার, মার্চ থেকে…\"';
+
+  @override
+  String get voice_unavailable =>
+      'ভয়েস ফর্ম এখন বন্ধ আছে · Voice entry is currently unavailable.';
 }

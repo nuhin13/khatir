@@ -41,6 +41,34 @@ class TenantRepository {
     }
   }
 
+  /// `POST /tenants/voice` — upload a Bangla audio clip (multipart) for ASR
+  /// extraction (T-006).
+  ///
+  /// Sends the raw [bytes] under the `audio` field (matching the backend
+  /// `VoiceRequestSerializer.audio` FileField) and returns the same editable
+  /// [ExtractedTenant] shape as OCR — **minus `photo_ref`**: voice has no stored
+  /// artefact, so [ExtractedTenant.photoRef] degrades to an empty string. The
+  /// review screen (T-011) is reused for confirmation. [filename] is advisory
+  /// only — the ASR provider interprets the audio bytes, not the extension. The
+  /// clip is uploaded then discarded; it is never persisted on the device.
+  Future<ExtractedTenant> voiceExtract(
+    Uint8List bytes, {
+    String filename = 'voice.m4a',
+  }) async {
+    final form = FormData.fromMap(<String, dynamic>{
+      'audio': MultipartFile.fromBytes(bytes, filename: filename),
+    });
+    try {
+      final res = await _dio.post<Map<String, dynamic>>(
+        ApiEndpoints.tenantVoice,
+        data: form,
+      );
+      return ExtractedTenant.fromJson(res.data ?? const <String, dynamic>{});
+    } on DioException catch (e) {
+      throw _asApiException(e);
+    }
+  }
+
   ApiException _asApiException(DioException e) {
     final err = e.error;
     return err is ApiException ? err : ApiException.fromDio(e);

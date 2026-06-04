@@ -22,6 +22,7 @@ import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_review_args.dart';
 import '../../features/tenants/presentation/screens/ocr_review_screen.dart';
+import '../../features/tenants/presentation/screens/voice_fill_screen.dart';
 import '../../l10n/app_localizations.dart';
 import '../auth/auth_controller.dart';
 import '../auth/auth_state.dart';
@@ -404,12 +405,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
           GoRoute(
-            // TODO(EPIC-04) replace with the voice-fill screen.
-            path: 'voice',
+            // Voice tenant entry (T-012): record → upload → reuse OCR review.
+            // Flag-gated at the chooser (T-009); the screen also defends the
+            // `voice_tenant_entry` flag against a direct deep link.
+            path: VoiceFillScreen.routePath,
             name: AddTenantScreen.voiceRouteName,
             parentNavigatorKey: _rootNavigatorKey,
-            builder: (context, state) => KShellPlaceholder(
-              tabLabel: AppLocalizations.of(context).add_tenant_voice,
+            builder: (context, state) => VoiceFillScreen(
+              unitId: state.uri.queryParameters['unit'],
             ),
           ),
           GoRoute(

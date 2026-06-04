@@ -42,6 +42,10 @@ class ApiEndpoints {
   // created). Declared before the tenants router on the backend.
   static const String tenantOcr = '$apiPrefix/tenants/ocr';
 
+  // `tenants/voice` transcribes an uploaded Bangla audio clip (ASR, T-006) and
+  // returns the same editable fields as OCR, minus `photo_ref` (no artefact).
+  static const String tenantVoice = '$apiPrefix/tenants/voice';
+
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 

@@ -1519,6 +1519,60 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'পরবর্তী — ফর্ম তৈরি 🚀'**
   String get ocr_confirm;
+
+  /// App-bar title for the voice tenant-entry screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভয়েস ফর্ম'**
+  String get voice_title;
+
+  /// Handwritten hero greeting above the mic on the voice screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমাকে বলুন!'**
+  String get voice_heading;
+
+  /// Prompt/label inviting the user to press the mic to start recording.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাইক চাপুন'**
+  String get voice_tap_to_record;
+
+  /// Label shown under the mic while recording is in progress.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুনছি… ছেড়ে দিন'**
+  String get voice_recording;
+
+  /// Loading label while the clip uploads and ASR extracts fields.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI বুঝছে…'**
+  String get voice_processing;
+
+  /// Error message when recording, mic permission, or upload fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'শোনা যায়নি — আবার চেষ্টা করুন'**
+  String get voice_error;
+
+  /// Label above the example phrasing card on the voice screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'উদাহরণ'**
+  String get voice_example_label;
+
+  /// Example Bangla phrasing the landlord can speak.
+  ///
+  /// In bn, this message translates to:
+  /// **'\"নতুন ভাড়াটিয়া, নাম রহিম উদ্দিন, ফ্ল্যাট ৪বি, ভাড়া ছাব্বিশ হাজার, মার্চ থেকে…\"'**
+  String get voice_example;
+
+  /// Shown when the voice_tenant_entry feature flag is off.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভয়েস ফর্ম এখন বন্ধ আছে।'**
+  String get voice_unavailable;
 }
 
 class _AppLocalizationsDelegate
