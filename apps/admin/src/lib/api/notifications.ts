@@ -218,6 +218,91 @@ export function sendTestNotification(
   );
 }
 
+/* -------------------------------------------------------------------------- *
+ * System notification templates — EPIC-15.T-013 (templates page).
+ *
+ * Consumes the admin template CRUD endpoints committed by EPIC-15.T-008
+ * (mounted under `/admin/api/`, super/ops only):
+ *
+ * - `GET   /admin/api/notification-templates`        — list (ordered by `key`).
+ * - `GET   /admin/api/notification-templates/{key}`  — retrieve one (by `key`).
+ * - `PATCH /admin/api/notification-templates/{key}`  — edit a template.
+ *
+ * `key` and `trigger_event` are immutable after creation (the serializer drops
+ * them on update, NotificationTemplateSerializer.update, T-008), so the page
+ * surfaces them read-only. Editable fields are the presentation pieces:
+ * bilingual title/body, `channels`, and the `active` flag. Each payload is
+ * zod-validated at the boundary (coding standards §5).
+ * -------------------------------------------------------------------------- */
+
+/** Read/write projection of a NotificationTemplate (T-008 serializer). */
+export const notificationTemplateSchema = z.object({
+  id: z.union([z.string(), z.number()]),
+  key: z.string(),
+  trigger_event: z.string(),
+  channels: z.array(z.string()),
+  title_en: z.string(),
+  title_bn: z.string(),
+  body_en: z.string(),
+  body_bn: z.string(),
+  variables: z.array(z.string()),
+  active: z.boolean(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type NotificationTemplate = z.infer<typeof notificationTemplateSchema>;
+
+/**
+ * Editable fields of a template. `key` and `trigger_event` are immutable
+ * server-side, so they are deliberately excluded from the patch contract.
+ */
+export interface TemplateUpdateInput {
+  channels?: ChannelValue[];
+  title_en?: string;
+  title_bn?: string;
+  body_en?: string;
+  body_bn?: string;
+  active?: boolean;
+}
+
+/** Stable prefix for every templates query key (prefix-match invalidation). */
+export const templatesQueryPrefix = [
+  "admin",
+  "notification-templates",
+] as const;
+
+/** TanStack Query key for the template list. */
+export function templatesQueryKey() {
+  return [...templatesQueryPrefix] as const;
+}
+
+/** Tolerates the bare-array or `{ results }`-paginated list envelope. */
+const templateListSchema = z.union([
+  z.array(notificationTemplateSchema),
+  z.object({ results: z.array(notificationTemplateSchema) }),
+]);
+
+/** Fetch + validate every system template (ordered by `key`). */
+export async function fetchTemplates(): Promise<NotificationTemplate[]> {
+  const body = await apiFetch(
+    "/admin/api/notification-templates",
+    templateListSchema,
+  );
+  return Array.isArray(body) ? body : body.results;
+}
+
+/** PATCH the editable fields of a template (looked up by `key`). */
+export function updateTemplate(
+  key: string,
+  input: TemplateUpdateInput,
+): Promise<NotificationTemplate> {
+  return apiFetch(
+    "/admin/api/notification-templates/" + encodeURIComponent(key),
+    notificationTemplateSchema,
+    { method: "PATCH", body: input },
+  );
+}
+
 /**
  * Client-side reach/cost preview helper — mirrors the backend estimate
  * (`reach × Σ per-channel cost`, services.py). Per-message costs match the

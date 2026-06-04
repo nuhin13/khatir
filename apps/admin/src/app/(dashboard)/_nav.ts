@@ -16,6 +16,7 @@ import {
   BarChart3,
   ShieldCheck,
   History,
+  FileText,
 } from "lucide-react";
 import type { AdminRole } from "@/types/enums";
 
@@ -82,6 +83,15 @@ export const NAV_ITEMS: readonly NavItem[] = [
     label: "Notification history",
     href: "/notifications/history",
     icon: History,
+    roles: ["ops"],
+  },
+  {
+    // Templates tab for the notifications module (Admin Portal spec §4.5.3) —
+    // same super/ops platform gate (notification-templates is `IsPlatformAdmin`
+    // in notifications/views.py, EPIC-15.T-008). Built in EPIC-15.T-013.
+    label: "Notification templates",
+    href: "/notifications/templates",
+    icon: FileText,
     roles: ["ops"],
   },
   {
