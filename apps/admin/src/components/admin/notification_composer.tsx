@@ -16,7 +16,7 @@ import {
   TEMPLATE_VARIABLES,
   composeNotification,
   estimateCost,
-  notificationsQueryKey,
+  notificationsQueryPrefix,
   type AudienceType,
   type ChannelValue,
   type ComposeInput,
@@ -87,7 +87,9 @@ export function NotificationComposer() {
   const compose = useMutation<ComposeResult, Error, ComposeInput>({
     mutationFn: composeNotification,
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: notificationsQueryKey });
+      void queryClient.invalidateQueries({
+        queryKey: notificationsQueryPrefix,
+      });
     },
   });
 

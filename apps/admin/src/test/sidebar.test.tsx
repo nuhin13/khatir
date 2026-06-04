@@ -93,7 +93,8 @@ describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
     // Live pages shipped so far: Dashboard (T-009), Audit log (T-011),
     // Pricing (EPIC-12.T-005), Users (EPIC-12.T-007), Refunds (EPIC-12.T-009),
     // Features (EPIC-13.T-005), Kill-switch (EPIC-13.T-006),
-    // AI providers (EPIC-14.T-011), Notifications (EPIC-15.T-010).
+    // AI providers (EPIC-14.T-011), Notifications (EPIC-15.T-010),
+    // Notification history (EPIC-15.T-012).
     const livePages = new Set([
       "Dashboard",
       "Audit log",
@@ -104,6 +105,7 @@ describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
       "Kill-switch",
       "AI providers",
       "Notifications",
+      "Notification history",
     ]);
     for (const item of NAV_ITEMS) {
       if (livePages.has(item.label)) {

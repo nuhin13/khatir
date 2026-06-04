@@ -103,8 +103,66 @@ export interface ComposeInput {
   recurrence?: Recurrence | null;
 }
 
-/** TanStack Query key for the broadcast list. */
-export const notificationsQueryKey = ["admin", "notifications"] as const;
+/**
+ * Per-recipient delivery row (NotificationDeliverySerializer, T-007). Embedded
+ * in the broadcast detail payload; surfaced by the history detail view.
+ */
+export const notificationDeliverySchema = z.object({
+  id: z.union([z.string(), z.number()]),
+  user: z.union([z.string(), z.number()]).nullable(),
+  channel: z.string(),
+  status: z.string(),
+  delivered_at: z.string().nullable(),
+  opened_at: z.string().nullable(),
+  error: z.string().nullable(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type NotificationDelivery = z.infer<typeof notificationDeliverySchema>;
+
+/**
+ * Broadcast detail projection (NotificationDetailSerializer, T-007) — the list
+ * fields plus the embedded per-recipient delivery rows.
+ */
+export const notificationDetailSchema = notificationSchema.extend({
+  deliveries: z.array(notificationDeliverySchema),
+});
+export type NotificationDetail = z.infer<typeof notificationDetailSchema>;
+
+/**
+ * Stable prefix for every notifications query key. Pass this to
+ * `invalidateQueries` to invalidate the list under *any* filter (prefix match).
+ */
+export const notificationsQueryPrefix = ["admin", "notifications"] as const;
+
+/** TanStack Query key for the broadcast list (optionally date-filtered). */
+export function notificationsQueryKey(filters: NotificationFilters = {}) {
+  return [...notificationsQueryPrefix, filters] as const;
+}
+
+/** TanStack Query key for a single broadcast's detail (+ deliveries). */
+export function notificationDetailQueryKey(id: Notification["id"]) {
+  return ["admin", "notifications", "detail", String(id)] as const;
+}
+
+/**
+ * History list filters. The backend lists broadcasts newest-first; the date
+ * window narrows by `created_at` (`from`/`to`, inclusive, ISO `YYYY-MM-DD`).
+ */
+export interface NotificationFilters {
+  from?: string;
+  to?: string;
+}
+
+/** Build the `/admin/api/notifications` path with the supplied date filter. */
+export function notificationsPath(filters: NotificationFilters = {}): string {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(filters)) {
+    if (value !== undefined && value !== "") params.set(key, value);
+  }
+  const qs = params.toString();
+  return qs ? `/admin/api/notifications?${qs}` : "/admin/api/notifications";
+}
 
 /** Tolerates the bare-array or `{ results }`-paginated list envelope. */
 const notificationListSchema = z.union([
@@ -112,10 +170,25 @@ const notificationListSchema = z.union([
   z.object({ results: z.array(notificationSchema) }),
 ]);
 
-/** Fetch + validate every broadcast (newest first). */
-export async function fetchNotifications(): Promise<Notification[]> {
-  const body = await apiFetch("/admin/api/notifications", notificationListSchema);
+/** Fetch + validate every broadcast (newest first), optionally date-filtered. */
+export async function fetchNotifications(
+  filters: NotificationFilters = {},
+): Promise<Notification[]> {
+  const body = await apiFetch(
+    notificationsPath(filters),
+    notificationListSchema,
+  );
   return Array.isArray(body) ? body : body.results;
+}
+
+/** Fetch + validate one broadcast plus its per-recipient delivery rows. */
+export function fetchNotificationDetail(
+  id: Notification["id"],
+): Promise<NotificationDetail> {
+  return apiFetch(
+    "/admin/api/notifications/" + id,
+    notificationDetailSchema,
+  );
 }
 
 /** Compose + dispatch (or schedule) a broadcast; returns reach + cost preview. */

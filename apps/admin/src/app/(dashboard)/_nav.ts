@@ -15,6 +15,7 @@ import {
   UserCog,
   BarChart3,
   ShieldCheck,
+  History,
 } from "lucide-react";
 import type { AdminRole } from "@/types/enums";
 
@@ -73,6 +74,14 @@ export const NAV_ITEMS: readonly NavItem[] = [
     label: "Notifications",
     href: "/notifications",
     icon: Send,
+    roles: ["ops"],
+  },
+  {
+    // History tab for the notifications module (Admin Portal spec §4.5.2) — same
+    // super/ops platform gate. Built in EPIC-15.T-012.
+    label: "Notification history",
+    href: "/notifications/history",
+    icon: History,
     roles: ["ops"],
   },
   {
