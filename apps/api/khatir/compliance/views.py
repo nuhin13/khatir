@@ -30,8 +30,13 @@ Supported audit-log query filters:
 
 from __future__ import annotations
 
+import csv
+from collections.abc import Iterator
+
 from django.db.models import QuerySet
+from django.http import StreamingHttpResponse
 from rest_framework.permissions import BasePermission
+from rest_framework.renderers import BaseRenderer, JSONRenderer
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -40,12 +45,12 @@ from khatir.admin_portal.authentication import (
     AdminJWTAuthentication,
     IsAdminAuthenticated,
 )
-from khatir.admin_portal.models import AdminUser
+from khatir.admin_portal.models import AdminAuditEntry, AdminUser
 from khatir.admin_portal.permissions import SECTION_ROLES, AdminSection
 from khatir.core.pagination import StandardPageNumberPagination
 
 from .models import ConsentRecord
-from .serializers import ConsentRecordSerializer
+from .serializers import AdminAuditEntrySerializer, ConsentRecordSerializer
 
 
 class IsComplianceAdmin(BasePermission):
@@ -97,3 +102,118 @@ class ConsentRecordListView(APIView):
             queryset = queryset.filter(granted_at__lte=granted_to)
 
         return queryset
+
+
+class _CsvEcho:
+    """A write-only file-like object that returns each written row.
+
+    Used with :class:`csv.writer` so rows can be yielded straight into a
+    :class:`~django.http.StreamingHttpResponse` without buffering the whole
+    export in memory.
+    """
+
+    def write(self, value: str) -> str:
+        return value
+
+
+class _CsvRenderer(BaseRenderer):
+    """Passthrough renderer so DRF content negotiation accepts ``?format=csv``.
+
+    The audit-log view streams its own :class:`StreamingHttpResponse`, so this
+    renderer is never asked to serialise a body; it exists only to register the
+    ``csv`` format with DRF's negotiation layer (which otherwise 404s on an
+    unknown ``format`` query value).
+    """
+
+    media_type = "text/csv"
+    format = "csv"
+
+    def render(self, data: object, *args: object, **kwargs: object) -> bytes:
+        return b""
+
+
+AUDIT_CSV_COLUMNS = (
+    "id",
+    "admin_user",
+    "action",
+    "entity_type",
+    "entity_id",
+    "before_json",
+    "after_json",
+    "ip",
+    "reason",
+    "created_at",
+)
+
+
+class AdminAuditEntryListView(APIView):
+    """``GET /admin/api/audit-log`` — paginated, filterable admin audit log.
+
+    Returns the standard paginated JSON envelope by default. When called with
+    ``?format=csv`` the full filtered set is streamed as a CSV download
+    (EPIC-16.T-002). Read-only: ``AdminAuditEntry`` is append-only.
+    """
+
+    authentication_classes = [AdminJWTAuthentication]
+    permission_classes = [IsAdminAuthenticated, IsComplianceAdmin]
+    renderer_classes = [JSONRenderer, _CsvRenderer]
+
+    def get(self, request: Request) -> Response | StreamingHttpResponse:
+        queryset = self._filtered_queryset(request)
+
+        if request.accepted_renderer.format == "csv":
+            return self._csv_response(queryset)
+
+        paginator = StandardPageNumberPagination()
+        page = paginator.paginate_queryset(queryset, request, view=self)
+        data = AdminAuditEntrySerializer(page, many=True).data
+        return paginator.get_paginated_response(data)
+
+    def _filtered_queryset(self, request: Request) -> QuerySet[AdminAuditEntry]:
+        queryset = AdminAuditEntry.objects.all().order_by("-created_at")
+        params = request.query_params
+
+        admin_user = params.get("admin_user")
+        if admin_user:
+            queryset = queryset.filter(admin_user_id=admin_user)
+
+        action = params.get("action")
+        if action:
+            queryset = queryset.filter(action=action)
+
+        entity_type = params.get("entity_type")
+        if entity_type:
+            queryset = queryset.filter(entity_type=entity_type)
+
+        entity_id = params.get("entity_id")
+        if entity_id:
+            queryset = queryset.filter(entity_id=entity_id)
+
+        date_from = params.get("date_from")
+        if date_from:
+            queryset = queryset.filter(created_at__gte=date_from)
+
+        date_to = params.get("date_to")
+        if date_to:
+            queryset = queryset.filter(created_at__lte=date_to)
+
+        return queryset
+
+    def _csv_response(
+        self, queryset: QuerySet[AdminAuditEntry]
+    ) -> StreamingHttpResponse:
+        writer = csv.writer(_CsvEcho())
+
+        def rows() -> Iterator[str]:
+            yield writer.writerow(AUDIT_CSV_COLUMNS)
+            for entry in queryset.iterator():
+                data = AdminAuditEntrySerializer(entry).data
+                yield writer.writerow(
+                    [data[column] for column in AUDIT_CSV_COLUMNS]
+                )
+
+        response = StreamingHttpResponse(rows(), content_type="text/csv")
+        response["Content-Disposition"] = (
+            'attachment; filename="audit-log.csv"'
+        )
+        return response

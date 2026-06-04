@@ -11,7 +11,7 @@ below (keep additions additive — never reorder/remove).
 
 from django.urls import path
 
-from .views import ConsentRecordListView
+from .views import AdminAuditEntryListView, ConsentRecordListView
 
 app_name = "compliance"
 
@@ -20,5 +20,10 @@ urlpatterns = [
         "consent-records",
         ConsentRecordListView.as_view(),
         name="consent-records",
+    ),
+    path(
+        "audit-log",
+        AdminAuditEntryListView.as_view(),
+        name="audit-log",
     ),
 ]
