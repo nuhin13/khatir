@@ -4,7 +4,7 @@ epic: EPIC-12
 title: Pricing editor page (Next.js)
 layer: admin
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-11.T-008]
 blocks: []

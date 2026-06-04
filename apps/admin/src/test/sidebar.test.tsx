@@ -89,8 +89,9 @@ describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
   });
 
   it("marks every unbuilt module as coming-soon and built pages as live", () => {
-    // Live pages shipped so far: Dashboard (T-009), Audit log (T-011).
-    const livePages = new Set(["Dashboard", "Audit log"]);
+    // Live pages shipped so far: Dashboard (T-009), Audit log (T-011),
+    // Pricing (EPIC-12.T-005).
+    const livePages = new Set(["Dashboard", "Audit log", "Pricing"]);
     for (const item of NAV_ITEMS) {
       if (livePages.has(item.label)) {
         expect(item.comingSoon).toBeFalsy();
