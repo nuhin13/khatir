@@ -58,6 +58,47 @@ describe("navForRole (role → nav matrix)", () => {
   });
 });
 
+describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
+  it("covers every Admin Portal spec §3.1 sidebar entry", () => {
+    const labels = NAV_ITEMS.map((i) => i.label);
+    for (const expected of [
+      "Dashboard",
+      "Users",
+      "Pricing",
+      "Features",
+      "Kill-switch",
+      "Notifications",
+      "AI providers",
+      "Compliance",
+      "System",
+      "Support",
+      "Admin users",
+      "Analytics",
+      "Security",
+    ]) {
+      expect(labels).toContain(expected);
+    }
+  });
+
+  it("links every nav item to a distinct absolute route", () => {
+    for (const item of NAV_ITEMS) {
+      expect(item.href).toMatch(/^\/[a-z-]+$/);
+    }
+    const hrefs = NAV_ITEMS.map((i) => i.href);
+    expect(new Set(hrefs).size).toBe(hrefs.length);
+  });
+
+  it("marks every unbuilt module as coming-soon and Dashboard as live", () => {
+    for (const item of NAV_ITEMS) {
+      if (item.label === "Dashboard") {
+        expect(item.comingSoon).toBeFalsy();
+      } else {
+        expect(item.comingSoon).toBe(true);
+      }
+    }
+  });
+});
+
 describe("Sidebar (role-aware)", () => {
   it("renders every nav item for a super admin", () => {
     render(<Sidebar role="super" />);
@@ -65,6 +106,21 @@ describe("Sidebar (role-aware)", () => {
       expect(screen.getByText(item.label)).toBeTruthy();
     }
     expect(screen.getAllByRole("link")).toHaveLength(NAV_ITEMS.length);
+  });
+
+  it("points each rendered link at its nav route", () => {
+    render(<Sidebar role="super" />);
+    for (const item of NAV_ITEMS) {
+      const link = screen.getByText(item.label).closest("a");
+      expect(link?.getAttribute("href")).toBe(item.href);
+    }
+  });
+
+  it("renders a 'Soon' badge for unbuilt modules but not for Dashboard", () => {
+    render(<Sidebar role="super" />);
+    // Dashboard (live) has no badge; the 12 stubbed modules each show one.
+    const badges = screen.getAllByText("Soon");
+    expect(badges).toHaveLength(NAV_ITEMS.filter((i) => i.comingSoon).length);
   });
 
   it("does not render Pricing for a compliance admin", () => {
