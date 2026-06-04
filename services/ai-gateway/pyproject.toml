@@ -14,6 +14,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
     "ruff>=0.15.15",
     "mypy>=1.18.2",
 ]
@@ -26,7 +27,7 @@ target-version = "py313"
 select = ["E", "F", "I", "UP", "B", "C4"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["config", "main"]
+known-first-party = ["config", "main", "router", "providers"]
 
 [tool.mypy]
 python_version = "3.13"
@@ -37,3 +38,4 @@ warn_unused_ignores = false
 python_files = ["test_*.py", "*_test.py"]
 testpaths = ["tests"]
 addopts = "-q"
+asyncio_mode = "auto"
