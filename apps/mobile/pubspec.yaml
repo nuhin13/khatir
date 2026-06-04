@@ -41,7 +41,7 @@ dependencies:
   # Shared Notun Din design tokens (consumed by path)
   khatir_tokens:
     path: ../../packages/design-tokens/dart
-  sentry_flutter: ^8.14.2
+  sentry_flutter: ^9.21.0
 
 dev_dependencies:
   flutter_test:

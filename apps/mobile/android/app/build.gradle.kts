@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "bd.com.khatir.khatir_mobile"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -68,6 +68,8 @@ kotlin {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
+
+
 
 flutter {
     source = "../.."
