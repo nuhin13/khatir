@@ -261,3 +261,61 @@ def test_template_uses_timestamped_model() -> None:
     assert tmpl.created_at is not None
     assert tmpl.updated_at is not None
     assert not hasattr(tmpl, "deleted_at")
+
+
+# ---------------------------------------------------------------------------
+# render() / get_template() — EPIC-15 T-006
+# ---------------------------------------------------------------------------
+
+
+def test_render_interpolates_variables() -> None:
+    tmpl: NotificationTemplate = NotificationTemplateFactory(  # type: ignore[assignment]
+        title_en="Hi {name}",
+        title_bn="হাই {name}",
+        body_en="Pay {amount} now",
+        body_bn="{amount} পরিশোধ করুন",
+    )
+    rendered = tmpl.render({"name": "Karim", "amount": "1000"})
+    assert rendered["title_en"] == "Hi Karim"
+    assert rendered["title_bn"] == "হাই Karim"
+    assert rendered["body_en"] == "Pay 1000 now"
+    assert rendered["body_bn"] == "1000 পরিশোধ করুন"
+
+
+def test_render_leaves_unknown_placeholder_verbatim() -> None:
+    tmpl: NotificationTemplate = NotificationTemplateFactory(  # type: ignore[assignment]
+        body_en="Hello {name}, owe {amount}",
+        body_bn="হ্যালো {name}",
+    )
+    rendered = tmpl.render({"name": "Karim"})
+    assert rendered["body_en"] == "Hello Karim, owe {amount}"
+    assert rendered["body_bn"] == "হ্যালো Karim"
+
+
+def test_render_handles_no_variables() -> None:
+    tmpl: NotificationTemplate = NotificationTemplateFactory(  # type: ignore[assignment]
+        body_en="static body"
+    )
+    assert tmpl.render()["body_en"] == "static body"
+
+
+def test_get_template_returns_active_row_by_key() -> None:
+    from khatir.notifications.models import get_template
+
+    NotificationTemplateFactory(key="welcome_x", active=True)  # type: ignore[call-arg]
+    assert get_template("welcome_x").key == "welcome_x"
+
+
+def test_get_template_skips_inactive() -> None:
+    from khatir.notifications.models import get_template
+
+    NotificationTemplateFactory(key="dormant_x", active=False)  # type: ignore[call-arg]
+    with pytest.raises(NotificationTemplate.DoesNotExist):
+        get_template("dormant_x")
+
+
+def test_get_template_missing_raises() -> None:
+    from khatir.notifications.models import get_template
+
+    with pytest.raises(NotificationTemplate.DoesNotExist):
+        get_template("no_such_template")

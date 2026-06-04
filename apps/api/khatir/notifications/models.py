@@ -260,3 +260,47 @@ class NotificationTemplate(TimeStampedModel):
 
     def __str__(self) -> str:
         return self.key
+
+    def render(self, variables: dict[str, object] | None = None) -> dict[str, str]:
+        """Interpolate ``variables`` into the bilingual title/body fields.
+
+        Returns a dict with the four rendered strings
+        (``title_en``/``title_bn``/``body_en``/``body_bn``). Placeholders use
+        ``str.format`` syntax (``{tenant_name}``); any placeholder absent from
+        ``variables`` is left verbatim so a partial fill never raises. Callers
+        pick the language(s) they need from the result.
+        """
+        values = dict(variables or {})
+
+        def _fill(text: str) -> str:
+            # ``format_map`` over a default-returning mapping leaves unknown
+            # ``{placeholder}`` tokens untouched rather than raising KeyError.
+            return text.format_map(_LenientFormatDict(values))
+
+        return {
+            "title_en": _fill(self.title_en),
+            "title_bn": _fill(self.title_bn),
+            "body_en": _fill(self.body_en),
+            "body_bn": _fill(self.body_bn),
+        }
+
+
+class _LenientFormatDict(dict):  # type: ignore[type-arg]
+    """A ``format_map`` mapping that echoes unknown keys as ``{key}``.
+
+    Lets :meth:`NotificationTemplate.render` tolerate a placeholder the caller
+    did not supply instead of raising ``KeyError`` mid-render.
+    """
+
+    def __missing__(self, key: str) -> str:
+        return "{" + key + "}"
+
+
+def get_template(key: str) -> NotificationTemplate:
+    """Return the active :class:`NotificationTemplate` for ``key``.
+
+    Raises :class:`NotificationTemplate.DoesNotExist` if no active row exists,
+    so callers fail loudly rather than silently sending nothing. Templates are
+    admin-editable, so the copy is always read fresh from the database.
+    """
+    return NotificationTemplate.objects.get(key=key, active=True)

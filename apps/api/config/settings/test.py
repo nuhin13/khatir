@@ -35,3 +35,8 @@ FIELD_ENCRYPTION_KEY = "32SDpIJPPLw0lyx6ULQ8-e31Vqhl6zy77JSD8LKIBHI="
 # Deterministic JWT signing key (>=32 bytes) so simplejwt does not warn about a
 # short HMAC key during the suite; prod supplies a real JWT_SIGNING_KEY via env.
 SIMPLE_JWT = {**SIMPLE_JWT, "SIGNING_KEY": "test-jwt-signing-key-at-least-32-bytes-long"}  # noqa: F405
+
+# Force filesystem (encrypted) object storage in tests regardless of a local
+# ``.env`` setting S3_BUCKET — the suite must never reach a real S3 bucket.
+# store_encrypted() falls back to ENCRYPTED_STORAGE_ROOT when S3_BUCKET is empty.
+S3_BUCKET = ""

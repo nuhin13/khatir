@@ -5,14 +5,27 @@ Mounted at ``/admin/api/`` (see :mod:`khatir.compliance.urls`, included from
 ``audit`` section role (``super`` / ``compliance`` — task §2).
 
 * ``GET /admin/api/consent-records`` — paginated, filterable consent log.
+* ``GET /admin/api/audit-log``       — paginated, filterable admin audit log,
+  with a ``?format=csv`` streaming export (EPIC-16.T-002).
 
-The consent log is **read-only**: ``ConsentRecord`` is append-only (PDPA), so no
-create/update/delete endpoints exist. Supported query filters:
+These logs are **read-only**: ``ConsentRecord`` (PDPA) and ``AdminAuditEntry``
+are both append-only, so no create/update/delete endpoints exist. Supported
+consent-record query filters:
 
 * ``user``         — only records for this customer user id.
 * ``consent_type`` — exact match on :class:`~khatir.compliance.enums.ConsentType`.
 * ``granted_from`` — records granted on/after this ISO date/datetime.
 * ``granted_to``   — records granted on/before this ISO date/datetime.
+
+Supported audit-log query filters:
+
+* ``admin_user``  — only entries performed by this admin user id.
+* ``action``      — exact match on the ``domain.verb`` action string.
+* ``entity_type`` — exact match on the affected ``app_label.model`` string.
+* ``entity_id``   — exact match on the affected entity primary key.
+* ``date_from``   — entries created on/after this ISO date/datetime.
+* ``date_to``     — entries created on/before this ISO date/datetime.
+* ``format=csv``  — stream the filtered set as a CSV download.
 """
 
 from __future__ import annotations

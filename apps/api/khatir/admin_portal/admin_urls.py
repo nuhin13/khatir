@@ -11,6 +11,13 @@ below the dashboard entry (keep additions additive — never reorder/remove).
 
 from django.urls import path
 
+from khatir.ai_providers.admin_views import (
+    AIProviderDetailView,
+    AIProviderListCreateView,
+    AIProviderTestConnectionView,
+    AIUsageView,
+)
+
 from .dashboard_views import PlatformDashboardView
 from .pricing_views import (
     PricingTierEditView,
@@ -67,4 +74,21 @@ urlpatterns = [
         RefundProcessView.as_view(),
         name="refunds-process",
     ),
+    # EPIC-14.T-009 — AI provider CRUD + test-connection + usage.
+    path(
+        "ai-providers",
+        AIProviderListCreateView.as_view(),
+        name="ai-providers",
+    ),
+    path(
+        "ai-providers/<int:provider_id>",
+        AIProviderDetailView.as_view(),
+        name="ai-providers-detail",
+    ),
+    path(
+        "ai-providers/<int:provider_id>/test-connection",
+        AIProviderTestConnectionView.as_view(),
+        name="ai-providers-test-connection",
+    ),
+    path("ai-usage", AIUsageView.as_view(), name="ai-usage"),
 ]
