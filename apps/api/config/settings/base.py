@@ -327,3 +327,11 @@ ADMIN_MFA_CHALLENGE_LIFETIME_MIN = env.int("ADMIN_MFA_CHALLENGE_LIFETIME_MIN", d
 # returns an ``mfa_required`` challenge instead of a token. Accounts without a
 # TOTP secret can still log in directly (first-run / pre-MFA-setup).
 ADMIN_MFA_REQUIRED = env.bool("ADMIN_MFA_REQUIRED", default=True)
+
+# ── PDPA data-request SLA (EPIC-16.T-004) ─────────────────────────────
+# A data subject's export/erasure request must be fulfilled within this many
+# days of submission (regulatory deadline). Used to compute ``sla_due`` when a
+# request is created and to classify queue rows as on_track / due_soon / overdue.
+DATA_REQUEST_SLA_DAYS = env.int("DATA_REQUEST_SLA_DAYS", default=30)
+# A request whose deadline is within this many days is flagged ``due_soon``.
+DATA_REQUEST_SLA_DUE_SOON_DAYS = env.int("DATA_REQUEST_SLA_DUE_SOON_DAYS", default=7)
