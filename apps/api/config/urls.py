@@ -15,6 +15,13 @@ from drf_spectacular.views import (
 from khatir.health.views import healthz
 
 urlpatterns = [
+    # Admin-portal staff auth (EPIC-11.T-003) — separate JWT realm. Listed
+    # before the Django ``admin/`` site so the more specific prefix matches.
+    path("admin/api/auth/", include("khatir.admin_portal.urls")),
+    # Admin-portal application API (EPIC-11.T-005) — platform dashboard etc.
+    path("admin/api/", include("khatir.admin_portal.admin_urls")),
+    # Admin feature-flag CRUD/toggle (EPIC-13.T-002) — /admin/api/flags.
+    path("admin/api/", include("khatir.featureflags.urls")),
     path("admin/", admin.site.urls),
     path("healthz", healthz, name="healthz"),
     # Public, no-login tenant pay page (token-scoped). Browser HTML, so it

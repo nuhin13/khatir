@@ -4,15 +4,15 @@ epic: EPIC-11
 title: Admin auth endpoints (login, MFA, logout, me)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001]
 blocks: [T-007]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-04
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -52,16 +52,16 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] login (verify password, return mfa_challenge or token)
-- [ ] verify-mfa (TOTP, issue admin JWT with separate key)
-- [ ] logout (blacklist/invalidate)
-- [ ] me endpoint
-- [ ] disabled accounts blocked
-- [ ] admin_mfa_required config respected
-- [ ] rate-limit on login + verify-mfa
-- [ ] audit on login/logout/failed
-- [ ] Tests: happy login, wrong password, MFA wrong, disabled, rate-limit
-- [ ] ruff + mypy clean
+- [x] login (verify password, return mfa_challenge or token)
+- [x] verify-mfa (TOTP, issue admin JWT with separate key)
+- [x] logout (blacklist/invalidate)
+- [x] me endpoint
+- [x] disabled accounts blocked
+- [x] admin_mfa_required config respected
+- [x] rate-limit on login + verify-mfa
+- [x] audit on login/logout/failed
+- [x] Tests: happy login, wrong password, MFA wrong, disabled, rate-limit
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -70,11 +70,24 @@ None.
 1. Full admin login → MFA → dashboard.
 
 ## 13. Acceptance criteria
-- [ ] Admin auth flow complete + audited; separate JWT; tests + lint pass.
+- [x] Admin auth flow complete + audited; separate JWT; tests + lint pass.
 ## 14. Self-review
-- [ ] ADMIN_JWT_SIGNING_KEY separate from JWT_SIGNING_KEY; TOTP verified correctly
+- [x] ADMIN_JWT_SIGNING_KEY separate from JWT_SIGNING_KEY; TOTP verified correctly
 ### Deviations from spec
+- Admin tokens are minted with **PyJWT directly** (HS256) rather than via
+  ``rest_framework_simplejwt``, because ``AdminUser`` is not a Django auth user
+  (T-001) and simplejwt binds tokens to ``AUTH_USER_MODEL``. A self-contained
+  token + a dedicated ``AdminJWTAuthentication`` keeps the two realms fully
+  separate. Logout revokes by ``jti`` in the cache (no DB blacklist table).
+- ``verify-mfa`` is rate-limited by IP only (it carries an opaque ``mfa_token``,
+  no email); the per-email login throttle already caps challenge issuance.
+- Config (``ADMIN_MFA_REQUIRED``, ``ADMIN_SESSION_TIMEOUT_MINUTES``, lifetimes,
+  throttle rates) lives in settings/env — there is no admin SystemConfig surface yet.
 ### Files touched (actual)
+- Add: admin_portal/{auth_tokens,authentication,services,serializers,throttling,
+  urls,views}.py; admin_portal/tests/test_admin_auth.py
+- Update: config/urls.py (admin auth prefix), config/settings/base.py
+  (ADMIN_JWT_* + ADMIN_MFA_* + admin throttle rates), pyproject.toml/uv.lock (pyotp)
 
 ## 15. Notes for the implementing agent
 - Use `pyotp` for TOTP. ADMIN_JWT_SIGNING_KEY from env. Short access TTL (e.g. 60 min, from config). Session timeout = config admin_session_timeout_minutes.

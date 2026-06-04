@@ -250,6 +250,14 @@ REST_FRAMEWORK = {
         # Per-user cap on the voice endpoint (EPIC-04.T-006): each call hits a
         # paid external ASR provider, same cost profile as OCR. Tunable per env.
         "tenant_voice": env("THROTTLE_TENANT_VOICE", default="30/hour"),
+        # Admin-portal auth (EPIC-11.T-003): cap password + MFA brute force on
+        # the staff login surface, keyed by submitted email and by client IP.
+        "admin_login_email": env("THROTTLE_ADMIN_LOGIN_EMAIL", default="10/10min"),
+        "admin_login_ip": env("THROTTLE_ADMIN_LOGIN_IP", default="30/10min"),
+        # verify-mfa carries an opaque mfa_token (no email), so it is capped by
+        # IP only — the per-email login throttle already gates how many MFA
+        # challenges a given account can trigger upstream.
+        "admin_mfa_ip": env("THROTTLE_ADMIN_MFA_IP", default="30/10min"),
     },
 }
 
@@ -286,3 +294,25 @@ SIMPLE_JWT = {
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
 }
+
+# ── Admin-portal auth (EPIC-11.T-003) ─────────────────────────────────
+# Staff (admin_portal.AdminUser) auth is *completely separate* from the
+# customer JWT above: a dedicated signing key (env-only), self-contained
+# HS256 tokens (PyJWT, not simplejwt — AdminUser is not a Django auth user),
+# a short access TTL, and a mandatory TOTP MFA step. A blank env value is
+# treated as unset and falls back to a derived per-deployment key so the two
+# realms can never share a signing secret by accident.
+ADMIN_JWT_SIGNING_KEY = (
+    env("ADMIN_JWT_SIGNING_KEY", default="").strip() or f"admin::{SECRET_KEY}"
+)
+# Short access lifetime (task §15: e.g. 60 min). The admin session timeout is a
+# separate, ops-tunable cap surfaced to the UI; the token never outlives it.
+ADMIN_JWT_ACCESS_LIFETIME_MIN = env.int("ADMIN_JWT_ACCESS_LIFETIME_MIN", default=60)
+ADMIN_SESSION_TIMEOUT_MINUTES = env.int("ADMIN_SESSION_TIMEOUT_MINUTES", default=60)
+# Short-lived token that carries the user past the password step to the TOTP
+# step; it is useless for anything else and expires quickly.
+ADMIN_MFA_CHALLENGE_LIFETIME_MIN = env.int("ADMIN_MFA_CHALLENGE_LIFETIME_MIN", default=5)
+# When true, an account with a configured TOTP secret must complete MFA; login
+# returns an ``mfa_required`` challenge instead of a token. Accounts without a
+# TOTP secret can still log in directly (first-run / pre-MFA-setup).
+ADMIN_MFA_REQUIRED = env.bool("ADMIN_MFA_REQUIRED", default=True)
