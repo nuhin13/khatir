@@ -72,4 +72,5 @@ class ErrorCode(models.TextChoices):
     UPSTREAM_UNAVAILABLE = "upstream_unavailable", "Upstream unavailable"
     FEATURE_DISABLED = "feature_disabled", "Feature disabled"
     PAYMENT_REQUIRED = "payment_required", "Payment required"
+    TIER_LIMIT_EXCEEDED = "tier_limit_exceeded", "Tier limit exceeded"
     SERVER_ERROR = "server_error", "Server error"

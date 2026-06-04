@@ -14,6 +14,7 @@ from typing import Any
 from django.db import transaction
 
 from khatir.accounts.models import User
+from khatir.billing.services import check_tenant_limit
 from khatir.core.audit import audit
 
 from .models import Tenant, TenantFamilyMember
@@ -59,9 +60,17 @@ def create_tenant(
     ``set_nid`` — only the ciphertext + masked form are persisted. The whole
     write is atomic so a tenant never lands without its family rows. Audited as
     ``tenant.create`` (masked NID only).
+
+    Raises :class:`~khatir.core.exceptions.TierLimitExceeded` (``402``,
+    ``tier_limit_exceeded``) when ``actor`` is already at their plan/free-tier
+    tenant cap, before anything is written.
     """
     data = {k: v for k, v in fields.items() if k in _WRITABLE_FIELDS}
     with transaction.atomic():
+        # Free-tier / plan enforcement (EPIC-10 T-003): blocks the create and
+        # holds a row lock for the whole transaction so concurrent creates for
+        # the same landlord cannot both slip past the cap.
+        check_tenant_limit(actor)
         tenant = Tenant(**data)
         tenant.set_nid(nid_number)
         tenant.save()

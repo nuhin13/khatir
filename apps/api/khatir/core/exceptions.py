@@ -108,6 +108,12 @@ class PaymentRequiredError(AppError):
     default_detail = "Payment is required."
 
 
+class TierLimitExceeded(AppError):
+    error_code = ErrorCode.TIER_LIMIT_EXCEEDED
+    status_code = status.HTTP_402_PAYMENT_REQUIRED
+    default_detail = "You have reached your plan's tenant limit. Upgrade to add more."
+
+
 class ServerError(AppError):
     error_code = ErrorCode.SERVER_ERROR
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
