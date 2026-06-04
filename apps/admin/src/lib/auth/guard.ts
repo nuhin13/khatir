@@ -1,23 +1,14 @@
-import { cookies } from "next/headers";
-
 /**
- * Auth guard STUB. Real email+password+MFA session handling lands in EPIC-11.
+ * Auth guard — EPIC-11.T-007.
  *
- * For now we only check for the presence of a fake session cookie. The
- * dashboard layout calls {@link requireSession} and redirects to /login when
- * no session is present.
+ * The dashboard layout calls {@link getSession} and redirects to /login when no
+ * admin session cookie is present. The real session/cookie handling now lives
+ * in {@link module:lib/auth/session}; this module re-exports it so existing
+ * `@/lib/auth/guard` imports keep working.
  */
 
-export const ADMIN_SESSION_COOKIE = "khatir_admin_session";
-
-export interface AdminSession {
-  token: string;
-}
-
-/** Read the (fake) admin session from cookies, or null if absent. */
-export async function getSession(): Promise<AdminSession | null> {
-  const store = await cookies();
-  const token = store.get(ADMIN_SESSION_COOKIE)?.value;
-  if (!token) return null;
-  return { token };
-}
+export {
+  ADMIN_SESSION_COOKIE,
+  getSession,
+  type AdminSession,
+} from "./session";

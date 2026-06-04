@@ -4,15 +4,15 @@ epic: EPIC-11
 title: Admin login + MFA screen (Next.js)
 layer: admin
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003]
 blocks: [T-008]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -48,13 +48,13 @@ No DB; consumes admin auth endpoints; surface admin 🟣; no external; no flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] /login: email+password form, POST /login
-- [ ] MFA challenge → /login/mfa step (6-digit input)
-- [ ] session token stored (HTTP-only cookie)
-- [ ] error states (wrong creds, wrong MFA, disabled)
-- [ ] redirect to /dashboard on success
-- [ ] test (login flow)
-- [ ] eslint + tsc + build pass
+- [x] /login: email+password form, POST /login
+- [x] MFA challenge → /login/mfa step (6-digit input)
+- [x] session token stored (HTTP-only cookie)
+- [x] error states (wrong creds, wrong MFA, disabled)
+- [x] redirect to /dashboard on success
+- [x] test (login flow)
+- [x] eslint + tsc + build pass
 
 ## 12. Test plan
 ### Automated
@@ -63,11 +63,27 @@ No DB; consumes admin auth endpoints; surface admin 🟣; no external; no flags.
 1. Full login → MFA → dashboard. Wrong MFA → error + retry.
 
 ## 13. Acceptance criteria
-- [ ] Admin login + MFA works; session set; errors handled; tests pass.
+- [x] Admin login + MFA works; session set; errors handled; tests pass.
 ## 14. Self-review
-- [ ] HTTP-only cookie (not localStorage); MFA steps clear
+- [x] HTTP-only cookie (not localStorage); MFA steps clear
 ### Deviations from spec
+- The browser never sees the admin access token. Both login steps proxy through
+  server-side Next route handlers (`app/api/auth/{login,verify-mfa,logout}`)
+  which call the EPIC-11.T-003 backend and write the returned token into an
+  HTTP-only, SameSite=strict cookie via `lib/auth/session.ts`. The transient
+  MFA challenge token is likewise stored in a short-lived HTTP-only cookie
+  between steps (read server-side in `/api/auth/verify-mfa`), so it is never
+  exposed to client JS — stronger than passing it through the page.
+- "Account disabled" / "wrong MFA" are surfaced via the backend's deliberately
+  uniform `auth_invalid` message (T-003 hides which factor failed); rate-limit
+  (429) and expired-challenge (440 → restart at `/login`) are handled too.
+- `lib/auth/guard.ts` now re-exports the cookie constant + `getSession` from the
+  new `lib/auth/session.ts` (no behaviour change for the dashboard layout).
 ### Files touched (actual)
+- Update: app/login/page.tsx (real client form), lib/auth/guard.ts (re-export)
+- Add: app/login/mfa/page.tsx; lib/auth/session.ts (cookie helpers);
+  lib/auth/api.ts (zod-validated backend calls);
+  app/api/auth/{login,verify-mfa,logout}/route.ts; test/login.test.tsx
 
 ## 15. Notes for the implementing agent
 - Use an HTTP-only cookie for the admin token — admin portal is desktop web, cookies are appropriate and safer than localStorage. TOTP window ±30s tolerance.
