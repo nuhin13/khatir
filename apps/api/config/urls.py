@@ -17,9 +17,16 @@ from khatir.health.views import healthz
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("healthz", healthz, name="healthz"),
+    # Public, no-login tenant pay page (token-scoped). Browser HTML, so it
+    # lives at the root rather than under ``/api/v1/``.
+    path("", include("khatir.rent.web_urls")),
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
     path("api/v1/", include("khatir.properties.urls")),
+    path("api/v1/", include("khatir.tenants.urls")),
+    path("api/v1/", include("khatir.leases.urls")),
+    path("api/v1/", include("khatir.dmpforms.urls")),
+    path("api/v1/", include("khatir.rent.urls")),
     path("api/v1/auth/", include("khatir.accounts.urls")),
     # OpenAPI schema + interactive docs (drf-spectacular).
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),

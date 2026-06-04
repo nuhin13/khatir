@@ -4,14 +4,14 @@ epic: EPIC-05
 title: PDF generation (template-accurate)
 layer: backend
 size: L
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002]
 blocks: [T-005, T-010]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
+completed_at: 2026-06-04
 executed_by:
 reviewed_at:
 reviewed_by:

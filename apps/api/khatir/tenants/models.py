@@ -16,9 +16,11 @@ from __future__ import annotations
 from django.conf import settings
 from django.db import models
 
+from khatir.core.encryption import decrypt, encrypt, mask
 from khatir.core.models import SoftDeleteModel, TimeStampedModel
 
 from .enums import VerificationStatus
+from .managers import TenantManager
 
 
 class Tenant(SoftDeleteModel):
@@ -82,12 +84,43 @@ class Tenant(SoftDeleteModel):
         help_text="Their app account, if any.",
     )
 
+    objects = TenantManager()  # type: ignore[misc]
+
     class Meta:
         ordering = ("-created_at",)
         indexes = [models.Index(fields=["nid_number_masked"])]
 
     def __str__(self) -> str:
         return self.name
+
+    # --- NID encryption / masking (T-002) -----------------------------------
+
+    def set_nid(self, raw: str | None) -> None:
+        """Encrypt and store the NID, deriving the masked form for display.
+
+        Stores the Fernet ciphertext (UTF-8 bytes) in ``nid_number_enc`` and a
+        ``****last4`` form in ``nid_number_masked``. Passing an empty/``None``
+        value clears both. Never persists or returns the plaintext elsewhere.
+        Call ``save()`` to persist.
+        """
+        if not raw:
+            self.nid_number_enc = None
+            self.nid_number_masked = ""
+            return
+        self.nid_number_enc = encrypt(raw).encode("utf-8")
+        self.nid_number_masked = mask(raw)
+
+    def get_nid(self) -> str | None:
+        """Explicitly decrypt and return the full NID, or ``None`` if unset.
+
+        This is the **only** path to the plaintext NID; it is deliberately a
+        named method (never a serializer field or default representation) so
+        callers must opt in and audit the access. Never log the return value.
+        """
+        if not self.nid_number_enc:
+            return None
+        token = bytes(self.nid_number_enc).decode("utf-8")
+        return decrypt(token)
 
 
 class TenantFamilyMember(TimeStampedModel):

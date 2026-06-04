@@ -4,14 +4,14 @@ epic: EPIC-07
 title: Reminder cadence Celery task
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-004, EPIC-00.T-006]
 blocks: []
 external_services: [whatsapp, sms]
 feature_flags: []
 started_at:
-completed_at:
+completed_at: 2026-06-04
 executed_by:
 reviewed_at:
 reviewed_by:

@@ -21,9 +21,10 @@ from decimal import Decimal
 from django.conf import settings
 from django.db import models
 
-from khatir.core.models import SoftDeleteModel, TimeStampedModel
+from khatir.core.models import AllObjectsManager, SoftDeleteModel, TimeStampedModel
 
 from .enums import LeaseStatus, RentScheduleStatus
+from .managers import LeaseManager
 
 
 class Lease(SoftDeleteModel):
@@ -75,6 +76,9 @@ class Lease(SoftDeleteModel):
         default="",
         help_text="Pointer to the signed agreement PDF in object storage (P1 e-sign).",
     )
+
+    objects = LeaseManager()  # type: ignore[misc]
+    all_objects = AllObjectsManager()  # type: ignore[misc]
 
     class Meta:
         ordering = ("-created_at",)

@@ -4,14 +4,14 @@ epic: EPIC-07
 title: Tenant web pay page (token)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002]
 blocks: [T-006]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
+completed_at: 2026-06-04
 executed_by:
 reviewed_at:
 reviewed_by:
