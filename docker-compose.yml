@@ -127,6 +127,32 @@ services:
       redis:
         condition: service_healthy
 
+  # ── ai-gateway ───────────────────────────────────────────────────────
+  # FastAPI AI provider abstraction (EPIC-14). Thin, stateless router — no DB.
+  # Reaches Django over the compose network; the shared internal token comes
+  # from .env (AI_GATEWAY_INTERNAL_TOKEN). Serves /healthz on port 8100.
+  ai-gateway:
+    build:
+      context: ./services/ai-gateway
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8100:8100"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8100/healthz').status==200 else 1)",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
   # ── admin ────────────────────────────────────────────────────────────
   # Next.js admin portal (enabled by T-009).
   admin:
