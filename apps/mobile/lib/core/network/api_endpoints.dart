@@ -71,6 +71,29 @@ class ApiEndpoints {
   /// `/api/v1/units/{id}/tenants` — tenants holding a lease on a unit.
   static String unitTenants(String unitId) => '$units/$unitId/tenants';
 
+  /// `/api/v1/units/{id}/lease` — the unit's current (active) lease plus an
+  /// embedded tenant summary (EPIC-06 T-004). 404 when the unit has no active
+  /// lease.
+  static String unitLease(String unitId) => '$units/$unitId/lease';
+
+  // Leases (EPIC-06): top-level resource at `/api/v1/leases` (no trailing
+  // slash). Lifecycle transitions + the rent schedule are `@action` subpaths
+  // on a single lease.
+  static const String leases = '$apiPrefix/leases';
+
+  /// `/api/v1/leases/{id}` — single-lease detail / partial update.
+  static String lease(String id) => '$leases/$id';
+
+  /// `/api/v1/leases/{id}/schedule` — the lease's rent schedule (read-only).
+  static String leaseSchedule(String id) => '${lease(id)}/schedule';
+
+  /// `/api/v1/leases/{id}/activate` — activate a draft lease (generates its
+  /// rent schedule).
+  static String leaseActivate(String id) => '${lease(id)}/activate';
+
+  /// `/api/v1/leases/{id}/terminate` — end/terminate an active lease.
+  static String leaseTerminate(String id) => '${lease(id)}/terminate';
+
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 
