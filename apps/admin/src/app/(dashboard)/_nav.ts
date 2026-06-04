@@ -74,11 +74,13 @@ export const NAV_ITEMS: readonly NavItem[] = [
     comingSoon: true,
   },
   {
+    // AI-provider endpoints are gated on the `platform` section (super + ops)
+    // in ai_providers/admin_views.py (EPIC-14.T-009). `navForRole` grants super
+    // every item, so only `ops` needs naming. Built in EPIC-14.T-011.
     label: "AI providers",
     href: "/ai-providers",
     icon: Bot,
-    roles: [],
-    comingSoon: true,
+    roles: ["ops"],
   },
   {
     label: "Audit log",
