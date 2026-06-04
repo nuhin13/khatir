@@ -42,7 +42,9 @@ export interface NavItem {
  * - Pricing: finance (the `billing`/`pricing` sections).
  * - Features: ops (the `platform` section — flags are super/ops-gated in
  *   `featureflags/views.py`, EPIC-13.T-002).
- * - Kill-switch / Compliance: compliance (audit + kill-switches).
+ * - Compliance: compliance (audit + compliance basics).
+ * - Kill-switch: super only — the kill-switch endpoints are `IsSuperAdmin`
+ *   gated (`featureflags/killswitch_views.py`, EPIC-13.T-003).
  * - Notifications / AI providers / System / Admin users / Security: super only
  *   (no scoped role owns these in §2.1, so they stay super-exclusive).
  *
@@ -55,11 +57,14 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { label: "Refunds", href: "/billing/refunds", icon: Receipt, roles: ["finance"] },
   { label: "Features", href: "/features", icon: Rocket, roles: ["ops"] },
   {
+    // Kill-switch endpoints are gated `IsSuperAdmin` (featureflags/
+    // killswitch_views.py, EPIC-13.T-003), so this is super-only — `navForRole`
+    // already grants `super` every item, hence the empty `roles` list. Built in
+    // EPIC-13.T-006.
     label: "Kill-switch",
     href: "/kill-switch",
     icon: Power,
-    roles: ["compliance"],
-    comingSoon: true,
+    roles: [],
   },
   {
     label: "Notifications",
