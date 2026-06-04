@@ -159,6 +159,27 @@ class UnitViewSet(
         unit = self.get_object()
         return success(UnitSerializer(unit).data)
 
+    @action(detail=True, methods=["get"], url_path="lease")
+    def lease(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        """Return the unit's current (active) lease + tenant summary (T-004 §7).
+
+        ``get_object`` resolves the unit through ``for_user`` first (foreign unit
+        → 404). The active lease itself is fetched ``for_user``-scoped; when the
+        unit has no active lease the response is **404** (T-004 §15) — there is
+        no such thing as an "empty" current lease.
+        """
+        # Imported here to keep the cross-app dependency out of module load
+        # order (leases scopes through properties' managers).
+        from khatir.core.exceptions import NotFoundError
+        from khatir.leases.selectors import active_lease_for_unit
+        from khatir.leases.serializers import UnitLeaseSerializer
+
+        unit = self.get_object()  # 404 if not visible to the user
+        lease = active_lease_for_unit(unit.pk, user=cast(User, request.user))
+        if lease is None:
+            raise NotFoundError("This unit has no active lease.")
+        return success(UnitLeaseSerializer(lease).data)
+
     def partial_update(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         unit = self.get_object()
         serializer = UnitUpdateSerializer(data=request.data)

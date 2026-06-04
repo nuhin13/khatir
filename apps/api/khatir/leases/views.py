@@ -27,11 +27,13 @@ from khatir.core.responses import created, success
 
 from .models import Lease
 from .permissions import IsOwnerOfLease
+from .selectors import schedule_for_lease
 from .serializers import (
     LeaseCreateSerializer,
     LeaseSerializer,
     LeaseTerminateSerializer,
     LeaseUpdateSerializer,
+    RentScheduleSerializer,
 )
 from .services import activate_lease, create_lease, terminate_lease, update_lease
 
@@ -75,6 +77,18 @@ class LeaseViewSet(
             **serializer.validated_data,
         )
         return success(LeaseSerializer(lease).data)
+
+    @action(detail=True, methods=["get"], url_path="schedule")
+    def schedule(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        """Return the lease's rent schedule, chronologically (T-004 §7).
+
+        Read-only. ``get_object`` resolves the lease through ``for_user`` first,
+        so a foreign/unknown lease is **404** — the schedule of a lease you can
+        not see is never revealed.
+        """
+        lease = self.get_object()  # 404 if not visible to the user
+        rows = schedule_for_lease(lease)
+        return success(RentScheduleSerializer(rows, many=True).data)
 
     @action(detail=True, methods=["post"], url_path="activate")
     def activate(self, request: Request, *args: Any, **kwargs: Any) -> Response:

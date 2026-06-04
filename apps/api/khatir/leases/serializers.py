@@ -11,8 +11,10 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
+from khatir.tenants.models import Tenant
+
 from .enums import LeaseStatus
-from .models import Lease
+from .models import Lease, RentSchedule
 
 
 class LeaseSerializer(serializers.ModelSerializer[Lease]):
@@ -42,6 +44,86 @@ class LeaseSerializer(serializers.ModelSerializer[Lease]):
             "signed_pdf_ref",
             "created_at",
             "updated_at",
+        )
+        read_only_fields = (
+            "id",
+            "unit_id",
+            "tenant_id",
+            "landlord_id",
+            "status",
+            "created_at",
+            "updated_at",
+        )
+
+
+class RentScheduleSerializer(serializers.ModelSerializer[RentSchedule]):
+    """Read/serialize a single rent-schedule row (T-004 §7).
+
+    Read-only — the schedule is materialised by the generation job (T-002), not
+    by the client. Ids are serialized as strings for stable client JSON.
+    """
+
+    id = serializers.CharField(read_only=True)
+    lease_id = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = RentSchedule
+        fields = (
+            "id",
+            "lease_id",
+            "period",
+            "due_day",
+            "due_date",
+            "amount",
+            "status",
+            "sent_at",
+            "created_at",
+            "updated_at",
+        )
+        read_only_fields = fields
+
+
+class LeaseTenantSummarySerializer(serializers.ModelSerializer[Tenant]):
+    """Compact tenant summary embedded in the unit current-lease payload.
+
+    Just enough to label the lease on the unit-detail screen — the full (masked)
+    tenant record is fetched from the tenants endpoints. The full NID is never
+    exposed; only the masked form (T-007 §3).
+    """
+
+    id = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Tenant
+        fields = ("id", "name", "nid_number_masked", "verification_status")
+        read_only_fields = fields
+
+
+class UnitLeaseSerializer(LeaseSerializer):
+    """A unit's current (active) lease plus an embedded tenant summary (T-004 §7).
+
+    Extends the read serializer with the nested ``tenant`` summary so the unit
+    detail screen can show who currently occupies the flat in one call.
+    """
+
+    tenant = LeaseTenantSummarySerializer(read_only=True)
+
+    class Meta:
+        model = Lease
+        fields = (
+            "id",
+            "unit_id",
+            "tenant_id",
+            "landlord_id",
+            "start_date",
+            "end_date",
+            "rent",
+            "advance",
+            "status",
+            "signed_pdf_ref",
+            "created_at",
+            "updated_at",
+            "tenant",
         )
         read_only_fields = (
             "id",

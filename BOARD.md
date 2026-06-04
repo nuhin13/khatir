@@ -96,3 +96,4 @@
 2026-06-04 | EPIC-04/T-005 | backend | claude | done | POST /tenants/ocr: encrypted image store + provider extract, per-user rate-limit, masked-only fields; pytest 651
 2026-06-04 | EPIC-04/T-006 | backend | claude | done | POST /tenants/voice: Bangla audio -> ASR fields, voice_tenant_entry flag gate (default on), audio discarded, per-user rate-limit; pytest 661
 2026-06-04 | EPIC-04/T-008 | backend | claude | done | GET /api/v1/usage: tenant_usage selector (for_user count, free_limit from SystemConfig, is_over_free soft signal); seed free_tier_tenant_limit=2; no creation block (EPIC-10 owns enforcement); pytest 669
+2026-06-04 | EPIC-06/T-004 | backend | claude | done | GET /leases/{id}/schedule (scoped, chronological) + GET /units/{id}/lease (active lease + tenant summary, none->404); leases selectors + RentSchedule/UnitLease serializers; pytest 678
