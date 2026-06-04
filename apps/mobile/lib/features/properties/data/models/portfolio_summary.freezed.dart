@@ -82,6 +82,17 @@ as double,
 /// Adds pattern-matching-related methods to [BuildingSummary].
 extension BuildingSummaryPatterns on BuildingSummary {
 /// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BuildingSummary value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
@@ -92,6 +103,18 @@ return $default(_that);case _:
 }
 }
 /// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
 @optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BuildingSummary value)  $default,){
 final _that = this;
 switch (_that) {
@@ -102,6 +125,17 @@ return $default(_that);case _:
 }
 }
 /// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BuildingSummary value)?  $default,){
 final _that = this;
 switch (_that) {
@@ -112,6 +146,17 @@ return $default(_that);case _:
 }
 }
 /// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  Area? area,  int totalUnits,  int occupied,  int vacant,  int maintenance,  double totalRent)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BuildingSummary() when $default != null:
@@ -121,6 +166,18 @@ return $default(_that.id,_that.name,_that.area,_that.totalUnits,_that.occupied,_
 }
 }
 /// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  Area? area,  int totalUnits,  int occupied,  int vacant,  int maintenance,  double totalRent)  $default,) {final _that = this;
 switch (_that) {
 case _BuildingSummary():
@@ -130,6 +187,17 @@ return $default(_that.id,_that.name,_that.area,_that.totalUnits,_that.occupied,_
 }
 }
 /// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  Area? area,  int totalUnits,  int occupied,  int vacant,  int maintenance,  double totalRent)?  $default,) {final _that = this;
 switch (_that) {
 case _BuildingSummary() when $default != null:
@@ -146,7 +214,7 @@ return $default(_that.id,_that.name,_that.area,_that.totalUnits,_that.occupied,_
 
 class _BuildingSummary implements BuildingSummary {
   const _BuildingSummary({required this.id, required this.name, this.area, this.totalUnits = 0, this.occupied = 0, this.vacant = 0, this.maintenance = 0, this.totalRent = 0});
-
+  
 
 @override final  String id;
 @override final  String name;
@@ -290,6 +358,17 @@ as double,
 /// Adds pattern-matching-related methods to [PortfolioTotals].
 extension PortfolioTotalsPatterns on PortfolioTotals {
 /// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PortfolioTotals value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
@@ -300,6 +379,18 @@ return $default(_that);case _:
 }
 }
 /// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
 @optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PortfolioTotals value)  $default,){
 final _that = this;
 switch (_that) {
@@ -310,6 +401,17 @@ return $default(_that);case _:
 }
 }
 /// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PortfolioTotals value)?  $default,){
 final _that = this;
 switch (_that) {
@@ -320,6 +422,17 @@ return $default(_that);case _:
 }
 }
 /// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int buildings,  int totalUnits,  int occupied,  int vacant,  int maintenance,  double totalRent)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PortfolioTotals() when $default != null:
@@ -329,6 +442,18 @@ return $default(_that.buildings,_that.totalUnits,_that.occupied,_that.vacant,_th
 }
 }
 /// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int buildings,  int totalUnits,  int occupied,  int vacant,  int maintenance,  double totalRent)  $default,) {final _that = this;
 switch (_that) {
 case _PortfolioTotals():
@@ -338,6 +463,17 @@ return $default(_that.buildings,_that.totalUnits,_that.occupied,_that.vacant,_th
 }
 }
 /// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int buildings,  int totalUnits,  int occupied,  int vacant,  int maintenance,  double totalRent)?  $default,) {final _that = this;
 switch (_that) {
 case _PortfolioTotals() when $default != null:
@@ -354,7 +490,7 @@ return $default(_that.buildings,_that.totalUnits,_that.occupied,_that.vacant,_th
 
 class _PortfolioTotals implements PortfolioTotals {
   const _PortfolioTotals({this.buildings = 0, this.totalUnits = 0, this.occupied = 0, this.vacant = 0, this.maintenance = 0, this.totalRent = 0});
-
+  
 
 @override@JsonKey() final  int buildings;
 @override@JsonKey() final  int totalUnits;
@@ -488,7 +624,7 @@ as PortfolioTotals,
 @override
 @pragma('vm:prefer-inline')
 $PortfolioTotalsCopyWith<$Res> get totals {
-
+  
   return $PortfolioTotalsCopyWith<$Res>(_self.totals, (value) {
     return _then(_self.copyWith(totals: value));
   });
@@ -499,6 +635,17 @@ $PortfolioTotalsCopyWith<$Res> get totals {
 /// Adds pattern-matching-related methods to [PortfolioSummary].
 extension PortfolioSummaryPatterns on PortfolioSummary {
 /// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PortfolioSummary value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
@@ -509,6 +656,18 @@ return $default(_that);case _:
 }
 }
 /// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
 @optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PortfolioSummary value)  $default,){
 final _that = this;
 switch (_that) {
@@ -519,6 +678,17 @@ return $default(_that);case _:
 }
 }
 /// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PortfolioSummary value)?  $default,){
 final _that = this;
 switch (_that) {
@@ -529,6 +699,17 @@ return $default(_that);case _:
 }
 }
 /// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<BuildingSummary> buildings,  PortfolioTotals totals)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PortfolioSummary() when $default != null:
@@ -538,6 +719,18 @@ return $default(_that.buildings,_that.totals);case _:
 }
 }
 /// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<BuildingSummary> buildings,  PortfolioTotals totals)  $default,) {final _that = this;
 switch (_that) {
 case _PortfolioSummary():
@@ -547,6 +740,17 @@ return $default(_that.buildings,_that.totals);case _:
 }
 }
 /// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<BuildingSummary> buildings,  PortfolioTotals totals)?  $default,) {final _that = this;
 switch (_that) {
 case _PortfolioSummary() when $default != null:
@@ -563,12 +767,12 @@ return $default(_that.buildings,_that.totals);case _:
 
 class _PortfolioSummary implements PortfolioSummary {
   const _PortfolioSummary({final  List<BuildingSummary> buildings = const <BuildingSummary>[], this.totals = const PortfolioTotals()}): _buildings = buildings;
-
+  
 
  final  List<BuildingSummary> _buildings;
 @override@JsonKey() List<BuildingSummary> get buildings {
   if (_buildings is EqualUnmodifiableListView) return _buildings;
-// ignore: implicit_dynamic_type
+  // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_buildings);
 }
 
@@ -634,7 +838,7 @@ as PortfolioTotals,
 @override
 @pragma('vm:prefer-inline')
 $PortfolioTotalsCopyWith<$Res> get totals {
-
+  
   return $PortfolioTotalsCopyWith<$Res>(_self.totals, (value) {
     return _then(_self.copyWith(totals: value));
   });

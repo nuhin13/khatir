@@ -680,4 +680,33 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get add_tenant_tip =>
       'Tip: the NID photo method is fastest — done in 2 minutes';
+
+  @override
+  String get ocr_capture_title => 'NID স্ক্যান · OCR';
+
+  @override
+  String get ocr_capture_heading => 'Snap your NID';
+
+  @override
+  String get ocr_frame_hint =>
+      'NID কার্ড ফ্রেমে রাখুন · Place the NID in the frame';
+
+  @override
+  String get ocr_privacy_note =>
+      'ভালো আলোতে ধরুন। ছবি কোথাও পাঠানো হবে না · Hold it in good light. The photo never leaves your phone.';
+
+  @override
+  String get ocr_take_photo => 'ছবি তুলুন · Take photo';
+
+  @override
+  String get ocr_from_gallery => 'গ্যালারি থেকে · From gallery';
+
+  @override
+  String get ocr_processing => 'AI পড়ছে… · Reading the NID…';
+
+  @override
+  String get ocr_error => 'ছবি পড়া যায়নি · Couldn\'t read the photo';
+
+  @override
+  String get ocr_retry => 'আবার চেষ্টা · Try again';
 }

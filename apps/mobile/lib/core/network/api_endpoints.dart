@@ -37,6 +37,11 @@ class ApiEndpoints {
   /// `/api/v1/portfolio` — landlord/manager portfolio summary.
   static const String portfolio = '$apiPrefix/portfolio';
 
+  // Tenants (EPIC-04). `tenants/ocr` runs NID OCR on an uploaded image and
+  // returns editable fields + an encrypted photo_ref (the tenant is not yet
+  // created). Declared before the tenants router on the backend.
+  static const String tenantOcr = '$apiPrefix/tenants/ocr';
+
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 

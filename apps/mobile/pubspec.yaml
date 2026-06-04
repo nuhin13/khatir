@@ -31,6 +31,10 @@ dependencies:
   # Secure storage (auth tokens)
   flutter_secure_storage: ^9.2.4
 
+  # Camera / gallery NID capture (EPIC-04 OCR). The picked image is uploaded
+  # then discarded — never persisted on device beyond the upload.
+  image_picker: ^1.2.2
+
   # Models / serialization (annotations; codegen via build_runner)
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0

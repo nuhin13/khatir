@@ -654,5 +654,41 @@
   "add_tenant_tip": "টিপ: NID ছবি পদ্ধতি সবচেয়ে দ্রুত — ২ মিনিটে শেষ",
   "@add_tenant_tip": {
     "description": "Tip card under the method list."
+  },
+  "ocr_capture_title": "NID স্ক্যান",
+  "@ocr_capture_title": {
+    "description": "Top-bar title for the NID OCR capture screen."
+  },
+  "ocr_capture_heading": "NID-এর ছবি তুলুন",
+  "@ocr_capture_heading": {
+    "description": "Handwritten-style heading above the camera frame."
+  },
+  "ocr_frame_hint": "NID কার্ড ফ্রেমে রাখুন",
+  "@ocr_frame_hint": {
+    "description": "Hint inside the camera viewfinder frame."
+  },
+  "ocr_privacy_note": "ভালো আলোতে ধরুন। ছবি কোথাও পাঠানো হবে না।",
+  "@ocr_privacy_note": {
+    "description": "Privacy reassurance card under the camera frame."
+  },
+  "ocr_take_photo": "ছবি তুলুন",
+  "@ocr_take_photo": {
+    "description": "Camera capture button."
+  },
+  "ocr_from_gallery": "গ্যালারি থেকে",
+  "@ocr_from_gallery": {
+    "description": "Gallery fallback button."
+  },
+  "ocr_processing": "AI পড়ছে…",
+  "@ocr_processing": {
+    "description": "Loading label shown while the upload + OCR runs."
+  },
+  "ocr_error": "ছবি পড়া যায়নি",
+  "@ocr_error": {
+    "description": "Error heading shown when OCR fails."
+  },
+  "ocr_retry": "আবার চেষ্টা",
+  "@ocr_retry": {
+    "description": "Retry button shown on the OCR error state."
   }
 }

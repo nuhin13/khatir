@@ -83,6 +83,17 @@ as DateTime?,
 /// Adds pattern-matching-related methods to [Building].
 extension BuildingPatterns on Building {
 /// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Building value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
@@ -93,6 +104,18 @@ return $default(_that);case _:
 }
 }
 /// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
 @optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Building value)  $default,){
 final _that = this;
 switch (_that) {
@@ -103,6 +126,17 @@ return $default(_that);case _:
 }
 }
 /// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Building value)?  $default,){
 final _that = this;
 switch (_that) {
@@ -113,6 +147,17 @@ return $default(_that);case _:
 }
 }
 /// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? ownerId,  String name,  Area? area,  String address,  double? lat,  double? lng,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Building() when $default != null:
@@ -122,6 +167,18 @@ return $default(_that.id,_that.ownerId,_that.name,_that.area,_that.address,_that
 }
 }
 /// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? ownerId,  String name,  Area? area,  String address,  double? lat,  double? lng,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Building():
@@ -131,6 +188,17 @@ return $default(_that.id,_that.ownerId,_that.name,_that.area,_that.address,_that
 }
 }
 /// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? ownerId,  String name,  Area? area,  String address,  double? lat,  double? lng,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Building() when $default != null:
@@ -147,7 +215,7 @@ return $default(_that.id,_that.ownerId,_that.name,_that.area,_that.address,_that
 
 class _Building implements Building {
   const _Building({required this.id, this.ownerId, required this.name, this.area, required this.address, this.lat, this.lng, this.createdAt, this.updatedAt});
-
+  
 
 @override final  String id;
 @override final  String? ownerId;

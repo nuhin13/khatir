@@ -1375,6 +1375,60 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'টিপ: NID ছবি পদ্ধতি সবচেয়ে দ্রুত — ২ মিনিটে শেষ'**
   String get add_tenant_tip;
+
+  /// Top-bar title for the NID OCR capture screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID স্ক্যান'**
+  String get ocr_capture_title;
+
+  /// Handwritten-style heading above the camera frame.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID-এর ছবি তুলুন'**
+  String get ocr_capture_heading;
+
+  /// Hint inside the camera viewfinder frame.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID কার্ড ফ্রেমে রাখুন'**
+  String get ocr_frame_hint;
+
+  /// Privacy reassurance card under the camera frame.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভালো আলোতে ধরুন। ছবি কোথাও পাঠানো হবে না।'**
+  String get ocr_privacy_note;
+
+  /// Camera capture button.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি তুলুন'**
+  String get ocr_take_photo;
+
+  /// Gallery fallback button.
+  ///
+  /// In bn, this message translates to:
+  /// **'গ্যালারি থেকে'**
+  String get ocr_from_gallery;
+
+  /// Loading label shown while the upload + OCR runs.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI পড়ছে…'**
+  String get ocr_processing;
+
+  /// Error heading shown when OCR fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি পড়া যায়নি'**
+  String get ocr_error;
+
+  /// Retry button shown on the OCR error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get ocr_retry;
 }
 
 class _AppLocalizationsDelegate

@@ -19,6 +19,8 @@ import '../../features/shell/tenant_shell.dart';
 import '../../features/shell/widgets/shell_placeholder.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
+import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
+import '../../features/tenants/presentation/screens/ocr_review_args.dart';
 import '../../l10n/app_localizations.dart';
 import '../auth/auth_controller.dart';
 import '../auth/auth_state.dart';
@@ -367,13 +369,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             AddTenantScreen(unitId: state.uri.queryParameters['unit']),
         routes: [
           GoRoute(
-            // TODO(EPIC-04) replace with the NID OCR scan screen.
-            path: 'ocr',
+            // NID OCR capture (T-010): camera/gallery → upload → review.
+            path: OcrCaptureScreen.routePath,
             name: AddTenantScreen.ocrRouteName,
             parentNavigatorKey: _rootNavigatorKey,
-            builder: (context, state) => KShellPlaceholder(
-              tabLabel: AppLocalizations.of(context).add_tenant_ocr,
+            builder: (context, state) => OcrCaptureScreen(
+              unitId: state.uri.queryParameters['unit'],
             ),
+            routes: [
+              GoRoute(
+                // TODO(EPIC-04 T-011) replace with the OCR review screen. The
+                // capture screen (T-010) navigates here with typed
+                // [OcrReviewArgs] via `extra` on a successful extraction.
+                path: OcrReviewArgs.routePath,
+                name: OcrReviewArgs.routeName,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => KShellPlaceholder(
+                  tabLabel: AppLocalizations.of(context).ocr_capture_title,
+                ),
+              ),
+            ],
           ),
           GoRoute(
             // TODO(EPIC-04) replace with the voice-fill screen.
