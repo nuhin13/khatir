@@ -243,6 +243,10 @@ REST_FRAMEWORK = {
         "request_otp_ip": env("THROTTLE_REQUEST_OTP_IP", default="20/hour"),
         "verify_otp_phone": env("THROTTLE_VERIFY_OTP_PHONE", default="10/10min"),
         "verify_otp_ip": env("THROTTLE_VERIFY_OTP_IP", default="30/10min"),
+        # Per-user cap on the OCR endpoint (EPIC-04.T-005): each call hits a paid
+        # external OCR provider, so cap volume per landlord/manager. Tunable per
+        # environment without code changes.
+        "tenant_ocr": env("THROTTLE_TENANT_OCR", default="30/hour"),
     },
 }
 

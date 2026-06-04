@@ -12,6 +12,7 @@ from __future__ import annotations
 from rest_framework import serializers
 
 from .enums import VerificationStatus
+from .extraction import ExtractedTenant
 from .models import Tenant, TenantFamilyMember
 
 
@@ -97,3 +98,61 @@ class TenantUpdateSerializer(serializers.Serializer[dict[str, object]]):
                 "Provide at least one field to update."
             )
         return attrs
+
+
+class OcrRequestSerializer(serializers.Serializer[dict[str, object]]):
+    """Validates the multipart OCR body — a single NID ``image`` file (T-005 §1).
+
+    The file is read in the view, stored encrypted, and handed to the extraction
+    provider; it is never persisted to a model field here. A ``FileField`` (not
+    ``ImageField``) keeps intake decoder-agnostic — the OCR provider, not the
+    API, is responsible for interpreting the bytes — and avoids a heavy Pillow
+    dependency just to gate uploads.
+    """
+
+    image = serializers.FileField(write_only=True)
+
+
+class _ExtractedFieldSerializer(serializers.Serializer[dict[str, object]]):
+    """One extracted value + its optional 0–1 confidence (``ExtractedField``)."""
+
+    value = serializers.JSONField(allow_null=True)
+    confidence = serializers.FloatField(allow_null=True)
+
+
+class OcrResponseSerializer(serializers.Serializer[dict[str, object]]):
+    """Editable extraction result returned by ``POST /tenants/ocr`` (T-005 §1).
+
+    Carries the normalized, per-field :class:`ExtractedTenant` (each field with
+    an optional confidence so the review UI can flag low-confidence values) plus
+    the opaque ``photo_ref`` for the encrypted NID image. The raw provider
+    payload and the source image bytes are never part of this shape (privacy,
+    self-review §14).
+    """
+
+    name = _ExtractedFieldSerializer()
+    nid_number = _ExtractedFieldSerializer()
+    dob = _ExtractedFieldSerializer()
+    address = _ExtractedFieldSerializer()
+    photo_ref = serializers.CharField()
+
+    @staticmethod
+    def from_extraction(extracted: ExtractedTenant, photo_ref: str) -> dict[str, object]:
+        """Build the response payload from an ``ExtractedTenant`` + ``photo_ref``.
+
+        ``dob`` is serialized as an ISO date string; all other values pass
+        through as-is (already normalized text or ``None``).
+        """
+
+        def _field(name: str) -> dict[str, object | None]:
+            ef = getattr(extracted, name)
+            value = ef.value.isoformat() if hasattr(ef.value, "isoformat") else ef.value
+            return {"value": value, "confidence": ef.confidence}
+
+        return {
+            "name": _field("name"),
+            "nid_number": _field("nid_number"),
+            "dob": _field("dob"),
+            "address": _field("address"),
+            "photo_ref": photo_ref,
+        }

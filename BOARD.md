@@ -93,3 +93,4 @@
 2026-06-04 | EPIC-07/T-008 | backend | claude | done | integrated on bench/claude 4fb56f2; full gate green (pytest 625)
 2026-06-04 | EPIC-04/T-003 | backend | claude | done | S3 boto3 storage (SSE, private ACL, presigned URLs) + FS fallback; pytest 634
 2026-06-04 | EPIC-04/T-004 | backend | claude | done | TenantExtractionProvider ABC + OCR/ASR impls, normalized DTO, config-driven selection; pytest 642
+2026-06-04 | EPIC-04/T-005 | backend | claude | done | POST /tenants/ocr: encrypted image store + provider extract, per-user rate-limit, masked-only fields; pytest 651

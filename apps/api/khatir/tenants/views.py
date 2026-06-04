@@ -16,6 +16,7 @@ from typing import Any, cast
 
 from django.db.models import QuerySet
 from rest_framework import mixins, viewsets
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -23,16 +24,21 @@ from rest_framework.views import APIView
 from khatir.accounts.models import User
 from khatir.core.permissions import ForUserQuerySetMixin, IsLandlordOrManager
 from khatir.core.responses import created, success
+from khatir.core.storage import store_encrypted
 from khatir.properties.models import Unit
 
+from .extraction import get_ocr_provider
 from .models import Tenant
 from .permissions import IsLeaseHolderForUser
 from .serializers import (
+    OcrRequestSerializer,
+    OcrResponseSerializer,
     TenantCreateSerializer,
     TenantSerializer,
     TenantUpdateSerializer,
 )
 from .services import create_tenant, update_tenant
+from .throttling import OcrUserThrottle
 
 
 class TenantViewSet(
@@ -77,6 +83,39 @@ class TenantViewSet(
             **serializer.validated_data,
         )
         return success(TenantSerializer(tenant).data)
+
+
+class TenantOcrView(APIView):
+    """``POST /api/v1/tenants/ocr`` — NID image → editable fields (T-005 §1).
+
+    Accepts a multipart ``image``, stores it **encrypted** (T-003) under an
+    opaque ``photo_ref``, runs OCR via the swappable extraction provider (T-004),
+    and returns the normalized, editable :class:`ExtractedTenant` fields plus the
+    ``photo_ref``. It does **not** create the tenant — that is T-007 (the review
+    screen submits the edited fields). The raw provider payload and the image
+    bytes never leave the server (privacy, self-review §14).
+
+    Landlord/manager only; per-user rate-limited because each call hits a paid
+    external OCR provider.
+    """
+
+    permission_classes = [IsLandlordOrManager]
+    throttle_classes = [OcrUserThrottle]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        serializer = OcrRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        image = serializer.validated_data["image"]
+        image_bytes = image.read()
+
+        # Encrypt-at-rest first so the image is never held only in memory, then
+        # extract; the opaque key is what the client carries forward.
+        photo_ref = store_encrypted(image_bytes, kind="nid")
+        extracted = get_ocr_provider().extract_from_image(image_bytes)
+
+        payload = OcrResponseSerializer.from_extraction(extracted, photo_ref)
+        return success(OcrResponseSerializer(payload).data)
 
 
 class UnitTenantsView(APIView):
