@@ -4,7 +4,7 @@ epic: EPIC-05
 title: Flutter DMP data layer (repo/models)
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-004, T-005]
 blocks: [T-007, T-008]
@@ -46,11 +46,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] DmpData/DmpRecord models
-- [ ] repo getDmpData/generatePdf/getRecord
-- [ ] providers
-- [ ] tests (mocked)
-- [ ] analyze + test pass
+- [x] DmpData/DmpRecord models
+- [x] repo getDmpData/generatePdf/getRecord
+- [x] providers
+- [x] tests (mocked)
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -59,12 +59,26 @@ None.
 1. Fetch data + generate via repo.
 
 ## 13. Acceptance criteria
-- [ ] Typed DMP data layer; tests + analyze pass.
+- [x] Typed DMP data layer; tests + analyze pass.
 
 ## 14. Self-review
-- [ ] Masked NID only client-side
+- [x] Masked NID only client-side
 ### Deviations from spec
+- The screen-facing slice (DmpPreview / DmpPdfResult / getPreview / generatePdf
+  returning DmpPdfResult) was already committed out of order by T-007/T-008
+  (which depend on this task). To avoid regressing those green screens this task
+  ADDS the canonical typed layer alongside it: freezed `DmpData`
+  (+`DmpFamilyMemberData`) and `DmpRecord`, repo `getDmpData` / `generateRecord`
+  / `getRecord`, and `dmpDataProvider` / `dmpRecordProvider`. The spec's
+  `generatePdf` is satisfied by the existing `generatePdf` (presentation result)
+  plus the typed `generateRecord` (returns `DmpRecord`).
 ### Files touched (actual)
+- lib/features/dmpform/data/models/dmp_data.dart (+ generated dmp_data.freezed.dart)
+- lib/features/dmpform/data/models/dmp_record.dart (+ generated dmp_record.freezed.dart)
+- lib/features/dmpform/data/dmpform_repository.dart (getDmpData/generateRecord/getRecord)
+- lib/features/dmpform/data/dmpform_providers.dart (dmpDataProvider/dmpRecordProvider)
+- lib/core/network/api_endpoints.dart (dmpRecord(id))
+- test/dmp_data_layer_test.dart
 
 ## 15. Notes for the implementing agent
 - Keep full NID off the client; only masked in DmpData.

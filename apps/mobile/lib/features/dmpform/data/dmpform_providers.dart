@@ -4,13 +4,30 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/network/dio_client.dart';
 import 'dmpform_repository.dart';
+import 'models/dmp_data.dart';
 import 'models/dmp_pdf_result.dart';
 import 'models/dmp_preview.dart';
+import 'models/dmp_record.dart';
 
 /// The shared [DmpFormRepository], backed by the app-wide dio client.
 final dmpFormRepositoryProvider = Provider<DmpFormRepository>(
   (ref) => DmpFormRepository(ref.watch(dioClientProvider)),
 );
+
+/// The assembled, typed DMP data for one tenant ([DmpData], masked NID),
+/// exposed as an [AsyncValue] keyed by tenant id (EPIC-05 T-009). This is the
+/// canonical typed read; the preview screen uses [dmpPreviewProvider].
+final dmpDataProvider =
+    FutureProvider.family<DmpData, String>((ref, tenantId) {
+  return ref.watch(dmpFormRepositoryProvider).getDmpData(tenantId);
+});
+
+/// A previously generated DMP record ([DmpRecord] — metadata + signed URL),
+/// exposed as an [AsyncValue] keyed by record id (EPIC-05 T-009).
+final dmpRecordProvider =
+    FutureProvider.family<DmpRecord, String>((ref, recordId) {
+  return ref.watch(dmpFormRepositoryProvider).getRecord(recordId);
+});
 
 /// Loads the assembled DMP-form preview for one tenant, exposing [AsyncValue]
 /// (loading / error / data). Keyed by tenant id via [family] so the preview

@@ -63,6 +63,11 @@ class ApiEndpoints {
   static String tenantDmpFormPdf(String tenantId) =>
       '$tenants/$tenantId/dmpform/pdf';
 
+  /// `/api/v1/dmpforms/{id}` — retrieve a previously generated DMP record
+  /// (owner-scoped), returning the record metadata + a signed download URL.
+  static String dmpRecord(String recordId) =>
+      '$apiPrefix/dmpforms/$recordId';
+
   /// `/api/v1/units/{id}/tenants` — tenants holding a lease on a unit.
   static String unitTenants(String unitId) => '$units/$unitId/tenants';
 
