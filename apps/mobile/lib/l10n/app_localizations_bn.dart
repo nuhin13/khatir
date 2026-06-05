@@ -512,12 +512,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get unit_section_error => 'লোড করা যায়নি';
 
   @override
-  String get unit_lease_active => 'চলমান লিজ';
+  String get unit_lease_active => 'সক্রিয় লিজ';
 
   @override
-  String unit_lease_term(Object end, Object start) {
-    return '$start – $end';
-  }
+  String get unit_lease_term => 'মেয়াদ';
 
   @override
   String get unit_lease_no_dates => 'মেয়াদ নির্ধারিত নয়';
@@ -526,8 +524,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get unit_next_due => 'পরবর্তী কিস্তি';
 
   @override
-  String unit_next_due_value(Object amount, Object period) {
-    return '$period · ৳$amount';
+  String unit_next_due_value(String amount, String period) {
+    return '৳$amount · $period';
   }
 
   @override
@@ -1695,4 +1693,19 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get upgrade_later => 'এখন নয়';
+
+  @override
+  String get unit_lease_request_rent => 'ভাড়া চান';
+
+  @override
+  String get unit_lease_none => 'এখনো কোনো লিজ নেই';
+
+  @override
+  String get unit_lease_none_body => 'এই ইউনিটের জন্য একটি লিজ তৈরি করুন।';
+
+  @override
+  String get unit_tenant_verified => 'NID যাচাইকৃত';
+
+  @override
+  String get unit_tenant_unverified => 'NID যাচাই হয়নি';
 }

@@ -6,6 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:khatir_mobile/core/i18n/locale_provider.dart';
+import 'package:khatir_mobile/features/leases/data/lease_repository.dart';
+import 'package:khatir_mobile/features/leases/data/models/models.dart';
+import 'package:khatir_mobile/features/leases/data/providers.dart';
 import 'package:khatir_mobile/features/maintenance/data/expense_repository.dart';
 import 'package:khatir_mobile/features/maintenance/data/maintenance_repository.dart';
 import 'package:khatir_mobile/features/maintenance/data/models/maintenance_enums.dart';
@@ -35,6 +38,16 @@ class _EmptyExpenseRepo extends ExpenseRepository {
 
   @override
   Future<List<Expense>> listExpenses({ExpenseFilter? filter}) async => const [];
+}
+
+/// A lease repo whose unit-lease read 404s (no active lease), so the unit-detail
+/// lease section (T-009) settles to its create-lease empty state.
+class _NoLeaseRepo extends LeaseRepository {
+  _NoLeaseRepo() : super(Dio());
+
+  @override
+  Future<UnitLease> getUnitLease(String unitId) async =>
+      throw Exception('no active lease');
 }
 
 /// Unit-detail controller test double: builds to a fixed [Unit] (or throws),
@@ -119,6 +132,7 @@ void main() {
         maintenanceRepositoryProvider
             .overrideWithValue(_EmptyMaintenanceRepo()),
         expenseRepositoryProvider.overrideWithValue(_EmptyExpenseRepo()),
+        leaseRepositoryProvider.overrideWithValue(_NoLeaseRepo()),
       ],
       child: Consumer(
         builder: (context, ref, _) {
@@ -161,8 +175,9 @@ void main() {
     expect(find.text(bn.unit_type_apartment), findsWidgets);
     expect(find.text(bn.unit_status_vacant), findsWidgets);
 
-    // Tenant section empty-state + add-tenant CTA.
-    expect(find.text(bn.unit_no_tenant), findsOneWidget);
+    // Lease region (no active lease) empty-state + the framing CTAs.
+    expect(find.text(bn.unit_lease_none), findsOneWidget);
+    expect(find.text(bn.unit_create_lease), findsOneWidget);
     expect(find.text(bn.unit_add_tenant), findsOneWidget);
   });
 

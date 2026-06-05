@@ -1028,17 +1028,17 @@ abstract class AppLocalizations {
   /// **'লোড করা যায়নি'**
   String get unit_section_error;
 
-  /// No description provided for @unit_lease_active.
+  /// Heading for the active-lease summary card on the unit-detail screen.
   ///
   /// In bn, this message translates to:
-  /// **'চলমান লিজ'**
+  /// **'সক্রিয় লিজ'**
   String get unit_lease_active;
 
-  /// No description provided for @unit_lease_term.
+  /// Label for the lease term (start – end) on the unit-detail lease summary.
   ///
   /// In bn, this message translates to:
-  /// **'{start} – {end}'**
-  String unit_lease_term(Object end, Object start);
+  /// **'মেয়াদ'**
+  String get unit_lease_term;
 
   /// No description provided for @unit_lease_no_dates.
   ///
@@ -1046,25 +1046,25 @@ abstract class AppLocalizations {
   /// **'মেয়াদ নির্ধারিত নয়'**
   String get unit_lease_no_dates;
 
-  /// No description provided for @unit_next_due.
+  /// Label preceding the next upcoming rent period on the unit-detail lease summary.
   ///
   /// In bn, this message translates to:
   /// **'পরবর্তী কিস্তি'**
   String get unit_next_due;
 
-  /// No description provided for @unit_next_due_value.
+  /// The next upcoming rent period: amount and period.
   ///
   /// In bn, this message translates to:
-  /// **'{period} · ৳{amount}'**
-  String unit_next_due_value(Object amount, Object period);
+  /// **'৳{amount} · {period}'**
+  String unit_next_due_value(String amount, String period);
 
-  /// No description provided for @unit_next_due_none.
+  /// Shown on the unit-detail lease summary when the active lease has no upcoming (unpaid) period.
   ///
   /// In bn, this message translates to:
   /// **'কোনো বকেয়া কিস্তি নেই'**
   String get unit_next_due_none;
 
-  /// No description provided for @unit_create_lease.
+  /// CTA on the unit-detail screen to create a new lease when the unit has none.
   ///
   /// In bn, this message translates to:
   /// **'লিজ তৈরি করুন'**
@@ -3259,6 +3259,36 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'এখন নয়'**
   String get upgrade_later;
+
+  /// CTA on the unit-detail active-lease summary to send a rent request.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া চান'**
+  String get unit_lease_request_rent;
+
+  /// Empty-state title on the unit-detail lease region when the unit has no active lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো লিজ নেই'**
+  String get unit_lease_none;
+
+  /// Empty-state body on the unit-detail lease region prompting lease creation.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই ইউনিটের জন্য একটি লিজ তৈরি করুন।'**
+  String get unit_lease_none_body;
+
+  /// Sub-line on the unit-detail lease summary when the tenant's NID is verified (matched).
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাইকৃত'**
+  String get unit_tenant_verified;
+
+  /// Sub-line on the unit-detail lease summary when the tenant's NID is not verified.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাই হয়নি'**
+  String get unit_tenant_unverified;
 }
 
 class _AppLocalizationsDelegate

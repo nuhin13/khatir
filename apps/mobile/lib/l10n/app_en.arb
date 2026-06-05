@@ -1692,5 +1692,53 @@
   "upgrade_later": "Not now",
   "@upgrade_later": {
     "description": "Dismiss action on the upgrade prompt."
+  },
+  "unit_lease_active": "সক্রিয় লিজ · Active lease",
+  "@unit_lease_active": {
+    "description": "Heading for the active-lease summary card on the unit-detail screen."
+  },
+  "unit_next_due": "পরবর্তী কিস্তি · Next due",
+  "@unit_next_due": {
+    "description": "Label preceding the next upcoming rent period on the unit-detail lease summary."
+  },
+  "unit_next_due_value": "৳{amount} · {period}",
+  "@unit_next_due_value": {
+    "description": "The next upcoming rent period: amount and period.",
+    "placeholders": {
+      "amount": { "type": "String" },
+      "period": { "type": "String" }
+    }
+  },
+  "unit_next_due_none": "কোনো বকেয়া কিস্তি নেই · No upcoming period",
+  "@unit_next_due_none": {
+    "description": "Shown on the unit-detail lease summary when the active lease has no upcoming (unpaid) period."
+  },
+  "unit_create_lease": "লিজ তৈরি করুন · Create lease",
+  "@unit_create_lease": {
+    "description": "CTA on the unit-detail screen to create a new lease when the unit has none."
+  },
+  "unit_lease_request_rent": "ভাড়া চান · Request rent",
+  "@unit_lease_request_rent": {
+    "description": "CTA on the unit-detail active-lease summary to send a rent request."
+  },
+  "unit_lease_none": "এখনো কোনো লিজ নেই · No lease yet",
+  "@unit_lease_none": {
+    "description": "Empty-state title on the unit-detail lease region when the unit has no active lease."
+  },
+  "unit_lease_none_body": "এই ইউনিটের জন্য একটি লিজ তৈরি করুন।",
+  "@unit_lease_none_body": {
+    "description": "Empty-state body on the unit-detail lease region prompting lease creation."
+  },
+  "unit_lease_term": "মেয়াদ · Term",
+  "@unit_lease_term": {
+    "description": "Label for the lease term (start – end) on the unit-detail lease summary."
+  },
+  "unit_tenant_verified": "NID যাচাইকৃত · NID verified",
+  "@unit_tenant_verified": {
+    "description": "Sub-line on the unit-detail lease summary when the tenant's NID is verified (matched)."
+  },
+  "unit_tenant_unverified": "NID যাচাই হয়নি · NID not verified",
+  "@unit_tenant_unverified": {
+    "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified."
   }
 }
