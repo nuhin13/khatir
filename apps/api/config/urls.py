@@ -58,7 +58,11 @@ urlpatterns = [
     path("api/v1/", include("khatir.maintenance.urls")),
     path("api/v1/", include("khatir.billing.urls")),
     path("api/v1/", include("khatir.dashboard.urls")),
+<<<<<<< HEAD
     path("api/v1/", include("khatir.managers.urls")),
+=======
+    path("api/v1/", include("khatir.chatbot.urls")),
+>>>>>>> wave2be/E23
     path("api/v1/auth/", include("khatir.accounts.urls")),
     # OpenAPI schema + interactive docs (drf-spectacular).
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),

@@ -4,7 +4,7 @@ epic: EPIC-23
 title: Scoped data tools (own portfolio/rent summary)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-002, EPIC-09.T-001]
 blocks: []
