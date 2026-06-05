@@ -42,6 +42,10 @@ urlpatterns = [
     path("", include("khatir.notifications.web_urls")),
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
+    # Gatekeeper caretaker-assignment routes nest under buildings; listed
+    # before properties so the more specific ``buildings/{id}/caretakers``
+    # paths match ahead of the buildings router's catch-all (EPIC-25.T-002).
+    path("api/v1/", include("khatir.gatekeeper.urls")),
     path("api/v1/", include("khatir.properties.urls")),
     path("api/v1/", include("khatir.tenants.urls")),
     path("api/v1/", include("khatir.leases.urls")),
