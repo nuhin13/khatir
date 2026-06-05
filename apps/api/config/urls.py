@@ -40,16 +40,13 @@ urlpatterns = [
     # (/n/<token>/open.gif) and provider delivery webhook (/n/<token>/delivered).
     # Token-scoped, hit by browsers/providers, so rooted outside ``/api/v1/``.
     path("", include("khatir.notifications.web_urls")),
-<<<<<<< HEAD
     # Public, no-login recipient view of a tenant-shared rental history
     # (EPIC-24 T-008): /h/<token>. Server-rendered HTML, token-scoped, so it
     # lives at the root rather than under ``/api/v1/``.
     path("", include("khatir.historyshare.web_urls")),
-=======
     # Public, no-login visitor sign-in submit (token-scoped, EPIC-25 T-004).
     # Browser form POST, so it lives at the root rather than under ``/api/v1/``.
     path("", include("khatir.gatekeeper.web_urls")),
->>>>>>> wave2be/E25
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
     # Gatekeeper caretaker-assignment routes nest under buildings; listed
@@ -61,28 +58,19 @@ urlpatterns = [
     # NID/EC verification (EPIC-17 T-004) — /tenants/{id}/verify + /verification.
     path("api/v1/", include("khatir.verification.urls")),
     path("api/v1/", include("khatir.leases.urls")),
-<<<<<<< HEAD
     path("api/v1/", include("khatir.leasedocs.urls")),
     path("api/v1/", include("khatir.warnings.urls")),
-=======
     path("api/v1/", include("khatir.reviews.urls")),
->>>>>>> wave2be/E21
     path("api/v1/", include("khatir.dmpforms.urls")),
     path("api/v1/", include("khatir.govexport.urls")),
     path("api/v1/", include("khatir.rent.urls")),
     path("api/v1/", include("khatir.maintenance.urls")),
     path("api/v1/", include("khatir.billing.urls")),
     path("api/v1/", include("khatir.dashboard.urls")),
-<<<<<<< HEAD
-<<<<<<< HEAD
     path("api/v1/", include("khatir.managers.urls")),
-=======
     path("api/v1/", include("khatir.chatbot.urls")),
->>>>>>> wave2be/E23
-=======
     # Tenant-initiated rental-history sharing (EPIC-24) — /api/v1/me/history-shares.
     path("api/v1/", include("khatir.historyshare.urls")),
->>>>>>> wave2be/E24
     path("api/v1/auth/", include("khatir.accounts.urls")),
     # OpenAPI schema + interactive docs (drf-spectacular).
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),

@@ -31,12 +31,8 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 # Allowed storage namespaces (keep keys grouped by sensitivity / lifecycle).
-<<<<<<< HEAD
-_KINDS = frozenset({"nid", "proof", "pdf", "visitor"})
-=======
-# ``gov_export`` holds the zipped government-submission packages (EPIC-26 T-002).
-_KINDS = frozenset({"nid", "proof", "pdf", "gov_export"})
->>>>>>> wave2be/E26
+# ``visitor`` (EPIC-25) and ``gov_export`` (EPIC-26 T-002) packages.
+_KINDS = frozenset({"nid", "proof", "pdf", "visitor", "gov_export"})
 
 # Signed-URL default lifetime (seconds). T-005 keeps PDF links modest (1h).
 DEFAULT_TTL_SECONDS = 3600

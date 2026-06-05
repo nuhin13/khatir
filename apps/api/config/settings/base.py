@@ -62,35 +62,17 @@ LOCAL_APPS = [
     "khatir.ai_providers",
     "khatir.notifications",
     "khatir.compliance",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "khatir.verification",
-=======
     "khatir.reviews",
->>>>>>> wave2be/E21
-=======
     "khatir.historyshare",
->>>>>>> wave2be/E24
     "khatir.dashboard",
     "khatir.health",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     "khatir.warnings",
-=======
     "khatir.chatbot",
     "khatir.managers",
->>>>>>> wave2be/E22
-=======
     "khatir.chatbot",
->>>>>>> wave2be/E23
-=======
     "khatir.gatekeeper",
->>>>>>> wave2be/E25
-=======
     "khatir.govexport",
->>>>>>> wave2be/E26
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
