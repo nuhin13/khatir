@@ -262,6 +262,10 @@ REST_FRAMEWORK = {
         # Per-user cap on the voice endpoint (EPIC-04.T-006): each call hits a
         # paid external ASR provider, same cost profile as OCR. Tunable per env.
         "tenant_voice": env("THROTTLE_TENANT_VOICE", default="30/hour"),
+        # Per-user cap on the chat endpoint (EPIC-23.T-002): each message routes
+        # through the paid AI gateway (chat category), so cap volume per user.
+        # Tunable per environment without code changes.
+        "chat_message": env("THROTTLE_CHAT_MESSAGE", default="60/hour"),
         # Admin-portal auth (EPIC-11.T-003): cap password + MFA brute force on
         # the staff login surface, keyed by submitted email and by client IP.
         "admin_login_email": env("THROTTLE_ADMIN_LOGIN_EMAIL", default="10/10min"),
