@@ -1197,5 +1197,57 @@
   "lease_terminate_error": "চুক্তি বাতিল করা যায়নি। আবার চেষ্টা করুন।",
   "@lease_terminate_error": {
     "description": "Snackbar shown when terminating a lease fails."
+  },
+  "rent_request_title": "ভাড়ার অনুরোধ",
+  "@rent_request_title": {
+    "description": "App-bar title of the rent-request screen."
+  },
+  "rent_request_heading": "ভাড়া চান",
+  "@rent_request_heading": {
+    "description": "Hero heading on the rent-request screen."
+  },
+  "rent_request_subtitle": "অ্যাপ না থাকলেও সমস্যা নেই — WhatsApp-এ লিংক পাবেন",
+  "@rent_request_subtitle": {
+    "description": "Hero subtitle explaining the tenant gets a WhatsApp link."
+  },
+  "rent_request_amount": "ভাড়ার পরিমাণ",
+  "@rent_request_amount": {
+    "description": "Label of the rent amount field on the rent-request screen."
+  },
+  "rent_request_period": "সময়কাল",
+  "@rent_request_period": {
+    "description": "Label of the billing period (YYYY-MM) field on the rent-request screen."
+  },
+  "rent_request_period_hint": "YYYY-MM (যেমন 2026-06)",
+  "@rent_request_period_hint": {
+    "description": "Helper text for the period field's expected YYYY-MM format."
+  },
+  "rent_send_whatsapp": "WhatsApp লিংক পাঠান",
+  "@rent_send_whatsapp": {
+    "description": "Primary action: create the request and send the tenant link."
+  },
+  "rent_mark_received": "টাকা পেয়েছি (নগদ)",
+  "@rent_mark_received": {
+    "description": "Secondary action: record an off-platform cash payment and settle."
+  },
+  "rent_request_err_amount": "সঠিক পরিমাণ লিখুন",
+  "@rent_request_err_amount": {
+    "description": "Validation error when the rent amount is missing or not positive."
+  },
+  "rent_request_err_period": "YYYY-MM ফরম্যাটে সময়কাল লিখুন",
+  "@rent_request_err_period": {
+    "description": "Validation error when the period is not in YYYY-MM format."
+  },
+  "rent_request_sent": "লিংক পাঠানো হয়েছে",
+  "@rent_request_sent": {
+    "description": "Snackbar shown after the rent link is created and sent."
+  },
+  "rent_request_received": "টাকা পেয়েছি বলে রেকর্ড হয়েছে",
+  "@rent_request_received": {
+    "description": "Snackbar shown after a cash payment is marked received."
+  },
+  "rent_request_error": "অনুরোধ পাঠানো যায়নি। আবার চেষ্টা করুন।",
+  "@rent_request_error": {
+    "description": "Snackbar shown when creating/sending/marking the request fails."
   }
 }

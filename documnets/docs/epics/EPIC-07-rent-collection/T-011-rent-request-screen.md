@@ -4,7 +4,7 @@ epic: EPIC-07
 title: Flutter rent-request screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-010]
 blocks: []

@@ -1122,4 +1122,44 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get lease_terminate_error =>
       'চুক্তি বাতিল করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get rent_request_title => 'ভাড়ার অনুরোধ';
+
+  @override
+  String get rent_request_heading => 'ভাড়া চান';
+
+  @override
+  String get rent_request_subtitle =>
+      'অ্যাপ না থাকলেও সমস্যা নেই — WhatsApp-এ লিংক পাবেন';
+
+  @override
+  String get rent_request_amount => 'ভাড়ার পরিমাণ';
+
+  @override
+  String get rent_request_period => 'সময়কাল';
+
+  @override
+  String get rent_request_period_hint => 'YYYY-MM (যেমন 2026-06)';
+
+  @override
+  String get rent_send_whatsapp => 'WhatsApp লিংক পাঠান';
+
+  @override
+  String get rent_mark_received => 'টাকা পেয়েছি (নগদ)';
+
+  @override
+  String get rent_request_err_amount => 'সঠিক পরিমাণ লিখুন';
+
+  @override
+  String get rent_request_err_period => 'YYYY-MM ফরম্যাটে সময়কাল লিখুন';
+
+  @override
+  String get rent_request_sent => 'লিংক পাঠানো হয়েছে';
+
+  @override
+  String get rent_request_received => 'টাকা পেয়েছি বলে রেকর্ড হয়েছে';
+
+  @override
+  String get rent_request_error => 'অনুরোধ পাঠানো যায়নি। আবার চেষ্টা করুন।';
 }

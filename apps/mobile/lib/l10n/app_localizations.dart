@@ -2209,6 +2209,84 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'চুক্তি বাতিল করা যায়নি। আবার চেষ্টা করুন।'**
   String get lease_terminate_error;
+
+  /// App-bar title of the rent-request screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার অনুরোধ'**
+  String get rent_request_title;
+
+  /// Hero heading on the rent-request screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া চান'**
+  String get rent_request_heading;
+
+  /// Hero subtitle explaining the tenant gets a WhatsApp link.
+  ///
+  /// In bn, this message translates to:
+  /// **'অ্যাপ না থাকলেও সমস্যা নেই — WhatsApp-এ লিংক পাবেন'**
+  String get rent_request_subtitle;
+
+  /// Label of the rent amount field on the rent-request screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার পরিমাণ'**
+  String get rent_request_amount;
+
+  /// Label of the billing period (YYYY-MM) field on the rent-request screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'সময়কাল'**
+  String get rent_request_period;
+
+  /// Helper text for the period field's expected YYYY-MM format.
+  ///
+  /// In bn, this message translates to:
+  /// **'YYYY-MM (যেমন 2026-06)'**
+  String get rent_request_period_hint;
+
+  /// Primary action: create the request and send the tenant link.
+  ///
+  /// In bn, this message translates to:
+  /// **'WhatsApp লিংক পাঠান'**
+  String get rent_send_whatsapp;
+
+  /// Secondary action: record an off-platform cash payment and settle.
+  ///
+  /// In bn, this message translates to:
+  /// **'টাকা পেয়েছি (নগদ)'**
+  String get rent_mark_received;
+
+  /// Validation error when the rent amount is missing or not positive.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক পরিমাণ লিখুন'**
+  String get rent_request_err_amount;
+
+  /// Validation error when the period is not in YYYY-MM format.
+  ///
+  /// In bn, this message translates to:
+  /// **'YYYY-MM ফরম্যাটে সময়কাল লিখুন'**
+  String get rent_request_err_period;
+
+  /// Snackbar shown after the rent link is created and sent.
+  ///
+  /// In bn, this message translates to:
+  /// **'লিংক পাঠানো হয়েছে'**
+  String get rent_request_sent;
+
+  /// Snackbar shown after a cash payment is marked received.
+  ///
+  /// In bn, this message translates to:
+  /// **'টাকা পেয়েছি বলে রেকর্ড হয়েছে'**
+  String get rent_request_received;
+
+  /// Snackbar shown when creating/sending/marking the request fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ পাঠানো যায়নি। আবার চেষ্টা করুন।'**
+  String get rent_request_error;
 }
 
 class _AppLocalizationsDelegate

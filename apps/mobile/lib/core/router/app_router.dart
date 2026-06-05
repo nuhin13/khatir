@@ -17,6 +17,7 @@ import '../../features/properties/presentation/screens/landlord_home_screen.dart
 import '../../features/properties/presentation/screens/portfolio_screen.dart';
 import '../../features/properties/presentation/screens/unit_detail_screen.dart';
 import '../../features/properties/presentation/wizard/wizard_host.dart';
+import '../../features/rent/presentation/screens/rent_request_screen.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
@@ -491,6 +492,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           unitId: state.uri.queryParameters['unit'] ?? '',
           leaseId: state.pathParameters['id'],
         ),
+      ),
+
+      // ── Rent request (EPIC-07 T-011) ────────────────────────────────────
+      // The "Ask for rent" screen, launched from unit detail (active lease) and
+      // the home late-payers list (T-014). The target lease is carried as a
+      // `?lease=` query parameter (same convention as the `?unit=` flows), with
+      // optional `?amount=`/`?period=` prefills. Sits on the root navigator so
+      // it covers the landlord shell when pushed.
+      GoRoute(
+        path: RentRequestScreen.routePath,
+        name: RentRequestScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final q = state.uri.queryParameters;
+          return RentRequestScreen(
+            leaseId: q['lease'] ?? '',
+            initialAmount: double.tryParse(q['amount'] ?? ''),
+            initialPeriod: q['period'],
+          );
+        },
       ),
 
       // ── Lease list / detail (EPIC-06 T-010) ─────────────────────────────

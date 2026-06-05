@@ -94,6 +94,30 @@ class ApiEndpoints {
   /// `/api/v1/leases/{id}/terminate` — end/terminate an active lease.
   static String leaseTerminate(String id) => '${lease(id)}/terminate';
 
+  // Rent collection (EPIC-07): top-level resource at `/api/v1/rent-requests`
+  // (no trailing slash). Create + queue list/detail; lifecycle transitions
+  // (send / verify / reject / mark-received) are `@action` subpaths on a single
+  // request.
+  static const String rentRequests = '$apiPrefix/rent-requests';
+
+  /// `/api/v1/rent-requests/{id}` — single rent-request detail.
+  static String rentRequest(String id) => '$rentRequests/$id';
+
+  /// `/api/v1/rent-requests/{id}/send` — (re)deliver the rent link to the tenant.
+  static String rentRequestSend(String id) => '${rentRequest(id)}/send';
+
+  /// `/api/v1/rent-requests/{id}/verify` — verify the submitted proof (creates a
+  /// Payment + receipt, settles the schedule).
+  static String rentRequestVerify(String id) => '${rentRequest(id)}/verify';
+
+  /// `/api/v1/rent-requests/{id}/reject` — reject the request with a reason.
+  static String rentRequestReject(String id) => '${rentRequest(id)}/reject';
+
+  /// `/api/v1/rent-requests/{id}/mark-received` — record an off-platform (cash)
+  /// payment with no proof and settle.
+  static String rentRequestMarkReceived(String id) =>
+      '${rentRequest(id)}/mark-received';
+
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 
