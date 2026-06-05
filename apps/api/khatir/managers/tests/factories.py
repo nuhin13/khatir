@@ -10,8 +10,12 @@ import factory
 
 from khatir.accounts.enums import Role
 from khatir.accounts.tests.factories import UserFactory
-from khatir.managers.enums import ManagerOwnerLinkStatus
-from khatir.managers.models import ManagerOwnerLink
+from khatir.managers.enums import (
+    ManagerOwnerLinkStatus,
+    ManagerTeamMemberRole,
+    ManagerTeamMemberStatus,
+)
+from khatir.managers.models import ManagerOwnerLink, ManagerTeamMember
 
 
 class ManagerOwnerLinkFactory(factory.django.DjangoModelFactory):  # type: ignore[type-arg]
@@ -21,3 +25,13 @@ class ManagerOwnerLinkFactory(factory.django.DjangoModelFactory):  # type: ignor
     manager = factory.SubFactory(UserFactory, role=Role.MANAGER)  # type: ignore[attr-defined]
     owner = factory.SubFactory(UserFactory, role=Role.LANDLORD)  # type: ignore[attr-defined]
     status = ManagerOwnerLinkStatus.PENDING
+
+
+class ManagerTeamMemberFactory(factory.django.DjangoModelFactory):  # type: ignore[type-arg]
+    class Meta:
+        model = ManagerTeamMember
+
+    manager = factory.SubFactory(UserFactory, role=Role.MANAGER)  # type: ignore[attr-defined]
+    member = factory.SubFactory(UserFactory)  # type: ignore[attr-defined]
+    role = ManagerTeamMemberRole.STAFF
+    status = ManagerTeamMemberStatus.ACTIVE

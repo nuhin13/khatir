@@ -20,7 +20,11 @@ from django.db import models
 
 from khatir.core.models import TimeStampedModel
 
-from .enums import ManagerOwnerLinkStatus
+from .enums import (
+    ManagerOwnerLinkStatus,
+    ManagerTeamMemberRole,
+    ManagerTeamMemberStatus,
+)
 
 
 class ManagerOwnerLinkQuerySet(models.QuerySet["ManagerOwnerLink"]):
@@ -112,3 +116,101 @@ class ManagerOwnerLink(TimeStampedModel):
     @property
     def is_active(self) -> bool:
         return self.status == ManagerOwnerLinkStatus.ACTIVE
+
+
+class ManagerTeamMemberQuerySet(models.QuerySet["ManagerTeamMember"]):
+    """Scoping helpers for a manager's team members."""
+
+    def active(self) -> ManagerTeamMemberQuerySet:
+        """Only seats that have not been revoked."""
+        return self.filter(status=ManagerTeamMemberStatus.ACTIVE)
+
+    def for_manager(self, manager: object) -> ManagerTeamMemberQuerySet:
+        """Team members belonging to ``manager`` (regardless of status)."""
+        manager_id = getattr(manager, "pk", None)
+        if manager_id is None:
+            return self.none()
+        return self.filter(manager_id=manager_id)
+
+
+class ManagerTeamMember(TimeStampedModel):
+    """A user who works under a manager, with a role and a permission scope.
+
+    Each row is one *seat* in a manager's organisation. ``role`` distinguishes a
+    ``staff`` member from a ``sub_manager`` delegate, while ``permissions_scope``
+    is a JSON list of fine-grained actions the member may perform (e.g.
+    ``["view_reports", "collect_rent"]``). Seats can be ``revoked`` without being
+    deleted, preserving history.
+
+    Uniqueness is enforced per ``(manager, member)`` pair so the same user cannot
+    hold two seats under one manager.
+    """
+
+    manager = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="team_members",
+        help_text="The managing user this person works under (role = manager).",
+    )
+    member = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="team_memberships",
+        help_text="The user occupying this team seat.",
+    )
+    role = models.CharField(
+        max_length=16,
+        choices=ManagerTeamMemberRole.choices,
+        default=ManagerTeamMemberRole.STAFF,
+        db_index=True,
+        help_text="Seat role: staff (scoped worker) or sub_manager (delegate).",
+    )
+    permissions_scope = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="List of actions this member may perform under the manager.",
+    )
+    status = models.CharField(
+        max_length=16,
+        choices=ManagerTeamMemberStatus.choices,
+        default=ManagerTeamMemberStatus.ACTIVE,
+        db_index=True,
+        help_text="Lifecycle: active → revoked.",
+    )
+
+    objects = ManagerTeamMemberQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = "manager team member"
+        verbose_name_plural = "manager team members"
+        ordering = ("-created_at",)
+        constraints = [
+            models.UniqueConstraint(
+                fields=["manager", "member"],
+                name="uniq_manager_team_member",
+            ),
+        ]
+        indexes = [
+            models.Index(fields=["manager", "status"]),
+            models.Index(fields=["member", "status"]),
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.member_id} @ {self.manager_id} ({self.role}/{self.status})"
+
+    @property
+    def is_active(self) -> bool:
+        return self.status == ManagerTeamMemberStatus.ACTIVE
+
+    def has_permission(self, action: str) -> bool:
+        """Whether an active member's scope grants ``action``.
+
+        A ``sub_manager`` is treated as fully authorised; a ``staff`` member is
+        authorised only for actions listed in ``permissions_scope``. Revoked
+        seats grant nothing.
+        """
+        if not self.is_active:
+            return False
+        if self.role == ManagerTeamMemberRole.SUB_MANAGER:
+            return True
+        return action in (self.permissions_scope or [])

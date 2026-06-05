@@ -21,3 +21,25 @@ class ManagerOwnerLinkStatus(models.TextChoices):
     PENDING = "pending", "Pending"
     ACTIVE = "active", "Active"
     REVOKED = "revoked", "Revoked"
+
+
+class ManagerTeamMemberRole(models.TextChoices):
+    """What a team member is inside a manager's organisation.
+
+    A ``staff`` member performs day-to-day work scoped by ``permissions_scope``.
+    A ``sub_manager`` is a delegate with broader authority under the manager.
+    """
+
+    STAFF = "staff", "Staff"
+    SUB_MANAGER = "sub_manager", "Sub-manager"
+
+
+class ManagerTeamMemberStatus(models.TextChoices):
+    """Lifecycle of a team-member seat.
+
+    A seat is ``active`` while the member may act, and ``revoked`` once their
+    access is withdrawn.
+    """
+
+    ACTIVE = "active", "Active"
+    REVOKED = "revoked", "Revoked"
