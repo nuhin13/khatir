@@ -1615,4 +1615,71 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get dashboard_empty =>
       'এখনো কোনো তথ্য নেই — ভাড়াটিয়া যোগ করুন ও ভাড়া লিপিবদ্ধ করুন।';
+
+  @override
+  String get plan_title => 'প্ল্যান · Plan';
+
+  @override
+  String get plan_current => 'এখন';
+
+  @override
+  String plan_current_banner(String tier) {
+    return 'এখন $tier-এ আছেন';
+  }
+
+  @override
+  String plan_usage(String used, String limit) {
+    return '$used/$limit ভাড়াটিয়া ব্যবহৃত';
+  }
+
+  @override
+  String plan_usage_unlimited(String used) {
+    return '$used ভাড়াটিয়া · সীমাহীন';
+  }
+
+  @override
+  String get plan_free => 'ফ্রি';
+
+  @override
+  String get plan_upgrade => 'bKash / Nagad দিয়ে আপগ্রেড';
+
+  @override
+  String get plan_choose => 'এই প্ল্যান নিন';
+
+  @override
+  String get plan_best_value => '⭐ সেরা মূল্য';
+
+  @override
+  String get plan_per_month => '/মাস';
+
+  @override
+  String get plan_per_tenant_month => '/ভাড়াটিয়া/মাস';
+
+  @override
+  String plan_band(String min, String max) {
+    return '$min–$max ভাড়াটিয়া';
+  }
+
+  @override
+  String plan_band_min(String min) {
+    return '$min+ ভাড়াটিয়া';
+  }
+
+  @override
+  String get plan_band_unlimited => 'সীমাহীন ভাড়াটিয়া';
+
+  @override
+  String get plan_includes_verification => '+ NID যাচাই';
+
+  @override
+  String get plan_billing_note => 'দাম অ্যাডমিন-নিয়ন্ত্রিত · নমুনা';
+
+  @override
+  String get plan_billing_confirm_pending => 'পেমেন্ট নিশ্চিত হলে আমরা জানাব';
+
+  @override
+  String get plan_billing_error => 'আপগ্রেড করা যায়নি · আবার চেষ্টা করুন';
+
+  @override
+  String get plan_empty => 'কোনো প্ল্যান নেই';
 }

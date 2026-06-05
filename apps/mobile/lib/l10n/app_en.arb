@@ -1641,5 +1641,40 @@
   "dashboard_chart_empty": "কোনো তথ্য নেই · No data yet",
   "@dashboard_chart_empty": { "description": "Empty-state label inside a chart with no data." },
   "dashboard_empty": "এখনো কোনো তথ্য নেই · Nothing to show yet — add tenants & log rent to see your charts.",
-  "@dashboard_empty": { "description": "Whole-screen empty state for a brand-new landlord with no data." }
+  "@dashboard_empty": { "description": "Whole-screen empty state for a brand-new landlord with no data." },
+
+  "plan_title": "Plan & billing",
+  "plan_current": "Now",
+  "plan_current_banner": "You're on {tier}",
+  "@plan_current_banner": {
+    "placeholders": { "tier": { "type": "String" } }
+  },
+  "plan_usage": "{used}/{limit} tenants used",
+  "@plan_usage": {
+    "placeholders": { "used": { "type": "String" }, "limit": { "type": "String" } }
+  },
+  "plan_usage_unlimited": "{used} tenants · unlimited",
+  "@plan_usage_unlimited": {
+    "placeholders": { "used": { "type": "String" } }
+  },
+  "plan_free": "Free",
+  "plan_upgrade": "Upgrade with bKash / Nagad",
+  "plan_choose": "Choose this plan",
+  "plan_best_value": "⭐ BEST VALUE",
+  "plan_per_month": "/mo",
+  "plan_per_tenant_month": "/tenant/mo",
+  "plan_band": "{min}–{max} tenants",
+  "@plan_band": {
+    "placeholders": { "min": { "type": "String" }, "max": { "type": "String" } }
+  },
+  "plan_band_min": "{min}+ tenants",
+  "@plan_band_min": {
+    "placeholders": { "min": { "type": "String" } }
+  },
+  "plan_band_unlimited": "Unlimited tenants",
+  "plan_includes_verification": "+ NID verify",
+  "plan_billing_note": "Prices admin-configurable · illustrative",
+  "plan_billing_confirm_pending": "We'll confirm once payment clears",
+  "plan_billing_error": "Couldn't upgrade · please try again",
+  "plan_empty": "No plans available"
 }

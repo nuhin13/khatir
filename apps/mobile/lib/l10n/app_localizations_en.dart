@@ -1646,4 +1646,72 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get dashboard_empty =>
       'এখনো কোনো তথ্য নেই · Nothing to show yet — add tenants & log rent to see your charts.';
+
+  @override
+  String get plan_title => 'Plan & billing';
+
+  @override
+  String get plan_current => 'Now';
+
+  @override
+  String plan_current_banner(String tier) {
+    return 'You\'re on $tier';
+  }
+
+  @override
+  String plan_usage(String used, String limit) {
+    return '$used/$limit tenants used';
+  }
+
+  @override
+  String plan_usage_unlimited(String used) {
+    return '$used tenants · unlimited';
+  }
+
+  @override
+  String get plan_free => 'Free';
+
+  @override
+  String get plan_upgrade => 'Upgrade with bKash / Nagad';
+
+  @override
+  String get plan_choose => 'Choose this plan';
+
+  @override
+  String get plan_best_value => '⭐ BEST VALUE';
+
+  @override
+  String get plan_per_month => '/mo';
+
+  @override
+  String get plan_per_tenant_month => '/tenant/mo';
+
+  @override
+  String plan_band(String min, String max) {
+    return '$min–$max tenants';
+  }
+
+  @override
+  String plan_band_min(String min) {
+    return '$min+ tenants';
+  }
+
+  @override
+  String get plan_band_unlimited => 'Unlimited tenants';
+
+  @override
+  String get plan_includes_verification => '+ NID verify';
+
+  @override
+  String get plan_billing_note => 'Prices admin-configurable · illustrative';
+
+  @override
+  String get plan_billing_confirm_pending =>
+      'We\'ll confirm once payment clears';
+
+  @override
+  String get plan_billing_error => 'Couldn\'t upgrade · please try again';
+
+  @override
+  String get plan_empty => 'No plans available';
 }

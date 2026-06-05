@@ -3121,6 +3121,120 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'এখনো কোনো তথ্য নেই — ভাড়াটিয়া যোগ করুন ও ভাড়া লিপিবদ্ধ করুন।'**
   String get dashboard_empty;
+
+  /// App-bar title on the plan & billing screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্ল্যান · Plan'**
+  String get plan_title;
+
+  /// Chip marking the caller's current tier.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখন'**
+  String get plan_current;
+
+  /// Top card: which tier the caller is currently on.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখন {tier}-এ আছেন'**
+  String plan_current_banner(String tier);
+
+  /// Usage line under the current-plan banner; numerals pre-localized.
+  ///
+  /// In bn, this message translates to:
+  /// **'{used}/{limit} ভাড়াটিয়া ব্যবহৃত'**
+  String plan_usage(String used, String limit);
+
+  /// Usage line for an unlimited plan; used is pre-localized.
+  ///
+  /// In bn, this message translates to:
+  /// **'{used} ভাড়াটিয়া · সীমাহীন'**
+  String plan_usage_unlimited(String used);
+
+  /// Price shown for the free tier (BDT 0).
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্রি'**
+  String get plan_free;
+
+  /// Primary upgrade button on the plan screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'bKash / Nagad দিয়ে আপগ্রেড'**
+  String get plan_upgrade;
+
+  /// Subscribe action on a non-current tier card.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই প্ল্যান নিন'**
+  String get plan_choose;
+
+  /// Badge on the recommended (best-value) tier card.
+  ///
+  /// In bn, this message translates to:
+  /// **'⭐ সেরা মূল্য'**
+  String get plan_best_value;
+
+  /// Suffix on a monthly tier price.
+  ///
+  /// In bn, this message translates to:
+  /// **'/মাস'**
+  String get plan_per_month;
+
+  /// Suffix on a per-tenant tier price.
+  ///
+  /// In bn, this message translates to:
+  /// **'/ভাড়াটিয়া/মাস'**
+  String get plan_per_tenant_month;
+
+  /// Tenant band a tier covers; numerals pre-localized.
+  ///
+  /// In bn, this message translates to:
+  /// **'{min}–{max} ভাড়াটিয়া'**
+  String plan_band(String min, String max);
+
+  /// Tenant band with no upper bound (unlimited).
+  ///
+  /// In bn, this message translates to:
+  /// **'{min}+ ভাড়াটিয়া'**
+  String plan_band_min(String min);
+
+  /// Tenant band label for the unlimited tier.
+  ///
+  /// In bn, this message translates to:
+  /// **'সীমাহীন ভাড়াটিয়া'**
+  String get plan_band_unlimited;
+
+  /// Feature note shown when a tier bundles NID verification.
+  ///
+  /// In bn, this message translates to:
+  /// **'+ NID যাচাই'**
+  String get plan_includes_verification;
+
+  /// Footer note: prices are admin-configurable and illustrative.
+  ///
+  /// In bn, this message translates to:
+  /// **'দাম অ্যাডমিন-নিয়ন্ত্রিত · নমুনা'**
+  String get plan_billing_note;
+
+  /// Snackbar after a stubbed subscribe: confirmation pending.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেমেন্ট নিশ্চিত হলে আমরা জানাব'**
+  String get plan_billing_confirm_pending;
+
+  /// Snackbar when a subscribe request fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপগ্রেড করা যায়নি · আবার চেষ্টা করুন'**
+  String get plan_billing_error;
+
+  /// Empty state when no tiers are configured.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো প্ল্যান নেই'**
+  String get plan_empty;
 }
 
 class _AppLocalizationsDelegate

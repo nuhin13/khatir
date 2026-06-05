@@ -150,6 +150,11 @@ class ApiEndpoints {
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 
+  // Billing (EPIC-10): subscribe/upgrade to a tier (payment stubbed). The
+  // current plan + usage is read from `/config/public` (see [publicConfig]),
+  // not a separate fetch.
+  static const String billingSubscribe = '$apiPrefix/billing/subscribe';
+
   // Health check (no auth).
   static const String healthz = '/healthz';
 }

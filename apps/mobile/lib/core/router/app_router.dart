@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../features/auth/presentation/screens/otp_entry_screen.dart';
 import '../../features/auth/presentation/screens/phone_entry_screen.dart';
+import '../../features/billing/presentation/screens/plan_screen.dart';
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_pdf_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
@@ -632,6 +633,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: WizardHost.routeName,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const WizardHost(),
+      ),
+      // ── Plan & billing (EPIC-10 T-007) ──────────────────────────────────
+      // The plan screen (`/settings/plan`): current tier + tenant usage and the
+      // active tier catalogue as upgrade cards, reading the plan slice of
+      // `/config/public`. Pushed from the More menu's Plan & billing row; sits
+      // on the root navigator so it covers the shell.
+      GoRoute(
+        path: PlanScreen.routePath,
+        name: PlanScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const PlanScreen(),
       ),
       GoRoute(
         path: PortfolioScreen.routePath,

@@ -1731,5 +1731,59 @@
   "dashboard_chart_empty": "কোনো তথ্য নেই",
   "@dashboard_chart_empty": { "description": "Empty-state label inside a chart with no data." },
   "dashboard_empty": "এখনো কোনো তথ্য নেই — ভাড়াটিয়া যোগ করুন ও ভাড়া লিপিবদ্ধ করুন।",
-  "@dashboard_empty": { "description": "Whole-screen empty state for a brand-new landlord with no data." }
+  "@dashboard_empty": { "description": "Whole-screen empty state for a brand-new landlord with no data." },
+
+  "plan_title": "প্ল্যান · Plan",
+  "@plan_title": { "description": "App-bar title on the plan & billing screen." },
+  "plan_current": "এখন",
+  "@plan_current": { "description": "Chip marking the caller's current tier." },
+  "plan_current_banner": "এখন {tier}-এ আছেন",
+  "@plan_current_banner": {
+    "description": "Top card: which tier the caller is currently on.",
+    "placeholders": { "tier": { "type": "String" } }
+  },
+  "plan_usage": "{used}/{limit} ভাড়াটিয়া ব্যবহৃত",
+  "@plan_usage": {
+    "description": "Usage line under the current-plan banner; numerals pre-localized.",
+    "placeholders": { "used": { "type": "String" }, "limit": { "type": "String" } }
+  },
+  "plan_usage_unlimited": "{used} ভাড়াটিয়া · সীমাহীন",
+  "@plan_usage_unlimited": {
+    "description": "Usage line for an unlimited plan; used is pre-localized.",
+    "placeholders": { "used": { "type": "String" } }
+  },
+  "plan_free": "ফ্রি",
+  "@plan_free": { "description": "Price shown for the free tier (BDT 0)." },
+  "plan_upgrade": "bKash / Nagad দিয়ে আপগ্রেড",
+  "@plan_upgrade": { "description": "Primary upgrade button on the plan screen." },
+  "plan_choose": "এই প্ল্যান নিন",
+  "@plan_choose": { "description": "Subscribe action on a non-current tier card." },
+  "plan_best_value": "⭐ সেরা মূল্য",
+  "@plan_best_value": { "description": "Badge on the recommended (best-value) tier card." },
+  "plan_per_month": "/মাস",
+  "@plan_per_month": { "description": "Suffix on a monthly tier price." },
+  "plan_per_tenant_month": "/ভাড়াটিয়া/মাস",
+  "@plan_per_tenant_month": { "description": "Suffix on a per-tenant tier price." },
+  "plan_band": "{min}–{max} ভাড়াটিয়া",
+  "@plan_band": {
+    "description": "Tenant band a tier covers; numerals pre-localized.",
+    "placeholders": { "min": { "type": "String" }, "max": { "type": "String" } }
+  },
+  "plan_band_min": "{min}+ ভাড়াটিয়া",
+  "@plan_band_min": {
+    "description": "Tenant band with no upper bound (unlimited).",
+    "placeholders": { "min": { "type": "String" } }
+  },
+  "plan_band_unlimited": "সীমাহীন ভাড়াটিয়া",
+  "@plan_band_unlimited": { "description": "Tenant band label for the unlimited tier." },
+  "plan_includes_verification": "+ NID যাচাই",
+  "@plan_includes_verification": { "description": "Feature note shown when a tier bundles NID verification." },
+  "plan_billing_note": "দাম অ্যাডমিন-নিয়ন্ত্রিত · নমুনা",
+  "@plan_billing_note": { "description": "Footer note: prices are admin-configurable and illustrative." },
+  "plan_billing_confirm_pending": "পেমেন্ট নিশ্চিত হলে আমরা জানাব",
+  "@plan_billing_confirm_pending": { "description": "Snackbar after a stubbed subscribe: confirmation pending." },
+  "plan_billing_error": "আপগ্রেড করা যায়নি · আবার চেষ্টা করুন",
+  "@plan_billing_error": { "description": "Snackbar when a subscribe request fails." },
+  "plan_empty": "কোনো প্ল্যান নেই",
+  "@plan_empty": { "description": "Empty state when no tiers are configured." }
 }
