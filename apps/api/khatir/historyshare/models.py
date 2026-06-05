@@ -27,6 +27,8 @@ live rent records.
 
 from __future__ import annotations
 
+import secrets
+
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -35,7 +37,18 @@ from khatir.core.models import TimeStampedModel
 
 from .stats import FactualStats, compute_factual_stats
 
-__all__ = ["HistoryShare", "FactualStats", "compute_factual_stats"]
+__all__ = ["HistoryShare", "FactualStats", "compute_factual_stats", "generate_share_token"]
+
+
+def generate_share_token() -> str:
+    """Return a fresh, URL-safe, unguessable share token.
+
+    The recipient landlord reaches a share ONLY via this opaque token — there is
+    no enumerable id or landlord-initiated lookup. ``secrets.token_urlsafe`` gives
+    a cryptographically strong, capability-style token so the URL itself is the
+    access grant (further gated by active-state + valid consent on read).
+    """
+    return secrets.token_urlsafe(32)
 
 
 class HistoryShare(TimeStampedModel):
@@ -46,6 +59,15 @@ class HistoryShare(TimeStampedModel):
     counts/booleans only.
     """
 
+    token = models.CharField(
+        max_length=64,
+        unique=True,
+        default=generate_share_token,
+        editable=False,
+        help_text="Opaque, unguessable capability token. The recipient landlord "
+        "reaches this share ONLY via this token — there is no enumerable id or "
+        "landlord-initiated lookup path.",
+    )
     tenant = models.ForeignKey(
         "tenants.Tenant",
         on_delete=models.PROTECT,
@@ -117,3 +139,26 @@ class HistoryShare(TimeStampedModel):
         if self.expires_at is not None and self.expires_at <= moment:
             return False
         return True
+
+    def is_consent_valid(self, *, now: timezone.datetime | None = None) -> bool:
+        """True only if the linked consent is neither withdrawn nor expired.
+
+        The recipient read path requires consent to still be valid — a withdrawn
+        or lapsed :class:`~khatir.compliance.models.ConsentRecord` closes the
+        share independently of its own ``revoked_at``/``expires_at``.
+        """
+        moment = now or timezone.now()
+        consent = self.consent_record
+        if consent.revoked_at is not None:
+            return False
+        if consent.expires_at is not None and consent.expires_at <= moment:
+            return False
+        return True
+
+    def is_readable(self, *, now: timezone.datetime | None = None) -> bool:
+        """True only if the share is active AND its consent is still valid.
+
+        This is the single gate the recipient view honours.
+        """
+        moment = now or timezone.now()
+        return self.is_active(now=moment) and self.is_consent_valid(now=moment)

@@ -44,6 +44,7 @@ class HistoryShareSerializer(serializers.ModelSerializer[HistoryShare]):
         model = HistoryShare
         fields = [
             "id",
+            "token",
             "tenant",
             "recipient_landlord",
             "scope",
@@ -51,6 +52,27 @@ class HistoryShareSerializer(serializers.ModelSerializer[HistoryShare]):
             "factual_stats",
             "expires_at",
             "revoked_at",
+            "created_at",
+        ]
+        read_only_fields = fields
+
+
+class HistoryShareRecipientSerializer(serializers.ModelSerializer[HistoryShare]):
+    """Recipient-facing read view of an ACTIVE share — factual stats ONLY.
+
+    Surfaces the frozen factual snapshot, the tenant-selected ``scope`` and the
+    expiry, and nothing that identifies internal records (no internal id, no
+    consent_record id, no recipient id). There is structurally no subjective
+    field to leak. Read-only by construction — no write/export path exists.
+    """
+
+    class Meta:
+        model = HistoryShare
+        fields = [
+            "token",
+            "scope",
+            "factual_stats",
+            "expires_at",
             "created_at",
         ]
         read_only_fields = fields
