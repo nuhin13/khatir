@@ -86,6 +86,42 @@ def review_visitor_entry(
     return entry
 
 
+@transaction.atomic
+def log_visitor_entry(
+    *,
+    building: Any,
+    visitor_name: str,
+    purpose: str = "",
+    photo_ref: str | None = None,
+) -> VisitorEntry:
+    """Create a ``pending`` :class:`VisitorEntry` for ``building`` and audit it.
+
+    Called from the public, no-login visitor sign-in page (T-004): the building
+    is resolved from the signed web-link token, so there is no authenticated
+    actor — the write is audited as ``visitor.log`` with ``actor=None`` (a
+    system/anonymous action, ``enums.md`` — sanctioned verb). ``photo_ref`` (an
+    opaque object-storage key) is stored encrypted at rest via the model's
+    ``set_photo_ref`` helper; there is never a plaintext column. ``logged_by``
+    is left null — a visitor self-signs in; a caretaker only reviews later.
+    """
+    entry = VisitorEntry(
+        building=building,
+        visitor_name=visitor_name,
+        purpose=purpose,
+        status=VisitorEntryStatus.PENDING,
+    )
+    entry.set_photo_ref(photo_ref)
+    entry.save()
+    audit(
+        actor=None,
+        action="visitor.log",
+        target=entry,
+        before=None,
+        after=_visitor_snapshot(entry),
+    )
+    return entry
+
+
 def _resolve_caretaker(caretaker_id: str) -> User:
     """Resolve ``caretaker_id`` to a caretaker-role User or raise ``ValidationError``.
 

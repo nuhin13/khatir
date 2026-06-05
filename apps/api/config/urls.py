@@ -40,6 +40,9 @@ urlpatterns = [
     # (/n/<token>/open.gif) and provider delivery webhook (/n/<token>/delivered).
     # Token-scoped, hit by browsers/providers, so rooted outside ``/api/v1/``.
     path("", include("khatir.notifications.web_urls")),
+    # Public, no-login visitor sign-in submit (token-scoped, EPIC-25 T-004).
+    # Browser form POST, so it lives at the root rather than under ``/api/v1/``.
+    path("", include("khatir.gatekeeper.web_urls")),
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
     # Gatekeeper caretaker-assignment routes nest under buildings; listed

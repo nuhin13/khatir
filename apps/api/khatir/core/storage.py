@@ -31,7 +31,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 # Allowed storage namespaces (keep keys grouped by sensitivity / lifecycle).
-_KINDS = frozenset({"nid", "proof", "pdf"})
+_KINDS = frozenset({"nid", "proof", "pdf", "visitor"})
 
 # Signed-URL default lifetime (seconds). T-005 keeps PDF links modest (1h).
 DEFAULT_TTL_SECONDS = 3600
