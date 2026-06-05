@@ -4,7 +4,7 @@ epic: EPIC-26
 title: GovExport model + migration
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-05.T-001]
 blocks: []

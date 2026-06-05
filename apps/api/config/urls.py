@@ -68,6 +68,7 @@ urlpatterns = [
     path("api/v1/", include("khatir.reviews.urls")),
 >>>>>>> wave2be/E21
     path("api/v1/", include("khatir.dmpforms.urls")),
+    path("api/v1/", include("khatir.govexport.urls")),
     path("api/v1/", include("khatir.rent.urls")),
     path("api/v1/", include("khatir.maintenance.urls")),
     path("api/v1/", include("khatir.billing.urls")),
