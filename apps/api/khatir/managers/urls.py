@@ -7,7 +7,11 @@ from __future__ import annotations
 
 from django.urls import path
 
-from .views import ManagerOwnersView, OwnerLinkConsentView
+from .views import (
+    ManagerDashboardView,
+    ManagerOwnersView,
+    OwnerLinkConsentView,
+)
 
 app_name = "managers"
 
@@ -18,4 +22,5 @@ urlpatterns = [
         OwnerLinkConsentView.as_view(),
         name="owner-consent",
     ),
+    path("manager/dashboard", ManagerDashboardView.as_view(), name="dashboard"),
 ]

@@ -10,6 +10,8 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
+from khatir.dashboard.serializers import DashboardSerializer
+
 from .models import ManagerOwnerLink
 
 
@@ -49,3 +51,19 @@ class ManagerOwnerLinkSerializer(serializers.ModelSerializer):
             "updated_at",
         )
         read_only_fields = fields
+
+
+class OwnerDashboardSerializer(serializers.Serializer):
+    """One active-linked owner's dashboard row in the consolidated payload."""
+
+    owner_id = serializers.IntegerField(read_only=True)
+    owner_name = serializers.CharField(read_only=True)
+    metrics = DashboardSerializer(read_only=True)
+
+
+class ManagerDashboardSerializer(serializers.Serializer):
+    """The manager consolidated dashboard: per-owner rows + a summed total."""
+
+    owner_count = serializers.IntegerField(read_only=True)
+    owners = OwnerDashboardSerializer(many=True, read_only=True)
+    total = DashboardSerializer(read_only=True)
