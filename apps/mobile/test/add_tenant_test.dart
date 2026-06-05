@@ -73,7 +73,7 @@ void main() {
     return ProviderScope(
       overrides: [
         publicConfigProvider.overrideWith(
-          (ref) async => PublicConfig(voiceTenantEntry: voiceEnabled),
+          (ref) async => PublicConfig.withVoice(voiceTenantEntry: voiceEnabled),
         ),
       ],
       child: MaterialApp.router(

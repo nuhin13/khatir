@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:khatir_tokens/khatir_tokens.dart';
 
-import '../../../../core/config/public_config_provider.dart';
+import '../../../../core/config/flags_provider.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../data/models/extracted_tenant.dart';
@@ -45,12 +45,12 @@ class VoiceFillScreen extends HookConsumerWidget {
     final l10n = AppLocalizations.of(context);
 
     // Defensive flag gate — the chooser (T-009) already hides the entry when
-    // off; this stops a deep link from reaching the recorder. Falls back to the
-    // permissive default (enabled) while the config resolves / if it fails,
-    // matching PublicConfig and the backend's "default on" behaviour.
-    final voiceEnabled = ref
-        .watch(publicConfigProvider)
-        .maybeWhen(data: (c) => c.voiceTenantEntry, orElse: () => true);
+    // off; this stops a deep link from reaching the recorder. Read through the
+    // generic FlagsProvider; falls back to the permissive default (enabled)
+    // while the config resolves / if it fails, matching the backend's
+    // "default on" behaviour.
+    final voiceEnabled =
+        ref.watch(flagsProvider).isEnabled('voice_tenant_entry', orElse: true);
 
     // Recording-stage state machine: idle → recording → processing →
     // (navigate | error).

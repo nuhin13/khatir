@@ -162,7 +162,7 @@ void main() {
       overrides: [
         audioRecorderServiceProvider.overrideWithValue(recorder),
         publicConfigProvider.overrideWith(
-          (ref) async => PublicConfig(
+          (ref) async => PublicConfig.withVoice(
             voiceTenantEntry: voiceEnabled,
             areaOptions: Area.values,
           ),

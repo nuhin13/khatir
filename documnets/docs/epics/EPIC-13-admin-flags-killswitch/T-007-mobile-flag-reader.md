@@ -4,15 +4,15 @@ epic: EPIC-13
 title: Mobile flag reader (wire EPIC-04 voice flag)
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-002]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -40,20 +40,34 @@ No DB; reads /config/public; mobile 🟢; no external; no flags (meta).
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] FlagsProvider reads flags dict from /config/public
-- [ ] isEnabled('key') → bool
-- [ ] EPIC-04 voice flag wired to real FlagsProvider
-- [ ] test: flag on → voice shown; flag off → voice hidden
-- [ ] analyze + test pass
+- [x] FlagsProvider reads flags dict from /config/public
+- [x] isEnabled('key') → bool
+- [x] EPIC-04 voice flag wired to real FlagsProvider
+- [x] test: flag on → voice shown; flag off → voice hidden
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
 - flags_provider_test → isEnabled reflects config
 ## 13. Acceptance criteria
-- [ ] Real flag system in mobile; voice flag wired; test passes.
+- [x] Real flag system in mobile; voice flag wired; test passes.
 ## 14. Self-review
-- [ ] EPIC-04 placeholder removed; real provider
+- [x] EPIC-04 placeholder removed; real provider
 ### Deviations from spec
+- The prior per-flag `PublicConfig.voiceTenantEntry` field is replaced by a
+  generic `flags` map on `PublicConfig` plus a typed `FlagsProvider`
+  (`Flags.isEnabled('key', {orElse})`). `voiceTenantEntry` is kept only as a
+  thin convenience getter over the map for backward compatibility. The
+  add-tenant chooser and voice-fill screen now gate on
+  `flagsProvider.isEnabled('voice_tenant_entry', orElse: true)` instead of
+  reading the field directly — new features wire up by passing a flag key with
+  no provider changes.
 ### Files touched (actual)
+- Add: lib/core/config/flags_provider.dart, test/flags_provider_test.dart
+- Update: lib/core/config/public_config_provider.dart (generic flags map +
+  `_parseFlags`, `PublicConfig.withVoice` factory, `voiceTenantEntry` getter),
+  lib/features/tenants/presentation/screens/add_tenant_screen.dart,
+  lib/features/tenants/presentation/screens/voice_fill_screen.dart,
+  test/add_tenant_test.dart, test/voice_fill_test.dart
 ## 15. Notes
 - Pattern: FlagsProvider.isEnabled('voice_tenant_entry'). Other features use the same provider as they get flagged.

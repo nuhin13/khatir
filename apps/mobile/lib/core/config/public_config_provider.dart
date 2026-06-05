@@ -13,18 +13,42 @@ class PublicConfig {
   const PublicConfig({
     this.introSlideSkipAllowed = true,
     this.areaOptions = Area.values,
-    this.voiceTenantEntry = true,
+    this.flags = const <String, bool>{},
   });
+
+  /// Convenience constructor for tests/call sites that only care about the
+  /// `voice_tenant_entry` flag. Builds a [flags] map from the legacy boolean so
+  /// existing fixtures keep working after the move to a generic flags dict.
+  factory PublicConfig.withVoice({
+    bool introSlideSkipAllowed = true,
+    List<Area> areaOptions = Area.values,
+    bool voiceTenantEntry = true,
+  }) {
+    return PublicConfig(
+      introSlideSkipAllowed: introSlideSkipAllowed,
+      areaOptions: areaOptions,
+      flags: <String, bool>{'voice_tenant_entry': voiceTenantEntry},
+    );
+  }
 
   /// Whether the onboarding slides may be skipped (SystemConfig
   /// `intro_slide_skip_allowed`).
   final bool introSlideSkipAllowed;
 
+  /// All global feature flags served in the `/config/public` `flags` block as a
+  /// `key → enabled` map. Read through [FlagsProvider]/[Flags.isEnabled] rather
+  /// than poking individual keys here. Empty when unseeded/missing — callers
+  /// supply their own per-flag default.
+  final Map<String, bool> flags;
+
   /// Whether the voice tenant-entry method is available (FeatureFlag
   /// `voice_tenant_entry` in the `flags` block). Hides the voice card on the
   /// add-tenant chooser when off. Defaults **on** to match the backend's
   /// task-declared default so an unseeded environment still offers voice.
-  final bool voiceTenantEntry;
+  ///
+  /// Kept as a convenience getter; new features should read the flag through
+  /// the generic [Flags] provider instead.
+  bool get voiceTenantEntry => flags['voice_tenant_entry'] ?? true;
 
   /// Selectable Dhaka areas for the property wizard (SystemConfig
   /// `area_options`). Wire values are mapped to [Area]; unknown values are
@@ -46,29 +70,29 @@ class PublicConfig {
         _ => true,
       },
       areaOptions: _parseAreaOptions(root['area_options']),
-      voiceTenantEntry: _parseFlag(
-        root['flags'],
-        'voice_tenant_entry',
-        defaultValue: true,
-      ),
+      flags: _parseFlags(root['flags']),
     );
   }
 
-  /// Reads a boolean from the `flags` block (`{ "<key>": true/false }`),
-  /// tolerating string-encoded booleans. Returns [defaultValue] when the block
-  /// or key is missing so an unconfigured flag keeps its task-declared default.
-  static bool _parseFlag(
-    Object? flags,
-    String key, {
-    required bool defaultValue,
-  }) {
-    if (flags is! Map) return defaultValue;
-    return switch (flags[key]) {
-      final bool b => b,
-      'true' => true,
-      'false' => false,
-      _ => defaultValue,
-    };
+  /// Parses the `/config/public` `flags` block (`{ "<key>": true/false }`) into
+  /// a `key → enabled` map, tolerating string-encoded booleans. Unparseable
+  /// values are dropped (the per-flag default then applies at read time). An
+  /// absent/invalid block yields an empty map.
+  static Map<String, bool> _parseFlags(Object? raw) {
+    if (raw is! Map) return const <String, bool>{};
+    final parsed = <String, bool>{};
+    raw.forEach((key, value) {
+      if (key is! String) return;
+      switch (value) {
+        case final bool b:
+          parsed[key] = b;
+        case 'true':
+          parsed[key] = true;
+        case 'false':
+          parsed[key] = false;
+      }
+    });
+    return parsed;
   }
 
   /// Parses the `area_options` wire value (a JSON array of wire strings) into a

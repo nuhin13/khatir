@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:khatir_tokens/khatir_tokens.dart';
 
-import '../../../../core/config/public_config_provider.dart';
+import '../../../../core/config/flags_provider.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
 
@@ -56,12 +56,11 @@ class AddTenantScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    // The voice card is flag-gated. While the flag resolves (or if the config
-    // fails) we fall back to the permissive default (voice shown), matching the
-    // PublicConfig default and the backend's "default on" behaviour.
-    final voiceEnabled = ref
-        .watch(publicConfigProvider)
-        .maybeWhen(data: (c) => c.voiceTenantEntry, orElse: () => true);
+    // The voice card is flag-gated via the generic FlagsProvider. While the
+    // flag resolves (or if the config fails) we fall back to the permissive
+    // default (voice shown), matching the backend's "default on" behaviour.
+    final voiceEnabled =
+        ref.watch(flagsProvider).isEnabled('voice_tenant_entry', orElse: true);
 
     return Scaffold(
       backgroundColor: KhatirColors.cream,
