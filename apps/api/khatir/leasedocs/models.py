@@ -26,17 +26,19 @@ from django.db import models
 
 from khatir.core.models import AllObjectsManager, SoftDeleteManager, SoftDeleteModel
 
-from .enums import LeaseDocumentStatus
+from .enums import LeaseDocumentClauseKey, LeaseDocumentStatus
 
 #: Clause keys that every lease document must contain. The disclaimer clause
 #: ("not legal advice") is mandatory per the epic compliance acceptance criteria.
+#: These reference :class:`LeaseDocumentClauseKey` (the scaffold, T-002) so the
+#: mandatory subset stays in lock-step with the base lease structure.
 REQUIRED_CLAUSE_KEYS: tuple[str, ...] = (
-    "parties",
-    "premises",
-    "rent",
-    "advance",
-    "term",
-    "disclaimer",
+    LeaseDocumentClauseKey.PARTIES,
+    LeaseDocumentClauseKey.PREMISES,
+    LeaseDocumentClauseKey.RENT,
+    LeaseDocumentClauseKey.ADVANCE,
+    LeaseDocumentClauseKey.TERM,
+    LeaseDocumentClauseKey.DISCLAIMER,
 )
 
 
@@ -119,6 +121,11 @@ class LeaseDocument(SoftDeleteModel):
             value = content.get(key)
             if value is None or value == "" or value == [] or value == {}:
                 missing.append(key)
+            elif isinstance(value, dict):
+                # Scaffold-shaped clause (T-002): present only if it has a body.
+                body = value.get("body")
+                if body is None or (isinstance(body, str) and body.strip() == ""):
+                    missing.append(key)
         return missing
 
     def validate_required_clauses(self) -> None:
