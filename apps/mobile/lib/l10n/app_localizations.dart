@@ -2671,6 +2671,120 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'অন্যান্য'**
   String get expenses_category_other;
+
+  /// Add-expense screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ যোগ'**
+  String get add_expense_title;
+
+  /// Add-expense form: amount field label (required).
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিমাণ'**
+  String get expense_amount;
+
+  /// Add-expense form: amount field placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳ ০'**
+  String get expense_amount_hint;
+
+  /// Add-expense form: category section label.
+  ///
+  /// In bn, this message translates to:
+  /// **'খাত'**
+  String get expense_category;
+
+  /// Add-expense form: unit field label (required).
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট'**
+  String get expense_unit;
+
+  /// Add-expense form: building selector label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভবন'**
+  String get expense_building;
+
+  /// Add-expense form: unit selector placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি ইউনিট বাছুন'**
+  String get expense_unit_hint;
+
+  /// Add-expense form: building selector placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি ভবন বাছুন'**
+  String get expense_building_hint;
+
+  /// Add-expense form: date field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'তারিখ'**
+  String get expense_date;
+
+  /// Add-expense form: note field label (optional).
+  ///
+  /// In bn, this message translates to:
+  /// **'নোট (ঐচ্ছিক)'**
+  String get expense_note;
+
+  /// Add-expense form: receipt photo label (optional).
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ (ঐচ্ছিক)'**
+  String get expense_receipt;
+
+  /// Add-expense form: attach-receipt button.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ যোগ করুন'**
+  String get expense_receipt_add;
+
+  /// Add-expense form: receipt attached confirmation.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ যুক্ত হয়েছে'**
+  String get expense_receipt_attached;
+
+  /// Add-expense form: remove attached receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরান'**
+  String get expense_receipt_remove;
+
+  /// Add-expense form: save button.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ সেভ করুন'**
+  String get expense_save;
+
+  /// Add-expense form: amount validation error.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি বৈধ পরিমাণ দিন'**
+  String get expense_err_amount;
+
+  /// Add-expense form: missing-unit validation error.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট বাছাই করুন'**
+  String get expense_err_unit;
+
+  /// Add-expense: success snackbar.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ সেভ হয়েছে'**
+  String get expense_saved;
+
+  /// Add-expense: failure snackbar.
+  ///
+  /// In bn, this message translates to:
+  /// **'সেভ হয়নি'**
+  String get expense_save_failed;
 }
 
 class _AppLocalizationsDelegate

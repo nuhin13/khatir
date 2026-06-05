@@ -10,6 +10,7 @@ import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
 import '../../features/leases/presentation/screens/lease_detail_screen.dart';
 import '../../features/leases/presentation/screens/lease_form_screen.dart';
 import '../../features/leases/presentation/screens/lease_list_screen.dart';
+import '../../features/maintenance/presentation/screens/add_expense_screen.dart';
 import '../../features/maintenance/presentation/screens/expenses_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -591,6 +592,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: ExpensesScreen.routeName,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const ExpensesScreen(),
+      ),
+      // The add-expense form (`/expenses/add`, EPIC-08 T-009): amount, category
+      // chips, building→unit, date, optional note + receipt, Save. Pushed from
+      // the expenses list Add action; saves and routes back to the list.
+      GoRoute(
+        path: AddExpenseScreen.routePath,
+        name: AddExpenseScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const AddExpenseScreen(),
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────

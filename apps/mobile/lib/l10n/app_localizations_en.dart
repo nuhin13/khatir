@@ -1398,4 +1398,62 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get expenses_category_other => 'অন্যান্য · Other';
+
+  @override
+  String get add_expense_title => 'খরচ যোগ · Add expense';
+
+  @override
+  String get expense_amount => 'পরিমাণ · Amount';
+
+  @override
+  String get expense_amount_hint => '৳ ০';
+
+  @override
+  String get expense_category => 'খাত · Category';
+
+  @override
+  String get expense_unit => 'ইউনিট · Unit';
+
+  @override
+  String get expense_building => 'ভবন · Building';
+
+  @override
+  String get expense_unit_hint => 'একটি ইউনিট বাছুন · Choose a unit';
+
+  @override
+  String get expense_building_hint => 'একটি ভবন বাছুন · Choose a building';
+
+  @override
+  String get expense_date => 'তারিখ · Date';
+
+  @override
+  String get expense_note => 'নোট · Note (optional)';
+
+  @override
+  String get expense_receipt => 'রসিদ · Receipt (optional)';
+
+  @override
+  String get expense_receipt_add => 'রসিদ যোগ করুন · Attach receipt';
+
+  @override
+  String get expense_receipt_attached => 'রসিদ যুক্ত হয়েছে · Receipt attached';
+
+  @override
+  String get expense_receipt_remove => 'সরান · Remove';
+
+  @override
+  String get expense_save => 'খরচ সেভ করুন · Save expense';
+
+  @override
+  String get expense_err_amount => 'একটি বৈধ পরিমাণ দিন · Enter a valid amount';
+
+  @override
+  String get expense_err_unit => 'ইউনিট বাছাই করুন · Please choose a unit';
+
+  @override
+  String get expense_saved => 'খরচ সেভ হয়েছে · Expense saved';
+
+  @override
+  String get expense_save_failed =>
+      'সেভ হয়নি · Couldn\'t save. Please try again.';
 }
