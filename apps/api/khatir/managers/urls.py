@@ -9,6 +9,7 @@ from django.urls import path
 
 from .views import (
     ManagerDashboardView,
+    ManagerOwnerReportView,
     ManagerOwnersView,
     OwnerLinkConsentView,
 )
@@ -21,6 +22,11 @@ urlpatterns = [
         "manager/owners/<int:link_id>/consent",
         OwnerLinkConsentView.as_view(),
         name="owner-consent",
+    ),
+    path(
+        "manager/owners/<int:owner_id>/report",
+        ManagerOwnerReportView.as_view(),
+        name="owner-report",
     ),
     path("manager/dashboard", ManagerDashboardView.as_view(), name="dashboard"),
 ]

@@ -20,11 +20,13 @@ from __future__ import annotations
 from typing import Any, cast
 
 from django.core.cache import cache
+from django.http import HttpResponse
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from khatir.accounts.models import User
+from khatir.core.audit import audit
 from khatir.core.config import get_config
 from khatir.core.exceptions import FeatureDisabledError, NotFoundError
 from khatir.core.permissions import IsLandlord, IsManager
@@ -33,6 +35,7 @@ from khatir.core.responses import created, success
 from .dashboard import get_manager_dashboard
 from .flags import is_b2b_manager_enabled
 from .models import ManagerOwnerLink
+from .report import REPORT_VERSION, build_owner_report, render_owner_report_pdf
 from .serializers import (
     ManagerDashboardSerializer,
     ManagerOwnerLinkSerializer,
@@ -163,3 +166,63 @@ class ManagerDashboardView(APIView):
             payload = ManagerDashboardSerializer(dashboard).data
             cache.set(ck, payload, _DASH_CACHE_TTL)
         return success(payload)
+
+
+class ManagerOwnerReportView(APIView):
+    """``GET /api/v1/manager/owners/{owner_id}/report`` — per-owner PDF report.
+
+    Renders a one-page summary (collection, occupancy, expenses) for a single
+    owner the manager is **actively** linked to, reusing the EPIC-09 selectors
+    and the EPIC-05 PDF primitive (see :mod:`khatir.managers.report`).
+
+    Scoped to active links only: an owner the manager has no *active* link to —
+    pending, revoked, or another manager's — is indistinguishable from one that
+    does not exist (**404**, never 403). A manager reading an owner's
+    personal/financial data is an auditable access event, written here on the
+    successful read (``04_coding_conventions.md`` §11).
+    """
+
+    permission_classes = [IsManager]
+
+    def get(
+        self, request: Request, owner_id: int, *args: Any, **kwargs: Any
+    ) -> HttpResponse:
+        _require_flag()
+        manager = cast(User, request.user)
+        months = _parse_months(request)
+
+        # Resolve the owner only through this manager's *active* links — the
+        # single source of truth for accessible owners (T-001). Any other id
+        # (no link, pending, revoked, another manager's) yields 404.
+        link = (
+            ManagerOwnerLink.objects.for_manager(manager)
+            .active()
+            .select_related("owner")
+            .filter(owner_id=owner_id)
+            .first()
+        )
+        if link is None:
+            raise NotFoundError("Owner not found.")
+        owner = link.owner
+
+        report = build_owner_report(owner, months=months)
+        pdf = render_owner_report_pdf(report)
+
+        # The access — a manager reading this owner's financials — is audited.
+        audit(
+            actor=manager,
+            action="manager.owner_report.read",
+            target=link,
+            before=None,
+            after={
+                "owner_id": owner.pk,
+                "months": months,
+                "report_version": REPORT_VERSION,
+            },
+        )
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="owner-{owner.pk}-report.pdf"'
+        )
+        return response
