@@ -29,7 +29,7 @@ from django.utils import timezone
 from khatir.compliance.enums import ConsentType
 from khatir.compliance.models import ConsentRecord
 from khatir.core.audit import audit
-from khatir.core.exceptions import FeatureDisabledError, ValidationError
+from khatir.core.exceptions import FeatureDisabledError, NotFoundError, ValidationError
 from khatir.tenants.models import Tenant
 
 from .flags import history_sharing_enabled
@@ -112,5 +112,69 @@ def create_history_share(
             "consent_record_id": share.consent_record_id,
             "expires_at": expires_at.isoformat() if expires_at else None,
         },
+    )
+    return share
+
+
+def list_history_shares(*, acting_user: Any) -> Any:
+    """Return the calling tenant's OWN shares, newest first.
+
+    Full transparency: the tenant sees every share they originated regardless
+    of lifecycle state (active / expired / revoked) — that is the point of the
+    transparency view. Strictly scoped to ``request.user``'s tenant identity so
+    one tenant can never see another's shares. ``consent_record`` is selected so
+    status/consent computation never N+1s.
+    """
+    tenant = resolve_acting_tenant(acting_user)
+    return (
+        HistoryShare.objects.filter(tenant=tenant)
+        .select_related("consent_record", "recipient_landlord")
+        .order_by("-created_at")
+    )
+
+
+@transaction.atomic
+def revoke_history_share(*, acting_user: Any, share_id: int) -> HistoryShare:
+    """Instantly revoke one of the calling tenant's OWN shares.
+
+    Only the owning tenant may revoke, and only their own share — a share that
+    does not belong to the caller is reported as not found (404), never as
+    forbidden, so existence of another tenant's share never leaks. Revoking is
+    idempotent: re-revoking an already-revoked share is a no-op that returns the
+    share unchanged (the original ``revoked_at`` is preserved).
+
+    Revoking kills the share immediately (``revoked_at = now``) AND withdraws the
+    linked per-share consent (``ConsentRecord.revoked_at``) so the recipient read
+    path closes via both gates. Audited. Kill-switch independent — a tenant must
+    ALWAYS be able to withdraw, even if the feature is otherwise disabled.
+    """
+    tenant = resolve_acting_tenant(acting_user)
+    share = (
+        HistoryShare.objects.select_related("consent_record")
+        .filter(pk=share_id, tenant=tenant)
+        .first()
+    )
+    if share is None:
+        raise NotFoundError("This shared rental history was not found.")
+
+    if share.revoked_at is not None:
+        return share  # idempotent — already revoked, preserve the original time.
+
+    now = timezone.now()
+    share.revoked_at = now
+    share.save(update_fields=["revoked_at", "updated_at"])
+
+    # Withdraw the per-share consent too, so the share closes via both gates.
+    consent = share.consent_record
+    if consent.revoked_at is None:
+        consent.revoked_at = now
+        consent.save(update_fields=["revoked_at", "updated_at"])
+
+    audit(
+        actor=acting_user,
+        action="history_share.revoke",
+        target=share,
+        before={"revoked_at": None},
+        after={"revoked_at": now.isoformat()},
     )
     return share

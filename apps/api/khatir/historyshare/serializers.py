@@ -57,6 +57,37 @@ class HistoryShareSerializer(serializers.ModelSerializer[HistoryShare]):
         read_only_fields = fields
 
 
+class HistoryShareOwnerSerializer(serializers.ModelSerializer[HistoryShare]):
+    """Owner-facing (tenant transparency) view of a share — EPIC-24.T-004.
+
+    Surfaces WHAT was shared (``scope``, ``factual_stats``), WHO it went to
+    (``recipient_landlord``), WHEN (``created_at``, ``expires_at``,
+    ``revoked_at``) and its lifecycle ``status`` (active / expired / revoked).
+    This is the only place the OWNING tenant sees their own lifecycle state;
+    the recipient read view (T-003) never exposes any of it. Read-only — the
+    only mutation a tenant can make is the explicit ``revoke`` action.
+    """
+
+    status = serializers.SerializerMethodField()
+
+    class Meta:
+        model = HistoryShare
+        fields = [
+            "id",
+            "recipient_landlord",
+            "scope",
+            "factual_stats",
+            "status",
+            "expires_at",
+            "revoked_at",
+            "created_at",
+        ]
+        read_only_fields = fields
+
+    def get_status(self, obj: HistoryShare) -> str:
+        return obj.status()
+
+
 class HistoryShareRecipientSerializer(serializers.ModelSerializer[HistoryShare]):
     """Recipient-facing read view of an ACTIVE share — factual stats ONLY.
 

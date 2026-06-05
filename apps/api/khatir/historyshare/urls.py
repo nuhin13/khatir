@@ -13,7 +13,11 @@ from __future__ import annotations
 
 from django.urls import path
 
-from .views import HistoryShareCreateView, HistoryShareRecipientView
+from .views import (
+    HistoryShareCreateView,
+    HistoryShareRecipientView,
+    HistoryShareRevokeView,
+)
 
 app_name = "historyshare"
 
@@ -21,7 +25,12 @@ urlpatterns = [
     path(
         "me/history-shares",
         HistoryShareCreateView.as_view(),
-        name="history-share-create",
+        name="history-share-list-create",
+    ),
+    path(
+        "me/history-shares/<int:share_id>/revoke",
+        HistoryShareRevokeView.as_view(),
+        name="history-share-revoke",
     ),
     path(
         "history-shares/<str:token>",

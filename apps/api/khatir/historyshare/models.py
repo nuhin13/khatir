@@ -162,3 +162,18 @@ class HistoryShare(TimeStampedModel):
         """
         moment = now or timezone.now()
         return self.is_active(now=moment) and self.is_consent_valid(now=moment)
+
+    def status(self, *, now: timezone.datetime | None = None) -> str:
+        """Return the share's lifecycle status for tenant transparency.
+
+        One of ``"revoked"``, ``"expired"`` or ``"active"``. ``revoked`` takes
+        precedence over ``expired`` (an explicit tenant action), and both take
+        precedence over ``active``. This is surfaced to the OWNING tenant only
+        (the recipient read path never exposes lifecycle state — see T-003).
+        """
+        moment = now or timezone.now()
+        if self.revoked_at is not None:
+            return "revoked"
+        if self.expires_at is not None and self.expires_at <= moment:
+            return "expired"
+        return "active"

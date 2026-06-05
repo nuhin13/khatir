@@ -31,16 +31,32 @@ from .flags import history_sharing_enabled
 from .models import HistoryShare
 from .serializers import (
     HistoryShareCreateSerializer,
+    HistoryShareOwnerSerializer,
     HistoryShareRecipientSerializer,
     HistoryShareSerializer,
 )
-from .services import create_history_share
+from .services import (
+    create_history_share,
+    list_history_shares,
+    revoke_history_share,
+)
 
 
 class HistoryShareCreateView(APIView):
-    """``POST /api/v1/me/history-shares`` — tenant creates a consent-gated share."""
+    """``GET|POST /api/v1/me/history-shares`` — tenant lists / creates shares.
+
+    * ``GET`` — full tenant transparency: the owning tenant sees ALL their own
+      shares (what / who / when / status), regardless of lifecycle state. Not
+      kill-switch gated — a tenant can always inspect what they have shared.
+    * ``POST`` — tenant creates a new consent-gated share (kill-switch gated).
+    """
 
     permission_classes = [IsTenant]
+
+    def get(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        shares = list_history_shares(acting_user=request.user)
+        data = HistoryShareOwnerSerializer(shares, many=True).data
+        return success(data)
 
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         if not history_sharing_enabled():
@@ -59,6 +75,28 @@ class HistoryShareCreateView(APIView):
             expires_at=data.get("expires_at"),
         )
         return created(HistoryShareSerializer(share).data)
+
+
+class HistoryShareRevokeView(APIView):
+    """``POST /api/v1/me/history-shares/{id}/revoke`` — tenant revokes instantly.
+
+    Tenant control: only the owning tenant may revoke, and only their own share
+    (another tenant's id is reported as ``404``, never ``403``, so its existence
+    never leaks). Revoking kills the share immediately and withdraws the linked
+    consent, closing the recipient read path at once. Idempotent (re-revoking is
+    a no-op). NOT kill-switch gated — withdrawing consent must always be possible
+    even when the feature is otherwise disabled.
+    """
+
+    permission_classes = [IsTenant]
+
+    def post(
+        self, request: Request, share_id: int, *args: Any, **kwargs: Any
+    ) -> Response:
+        share = revoke_history_share(
+            acting_user=request.user, share_id=share_id
+        )
+        return success(HistoryShareOwnerSerializer(share).data)
 
 
 class HistoryShareRecipientView(APIView):
