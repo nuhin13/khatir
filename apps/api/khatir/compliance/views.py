@@ -48,9 +48,14 @@ from khatir.admin_portal.authentication import (
 from khatir.admin_portal.models import AdminAuditEntry, AdminUser
 from khatir.admin_portal.permissions import SECTION_ROLES, AdminSection
 from khatir.core.pagination import StandardPageNumberPagination
+from khatir.verification.models import VerificationLog
 
 from .models import ConsentRecord
-from .serializers import AdminAuditEntrySerializer, ConsentRecordSerializer
+from .serializers import (
+    AdminAuditEntrySerializer,
+    ConsentRecordSerializer,
+    VerificationLogSerializer,
+)
 
 
 class IsComplianceAdmin(BasePermission):
@@ -217,3 +222,57 @@ class AdminAuditEntryListView(APIView):
             'attachment; filename="audit-log.csv"'
         )
         return response
+
+
+class VerificationLogListView(APIView):
+    """``GET /admin/api/verification-logs`` — paginated verification event log.
+
+    Surfaces EPIC-17 :class:`~khatir.verification.models.VerificationLog`
+    entries in the compliance console (T-009): **read-only**, exposing only the
+    boolean ``result``, the date, and who requested it — never any raw Election
+    Commission data. ``VerificationLog`` is append-only, so there are no
+    create/update/delete endpoints. Supported query filters:
+
+    * ``tenant``    — only entries for this tenant id.
+    * ``requested_by`` — only entries initiated by this user id.
+    * ``result``    — exact match on
+      :class:`~khatir.verification.enums.VerificationResult`.
+    * ``date_from`` — entries created on/after this ISO date/datetime.
+    * ``date_to``   — entries created on/before this ISO date/datetime.
+    """
+
+    authentication_classes = [AdminJWTAuthentication]
+    permission_classes = [IsAdminAuthenticated, IsComplianceAdmin]
+
+    def get(self, request: Request) -> Response:
+        queryset = self._filtered_queryset(request)
+        paginator = StandardPageNumberPagination()
+        page = paginator.paginate_queryset(queryset, request, view=self)
+        data = VerificationLogSerializer(page, many=True).data
+        return paginator.get_paginated_response(data)
+
+    def _filtered_queryset(self, request: Request) -> QuerySet[VerificationLog]:
+        queryset = VerificationLog.objects.all()
+        params = request.query_params
+
+        tenant = params.get("tenant")
+        if tenant:
+            queryset = queryset.filter(tenant_id=tenant)
+
+        requested_by = params.get("requested_by")
+        if requested_by:
+            queryset = queryset.filter(requested_by_id=requested_by)
+
+        result = params.get("result")
+        if result:
+            queryset = queryset.filter(result=result)
+
+        date_from = params.get("date_from")
+        if date_from:
+            queryset = queryset.filter(created_at__gte=date_from)
+
+        date_to = params.get("date_to")
+        if date_to:
+            queryset = queryset.filter(created_at__lte=date_to)
+
+        return queryset

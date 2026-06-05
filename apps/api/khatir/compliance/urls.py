@@ -12,7 +12,11 @@ below (keep additions additive — never reorder/remove).
 from django.urls import path
 
 from .data_request_views import DataRequestListView, DataRequestProcessView
-from .views import AdminAuditEntryListView, ConsentRecordListView
+from .views import (
+    AdminAuditEntryListView,
+    ConsentRecordListView,
+    VerificationLogListView,
+)
 
 app_name = "compliance"
 
@@ -36,5 +40,10 @@ urlpatterns = [
         "data-requests/<int:request_id>/process",
         DataRequestProcessView.as_view(),
         name="data-request-process",
+    ),
+    path(
+        "verification-logs",
+        VerificationLogListView.as_view(),
+        name="verification-logs",
     ),
 ]

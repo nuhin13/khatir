@@ -21,6 +21,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from khatir.admin_portal.models import AdminAuditEntry
+from khatir.verification.models import VerificationLog
 
 from .models import ConsentRecord, DataRequest
 
@@ -73,6 +74,27 @@ class AdminAuditEntrySerializer(serializers.ModelSerializer[AdminAuditEntry]):
             "after_json",
             "ip",
             "reason",
+            "created_at",
+        )
+        read_only_fields = fields
+
+
+class VerificationLogSerializer(serializers.ModelSerializer[VerificationLog]):
+    """Read-only projection of a verification attempt for the compliance console.
+
+    Surfaces **only** the boolean outcome (``result``), the date, and who
+    requested it — never any raw Election Commission data. The model itself has
+    no raw-EC columns; this serializer additionally never exposes the opaque
+    ``provider_ref`` vendor token to the compliance viewer.
+    """
+
+    class Meta:
+        model = VerificationLog
+        fields = (
+            "id",
+            "tenant",
+            "requested_by",
+            "result",
             "created_at",
         )
         read_only_fields = fields
@@ -132,5 +154,6 @@ __all__ = [
     "ConsentRecordSerializer",
     "DataRequestProcessSerializer",
     "DataRequestSerializer",
+    "VerificationLogSerializer",
     "sla_state",
 ]
