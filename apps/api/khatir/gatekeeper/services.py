@@ -21,10 +21,10 @@ from django.db import transaction
 from khatir.accounts.enums import Role
 from khatir.accounts.models import User
 from khatir.core.audit import audit
-from khatir.core.exceptions import ValidationError
+from khatir.core.exceptions import ConflictError, ValidationError
 
-from .enums import CaretakerAssignmentStatus
-from .models import CaretakerAssignment
+from .enums import CaretakerAssignmentStatus, VisitorEntryStatus
+from .models import CaretakerAssignment, VisitorEntry
 
 
 def _snapshot(assignment: CaretakerAssignment) -> dict[str, Any]:
@@ -34,6 +34,56 @@ def _snapshot(assignment: CaretakerAssignment) -> dict[str, Any]:
         "building_id": str(assignment.building_id),
         "status": assignment.status,
     }
+
+
+def _visitor_snapshot(entry: VisitorEntry) -> dict[str, Any]:
+    """A JSON-safe snapshot of the audited visitor-entry fields."""
+    return {
+        "building_id": str(entry.building_id),
+        "status": entry.status,
+        "logged_by_id": str(entry.logged_by_id) if entry.logged_by_id else None,
+    }
+
+
+#: Terminal visitor-entry review decisions a caretaker may apply.
+_REVIEW_DECISIONS = {
+    VisitorEntryStatus.APPROVED,
+    VisitorEntryStatus.DENIED,
+}
+
+
+@transaction.atomic
+def review_visitor_entry(
+    *, actor: User, entry: VisitorEntry, decision: str
+) -> VisitorEntry:
+    """Apply an approve/deny ``decision`` to a pending ``entry`` and audit it.
+
+    Only a ``pending`` entry may be reviewed — re-reviewing an already-decided
+    entry is a conflict (a caretaker must not silently flip an approved visitor to
+    denied). ``decision`` must be ``approved`` or ``denied``. The acting caretaker
+    is recorded as ``logged_by`` (server-side, never from the client) and the
+    state change is audited as ``visitor.review`` (``enums.md`` — open verb set).
+    """
+    if decision not in _REVIEW_DECISIONS:
+        raise ValidationError(
+            "decision must be 'approved' or 'denied'.",
+            details={"decision": "Must be 'approved' or 'denied'."},
+        )
+    if entry.status != VisitorEntryStatus.PENDING:
+        raise ConflictError("This visitor entry has already been reviewed.")
+
+    before = _visitor_snapshot(entry)
+    entry.status = decision
+    entry.logged_by = actor
+    entry.save(update_fields=["status", "logged_by", "updated_at"])
+    audit(
+        actor=actor,
+        action="visitor.review",
+        target=entry,
+        before=before,
+        after=_visitor_snapshot(entry),
+    )
+    return entry
 
 
 def _resolve_caretaker(caretaker_id: str) -> User:

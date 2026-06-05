@@ -12,7 +12,8 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
-from .models import CaretakerAssignment
+from .enums import VisitorEntryStatus
+from .models import CaretakerAssignment, VisitorEntry
 
 
 class CaretakerAssignmentSerializer(serializers.ModelSerializer[CaretakerAssignment]):
@@ -52,3 +53,46 @@ class CaretakerAssignmentCreateSerializer(serializers.Serializer[dict[str, objec
     """
 
     caretaker_id = serializers.CharField()
+
+
+class VisitorEntrySerializer(serializers.ModelSerializer[VisitorEntry]):
+    """Read/serialize a visitor entry for the caretaker queue/home (T-003 §3).
+
+    The visitor's photo is personal data held only as an encrypted pointer
+    (``photo_ref_enc``) — it is **never** exposed here; the caretaker UI fetches
+    the image through a separate, audited media route. All relational/audited
+    fields are read-only so a client can never set them.
+    """
+
+    id = serializers.CharField(read_only=True)
+    building_id = serializers.CharField(read_only=True)
+    unit_id = serializers.CharField(read_only=True)
+    logged_by_id = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = VisitorEntry
+        fields = (
+            "id",
+            "building_id",
+            "unit_id",
+            "visitor_name",
+            "purpose",
+            "status",
+            "logged_by_id",
+            "created_at",
+            "updated_at",
+        )
+        read_only_fields = fields
+
+
+class VisitorReviewSerializer(serializers.Serializer[dict[str, object]]):
+    """Validates a review body: the approve/deny ``decision`` for an entry.
+
+    The entry id comes from the URL and the reviewing caretaker from
+    ``request.user``; only the decision is client-supplied. Constrained to the
+    terminal review states so an out-of-set value is a typed field error.
+    """
+
+    decision = serializers.ChoiceField(
+        choices=[VisitorEntryStatus.APPROVED, VisitorEntryStatus.DENIED]
+    )

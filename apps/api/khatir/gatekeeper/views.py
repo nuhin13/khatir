@@ -20,6 +20,8 @@ from __future__ import annotations
 
 from typing import Any, cast
 
+from django.db.models import Count, Q
+from django.utils import timezone
 from rest_framework.permissions import BasePermission
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -31,14 +33,17 @@ from khatir.core.permissions import IsLandlordOrManager
 from khatir.core.responses import created, no_content, success
 from khatir.properties.models import Building
 
+from .enums import VisitorEntryStatus
 from .flags import is_gatekeeper_enabled
-from .models import CaretakerAssignment
-from .permissions import IsBuildingOwnerOrManager
+from .models import CaretakerAssignment, VisitorEntry
+from .permissions import IsBuildingOwnerOrManager, IsCaretaker
 from .serializers import (
     CaretakerAssignmentCreateSerializer,
     CaretakerAssignmentSerializer,
+    VisitorEntrySerializer,
+    VisitorReviewSerializer,
 )
-from .services import assign_caretaker, revoke_caretaker
+from .services import assign_caretaker, review_visitor_entry, revoke_caretaker
 
 
 class _GatekeeperViewMixin:
@@ -111,3 +116,102 @@ class BuildingCaretakerDetailView(_GatekeeperViewMixin, APIView):
             raise NotFoundError("Caretaker assignment not found.")
         revoke_caretaker(actor=cast(User, request.user), assignment=assignment)
         return no_content()
+
+
+class _CaretakerViewMixin:
+    """Shared flag gate + caretaker-role reach for the caretaker-facing endpoints.
+
+    Row visibility is always the job of ``VisitorEntry.objects.for_user`` (active
+    assignments only); this mixin only enforces the flag (§10) and the caretaker
+    reach role (§4). Non-caretakers never reach these endpoints.
+    """
+
+    permission_classes = cast("list[type[BasePermission]]", [IsCaretaker])
+
+    request: Request
+
+    def _require_flag(self) -> None:
+        if not is_gatekeeper_enabled():
+            raise FeatureDisabledError("The gatekeeper feature is disabled.")
+
+
+class CaretakerHomeView(_CaretakerViewMixin, APIView):
+    """``GET /api/v1/caretaker/home`` — today's activity for assigned buildings (T-003).
+
+    Summarises the caretaker's day across the buildings they are *actively*
+    assigned to: how many visitors were logged today and how they split across
+    pending/approved/denied. Strictly scoped through ``for_user`` so a caretaker
+    only ever sees their own assigned buildings' activity.
+    """
+
+    def get(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        self._require_flag()
+        today = timezone.localdate()
+        todays = VisitorEntry.objects.for_user(request.user).filter(
+            created_at__date=today
+        )
+        counts = todays.aggregate(
+            total=Count("id"),
+            pending=Count("id", filter=Q(status=VisitorEntryStatus.PENDING)),
+            approved=Count("id", filter=Q(status=VisitorEntryStatus.APPROVED)),
+            denied=Count("id", filter=Q(status=VisitorEntryStatus.DENIED)),
+        )
+        recent = todays.order_by("-created_at")[:20]
+        return success(
+            {
+                "date": today.isoformat(),
+                "counts": {
+                    "total": counts["total"],
+                    "pending": counts["pending"],
+                    "approved": counts["approved"],
+                    "denied": counts["denied"],
+                },
+                "recent": VisitorEntrySerializer(recent, many=True).data,
+            }
+        )
+
+
+class CaretakerVisitorQueueView(_CaretakerViewMixin, APIView):
+    """``GET /api/v1/caretaker/visitors`` — the pending visitor queue (T-003).
+
+    Lists the *pending* visitor entries across the caretaker's actively assigned
+    buildings, oldest first (FIFO — the visitor who has waited longest is acted
+    on next). Scoped through ``for_user``.
+    """
+
+    def get(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        self._require_flag()
+        queue = (
+            VisitorEntry.objects.for_user(request.user)
+            .filter(status=VisitorEntryStatus.PENDING)
+            .order_by("created_at")
+        )
+        return success(VisitorEntrySerializer(queue, many=True).data)
+
+
+class CaretakerVisitorReviewView(_CaretakerViewMixin, APIView):
+    """``POST /api/v1/caretaker/visitors/{id}/review`` — approve/deny (T-003).
+
+    Resolves the entry through ``for_user`` so an entry at a building the
+    caretaker is not actively assigned to is **404** (never reveal existence).
+    The decision is validated, applied + audited (``visitor.review``) in the
+    service, and the reviewing caretaker is recorded server-side as ``logged_by``.
+    """
+
+    def post(
+        self, request: Request, entry_id: str, *args: Any, **kwargs: Any
+    ) -> Response:
+        self._require_flag()
+        entry = (
+            VisitorEntry.objects.for_user(request.user).filter(pk=entry_id).first()
+        )
+        if entry is None:
+            raise NotFoundError("Visitor entry not found.")
+        serializer = VisitorReviewSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        entry = review_visitor_entry(
+            actor=cast(User, request.user),
+            entry=entry,
+            decision=serializer.validated_data["decision"],
+        )
+        return success(VisitorEntrySerializer(entry).data)

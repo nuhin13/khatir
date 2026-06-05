@@ -19,6 +19,7 @@ from typing import Any
 from rest_framework.permissions import BasePermission
 from rest_framework.request import Request
 
+from khatir.core.enums import Role
 from khatir.properties.permissions import _owns_building
 
 
@@ -27,3 +28,22 @@ class IsBuildingOwnerOrManager(BasePermission):
 
     def has_object_permission(self, request: Request, view: Any, obj: Any) -> bool:
         return _owns_building(request.user, getattr(obj, "owner_id", None))
+
+
+class IsCaretaker(BasePermission):
+    """Reach gate for the caretaker-facing endpoints (home / visitor queue / review).
+
+    The caretaker home + visitor review endpoints are operated only by users whose
+    **role is caretaker**; owners/managers/tenants/anonymous never reach them. Row
+    visibility (which buildings' visitors a caretaker sees) is the separate job of
+    ``VisitorEntry.objects.for_user`` (active assignments only) — this is purely
+    the role-reach layer. Role is read from ``request.user.role`` (DB truth).
+    """
+
+    def has_permission(self, request: Request, view: Any) -> bool:
+        user = request.user
+        return bool(
+            user
+            and user.is_authenticated
+            and getattr(user, "role", None) == Role.CARETAKER
+        )

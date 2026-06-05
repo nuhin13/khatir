@@ -4,7 +4,7 @@ epic: EPIC-25
 title: Caretaker home + visitor review endpoints
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001]
 blocks: []
@@ -38,20 +38,26 @@ DB: as described. Caretaker-scoped to assigned buildings. Audited. No external. 
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] Core implementation per goal
-- [ ] Caretaker scope (assigned buildings only) where applicable
-- [ ] Audit on writes
-- [ ] Tests: happy + scoping
-- [ ] ruff + mypy clean
+- [x] Core implementation per goal — home / visitor queue / review endpoints
+- [x] Caretaker scope (assigned buildings only) — all 3 endpoints route through `VisitorEntry.objects.for_user` (active assignments only)
+- [x] Audit on writes — `visitor.review` written by the service on the state change
+- [x] Tests: happy + scoping — `tests/test_caretaker_home_api.py`
+- [x] ruff clean (gatekeeper app); makemigrations --check clean (no model change)
 
 ## 12. Test plan
 ### Automated
 - Core tests + scoping
 ## 13. Acceptance criteria
-- [ ] Feature works per goal; scoped; audited; tests + lint pass.
+- [x] Feature works per goal; scoped; audited; tests + lint pass.
 ## 14. Self-review
-- [ ] Assigned-buildings scope; photo encrypted; conventions
+- [x] Assigned-buildings scope (revoked assignments excluded); photo pointer never serialized; thin-view + service + scoped-manager conventions
 ### Deviations from spec
+- Review verb is `visitor.review` (open verb set per `enums.md`); `visitor.log` stays reserved for the gate-side logging endpoint (T-004).
+- Caretaker endpoints are flat (`/api/v1/caretaker/...`), not building-nested, since they are scoped to the acting caretaker's active assignments rather than one addressable building.
+- Home returns a today summary `{date, counts{total,pending,approved,denied}, recent[≤20]}`; visitor photo is never exposed.
+- Re-reviewing an already-decided entry is a `409 conflict` (no silent state flip).
 ### Files touched (actual)
+- apps/api/khatir/gatekeeper/{views,urls,serializers,permissions,services}.py
+- apps/api/khatir/gatekeeper/tests/test_caretaker_home_api.py
 ## 15. Notes
 GET /api/v1/caretaker/home (today's activity for assigned buildings), GET /caretaker/visitors (queue), POST /caretaker/visitors/{id}/review (approve/deny). Caretaker-scoped. Audited.
