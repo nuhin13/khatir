@@ -1,0 +1,89 @@
+{% extends "rent/_web_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Visitor sign-in" %} · Khatir{% endblock %}
+
+{% block content %}
+  {% if submitted %}
+    <div class="center" style="padding-top:48px;">
+      <div class="icon" aria-hidden="true">✅</div>
+      <div class="title" style="font-size:18px;margin-top:14px;">আপনার তথ্য পাঠানো হয়েছে</div>
+      <div class="muted" lang="en" style="margin-top:6px;">Your details were sent to the gate.</div>
+      <div class="card soft-sage" style="margin-top:18px;text-align:left;">
+        <div style="font-size:13px;color:var(--sage-dk);font-weight:600;line-height:1.6;">
+          কেয়ারটেকার শীঘ্রই যাচাই করবেন।<br>
+          <span lang="en">The caretaker will review and let you in.</span>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">Khatir · খতির</div>
+  {% else %}
+    <div class="center">
+      <div class="icon" aria-hidden="true">👋</div>
+      <div class="title" style="font-size:17px;margin-top:8px;">
+        {% translate "Welcome, visitor" %}
+      </div>
+      <div class="muted" style="font-size:12px;">অতিথি তথ্য দিন</div>
+    </div>
+
+    <div class="center muted" style="font-size:12px;margin-top:6px;">
+      {{ building_name }} · {% translate "Building gate" %}
+    </div>
+
+    <form method="post" action="{% url 'gatekeeper_web:visitor-submit' token=token %}"
+          enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="field">
+        <div class="lab">নাম ★ · {% translate "Your name" %}</div>
+        <input class="input" type="text" name="visitor_name" required
+               maxlength="120" placeholder="{% translate 'Your name' %}">
+      </div>
+
+      <div class="field">
+        <div class="lab">মোবাইল · {% translate "Mobile" %}</div>
+        <input class="input" type="tel" name="mobile"
+               maxlength="32" placeholder="01XXXXXXXXX">
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1;">
+          <div class="lab">যে ফ্ল্যাটে · {% translate "Flat" %}</div>
+          <input class="input" type="text" name="flat" maxlength="32"
+                 placeholder="4B">
+        </div>
+        <div class="field" style="flex:1;">
+          <div class="lab">কার কাছে · {% translate "Meet" %}</div>
+          <input class="input" type="text" name="meet" maxlength="120">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="lab">উদ্দেশ্য · {% translate "Purpose" %}</div>
+        <input class="input" type="text" name="purpose" maxlength="255"
+               placeholder="{% translate 'Purpose of visit' %}">
+      </div>
+
+      <div class="field">
+        <div class="lab">সেলফি · {% translate "Take selfie" %}</div>
+        <input class="input" type="file" name="photo" accept="image/*"
+               capture="user">
+      </div>
+
+      <div class="card soft-sage" style="margin-top:12px;text-align:left;">
+        <div style="font-size:11.5px;color:var(--sage-dk);font-weight:600;line-height:1.6;">
+          আপনার ছবি ও তথ্য শুধু এই ভবনের নিরাপত্তার জন্য ব্যবহৃত হয় এবং
+          নির্দিষ্ট সময় পর স্বয়ংক্রিয়ভাবে মুছে যায়।<br>
+          <span lang="en">Your photo and details are used only for this
+          building's security and are auto-deleted after a set period.</span>
+        </div>
+      </div>
+
+      <button class="btn rose lg" type="submit" style="margin-top:14px;">
+        ✓ জমা দিন · {% translate "Submit to gate" %}
+      </button>
+    </form>
+
+    <div class="footnote">{% translate "Loads in <2s on 3G · no account, no install" %}</div>
+  {% endif %}
+{% endblock %}

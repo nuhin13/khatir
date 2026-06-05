@@ -40,12 +40,22 @@ urlpatterns = [
     # (/n/<token>/open.gif) and provider delivery webhook (/n/<token>/delivered).
     # Token-scoped, hit by browsers/providers, so rooted outside ``/api/v1/``.
     path("", include("khatir.notifications.web_urls")),
+<<<<<<< HEAD
     # Public, no-login recipient view of a tenant-shared rental history
     # (EPIC-24 T-008): /h/<token>. Server-rendered HTML, token-scoped, so it
     # lives at the root rather than under ``/api/v1/``.
     path("", include("khatir.historyshare.web_urls")),
+=======
+    # Public, no-login visitor sign-in submit (token-scoped, EPIC-25 T-004).
+    # Browser form POST, so it lives at the root rather than under ``/api/v1/``.
+    path("", include("khatir.gatekeeper.web_urls")),
+>>>>>>> wave2be/E25
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
+    # Gatekeeper caretaker-assignment routes nest under buildings; listed
+    # before properties so the more specific ``buildings/{id}/caretakers``
+    # paths match ahead of the buildings router's catch-all (EPIC-25.T-002).
+    path("api/v1/", include("khatir.gatekeeper.urls")),
     path("api/v1/", include("khatir.properties.urls")),
     path("api/v1/", include("khatir.tenants.urls")),
     # NID/EC verification (EPIC-17 T-004) — /tenants/{id}/verify + /verification.

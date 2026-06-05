@@ -4,7 +4,7 @@ epic: EPIC-25
 title: Seed gatekeeper config + flag
 layer: backend
 size: XS
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-13.T-001]
 blocks: []

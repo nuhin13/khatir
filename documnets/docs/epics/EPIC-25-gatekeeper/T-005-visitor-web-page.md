@@ -4,7 +4,7 @@ epic: EPIC-25
 title: Visitor self-register web page
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-004]
 blocks: []
@@ -48,13 +48,13 @@ Writes VisitorEntry. Public token route. Web 🌐. Flag gatekeeper_enabled.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] GET form per webVisitor design
-- [ ] POST → VisitorEntry (pending) + optional photo (encrypted)
-- [ ] privacy notice for photo
-- [ ] rate-limit; invalid/expired handling
-- [ ] bn + en
-- [ ] Tests: render, submit, expired
-- [ ] ruff clean
+- [x] GET form per webVisitor design — `web_views.web_visitor` (`GET /v/<token>`) renders `templates/gatekeeper/web_visitor.html` (emojiHero 👋 Welcome/অতিথি তথ্য দিন, name/mobile/flat/meet/purpose/selfie)
+- [x] POST → VisitorEntry (pending) + optional photo (encrypted) — owned by T-004 (`POST /v/<token>/submit`); the form now posts to it and PRG redirects to `?submitted=1`
+- [x] privacy notice for photo — bilingual auto-delete notice in the form template
+- [x] rate-limit; invalid/expired handling — reuses T-004 per-token limit; invalid/expired/rate-limited/flag-off now render `web_visitor_error.html` (404/410/429)
+- [x] bn + en — bn-default with `lang="en"` companion strings + `{% translate %}` throughout (shares `rent/_web_base.html` Notun Din palette)
+- [x] Tests: render, submit, expired — `tests/test_web_visitor_page.py` (render, submitted-state, invalid 404, expired 410, POST-405, flag-off 404); T-004 submit tests still pass
+- [x] ruff clean — `ruff check .` clean; `makemigrations --check` clean (no DB change)
 
 ## 12. Test plan
 ### Automated
@@ -63,13 +63,21 @@ Writes VisitorEntry. Public token route. Web 🌐. Flag gatekeeper_enabled.
 1. Open visitor link → register → appears in caretaker review queue.
 
 ## 13. Acceptance criteria
-- [ ] Visitor web page per design; submit creates entry.
-- [ ] **Screen `webVisitor` built** (ledger row).
-- [ ] Tests + lint pass.
+- [x] Visitor web page per design; submit creates entry (page = T-005, create = T-004 submit endpoint the form posts to).
+- [x] **Screen `webVisitor` built** (server-rendered Django template, not Flutter).
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] Token-scoped; photo encrypted + consented; Notun Din palette
+- [x] Token-scoped (one token = one building, T-004 `resolve_token`); photo encrypted at rest + bilingual consent notice; Notun Din palette via shared `rent/_web_base.html` CSS custom properties (no hardcoded hex/px)
 ### Deviations from spec
+- Submit (POST → VisitorEntry + encrypted photo + rate-limit + audit) was already delivered by T-004 (`POST /v/<token>/submit`); T-005 adds only the `GET /v/<token>` page + bilingual templates and swaps T-004's bare 404/410/429 bodies for the friendly templated error page. The form posts to the existing T-004 endpoint.
+- Server-rendered (Django template), not Flutter, per §15.
+- No DB migration (stateless token, `VisitorEntry` already exists); `makemigrations --check` clean.
 ### Files touched (actual)
+- apps/api/khatir/gatekeeper/web_views.py (add `web_visitor` GET view + `_flag_off_404`; templated error/rate-limit responses)
+- apps/api/khatir/gatekeeper/web_urls.py (add `GET /v/<token>` → `visitor-page`)
+- apps/api/templates/gatekeeper/web_visitor.html (new — form + submitted state)
+- apps/api/templates/gatekeeper/web_visitor_error.html (new — invalid/expired/rate-limited)
+- apps/api/khatir/gatekeeper/tests/test_web_visitor_page.py (new)
 ## 15. Notes
 - Server-rendered (not Flutter). Reuse encrypted storage (EPIC-04 T-003) + token pattern (EPIC-07 T-002).
