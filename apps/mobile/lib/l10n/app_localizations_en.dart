@@ -1617,6 +1617,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboard_expense_legend => 'খরচ · Expense';
 
   @override
+  String get dashboard_income_series => 'আয় · Income';
+
+  @override
+  String get dashboard_expense_series => 'খরচ · Expense';
+
+  @override
   String get dashboard_expenses => 'প্রধান খরচ · Top expenses 💸';
 
   @override

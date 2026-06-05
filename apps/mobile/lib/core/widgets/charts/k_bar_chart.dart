@@ -5,15 +5,27 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 import '../../i18n/bangla_numerals.dart';
 import 'chart_states.dart';
 
-/// A single labelled bar (one month / category) for [KBarChart].
+/// A single labelled bar group (one month / category) for [KBarChart].
+///
+/// A datum always carries a primary [value]; when [secondValue] is non-null the
+/// chart renders a second, side-by-side rod in the same group (a grouped/
+/// two-series bar — e.g. income vs expense per month).
 class KBarDatum {
-  const KBarDatum({required this.label, required this.value});
+  const KBarDatum({
+    required this.label,
+    required this.value,
+    this.secondValue,
+  });
 
   /// Axis label drawn under the bar (e.g. a localized month abbreviation).
   final String label;
 
-  /// Bar height value, on the same scale as the other data points.
+  /// Primary bar height value, on the same scale as the other data points.
   final double value;
+
+  /// Optional second-series value drawn beside [value] in the same group. When
+  /// null the group renders a single bar (the original single-series layout).
+  final double? secondValue;
 }
 
 /// Notun Din bar chart — a thin, generic wrapper over fl_chart's [BarChart].
@@ -34,6 +46,9 @@ class KBarChart extends StatelessWidget {
     this.height = 140,
     this.isLoading = false,
     this.emptyLabel,
+    this.barColors = const [KhatirColors.sage, KhatirColors.sageDk],
+    this.secondBarColors = const [KhatirColors.rose, KhatirColors.roseDk],
+    this.showValueLabels = true,
   });
 
   /// The bars, in display order (left → right).
@@ -58,6 +73,18 @@ class KBarChart extends StatelessWidget {
   /// l10n-agnostic; screens pass a localized string.
   final String? emptyLabel;
 
+  /// Top → bottom gradient stops for the primary rod. Defaults to the sage
+  /// gradient; callers pass token colors (never inline hex).
+  final List<Color> barColors;
+
+  /// Top → bottom gradient stops for the second-series rod (used only when a
+  /// datum carries a [KBarDatum.secondValue]). Defaults to the rose gradient.
+  final List<Color> secondBarColors;
+
+  /// When true (single-series default) each bar shows its value as a top label.
+  /// Grouped two-series charts pass false to keep the axis uncluttered.
+  final bool showValueLabels;
+
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
@@ -68,7 +95,11 @@ class KBarChart extends StatelessWidget {
     }
 
     final top = maxValue ??
-        data.map((d) => d.value).fold<double>(1, (a, b) => a > b ? a : b);
+        data.fold<double>(1, (a, d) {
+          final hi = (d.secondValue ?? 0) > d.value ? d.secondValue! : d.value;
+          return hi > a ? hi : a;
+        });
+    final grouped = data.any((d) => d.secondValue != null);
 
     return SizedBox(
       height: height,
@@ -89,7 +120,7 @@ class KBarChart extends StatelessWidget {
             ),
             topTitles: AxisTitles(
               sideTitles: SideTitles(
-                showTitles: true,
+                showTitles: showValueLabels && !grouped,
                 reservedSize: 18,
                 getTitlesWidget: (value, meta) {
                   final i = value.toInt();
@@ -138,19 +169,33 @@ class KBarChart extends StatelessWidget {
             for (var i = 0; i < data.length; i++)
               BarChartGroupData(
                 x: i,
+                barsSpace: grouped ? 4 : 0,
                 barRods: [
                   BarChartRodData(
                     toY: data[i].value,
-                    width: 14,
+                    width: grouped ? 9 : 14,
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(KhatirRadius.xs * 0.7),
                     ),
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [KhatirColors.sage, KhatirColors.sageDk],
+                      colors: barColors,
                     ),
                   ),
+                  if (data[i].secondValue != null)
+                    BarChartRodData(
+                      toY: data[i].secondValue!,
+                      width: 9,
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(KhatirRadius.xs * 0.7),
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: secondBarColors,
+                      ),
+                    ),
                 ],
               ),
           ],

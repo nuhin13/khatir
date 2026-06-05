@@ -104,6 +104,11 @@ void main() {
         findsOneWidget);
     expect(find.byKey(const ValueKey('dashboardTopExpenses')), findsOneWidget);
 
+    // The income-vs-expense chart renders its two-series legend (T-009):
+    // a sage income series beside a rose expense series.
+    expect(find.text(l10n.dashboard_income_series), findsOneWidget);
+    expect(find.text(l10n.dashboard_expense_series), findsOneWidget);
+
     // Occupancy donut shows the 78% ring.
     expect(find.text('78%'), findsOneWidget);
 

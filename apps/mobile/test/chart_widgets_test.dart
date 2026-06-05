@@ -78,6 +78,46 @@ void main() {
       // 88 -> ৮৮ in Bengali digits.
       expect(find.text('৮৮%'), findsOneWidget);
     });
+
+    testWidgets(
+        'grouped two-series renders a second rod per group and hides value '
+        'labels', (tester) async {
+      await tester.pumpWidget(
+        _harness(
+          const KBarChart(
+            data: [
+              KBarDatum(label: 'ডিসে', value: 60, secondValue: 20),
+              KBarDatum(label: 'জানু', value: 72, secondValue: 25),
+            ],
+            localeCode: 'bn',
+          ),
+        ),
+      );
+
+      final chart = tester.widget<BarChart>(find.byType(BarChart));
+      final groups = chart.data.barGroups;
+      expect(groups, hasLength(2));
+      // Each group carries an income rod + an expense rod.
+      expect(groups.every((g) => g.barRods.length == 2), isTrue);
+      // Income (sage) and expense (rose) rods carry the mapped heights.
+      expect(groups[0].barRods[0].toY, 60);
+      expect(groups[0].barRods[1].toY, 20);
+      // Grouped charts suppress the per-bar top value labels.
+      expect(chart.data.titlesData.topTitles.sideTitles.showTitles, isFalse);
+    });
+
+    testWidgets('single-series keeps one rod per group', (tester) async {
+      await tester.pumpWidget(
+        _harness(
+          const KBarChart(
+            data: [KBarDatum(label: 'মে', value: 88)],
+            localeCode: 'bn',
+          ),
+        ),
+      );
+      final chart = tester.widget<BarChart>(find.byType(BarChart));
+      expect(chart.data.barGroups.single.barRods, hasLength(1));
+    });
   });
 
   group('KDonutChart', () {

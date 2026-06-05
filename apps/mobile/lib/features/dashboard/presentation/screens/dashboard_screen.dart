@@ -7,7 +7,6 @@ import '../../../../core/i18n/bangla_numerals.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../core/widgets/charts/k_bar_chart.dart';
 import '../../../../core/widgets/charts/k_donut_chart.dart';
-import '../../../../core/widgets/charts/k_line_chart.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../maintenance/data/models/maintenance_enums.dart';
 import '../../../maintenance/presentation/screens/expenses_screen.dart'
@@ -430,10 +429,17 @@ class _LegendRow extends StatelessWidget {
   }
 }
 
-/// The income-vs-expense trend card: a single net (income − expense) line over
-/// the same monthly window, plus a sage/rose legend. The two underlying series
-/// (income via [MonthPoint.collected], expense via [MonthPoint.expense]) are
-/// summarised as the net trend the [KLineChart] renders.
+/// Number of trailing months charted in the income-vs-expense view.
+const int _incomeExpenseWindow = 6;
+
+/// The income-vs-expense card (EPIC-09 T-009): a grouped two-series bar chart —
+/// for each month a sage **income** rod ([MonthPoint.collected]) beside a rose
+/// **expense** rod ([MonthPoint.expense]) — over the trailing 6-month window,
+/// with a sage/rose series legend below.
+///
+/// Both rods share one axis maximum (the peak of either series across the
+/// window) so income and expense stay visually comparable. When every month is
+/// zero for both series the [KBarChart] shows its own empty state.
 class _IncomeExpenseCard extends StatelessWidget {
   const _IncomeExpenseCard({
     required this.series,
@@ -449,29 +455,45 @@ class _IncomeExpenseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final incomePoints = [
-      for (final p in series)
-        KLinePoint(
-          label: _monthLabel(p.period, localeCode),
-          value: p.collected,
-        ),
+    // Trailing 6-month window (the series arrives oldest → newest).
+    final window = series.length > _incomeExpenseWindow
+        ? series.sublist(series.length - _incomeExpenseWindow)
+        : series;
+    // Treat an all-zero window as empty so the chart shows its empty state
+    // rather than a row of flat, height-zero bars.
+    final hasData = window.any((p) => p.collected > 0 || p.expense > 0);
+    final bars = [
+      if (hasData)
+        for (final p in window)
+          KBarDatum(
+            label: _monthLabel(p.period, localeCode),
+            value: p.collected,
+            secondValue: p.expense,
+          ),
     ];
     return _ChartCard(
       key: const ValueKey('dashboardIncomeExpenseChart'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          KLineChart(
-            data: incomePoints,
+          KBarChart(
+            data: bars,
+            localeCode: localeCode,
             isLoading: isLoading,
             emptyLabel: l10n.dashboard_chart_empty,
           ),
           const SizedBox(height: KhatirSpacing.s3),
           Row(
             children: [
-              _LegendDot(color: KhatirColors.sage, label: l10n.dashboard_income_legend),
+              _LegendDot(
+                color: KhatirColors.sage,
+                label: l10n.dashboard_income_series,
+              ),
               const SizedBox(width: KhatirSpacing.s4),
-              _LegendDot(color: KhatirColors.rose, label: l10n.dashboard_expense_legend),
+              _LegendDot(
+                color: KhatirColors.rose,
+                label: l10n.dashboard_expense_series,
+              ),
             ],
           ),
         ],

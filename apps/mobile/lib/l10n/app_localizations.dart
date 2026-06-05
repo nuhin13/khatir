@@ -3068,6 +3068,18 @@ abstract class AppLocalizations {
   /// **'খরচ'**
   String get dashboard_expense_legend;
 
+  /// Income-vs-expense chart: the income series label (sage).
+  ///
+  /// In bn, this message translates to:
+  /// **'আয়'**
+  String get dashboard_income_series;
+
+  /// Income-vs-expense chart: the expense series label (rose).
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ'**
+  String get dashboard_expense_series;
+
   /// Heading above the top expense categories list.
   ///
   /// In bn, this message translates to:

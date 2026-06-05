@@ -1587,6 +1587,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get dashboard_expense_legend => 'খরচ';
 
   @override
+  String get dashboard_income_series => 'আয়';
+
+  @override
+  String get dashboard_expense_series => 'খরচ';
+
+  @override
   String get dashboard_expenses => 'প্রধান খরচ 💸';
 
   @override
