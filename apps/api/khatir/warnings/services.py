@@ -17,10 +17,12 @@ from django.db import transaction
 
 from khatir.accounts.models import User
 from khatir.core.audit import audit
+from khatir.core.storage import signed_url, store_encrypted
 from khatir.leases.models import Lease
 
 from .enums import WarningType
 from .models import Warning
+from .notice import render_notice_pdf
 
 
 def _snapshot(warning: Warning) -> dict[str, Any]:
@@ -65,3 +67,29 @@ def issue_warning(
         after=_snapshot(warning),
     )
     return warning
+
+
+def generate_notice(*, actor: User, warning: Warning) -> str:
+    """Generate (or regenerate) the warning-notice PDF and return a signed URL.
+
+    ``warning`` must already have been resolved through the caller's ``for_user``
+    scope, so it is guaranteed to belong to ``actor`` (the issuing landlord). The
+    notice is rendered via the EPIC-05 PDF seam, stored encrypted-at-rest through
+    the EPIC-04 storage seam (``kind="pdf"``), and its opaque storage key is
+    persisted on ``warning.notice_ref``. Audited as ``warning.notice``. Returns a
+    time-limited signed URL for retrieval — the object itself is never
+    public-readable.
+    """
+    pdf_bytes = render_notice_pdf(warning)
+    with transaction.atomic():
+        warning.notice_ref = store_encrypted(pdf_bytes, kind="pdf")
+        warning.save(update_fields=["notice_ref", "updated_at"])
+
+    audit(
+        actor=actor,
+        action="warning.notice",
+        target=warning,
+        before=None,
+        after={"notice_ref": warning.notice_ref},
+    )
+    return signed_url(warning.notice_ref)

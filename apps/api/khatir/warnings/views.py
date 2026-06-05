@@ -28,7 +28,7 @@ from khatir.leases.models import Lease
 from .flags import is_warnings_feature_enabled
 from .models import Warning
 from .serializers import WarningCreateSerializer, WarningSerializer
-from .services import issue_warning
+from .services import generate_notice, issue_warning
 
 
 class LeaseWarningsView(APIView):
@@ -77,3 +77,34 @@ class LeaseWarningsView(APIView):
             **serializer.validated_data,
         )
         return created(WarningSerializer(warning).data)
+
+
+class WarningNoticeView(APIView):
+    """Generate the warning-notice PDF for one of the caller's own warnings.
+
+    ``POST /api/v1/warnings/{id}/notice`` renders the notice via the EPIC-05 PDF
+    seam, stores it encrypted (EPIC-04), persists ``notice_ref`` and returns a
+    time-limited signed URL. Requires landlord/manager role, gates on the
+    ``warnings_feature`` kill-switch first, and resolves the warning through the
+    caller's ``for_user`` scope so a foreign/unknown warning is invisible (404 —
+    never a cross-landlord read).
+    """
+
+    permission_classes = [IsLandlordOrManager]
+
+    def _get_warning(self, request: Request, warning_pk: Any) -> Warning:
+        warning = (
+            Warning.objects.for_user(request.user).filter(pk=warning_pk).first()
+        )
+        if warning is None:
+            raise NotFoundError("Warning not found.")
+        return warning
+
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        # Kill-switch first — feature ships OFF-able by design (§15).
+        if not is_warnings_feature_enabled():
+            raise FeatureDisabledError("The warnings feature is disabled.")
+
+        warning = self._get_warning(request, kwargs["warning_pk"])
+        url = generate_notice(actor=cast(User, request.user), warning=warning)
+        return created({"notice_ref": warning.notice_ref, "notice_url": url})

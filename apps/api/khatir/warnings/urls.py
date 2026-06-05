@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from django.urls import path
 
-from .views import LeaseWarningsView
+from .views import LeaseWarningsView, WarningNoticeView
 
 app_name = "warnings"
 
@@ -18,5 +18,10 @@ urlpatterns = [
         "leases/<int:lease_pk>/warnings",
         LeaseWarningsView.as_view(),
         name="lease-warnings",
+    ),
+    path(
+        "warnings/<int:warning_pk>/notice",
+        WarningNoticeView.as_view(),
+        name="warning-notice",
     ),
 ]
