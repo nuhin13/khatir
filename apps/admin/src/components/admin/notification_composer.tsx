@@ -1,21 +1,17 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { CheckCircle2, Send, Users } from "lucide-react";
+import { CheckCircle2, Send } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Chip } from "@/components/ui/chip";
 import { AudienceSelector } from "@/components/admin/audience_selector";
-import {
-  ChannelSelector,
-  CHANNEL_LABELS,
-} from "@/components/admin/channel_selector";
+import { ChannelSelector } from "@/components/admin/channel_selector";
+import { ReachCostPreview } from "@/components/admin/reach_cost_preview";
 import {
   SCHEDULE_TYPES,
   TEMPLATE_VARIABLES,
   composeNotification,
-  estimateCost,
   notificationsQueryPrefix,
   type AudienceType,
   type ChannelValue,
@@ -160,11 +156,6 @@ export function NotificationComposer() {
   const provisionalReach =
     audienceType === "specific" ? parsedUserIds.length : null;
 
-  const provisionalCost =
-    provisionalReach === null
-      ? null
-      : estimateCost(provisionalReach, channels);
-
   const audienceValid =
     audienceType === "all" ||
     (audienceType === "role" && roles.length > 0) ||
@@ -285,14 +276,25 @@ export function NotificationComposer() {
           />
         </div>
 
-        <PreviewSidebar
+        <ReachCostPreview
           channels={channels}
           reach={provisionalReach}
-          cost={provisionalCost}
-          canSubmit={canSubmit}
-          isPending={compose.isPending}
-          isError={compose.isError}
-          onSubmit={submit}
+          errorMessage={
+            compose.isError
+              ? "Could not send the notification. Check the fields and try again."
+              : null
+          }
+          action={
+            <Button
+              className="w-full"
+              onClick={submit}
+              disabled={!canSubmit}
+              aria-label="Send notification"
+            >
+              <Send size={16} aria-hidden />
+              {compose.isPending ? "Sending…" : "Send notification"}
+            </Button>
+          }
         />
       </div>
     </div>
@@ -508,83 +510,6 @@ function ScheduleSection({
           </label>
         </div>
       ) : null}
-    </Card>
-  );
-}
-
-interface PreviewSidebarProps {
-  channels: ChannelValue[];
-  reach: number | null;
-  cost: number | null;
-  canSubmit: boolean;
-  isPending: boolean;
-  isError: boolean;
-  onSubmit: () => void;
-}
-
-function PreviewSidebar({
-  channels,
-  reach,
-  cost,
-  canSubmit,
-  isPending,
-  isError,
-  onSubmit,
-}: PreviewSidebarProps) {
-  return (
-    <Card className="h-fit space-y-s4 lg:sticky lg:top-s5">
-      <CardTitle className="flex items-center gap-s2">
-        <Users size={18} className="text-sage" aria-hidden /> Reach &amp; cost
-      </CardTitle>
-
-      <dl className="space-y-s3">
-        <div className="flex items-center justify-between">
-          <dt className="text-sm text-muted">Estimated reach</dt>
-          <dd className="font-title text-lg font-bold text-ink">
-            {reach === null ? "—" : reach.toLocaleString("en-US")}
-          </dd>
-        </div>
-        <div className="flex items-center justify-between">
-          <dt className="text-sm text-muted">Estimated cost</dt>
-          <dd className="font-title text-lg font-bold text-ink">
-            {cost === null ? "—" : taka(cost)}
-          </dd>
-        </div>
-      </dl>
-
-      <div className="flex flex-wrap gap-s2">
-        {channels.length === 0 ? (
-          <span className="text-xs text-muted">No channels selected</span>
-        ) : (
-          channels.map((c) => (
-            <Chip key={c} tone="neutral">
-              {CHANNEL_LABELS[c]}
-            </Chip>
-          ))
-        )}
-      </div>
-
-      {reach === null ? (
-        <p className="text-xs text-muted">
-          Final reach and cost are resolved on the server when you send.
-        </p>
-      ) : null}
-
-      {isError ? (
-        <p role="alert" className="text-sm text-roseDk">
-          Could not send the notification. Check the fields and try again.
-        </p>
-      ) : null}
-
-      <Button
-        className="w-full"
-        onClick={onSubmit}
-        disabled={!canSubmit}
-        aria-label="Send notification"
-      >
-        <Send size={16} aria-hidden />
-        {isPending ? "Sending…" : "Send notification"}
-      </Button>
     </Card>
   );
 }
