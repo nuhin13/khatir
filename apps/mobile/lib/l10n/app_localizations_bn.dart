@@ -1428,4 +1428,80 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get expense_save_failed => 'সেভ হয়নি';
+
+  @override
+  String get maintenance_title => 'মেরামতের অনুরোধ';
+
+  @override
+  String get maintenance_section_open => 'নতুন অনুরোধ';
+
+  @override
+  String maintenance_open_count(String count) {
+    return '$count টি অপেক্ষায়';
+  }
+
+  @override
+  String maintenance_unit(String unit) {
+    return 'ইউনিট $unit';
+  }
+
+  @override
+  String get maintenance_resolve => 'সমাধান + খরচ';
+
+  @override
+  String get maintenance_resolved_badge => 'সমাধান হয়েছে';
+
+  @override
+  String get maintenance_cost => 'খরচ';
+
+  @override
+  String get maintenance_cost_hint => '৳ ০';
+
+  @override
+  String get maintenance_resolution_note => 'নোট (ঐচ্ছিক)';
+
+  @override
+  String get maintenance_resolve_title => 'সমাধান + খরচ';
+
+  @override
+  String get maintenance_resolve_hint => 'এই খরচ একটি খরচ এন্ট্রি তৈরি করবে';
+
+  @override
+  String get maintenance_resolve_confirm => 'সমাধান করুন';
+
+  @override
+  String get maintenance_resolve_cancel => 'বাতিল';
+
+  @override
+  String get maintenance_err_cost => 'একটি বৈধ খরচ দিন';
+
+  @override
+  String get maintenance_resolved => 'অনুরোধ সমাধান হয়েছে';
+
+  @override
+  String get maintenance_resolve_failed => 'সমাধান হয়নি';
+
+  @override
+  String get maintenance_empty => 'কোনো খোলা অনুরোধ নেই';
+
+  @override
+  String get maintenance_category_plumbing => 'পানি';
+
+  @override
+  String get maintenance_category_electrical => 'বিদ্যুৎ';
+
+  @override
+  String get maintenance_category_paint => 'পেইন্ট';
+
+  @override
+  String get maintenance_category_structural => 'স্ট্রাকচার';
+
+  @override
+  String get maintenance_category_appliance => 'অ্যাপ্লায়েন্স';
+
+  @override
+  String get maintenance_category_utility => 'ইউটিলিটি';
+
+  @override
+  String get maintenance_category_other => 'অন্যান্য';
 }

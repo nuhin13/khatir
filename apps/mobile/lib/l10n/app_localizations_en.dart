@@ -1456,4 +1456,82 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get expense_save_failed =>
       'সেভ হয়নি · Couldn\'t save. Please try again.';
+
+  @override
+  String get maintenance_title => 'মেরামতের অনুরোধ · Maintenance';
+
+  @override
+  String get maintenance_section_open => 'নতুন অনুরোধ · New requests';
+
+  @override
+  String maintenance_open_count(String count) {
+    return '$count টি অপেক্ষায় · open';
+  }
+
+  @override
+  String maintenance_unit(String unit) {
+    return 'ইউনিট $unit';
+  }
+
+  @override
+  String get maintenance_resolve => 'সমাধান + খরচ · Resolve';
+
+  @override
+  String get maintenance_resolved_badge => 'সমাধান হয়েছে · Resolved';
+
+  @override
+  String get maintenance_cost => 'খরচ · Cost';
+
+  @override
+  String get maintenance_cost_hint => '৳ ০';
+
+  @override
+  String get maintenance_resolution_note => 'নোট · Note (optional)';
+
+  @override
+  String get maintenance_resolve_title => 'সমাধান + খরচ · Resolve with cost';
+
+  @override
+  String get maintenance_resolve_hint =>
+      'এই খরচ একটি খরচ এন্ট্রি তৈরি করবে · This records an expense on the unit.';
+
+  @override
+  String get maintenance_resolve_confirm => 'সমাধান করুন · Resolve';
+
+  @override
+  String get maintenance_resolve_cancel => 'বাতিল · Cancel';
+
+  @override
+  String get maintenance_err_cost => 'একটি বৈধ খরচ দিন · Enter a valid cost';
+
+  @override
+  String get maintenance_resolved => 'অনুরোধ সমাধান হয়েছে · Request resolved';
+
+  @override
+  String get maintenance_resolve_failed =>
+      'সমাধান হয়নি · Couldn\'t resolve. Please try again.';
+
+  @override
+  String get maintenance_empty => 'কোনো খোলা অনুরোধ নেই · No open requests';
+
+  @override
+  String get maintenance_category_plumbing => 'পানি · Plumbing';
+
+  @override
+  String get maintenance_category_electrical => 'বিদ্যুৎ · Electrical';
+
+  @override
+  String get maintenance_category_paint => 'পেইন্ট · Paint';
+
+  @override
+  String get maintenance_category_structural => 'স্ট্রাকচার · Structural';
+
+  @override
+  String get maintenance_category_appliance => 'অ্যাপ্লায়েন্স · Appliance';
+
+  @override
+  String get maintenance_category_utility => 'ইউটিলিটি · Utility';
+
+  @override
+  String get maintenance_category_other => 'অন্যান্য · Other';
 }

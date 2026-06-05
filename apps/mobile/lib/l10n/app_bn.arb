@@ -1555,5 +1555,93 @@
   "expense_saved": "খরচ সেভ হয়েছে",
   "@expense_saved": { "description": "Add-expense: success snackbar." },
   "expense_save_failed": "সেভ হয়নি",
-  "@expense_save_failed": { "description": "Add-expense: failure snackbar." }
+  "@expense_save_failed": { "description": "Add-expense: failure snackbar." },
+  "maintenance_title": "মেরামতের অনুরোধ",
+  "@maintenance_title": {
+    "description": "App-bar title for the landlord maintenance-queue screen."
+  },
+  "maintenance_section_open": "নতুন অনুরোধ",
+  "@maintenance_section_open": {
+    "description": "Section heading above the list of open maintenance requests."
+  },
+  "maintenance_open_count": "{count} টি অপেক্ষায়",
+  "@maintenance_open_count": {
+    "description": "Sub-line showing how many open requests are in the queue.",
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "maintenance_unit": "ইউনিট {unit}",
+  "@maintenance_unit": {
+    "description": "Per-request unit label.",
+    "placeholders": {
+      "unit": { "type": "String" }
+    }
+  },
+  "maintenance_resolve": "সমাধান + খরচ",
+  "@maintenance_resolve": {
+    "description": "Primary action on a request: resolve it and record the cost (auto-creates an expense)."
+  },
+  "maintenance_resolved_badge": "সমাধান হয়েছে",
+  "@maintenance_resolved_badge": {
+    "description": "Badge shown on a request that has already been resolved."
+  },
+  "maintenance_cost": "খরচ",
+  "@maintenance_cost": {
+    "description": "Resolve dialog: the cost field label (becomes the auto-expense amount)."
+  },
+  "maintenance_cost_hint": "৳ ০",
+  "@maintenance_cost_hint": {
+    "description": "Resolve dialog: cost field placeholder."
+  },
+  "maintenance_resolution_note": "নোট (ঐচ্ছিক)",
+  "@maintenance_resolution_note": {
+    "description": "Resolve dialog: optional resolution note label."
+  },
+  "maintenance_resolve_title": "সমাধান + খরচ",
+  "@maintenance_resolve_title": {
+    "description": "Title of the resolve-with-cost dialog."
+  },
+  "maintenance_resolve_hint": "এই খরচ একটি খরচ এন্ট্রি তৈরি করবে",
+  "@maintenance_resolve_hint": {
+    "description": "Resolve dialog: explanation that resolving records an expense."
+  },
+  "maintenance_resolve_confirm": "সমাধান করুন",
+  "@maintenance_resolve_confirm": {
+    "description": "Resolve dialog: confirm button."
+  },
+  "maintenance_resolve_cancel": "বাতিল",
+  "@maintenance_resolve_cancel": {
+    "description": "Resolve dialog: cancel button."
+  },
+  "maintenance_err_cost": "একটি বৈধ খরচ দিন",
+  "@maintenance_err_cost": {
+    "description": "Resolve dialog: cost validation error."
+  },
+  "maintenance_resolved": "অনুরোধ সমাধান হয়েছে",
+  "@maintenance_resolved": {
+    "description": "Snackbar shown after a request is resolved and an expense is created."
+  },
+  "maintenance_resolve_failed": "সমাধান হয়নি",
+  "@maintenance_resolve_failed": {
+    "description": "Snackbar shown when resolving a request fails."
+  },
+  "maintenance_empty": "কোনো খোলা অনুরোধ নেই",
+  "@maintenance_empty": {
+    "description": "Empty-state message when there are no open maintenance requests."
+  },
+  "maintenance_category_plumbing": "পানি",
+  "@maintenance_category_plumbing": { "description": "Maintenance category label: plumbing." },
+  "maintenance_category_electrical": "বিদ্যুৎ",
+  "@maintenance_category_electrical": { "description": "Maintenance category label: electrical." },
+  "maintenance_category_paint": "পেইন্ট",
+  "@maintenance_category_paint": { "description": "Maintenance category label: paint." },
+  "maintenance_category_structural": "স্ট্রাকচার",
+  "@maintenance_category_structural": { "description": "Maintenance category label: structural." },
+  "maintenance_category_appliance": "অ্যাপ্লায়েন্স",
+  "@maintenance_category_appliance": { "description": "Maintenance category label: appliance." },
+  "maintenance_category_utility": "ইউটিলিটি",
+  "@maintenance_category_utility": { "description": "Maintenance category label: utility." },
+  "maintenance_category_other": "অন্যান্য",
+  "@maintenance_category_other": { "description": "Maintenance category label: other." }
 }

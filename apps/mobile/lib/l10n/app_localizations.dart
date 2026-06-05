@@ -2785,6 +2785,150 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'সেভ হয়নি'**
   String get expense_save_failed;
+
+  /// App-bar title for the landlord maintenance-queue screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামতের অনুরোধ'**
+  String get maintenance_title;
+
+  /// Section heading above the list of open maintenance requests.
+  ///
+  /// In bn, this message translates to:
+  /// **'নতুন অনুরোধ'**
+  String get maintenance_section_open;
+
+  /// Sub-line showing how many open requests are in the queue.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি অপেক্ষায়'**
+  String maintenance_open_count(String count);
+
+  /// Per-request unit label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট {unit}'**
+  String maintenance_unit(String unit);
+
+  /// Primary action on a request: resolve it and record the cost (auto-creates an expense).
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান + খরচ'**
+  String get maintenance_resolve;
+
+  /// Badge shown on a request that has already been resolved.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান হয়েছে'**
+  String get maintenance_resolved_badge;
+
+  /// Resolve dialog: the cost field label (becomes the auto-expense amount).
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ'**
+  String get maintenance_cost;
+
+  /// Resolve dialog: cost field placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳ ০'**
+  String get maintenance_cost_hint;
+
+  /// Resolve dialog: optional resolution note label.
+  ///
+  /// In bn, this message translates to:
+  /// **'নোট (ঐচ্ছিক)'**
+  String get maintenance_resolution_note;
+
+  /// Title of the resolve-with-cost dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান + খরচ'**
+  String get maintenance_resolve_title;
+
+  /// Resolve dialog: explanation that resolving records an expense.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই খরচ একটি খরচ এন্ট্রি তৈরি করবে'**
+  String get maintenance_resolve_hint;
+
+  /// Resolve dialog: confirm button.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান করুন'**
+  String get maintenance_resolve_confirm;
+
+  /// Resolve dialog: cancel button.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
+  String get maintenance_resolve_cancel;
+
+  /// Resolve dialog: cost validation error.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি বৈধ খরচ দিন'**
+  String get maintenance_err_cost;
+
+  /// Snackbar shown after a request is resolved and an expense is created.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ সমাধান হয়েছে'**
+  String get maintenance_resolved;
+
+  /// Snackbar shown when resolving a request fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান হয়নি'**
+  String get maintenance_resolve_failed;
+
+  /// Empty-state message when there are no open maintenance requests.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো খোলা অনুরোধ নেই'**
+  String get maintenance_empty;
+
+  /// Maintenance category label: plumbing.
+  ///
+  /// In bn, this message translates to:
+  /// **'পানি'**
+  String get maintenance_category_plumbing;
+
+  /// Maintenance category label: electrical.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিদ্যুৎ'**
+  String get maintenance_category_electrical;
+
+  /// Maintenance category label: paint.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেইন্ট'**
+  String get maintenance_category_paint;
+
+  /// Maintenance category label: structural.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্ট্রাকচার'**
+  String get maintenance_category_structural;
+
+  /// Maintenance category label: appliance.
+  ///
+  /// In bn, this message translates to:
+  /// **'অ্যাপ্লায়েন্স'**
+  String get maintenance_category_appliance;
+
+  /// Maintenance category label: utility.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউটিলিটি'**
+  String get maintenance_category_utility;
+
+  /// Maintenance category label: other.
+  ///
+  /// In bn, this message translates to:
+  /// **'অন্যান্য'**
+  String get maintenance_category_other;
 }
 
 class _AppLocalizationsDelegate
