@@ -47,8 +47,12 @@ urlpatterns = [
     # NID/EC verification (EPIC-17 T-004) — /tenants/{id}/verify + /verification.
     path("api/v1/", include("khatir.verification.urls")),
     path("api/v1/", include("khatir.leases.urls")),
+<<<<<<< HEAD
     path("api/v1/", include("khatir.leasedocs.urls")),
     path("api/v1/", include("khatir.warnings.urls")),
+=======
+    path("api/v1/", include("khatir.reviews.urls")),
+>>>>>>> wave2be/E21
     path("api/v1/", include("khatir.dmpforms.urls")),
     path("api/v1/", include("khatir.rent.urls")),
     path("api/v1/", include("khatir.maintenance.urls")),

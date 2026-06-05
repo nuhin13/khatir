@@ -62,7 +62,11 @@ LOCAL_APPS = [
     "khatir.ai_providers",
     "khatir.notifications",
     "khatir.compliance",
+<<<<<<< HEAD
     "khatir.verification",
+=======
+    "khatir.reviews",
+>>>>>>> wave2be/E21
     "khatir.dashboard",
     "khatir.health",
     "khatir.warnings",

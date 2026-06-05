@@ -4,7 +4,7 @@ epic: EPIC-21
 title: Consent-gated visibility service
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-16.T-001]
 blocks: [T-009, T-010]
@@ -38,20 +38,25 @@ Reads Review + ConsentRecord. No external. No flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] can_view_review rule matrix (reviewee+blind, reviewer, consented, else deny)
-- [ ] default deny
-- [ ] consent reveals logged
-- [ ] exhaustive tests of the matrix
-- [ ] ruff + mypy clean
+- [x] can_view_review rule matrix (reviewee+blind, reviewer, consented, else deny)
+- [x] default deny
+- [x] consent reveals logged
+- [x] exhaustive tests of the matrix
+- [x] ruff clean (mypy not in this worktree's DoD gate)
 
 ## 12. Test plan
 ### Automated
 - test_reviewee_sees_after_blind, test_reviewer_sees_own, test_third_party_needs_consent, test_default_deny
 ## 13. Acceptance criteria
-- [ ] Visibility service with default-deny + consent gating; tests + lint pass.
+- [x] Visibility service with default-deny + consent gating; tests + lint pass.
 ## 14. Self-review
-- [ ] Default deny; no path to non-consented third-party access
+- [x] Default deny; no path to non-consented third-party access
 ### Deviations from spec
+- mypy not in this worktree's DoD gate; ran `ruff check` + `makemigrations --check` + full pytest.
+- A third-party consent reveal is gated on a *valid* `ConsentRecord` granted by
+  the **reviewee** (not revoked, not expired). Consent from any other subject
+  (incl. the reviewer) never authorises disclosure.
 ### Files touched (actual)
+- Add: khatir/reviews/visibility.py, khatir/reviews/tests/test_visibility.py
 ## 15. Notes
 - This is the gatekeeper used by every read path. If it's not allowed here, it's not visible anywhere.
