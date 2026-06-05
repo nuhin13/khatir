@@ -70,7 +70,6 @@ LOCAL_APPS = [
     "khatir.warnings",
     "khatir.chatbot",
     "khatir.managers",
-    "khatir.chatbot",
     "khatir.gatekeeper",
     "khatir.govexport",
 ]
