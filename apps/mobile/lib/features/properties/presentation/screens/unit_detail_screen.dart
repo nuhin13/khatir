@@ -6,6 +6,7 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 import '../../../../core/i18n/bangla_numerals.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../maintenance/presentation/widgets/unit_maint_expense_section.dart';
 import '../../../tenants/presentation/screens/add_tenant_screen.dart';
 import '../../data/models/property_enums.dart';
 import '../../data/models/unit.dart';
@@ -162,6 +163,8 @@ class _UnitBody extends StatelessWidget {
         _AmenitiesTile(amenities: unit.amenities, onEdit: onEdit),
         const SizedBox(height: KhatirSpacing.s5),
         _TenantSection(onAddTenant: onAddTenant),
+        const SizedBox(height: KhatirSpacing.s5),
+        UnitMaintExpenseSection(unitId: unit.id),
       ],
     );
   }

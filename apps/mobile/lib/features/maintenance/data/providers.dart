@@ -45,6 +45,27 @@ class MaintenanceQueueController
   }
 }
 
+// ── Per-unit summaries (unit detail) ──────────────────────────────────────--
+
+/// Loads the maintenance requests on one unit, keyed by unit id, exposing
+/// [AsyncValue]. Scoped server-side via `for_user` + `?unit=<id>`, so it only
+/// yields requests on a unit the caller owns. Used by the unit-detail
+/// maintenance summary section (T-011).
+final unitMaintenanceProvider =
+    FutureProvider.family<List<MaintenanceRequest>, String>(
+  (ref, unitId) =>
+      ref.watch(maintenanceRepositoryProvider).listQueue(unitId: unitId),
+);
+
+/// Loads the expenses on one unit, keyed by unit id, exposing [AsyncValue].
+/// Scoped server-side via `for_user` + `?unit=<id>`. Used by the unit-detail
+/// expense summary section (T-011).
+final unitExpensesProvider = FutureProvider.family<List<Expense>, String>(
+  (ref, unitId) => ref
+      .watch(expenseRepositoryProvider)
+      .listExpenses(filter: ExpenseFilter(unitId: unitId)),
+);
+
 // ── A single maintenance request ──────────────────────────────────────────--
 
 /// Loads one maintenance request, keyed by id, exposing [AsyncValue].

@@ -956,6 +956,66 @@ abstract class AppLocalizations {
   /// **'ভাড়াটিয়া ও লিজ'**
   String get unit_tenant_section;
 
+  /// No description provided for @unit_maintenance.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামত'**
+  String get unit_maintenance;
+
+  /// No description provided for @unit_expenses.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ'**
+  String get unit_expenses;
+
+  /// No description provided for @unit_view_all.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব দেখুন'**
+  String get unit_view_all;
+
+  /// No description provided for @unit_maint_open_count.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি খোলা'**
+  String unit_maint_open_count(String count);
+
+  /// No description provided for @unit_maint_empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো অনুরোধ নেই'**
+  String get unit_maint_empty;
+
+  /// No description provided for @unit_maint_status_open.
+  ///
+  /// In bn, this message translates to:
+  /// **'খোলা'**
+  String get unit_maint_status_open;
+
+  /// No description provided for @unit_expenses_total.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
+  String unit_expenses_total(String amount);
+
+  /// No description provided for @unit_expenses_count.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি খরচ'**
+  String unit_expenses_count(String count);
+
+  /// No description provided for @unit_expenses_empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো খরচ নেই'**
+  String get unit_expenses_empty;
+
+  /// No description provided for @unit_section_error.
+  ///
+  /// In bn, this message translates to:
+  /// **'লোড করা যায়নি'**
+  String get unit_section_error;
+
   /// No description provided for @unit_lease_active.
   ///
   /// In bn, this message translates to:

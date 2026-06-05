@@ -260,6 +260,49 @@
   "@unit_tenant_section": {
     "description": "Heading for the tenant/lease region."
   },
+  "unit_maintenance": "মেরামত · Maintenance",
+  "@unit_maintenance": {
+    "description": "Heading for the unit-detail maintenance summary section."
+  },
+  "unit_expenses": "খরচ · Expenses",
+  "@unit_expenses": {
+    "description": "Heading for the unit-detail expense summary section."
+  },
+  "unit_view_all": "সব দেখুন · View all",
+  "@unit_view_all": {
+    "description": "Link from a unit summary section to its full list screen."
+  },
+  "unit_maint_open_count": "{count} টি খোলা · open",
+  "@unit_maint_open_count": {
+    "description": "Open maintenance-request count for this unit.",
+    "placeholders": { "count": { "type": "String", "example": "৩" } }
+  },
+  "unit_maint_empty": "কোনো অনুরোধ নেই · No requests",
+  "@unit_maint_empty": {
+    "description": "Empty-state line when a unit has no maintenance requests."
+  },
+  "unit_maint_status_open": "খোলা · Open",
+  "@unit_maint_status_open": {
+    "description": "Status chip on an open maintenance request in the unit summary."
+  },
+  "unit_expenses_total": "৳{amount}",
+  "@unit_expenses_total": {
+    "description": "Total recent expense amount for this unit.",
+    "placeholders": { "amount": { "type": "String", "example": "১২,৫০০" } }
+  },
+  "unit_expenses_count": "{count} টি খরচ · expenses",
+  "@unit_expenses_count": {
+    "description": "Expense count for this unit.",
+    "placeholders": { "count": { "type": "String", "example": "৪" } }
+  },
+  "unit_expenses_empty": "কোনো খরচ নেই · No expenses",
+  "@unit_expenses_empty": {
+    "description": "Empty-state line when a unit has no expenses."
+  },
+  "unit_section_error": "লোড করা যায়নি · Could not load",
+  "@unit_section_error": {
+    "description": "Error line in a unit summary section when its list fails to load."
+  },
   "unit_edit": "সম্পাদনা · Edit",
   "@unit_edit": {
     "description": "Title of the edit-unit bottom sheet and the edit action."

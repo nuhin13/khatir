@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -5,11 +6,36 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:khatir_mobile/core/i18n/locale_provider.dart';
+import 'package:khatir_mobile/features/maintenance/data/expense_repository.dart';
+import 'package:khatir_mobile/features/maintenance/data/maintenance_repository.dart';
+import 'package:khatir_mobile/features/maintenance/data/models/maintenance_enums.dart';
+import 'package:khatir_mobile/features/maintenance/data/models/models.dart';
+import 'package:khatir_mobile/features/maintenance/data/providers.dart';
 import 'package:khatir_mobile/features/properties/data/models/property_enums.dart';
 import 'package:khatir_mobile/features/properties/data/models/unit.dart';
 import 'package:khatir_mobile/features/properties/data/properties_providers.dart';
 import 'package:khatir_mobile/features/properties/presentation/screens/unit_detail_screen.dart';
 import 'package:khatir_mobile/l10n/app_localizations.dart';
+
+/// Empty-returning maintenance/expense repos so the unit-detail summary section
+/// (T-011) settles to its empty state instead of hitting the network.
+class _EmptyMaintenanceRepo extends MaintenanceRepository {
+  _EmptyMaintenanceRepo() : super(Dio());
+
+  @override
+  Future<List<MaintenanceRequest>> listQueue({
+    MaintenanceStatus? status,
+    String? unitId,
+  }) async =>
+      const [];
+}
+
+class _EmptyExpenseRepo extends ExpenseRepository {
+  _EmptyExpenseRepo() : super(Dio());
+
+  @override
+  Future<List<Expense>> listExpenses({ExpenseFilter? filter}) async => const [];
+}
 
 /// Unit-detail controller test double: builds to a fixed [Unit] (or throws),
 /// and records the last [update] call so the PATCH path can be asserted without
@@ -90,6 +116,9 @@ void main() {
       overrides: [
         localeStorageProvider.overrideWithValue(_FakeSecureStorage()),
         unitDetailProvider.overrideWith(() => _FakeUnitDetail(unitResult)),
+        maintenanceRepositoryProvider
+            .overrideWithValue(_EmptyMaintenanceRepo()),
+        expenseRepositoryProvider.overrideWithValue(_EmptyExpenseRepo()),
       ],
       child: Consumer(
         builder: (context, ref, _) {

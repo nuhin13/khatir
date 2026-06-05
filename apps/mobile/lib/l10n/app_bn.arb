@@ -550,6 +550,31 @@
   "unit_no_tenant": "এখনো কোনো ভাড়াটিয়া নেই",
   "unit_no_tenant_body": "এই ইউনিটে একজন ভাড়াটিয়া যোগ করুন।",
   "unit_tenant_section": "ভাড়াটিয়া ও লিজ",
+  "unit_maintenance": "মেরামত",
+  "unit_expenses": "খরচ",
+  "unit_view_all": "সব দেখুন",
+  "unit_maint_open_count": "{count} টি খোলা",
+  "@unit_maint_open_count": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "unit_maint_empty": "কোনো অনুরোধ নেই",
+  "unit_maint_status_open": "খোলা",
+  "unit_expenses_total": "৳{amount}",
+  "@unit_expenses_total": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "unit_expenses_count": "{count} টি খরচ",
+  "@unit_expenses_count": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "unit_expenses_empty": "কোনো খরচ নেই",
+  "unit_section_error": "লোড করা যায়নি",
   "unit_lease_active": "চলমান লিজ",
   "unit_lease_term": "{start} – {end}",
   "unit_lease_no_dates": "মেয়াদ নির্ধারিত নয়",

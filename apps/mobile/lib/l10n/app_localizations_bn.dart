@@ -468,6 +468,42 @@ class AppLocalizationsBn extends AppLocalizations {
   String get unit_tenant_section => 'ভাড়াটিয়া ও লিজ';
 
   @override
+  String get unit_maintenance => 'মেরামত';
+
+  @override
+  String get unit_expenses => 'খরচ';
+
+  @override
+  String get unit_view_all => 'সব দেখুন';
+
+  @override
+  String unit_maint_open_count(String count) {
+    return '$count টি খোলা';
+  }
+
+  @override
+  String get unit_maint_empty => 'কোনো অনুরোধ নেই';
+
+  @override
+  String get unit_maint_status_open => 'খোলা';
+
+  @override
+  String unit_expenses_total(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String unit_expenses_count(String count) {
+    return '$count টি খরচ';
+  }
+
+  @override
+  String get unit_expenses_empty => 'কোনো খরচ নেই';
+
+  @override
+  String get unit_section_error => 'লোড করা যায়নি';
+
+  @override
   String get unit_lease_active => 'চলমান লিজ';
 
   @override

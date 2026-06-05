@@ -464,6 +464,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unit_tenant_section => 'ভাড়াটিয়া ও লিজ · Tenant & lease';
 
   @override
+  String get unit_maintenance => 'মেরামত · Maintenance';
+
+  @override
+  String get unit_expenses => 'খরচ · Expenses';
+
+  @override
+  String get unit_view_all => 'সব দেখুন · View all';
+
+  @override
+  String unit_maint_open_count(String count) {
+    return '$count টি খোলা · open';
+  }
+
+  @override
+  String get unit_maint_empty => 'কোনো অনুরোধ নেই · No requests';
+
+  @override
+  String get unit_maint_status_open => 'খোলা · Open';
+
+  @override
+  String unit_expenses_total(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String unit_expenses_count(String count) {
+    return '$count টি খরচ · expenses';
+  }
+
+  @override
+  String get unit_expenses_empty => 'কোনো খরচ নেই · No expenses';
+
+  @override
+  String get unit_section_error => 'লোড করা যায়নি · Could not load';
+
+  @override
   String get unit_lease_active => 'চলমান লিজ';
 
   @override
