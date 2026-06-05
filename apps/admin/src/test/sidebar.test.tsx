@@ -95,7 +95,8 @@ describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
     // Features (EPIC-13.T-005), Kill-switch (EPIC-13.T-006),
     // AI providers (EPIC-14.T-011), Notifications (EPIC-15.T-010),
     // Notification history (EPIC-15.T-012),
-    // Notification templates (EPIC-15.T-013), Compliance (EPIC-16.T-006).
+    // Notification templates (EPIC-15.T-013), Compliance (EPIC-16.T-006),
+    // Consent records (EPIC-16.T-007).
     const livePages = new Set([
       "Dashboard",
       "Audit log",
@@ -109,6 +110,7 @@ describe("NAV_ITEMS (routes — EPIC-11.T-010)", () => {
       "Notification history",
       "Notification templates",
       "Compliance",
+      "Consent records",
     ]);
     for (const item of NAV_ITEMS) {
       if (livePages.has(item.label)) {

@@ -114,6 +114,15 @@ export const NAV_ITEMS: readonly NavItem[] = [
     roles: ["compliance"],
   },
   {
+    // Consent records tab for the Compliance module (Admin Portal spec §4.5.1).
+    // Read-only consent log, same compliance+super gate (compliance/views.py,
+    // EPIC-16.T-003). Built in EPIC-16.T-007.
+    label: "Consent records",
+    href: "/compliance/consent",
+    icon: ShieldCheck,
+    roles: ["compliance"],
+  },
+  {
     // Compliance module root forwards to the audit log (its first tab). Same
     // compliance+super gate. Built in EPIC-16.T-006.
     label: "Compliance",
