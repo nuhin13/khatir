@@ -61,6 +61,7 @@ LOCAL_APPS = [
     "khatir.ai_providers",
     "khatir.notifications",
     "khatir.compliance",
+    "khatir.verification",
     "khatir.dashboard",
     "khatir.health",
 ]

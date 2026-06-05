@@ -15,6 +15,7 @@ from __future__ import annotations
 
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 from khatir.core.encryption import decrypt, encrypt, mask
 from khatir.core.models import SoftDeleteModel, TimeStampedModel
@@ -121,6 +122,27 @@ class Tenant(SoftDeleteModel):
             return None
         token = bytes(self.nid_number_enc).decode("utf-8")
         return decrypt(token)
+
+    # --- Verification status transition (EPIC-17 T-001) ---------------------
+
+    def apply_verification_result(self, result: str, *, save: bool = True) -> None:
+        """Transition ``verification_status`` from a verification outcome.
+
+        ``result`` is a ``VerificationResult`` wire value
+        (matched / not_matched / error) which maps 1:1 onto ``VerificationStatus``.
+        A ``matched`` result also stamps ``verified_at``. Called by the
+        verification flow after a ``VerificationLog`` is appended; never stores
+        any raw EC data. Pass ``save=False`` to defer persistence.
+        """
+        try:
+            status = VerificationStatus(result)
+        except ValueError as exc:
+            raise ValueError(f"Unknown verification result: {result!r}") from exc
+        self.verification_status = status
+        if status == VerificationStatus.MATCHED:
+            self.verified_at = timezone.now()
+        if save:
+            self.save(update_fields=["verification_status", "verified_at", "updated_at"])
 
 
 class TenantFamilyMember(TimeStampedModel):
