@@ -124,6 +124,25 @@
   "home_stat_monthly": "/mo · মাসিক",
   "home_collected": "Collected this month · এ মাসে আদায়",
   "home_collected_todo": "Collection detail & charts coming soon",
+  "home_late_payers": "{count} rent overdue · {count} টি ভাড়া বাকি",
+  "@home_late_payers": {
+    "description": "Home late-payers heading with the overdue count.",
+    "placeholders": {
+      "count": { "type": "String", "example": "1" }
+    }
+  },
+  "home_late_payers_one": "Rent overdue · ভাড়া বাকি",
+  "@home_late_payers_one": {
+    "description": "Per-row label on a single overdue rent request."
+  },
+  "home_all_paid": "All rent collected — nicely done · সব ভাড়া আদায় হয়েছে",
+  "@home_all_paid": {
+    "description": "Home empty/all-paid reassurance when nothing is overdue."
+  },
+  "home_quick_request": "Ask · চান",
+  "@home_quick_request": {
+    "description": "Compact quick-request action on a late-payer row."
+  },
   "home_add_building": "Add building · বিল্ডিং যোগ করুন",
   "home_empty_title": "Add your first building",
   "home_empty_body": "No buildings yet. Add a building to get started.",

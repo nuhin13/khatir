@@ -331,6 +331,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_collected_todo => 'Collection detail & charts coming soon';
 
   @override
+  String home_late_payers(String count) {
+    return '$count rent overdue · $count টি ভাড়া বাকি';
+  }
+
+  @override
+  String get home_late_payers_one => 'Rent overdue · ভাড়া বাকি';
+
+  @override
+  String get home_all_paid =>
+      'All rent collected — nicely done · সব ভাড়া আদায় হয়েছে';
+
+  @override
+  String get home_quick_request => 'Ask · চান';
+
+  @override
   String get home_add_building => 'Add building · বিল্ডিং যোগ করুন';
 
   @override

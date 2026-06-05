@@ -434,6 +434,25 @@
   "@home_collected_todo": {
     "description": "Placeholder note in the collection card for the charts region (EPIC-09)."
   },
+  "home_late_payers": "{count} টি ভাড়া বাকি · {count} rent overdue",
+  "@home_late_payers": {
+    "description": "Home late-payers heading with the overdue count.",
+    "placeholders": {
+      "count": { "type": "String", "example": "১" }
+    }
+  },
+  "home_late_payers_one": "ভাড়া বাকি · Rent overdue",
+  "@home_late_payers_one": {
+    "description": "Per-row label on a single overdue rent request."
+  },
+  "home_all_paid": "সব ভাড়া আদায় হয়েছে · All rent collected",
+  "@home_all_paid": {
+    "description": "Home empty/all-paid reassurance when nothing is overdue."
+  },
+  "home_quick_request": "চান · Ask",
+  "@home_quick_request": {
+    "description": "Compact quick-request action on a late-payer row."
+  },
   "home_add_building": "বিল্ডিং যোগ করুন · Add building",
   "@home_add_building": {
     "description": "Empty-state primary action: add the first building."

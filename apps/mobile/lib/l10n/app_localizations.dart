@@ -716,6 +716,30 @@ abstract class AppLocalizations {
   /// **'বিস্তারিত আদায় ও চার্ট শীঘ্রই · Collection detail coming soon'**
   String get home_collected_todo;
 
+  /// Home late-payers heading with the overdue count.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি ভাড়া বাকি · {count} rent overdue'**
+  String home_late_payers(String count);
+
+  /// Per-row label on a single overdue rent request.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া বাকি · Rent overdue'**
+  String get home_late_payers_one;
+
+  /// Home empty/all-paid reassurance when nothing is overdue.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব ভাড়া আদায় হয়েছে · All rent collected'**
+  String get home_all_paid;
+
+  /// Compact quick-request action on a late-payer row.
+  ///
+  /// In bn, this message translates to:
+  /// **'চান · Ask'**
+  String get home_quick_request;
+
   /// Empty-state primary action: add the first building.
   ///
   /// In bn, this message translates to:

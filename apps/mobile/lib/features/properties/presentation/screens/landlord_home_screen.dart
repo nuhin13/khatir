@@ -7,6 +7,7 @@ import '../../../../core/auth/auth_controller.dart';
 import '../../../../core/i18n/bangla_numerals.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../rent/presentation/widgets/late_payers_section.dart';
 import '../../data/models/portfolio_summary.dart';
 import '../../data/properties_providers.dart';
 
@@ -426,10 +427,10 @@ class _StatTile extends StatelessWidget {
   }
 }
 
-/// Collection summary card. The "collected this month" heading is real; the
-/// detailed collected/expected amount, the progress chart, and the late-payer
-/// list all land in later epics (charts EPIC-09, rent actions EPIC-07) so they
-/// are shown as a marked placeholder region here.
+/// Collection summary card. The "collected this month" heading is real and the
+/// late-payer region is now filled by [LatePayersSection] (EPIC-07 T-014). The
+/// collected/expected amount and the progress chart still land in EPIC-09, so
+/// that region remains a marked placeholder.
 class _CollectionCard extends StatelessWidget {
   const _CollectionCard();
 
@@ -454,7 +455,7 @@ class _CollectionCard extends StatelessWidget {
           ),
           const SizedBox(height: KhatirSpacing.s3),
           // TODO(EPIC-09) replace with the real collected/expected amount +
-          // progress chart, and the late-payer list (rent actions in EPIC-07).
+          // progress chart. The late-payer list below is real (EPIC-07 T-014).
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(
@@ -485,6 +486,8 @@ class _CollectionCard extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: KhatirSpacing.s3),
+          const LatePayersSection(),
         ],
       ),
     );
