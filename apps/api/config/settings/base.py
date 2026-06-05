@@ -69,7 +69,12 @@ LOCAL_APPS = [
 >>>>>>> wave2be/E21
     "khatir.dashboard",
     "khatir.health",
+<<<<<<< HEAD
     "khatir.warnings",
+=======
+    "khatir.chatbot",
+    "khatir.managers",
+>>>>>>> wave2be/E22
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

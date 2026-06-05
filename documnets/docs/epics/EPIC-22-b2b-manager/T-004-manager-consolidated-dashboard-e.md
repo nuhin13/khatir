@@ -4,7 +4,7 @@ epic: EPIC-22
 title: Manager consolidated dashboard endpoint
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-09.T-001]
 blocks: []

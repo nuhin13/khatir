@@ -4,7 +4,7 @@ epic: EPIC-22
 title: Formalize ManagerOwnerLink (consent + status + scope)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-01.T-002]
 blocks: []
