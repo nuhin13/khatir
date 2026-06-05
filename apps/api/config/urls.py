@@ -45,6 +45,7 @@ urlpatterns = [
     path("api/v1/", include("khatir.properties.urls")),
     path("api/v1/", include("khatir.tenants.urls")),
     path("api/v1/", include("khatir.leases.urls")),
+    path("api/v1/", include("khatir.leasedocs.urls")),
     path("api/v1/", include("khatir.dmpforms.urls")),
     path("api/v1/", include("khatir.rent.urls")),
     path("api/v1/", include("khatir.maintenance.urls")),

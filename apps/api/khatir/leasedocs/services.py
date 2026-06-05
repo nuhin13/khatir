@@ -25,22 +25,38 @@ The gateway is the only external dependency; tests mock it at the
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Any
 
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
 from django.utils import timezone
 
 from khatir.ai_providers.client import AIGatewayResult, call_gateway
 from khatir.ai_providers.enums import AICategory
+from khatir.core import storage
+from khatir.core.audit import audit
+from khatir.core.exceptions import ValidationError as AppValidationError
 
 from .models import LeaseDocument
+from .pdf import render_lease_pdf
 from .scaffold import (
     SCAFFOLD_BY_KEY,
     build_scaffold_content,
     ensure_required_clauses,
 )
 
-__all__ = ["build_lease_prompt", "generate_lease_document"]
+# Signed-URL lifetime for rendered lease PDFs (modest, mirroring EPIC-05).
+PDF_URL_TTL_SECONDS = storage.DEFAULT_TTL_SECONDS
+
+__all__ = [
+    "build_lease_prompt",
+    "generate_lease_document",
+    "edit_lease_document",
+    "render_lease_document_pdf",
+    "RenderedLeasePdf",
+    "PDF_URL_TTL_SECONDS",
+]
 
 
 def _lease_facts(lease: Any) -> dict[str, Any]:
@@ -158,4 +174,101 @@ def generate_lease_document(lease: Any, *, generated_by: Any | None = None) -> L
     )
     document.full_clean(exclude=["lease", "generated_by"])
     document.save()
+
+    audit(
+        actor=generated_by if generated_by is not None else getattr(lease, "landlord", None),
+        action="leasedocument.generate",
+        target=document,
+        before=None,
+        after={"lease_id": lease.pk, "model_used": result.model_name},
+    )
     return document
+
+
+# ── Edit clauses (T-004 · PATCH /lease-documents/{id}) ──────────────────────
+
+
+def edit_lease_document(
+    document: LeaseDocument,
+    *,
+    clauses: dict[str, Any],
+    actor: Any | None = None,
+) -> LeaseDocument:
+    """Apply landlord clause edits to a ``draft`` ``document`` and persist.
+
+    ``clauses`` maps clause keys to either a scaffold-shaped dict or a bare body
+    string; each is merged onto the existing ``content_json`` (bare strings are
+    wrapped using the scaffold's titles/order so the stored shape stays uniform).
+    The required-clause guarantee is re-asserted via ``full_clean`` so an edit can
+    never blank out a mandatory clause or the disclaimer. The change is audited
+    (``leasedocument.edit``) with a before/after clause snapshot.
+
+    Only ``draft`` documents are editable; ``final`` documents are locked
+    (enforced by the caller/serializer). Returns the saved document.
+    """
+    before = dict(document.content_json or {})
+    merged = dict(before)
+    merged.update(_coerce_clauses({"clauses": clauses}))
+
+    document.content_json = merged
+    try:
+        document.full_clean(exclude=["lease", "generated_by"])
+    except DjangoValidationError as exc:
+        # Surface the required-clause guarantee as a 400 (app envelope), not a 500.
+        raise AppValidationError(str(exc.messages[0] if exc.messages else exc)) from exc
+    with transaction.atomic():
+        document.save(update_fields=["content_json", "updated_at"])
+
+    audit(
+        actor=actor,
+        action="leasedocument.edit",
+        target=document,
+        before={"clauses": sorted(before.keys())},
+        after={"clauses": sorted(merged.keys())},
+    )
+    return document
+
+
+# ── Render PDF (T-004 · POST /lease-documents/{id}/pdf) ─────────────────────
+
+
+@dataclass(frozen=True)
+class RenderedLeasePdf:
+    """Result of a render: the document and a signed download URL."""
+
+    document: LeaseDocument
+    signed_url: str
+
+
+def render_lease_document_pdf(
+    document: LeaseDocument,
+    *,
+    actor: Any | None = None,
+    ttl: int = PDF_URL_TTL_SECONDS,
+) -> RenderedLeasePdf:
+    """Render ``document`` to a PDF, store it encrypted, and return a signed URL.
+
+    Re-validates the required-clause set (the disclaimer must be present in the
+    rendered PDF, T-010), renders deterministic bytes (EPIC-05 PDF approach),
+    stores them encrypted-at-rest via :mod:`khatir.core.storage`, records the
+    opaque key on ``pdf_ref``, and returns a time-limited signed download URL. The
+    render is audited (``leasedocument.pdf``).
+    """
+    document.validate_required_clauses()
+    pdf_bytes = render_lease_pdf(document)
+    pdf_ref = storage.store_encrypted(pdf_bytes, kind="pdf")
+
+    with transaction.atomic():
+        document.pdf_ref = pdf_ref
+        document.save(update_fields=["pdf_ref", "updated_at"])
+
+    audit(
+        actor=actor,
+        action="leasedocument.pdf",
+        target=document,
+        before=None,
+        after={"lease_id": document.lease_id, "pdf_ref": pdf_ref},
+    )
+
+    url = storage.signed_url(pdf_ref, ttl=ttl)
+    return RenderedLeasePdf(document=document, signed_url=url)
