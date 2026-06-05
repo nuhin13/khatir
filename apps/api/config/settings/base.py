@@ -336,3 +336,15 @@ ADMIN_MFA_REQUIRED = env.bool("ADMIN_MFA_REQUIRED", default=True)
 DATA_REQUEST_SLA_DAYS = env.int("DATA_REQUEST_SLA_DAYS", default=30)
 # A request whose deadline is within this many days is flagged ``due_soon``.
 DATA_REQUEST_SLA_DUE_SOON_DAYS = env.int("DATA_REQUEST_SLA_DUE_SOON_DAYS", default=7)
+
+# ── EC (Election Commission) NID verification provider (EPIC-17.T-002) ─
+# Credentials + endpoint for the approved EC verification vendor. The provider
+# submits NID+name+DOB and we keep ONLY the boolean match outcome plus the
+# opaque vendor transaction id — the raw EC payload is discarded immediately.
+# ``EC_VERIFICATION_DPA_REF`` is the Data Processing Agreement reference that
+# legally authorises sending PII to the vendor; the provider refuses to call
+# without it (PDPA requirement).
+EC_VERIFICATION_ENDPOINT_URL = env("EC_VERIFICATION_ENDPOINT_URL", default="")
+EC_VERIFICATION_API_KEY = env("EC_VERIFICATION_API_KEY", default="")
+EC_VERIFICATION_DPA_REF = env("EC_VERIFICATION_DPA_REF", default="")
+EC_VERIFICATION_TIMEOUT = env.float("EC_VERIFICATION_TIMEOUT", default=30.0)
