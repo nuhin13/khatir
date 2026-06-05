@@ -4,7 +4,7 @@ epic: EPIC-23
 title: ChatConversation + ChatMessage models
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-00.T-005]
 blocks: []
