@@ -8,18 +8,21 @@ object-storage pointer — never a plaintext column). No login — the token alo
 scopes the submission to exactly one building. The write is audited
 (``visitor.log``) and rate-limited per token.
 
-The server-rendered sign-in *page* itself (``GET /v/<token>``) and its bilingual
-templates are owned by T-005; this task provides only the token service and the
-submit handler. The whole gatekeeper feature is behind the ``gatekeeper_enabled``
-flag — when off, even the public submit returns a 404 (we never reveal the page
-exists). On success the visitor is redirected (PRG) to ``/v/<token>?submitted=1``;
-invalid/expired tokens and over-limit submissions return 404 / 410 / 429.
+``GET /v/<token>`` server-renders the bilingual (bn default + en) visitor
+sign-in *page* (``webVisitor`` design: name, mobile, flat, who they're meeting,
+purpose, optional selfie + a privacy notice) — added by T-005, which also swaps
+the bare 404/410/429 bodies for a friendly bilingual error page. The whole
+gatekeeper feature is behind the ``gatekeeper_enabled`` flag — when off, even the
+public page/submit returns a 404 (we never reveal the page exists). On success
+the visitor is redirected (PRG) to ``/v/<token>?submitted=1``; invalid/expired
+tokens and over-limit submissions render the error page with 404 / 410 / 429.
 """
 
 from __future__ import annotations
 
 from django.core.cache import cache
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
 from khatir.core import storage
@@ -29,6 +32,9 @@ from khatir.properties.models import Building
 from .flags import is_gatekeeper_enabled
 from .services import log_visitor_entry
 from .tokens import ExpiredVisitorToken, InvalidVisitorToken, resolve_token
+
+_ERROR_TEMPLATE = "gatekeeper/web_visitor_error.html"
+_FORM_TEMPLATE = "gatekeeper/web_visitor.html"
 
 # Per-token submit rate limit. The token already scopes the page to one
 # building, so we cap submissions per token in a window to blunt accidental
@@ -45,19 +51,22 @@ _SUBMIT_RATE_CACHE_PREFIX = "gatekeeper:visitor_submit:"
 _MAX_PHOTO_BYTES = 8 * 1024 * 1024  # 8 MiB
 
 
-def _resolve_or_error(token: str) -> tuple[Building | None, HttpResponse | None]:
+def _resolve_or_error(
+    request: HttpRequest, token: str
+) -> tuple[Building | None, HttpResponse | None]:
     """Resolve ``token`` → ``(building, None)`` or ``(None, error_response)``.
 
-    Mirrors the rent/maintenance web flows: an expired token is 410, anything
-    malformed/tampered/unknown is 404, and the response body never reveals *why*
-    a link failed. T-005 swaps these bare responses for the bilingual error page.
+    Mirrors the rent/maintenance web flows: an expired token renders the friendly
+    bilingual error page with 410, anything malformed/tampered/unknown with 404,
+    and the page never reveals *why* a link failed. Shared by the GET form and
+    the POST handler so the invalid/expired handling is identical across both.
     """
     try:
         return resolve_token(token), None
     except ExpiredVisitorToken:
-        return None, HttpResponse("This visitor link has expired.", status=410)
+        return None, render(request, _ERROR_TEMPLATE, {"reason": "expired"}, status=410)
     except InvalidVisitorToken:
-        return None, HttpResponse("This visitor link is invalid.", status=404)
+        return None, render(request, _ERROR_TEMPLATE, {"reason": "invalid"}, status=404)
 
 
 def _rate_limited(token: str) -> bool:
@@ -101,6 +110,41 @@ def _store_photo(request: HttpRequest) -> str | None:
     return storage.store_encrypted(data, kind="visitor")
 
 
+def _flag_off_404(request: HttpRequest) -> HttpResponse:
+    """Render the invalid-link page (404) when the feature flag is off.
+
+    A disabled feature must behave exactly like an unknown link — we never reveal
+    that the visitor page exists.
+    """
+    return render(request, _ERROR_TEMPLATE, {"reason": "invalid"}, status=404)
+
+
+@require_http_methods(["GET"])
+def web_visitor(request: HttpRequest, token: str) -> HttpResponse:
+    """Render the token-scoped visitor sign-in form, or a friendly error.
+
+    Resolves the building-scoped token (``gatekeeper_enabled`` gate first — a
+    disabled feature 404s like an unknown link), then server-renders the
+    ``webVisitor`` design: name, mobile, flat, who they are meeting, purpose, an
+    optional selfie and a privacy notice. ``?submitted=1`` shows the post-submit
+    success state (the PRG target of :func:`submit_visitor`).
+    """
+    if not is_gatekeeper_enabled():
+        return _flag_off_404(request)
+
+    building, error = _resolve_or_error(request, token)
+    if error is not None:
+        return error
+    assert building is not None
+
+    context = {
+        "building_name": building.name,
+        "submitted": request.GET.get("submitted") == "1",
+        "token": token,
+    }
+    return render(request, _FORM_TEMPLATE, context)
+
+
 @require_http_methods(["POST"])
 def submit_visitor(request: HttpRequest, token: str) -> HttpResponse:
     """Accept a visitor sign-in for ``token`` and create a pending entry.
@@ -113,20 +157,20 @@ def submit_visitor(request: HttpRequest, token: str) -> HttpResponse:
     """
     if not is_gatekeeper_enabled():
         # Feature off: behave exactly like an unknown link (never reveal it).
-        return HttpResponse("This visitor link is invalid.", status=404)
+        return _flag_off_404(request)
 
-    building, error = _resolve_or_error(token)
+    building, error = _resolve_or_error(request, token)
     if error is not None:
         return error
     assert building is not None
 
     if _rate_limited(token):
-        return HttpResponse("Too many submissions. Please wait.", status=429)
+        return render(request, _ERROR_TEMPLATE, {"reason": "rate_limited"}, status=429)
 
     visitor_name = (request.POST.get("visitor_name") or "").strip()
     if not visitor_name:
         # Nothing usable submitted — bounce back to the form to retry.
-        return HttpResponseRedirect(f"/v/{token}")
+        return redirect("gatekeeper_web:visitor-page", token=token)
     purpose = (request.POST.get("purpose") or "").strip()[:255]
 
     log_visitor_entry(
