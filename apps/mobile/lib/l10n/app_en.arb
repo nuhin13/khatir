@@ -1228,5 +1228,88 @@
   "verify_retry": "আবার চেষ্টা · Retry",
   "@verify_retry": {
     "description": "Retry button shown in the load-error state."
+  },
+  "receipt_title": "রসিদ · Receipt",
+  "@receipt_title": {
+    "description": "App-bar title of the rent receipt screen."
+  },
+  "receipt_ready": "রসিদ তৈরি হয়েছে · Receipt ready",
+  "@receipt_ready": {
+    "description": "Hero headline shown after a payment is verified and the receipt is generated."
+  },
+  "receipt_ready_sub": "ভাড়াটিয়াকে পাঠিয়ে দিন · Share it with your tenant",
+  "@receipt_ready_sub": {
+    "description": "Hero subline under the receipt-ready headline."
+  },
+  "receipt_heading": "ভাড়ার রসিদ · Rent Receipt",
+  "@receipt_heading": {
+    "description": "Title printed at the top of the receipt card."
+  },
+  "receipt_amount": "৳{amount}",
+  "@receipt_amount": {
+    "description": "The large paid amount shown on the receipt card.",
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "receipt_tenant": "ভাড়াটিয়া · Tenant",
+  "@receipt_tenant": {
+    "description": "Label for the tenant row on the receipt."
+  },
+  "receipt_unit": "ইউনিট · Unit",
+  "@receipt_unit": {
+    "description": "Label for the unit row on the receipt."
+  },
+  "receipt_period": "সময়কাল · Period",
+  "@receipt_period": {
+    "description": "Label for the billing-period row on the receipt."
+  },
+  "receipt_method": "পদ্ধতি · Method",
+  "@receipt_method": {
+    "description": "Label for the payment-method row on the receipt."
+  },
+  "receipt_status": "স্ট্যাটাস · Status",
+  "@receipt_status": {
+    "description": "Label for the status row on the receipt."
+  },
+  "receipt_status_paid": "✓ পরিশোধিত · Paid",
+  "@receipt_status_paid": {
+    "description": "Value shown for a verified/paid receipt status."
+  },
+  "receipt_no": "রসিদ নং · Receipt no",
+  "@receipt_no": {
+    "description": "Label for the receipt-number footnote."
+  },
+  "receipt_share": "ভাড়াটিয়াকে পাঠান · Send to tenant",
+  "@receipt_share": {
+    "description": "Primary action: share the receipt with the tenant (WhatsApp/system)."
+  },
+  "receipt_done": "PDF · Done",
+  "@receipt_done": {
+    "description": "Secondary action: download/save the receipt PDF or finish."
+  },
+  "receipt_dash": "—",
+  "@receipt_dash": {
+    "description": "Placeholder dash shown when a receipt field value is unknown."
+  },
+  "receipt_share_text": "ভাড়ার রসিদ · Rent Receipt\n৳{amount} · {period}",
+  "@receipt_share_text": {
+    "description": "Fallback share text used when no receipt PDF is available.",
+    "placeholders": {
+      "amount": { "type": "String" },
+      "period": { "type": "String" }
+    }
+  },
+  "receipt_action_failed": "কাজটি সম্পন্ন হয়নি · Couldn't complete that. Please try again.",
+  "@receipt_action_failed": {
+    "description": "Snackbar shown when share/download of the receipt fails."
+  },
+  "receipt_load_error": "রসিদ লোড করা যায়নি · Couldn't load the receipt",
+  "@receipt_load_error": {
+    "description": "Shown when the rent request behind the receipt cannot be loaded."
+  },
+  "receipt_retry": "আবার চেষ্টা · Retry",
+  "@receipt_retry": {
+    "description": "Retry button shown in the receipt load-error state."
   }
 }

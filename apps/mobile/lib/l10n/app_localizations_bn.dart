@@ -1226,4 +1226,65 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get verify_retry => 'আবার চেষ্টা';
+
+  @override
+  String get receipt_title => 'রসিদ';
+
+  @override
+  String get receipt_ready => 'রসিদ তৈরি হয়েছে';
+
+  @override
+  String get receipt_ready_sub => 'ভাড়াটিয়াকে পাঠিয়ে দিন';
+
+  @override
+  String get receipt_heading => 'ভাড়ার রসিদ';
+
+  @override
+  String receipt_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String get receipt_tenant => 'ভাড়াটিয়া';
+
+  @override
+  String get receipt_unit => 'ইউনিট';
+
+  @override
+  String get receipt_period => 'সময়কাল';
+
+  @override
+  String get receipt_method => 'পদ্ধতি';
+
+  @override
+  String get receipt_status => 'স্ট্যাটাস';
+
+  @override
+  String get receipt_status_paid => '✓ পরিশোধিত';
+
+  @override
+  String get receipt_no => 'রসিদ নং';
+
+  @override
+  String get receipt_share => 'ভাড়াটিয়াকে পাঠান';
+
+  @override
+  String get receipt_done => 'PDF · সম্পন্ন';
+
+  @override
+  String get receipt_dash => '—';
+
+  @override
+  String receipt_share_text(String amount, String period) {
+    return 'ভাড়ার রসিদ\n৳$amount · $period';
+  }
+
+  @override
+  String get receipt_action_failed => 'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get receipt_load_error => 'রসিদ লোড করা যায়নি';
+
+  @override
+  String get receipt_retry => 'আবার চেষ্টা';
 }

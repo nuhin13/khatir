@@ -17,6 +17,7 @@ import '../../features/properties/presentation/screens/landlord_home_screen.dart
 import '../../features/properties/presentation/screens/portfolio_screen.dart';
 import '../../features/properties/presentation/screens/unit_detail_screen.dart';
 import '../../features/properties/presentation/wizard/wizard_host.dart';
+import '../../features/rent/presentation/screens/receipt_screen.dart';
 import '../../features/rent/presentation/screens/rent_request_screen.dart';
 import '../../features/rent/presentation/screens/verify_payment_screen.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
@@ -532,6 +533,27 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             requestId: state.pathParameters['id'] ?? '',
             tenantName: args?.tenantName,
             proof: args?.proof,
+          );
+        },
+      ),
+
+      // ── Receipt (EPIC-07 T-013) ─────────────────────────────────────────
+      // The generated rent receipt, reached at `/rent/:id/receipt` after a
+      // verify settles the request. The contextual receipt fields (tenant /
+      // unit / method / receipt no / signed PDF url) ride along via `extra`
+      // (the detail endpoint does not surface them yet); the screen shows the
+      // receipt summary and shares/saves it. Sits on the root navigator so it
+      // covers the landlord shell when pushed.
+      GoRoute(
+        path: ReceiptScreen.routePath,
+        name: ReceiptScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final extra = state.extra;
+          final args = extra is ReceiptArgs ? extra : null;
+          return ReceiptScreen(
+            requestId: state.pathParameters['id'] ?? '',
+            args: args,
           );
         },
       ),

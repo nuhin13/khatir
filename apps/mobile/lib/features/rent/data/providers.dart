@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/network/dio_client.dart';
@@ -104,4 +106,16 @@ class RentRequestController extends FamilyAsyncNotifier<RentRequest, String> {
 final rentRequestControllerProvider =
     AsyncNotifierProvider.family<RentRequestController, RentRequest, String>(
   RentRequestController.new,
+);
+
+// ── A verified receipt's PDF bytes ────────────────────────────────────────--
+
+/// Downloads the verified receipt PDF bytes for a (short-lived) signed URL,
+/// exposed as an [AsyncValue] keyed by that URL (EPIC-07 T-013, reusing the
+/// EPIC-05 T-008 download seam). Used by the receipt screen to share/save the
+/// generated PDF; the family key is the absolute signed URL the verify response
+/// surfaced via the receipt's `receipt_ref`.
+final receiptBytesProvider = FutureProvider.family<Uint8List, String>(
+  (ref, signedUrl) =>
+      ref.watch(rentRepositoryProvider).fetchReceiptBytes(signedUrl),
 );

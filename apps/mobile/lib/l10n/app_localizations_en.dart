@@ -1249,4 +1249,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verify_retry => 'আবার চেষ্টা · Retry';
+
+  @override
+  String get receipt_title => 'রসিদ · Receipt';
+
+  @override
+  String get receipt_ready => 'রসিদ তৈরি হয়েছে · Receipt ready';
+
+  @override
+  String get receipt_ready_sub =>
+      'ভাড়াটিয়াকে পাঠিয়ে দিন · Share it with your tenant';
+
+  @override
+  String get receipt_heading => 'ভাড়ার রসিদ · Rent Receipt';
+
+  @override
+  String receipt_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String get receipt_tenant => 'ভাড়াটিয়া · Tenant';
+
+  @override
+  String get receipt_unit => 'ইউনিট · Unit';
+
+  @override
+  String get receipt_period => 'সময়কাল · Period';
+
+  @override
+  String get receipt_method => 'পদ্ধতি · Method';
+
+  @override
+  String get receipt_status => 'স্ট্যাটাস · Status';
+
+  @override
+  String get receipt_status_paid => '✓ পরিশোধিত · Paid';
+
+  @override
+  String get receipt_no => 'রসিদ নং · Receipt no';
+
+  @override
+  String get receipt_share => 'ভাড়াটিয়াকে পাঠান · Send to tenant';
+
+  @override
+  String get receipt_done => 'PDF · Done';
+
+  @override
+  String get receipt_dash => '—';
+
+  @override
+  String receipt_share_text(String amount, String period) {
+    return 'ভাড়ার রসিদ · Rent Receipt\n৳$amount · $period';
+  }
+
+  @override
+  String get receipt_action_failed =>
+      'কাজটি সম্পন্ন হয়নি · Couldn\'t complete that. Please try again.';
+
+  @override
+  String get receipt_load_error =>
+      'রসিদ লোড করা যায়নি · Couldn\'t load the receipt';
+
+  @override
+  String get receipt_retry => 'আবার চেষ্টা · Retry';
 }

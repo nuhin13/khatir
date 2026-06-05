@@ -2407,6 +2407,120 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'আবার চেষ্টা'**
   String get verify_retry;
+
+  /// App-bar title of the rent receipt screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ'**
+  String get receipt_title;
+
+  /// Hero headline shown after a payment is verified and the receipt is generated.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ তৈরি হয়েছে'**
+  String get receipt_ready;
+
+  /// Hero subline under the receipt-ready headline.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়াকে পাঠিয়ে দিন'**
+  String get receipt_ready_sub;
+
+  /// Title printed at the top of the receipt card.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার রসিদ'**
+  String get receipt_heading;
+
+  /// The large paid amount shown on the receipt card.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
+  String receipt_amount(String amount);
+
+  /// Label for the tenant row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া'**
+  String get receipt_tenant;
+
+  /// Label for the unit row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট'**
+  String get receipt_unit;
+
+  /// Label for the billing-period row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'সময়কাল'**
+  String get receipt_period;
+
+  /// Label for the payment-method row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'পদ্ধতি'**
+  String get receipt_method;
+
+  /// Label for the status row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্ট্যাটাস'**
+  String get receipt_status;
+
+  /// Value shown for a verified/paid receipt status.
+  ///
+  /// In bn, this message translates to:
+  /// **'✓ পরিশোধিত'**
+  String get receipt_status_paid;
+
+  /// Label for the receipt-number footnote.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ নং'**
+  String get receipt_no;
+
+  /// Primary action: share the receipt with the tenant (WhatsApp/system).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়াকে পাঠান'**
+  String get receipt_share;
+
+  /// Secondary action: download/save the receipt PDF or finish.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF · সম্পন্ন'**
+  String get receipt_done;
+
+  /// Placeholder dash shown when a receipt field value is unknown.
+  ///
+  /// In bn, this message translates to:
+  /// **'—'**
+  String get receipt_dash;
+
+  /// Fallback share text used when no receipt PDF is available.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার রসিদ\n৳{amount} · {period}'**
+  String receipt_share_text(String amount, String period);
+
+  /// Snackbar shown when share/download of the receipt fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
+  String get receipt_action_failed;
+
+  /// Shown when the rent request behind the receipt cannot be loaded.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ লোড করা যায়নি'**
+  String get receipt_load_error;
+
+  /// Retry button shown in the receipt load-error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get receipt_retry;
 }
 
 class _AppLocalizationsDelegate

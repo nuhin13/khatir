@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 
 import '../../../core/network/api_endpoints.dart';
@@ -121,6 +123,22 @@ class RentRepository {
         ApiEndpoints.rentRequestReject(id),
         body: <String, dynamic>{'reason': reason},
       );
+
+  /// Downloads the verified receipt PDF bytes from a (short-lived) signed [url]
+  /// for preview/share (T-013, reusing the EPIC-05 T-008 download seam). The
+  /// signed URL is absolute and already authorized, so it is fetched as raw bytes
+  /// without the app's auth headers being carried onto a foreign host.
+  Future<Uint8List> fetchReceiptBytes(String url) async {
+    try {
+      final res = await _dio.get<List<int>>(
+        url,
+        options: Options(responseType: ResponseType.bytes),
+      );
+      return Uint8List.fromList(res.data ?? const <int>[]);
+    } on DioException catch (e) {
+      throw _asApiException(e);
+    }
+  }
 
   /// Shared `POST /rent-requests` create call — both create flows funnel here so
   /// envelope handling and error mapping live in one place.
