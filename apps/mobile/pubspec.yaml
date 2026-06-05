@@ -47,6 +47,9 @@ dependencies:
   # i18n
   intl: ^0.20.2
 
+  # Charts (EPIC-09 T-005) — shared KBarChart/KDonutChart/KLineChart widgets.
+  fl_chart: ^1.2.0
+
   # DMP PDF preview + share (EPIC-05 T-008). `printing` renders the generated
   # A4 PDF (pdfium) and provides system print/share; `share_plus` drives the
   # explicit WhatsApp/system share + save of the downloaded file.
