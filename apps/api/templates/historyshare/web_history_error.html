@@ -1,0 +1,19 @@
+{% extends "rent/_web_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Link unavailable" %} · Khatir{% endblock %}
+
+{% block content %}
+  <div class="center" style="padding-top:48px;">
+    <div class="icon" aria-hidden="true">⏳</div>
+    <div class="title" style="font-size:18px;margin-top:14px;">লিংকটি আর উপলব্ধ নেই</div>
+    <div class="muted" lang="en" style="margin-top:6px;">This shared rental history is not available.</div>
+    <div class="card soft-sage" style="margin-top:18px;text-align:left;">
+      <div style="font-size:13px;color:var(--sage-dk);font-weight:600;line-height:1.6;">
+        ভাড়াটিয়ার কাছে নতুন লিংক চান।<br>
+        <span lang="en">Please ask the tenant to share a new link.</span>
+      </div>
+    </div>
+  </div>
+  <div class="footnote">Khatir · খতির</div>
+{% endblock %}

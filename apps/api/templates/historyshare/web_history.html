@@ -1,0 +1,59 @@
+{% extends "rent/_web_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Rental history" %} · Khatir{% endblock %}
+
+{% block content %}
+  <div class="center">
+    <div class="icon" aria-hidden="true">📋</div>
+    <div class="title" style="font-size:17px;margin-top:8px;">
+      {% translate "Shared rental history" %}
+    </div>
+    <div class="muted" lang="en" style="font-size:12px;">
+      ভাড়ার ইতিহাস · {% translate "Factual record only" %}
+    </div>
+  </div>
+
+  <div class="card center" style="margin-top:14px;">
+    <div class="amount">{{ on_time_bn }}</div>
+    <div class="muted" style="font-size:12px;">
+      {% translate "On-time payments" %} · সময়মতো পরিশোধ
+      <div lang="en" style="font-size:11px;font-family:var(--f-mono);">
+        {{ on_time_en }} {% translate "of" %} {{ total_en }}
+      </div>
+    </div>
+  </div>
+
+  <div class="card row soft-sage" style="margin-top:12px;">
+    <span aria-hidden="true">🧾</span>
+    <div style="font-size:13px;color:var(--sage-dk);font-weight:600;">
+      {% translate "Verified payments" %} · যাচাইকৃত পরিশোধ
+      <div style="font-family:var(--f-mono);">{{ total_bn }}</div>
+    </div>
+  </div>
+
+  <div class="card row soft-sage" style="margin-top:12px;">
+    {% if lease_completed %}
+      <span aria-hidden="true">✅</span>
+      <div style="font-size:13px;color:var(--sage-dk);font-weight:600;">
+        {% translate "Completed a full lease term" %}
+        <div lang="en" style="font-weight:500;">পূর্ণ লিজ মেয়াদ সম্পন্ন করেছেন</div>
+      </div>
+    {% else %}
+      <span aria-hidden="true">⏳</span>
+      <div style="font-size:13px;color:var(--sage-dk);font-weight:600;">
+        {% translate "No completed lease term on record" %}
+        <div lang="en" style="font-weight:500;">কোনো সম্পন্ন লিজ মেয়াদ নেই</div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if expires_label %}
+    <div class="footnote">
+      {% blocktranslate with when=expires_label %}Link valid until {{ when }}{% endblocktranslate %}
+    </div>
+  {% endif %}
+  <div class="footnote">
+    {% translate "Read-only · shared by the tenant · factual record" %}
+  </div>
+{% endblock %}

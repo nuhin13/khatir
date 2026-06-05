@@ -40,6 +40,10 @@ urlpatterns = [
     # (/n/<token>/open.gif) and provider delivery webhook (/n/<token>/delivered).
     # Token-scoped, hit by browsers/providers, so rooted outside ``/api/v1/``.
     path("", include("khatir.notifications.web_urls")),
+    # Public, no-login recipient view of a tenant-shared rental history
+    # (EPIC-24 T-008): /h/<token>. Server-rendered HTML, token-scoped, so it
+    # lives at the root rather than under ``/api/v1/``.
+    path("", include("khatir.historyshare.web_urls")),
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
     path("api/v1/", include("khatir.properties.urls")),
