@@ -15,6 +15,7 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
+from khatir.maintenance.enums import MaintenanceCategory
 from khatir.rent.models import Payment
 
 # Cap on an inline-uploaded proof screenshot (bytes). Mirrors the web-link page
@@ -90,3 +91,25 @@ class InAppProofSerializer(serializers.Serializer[dict[str, object]]):
                 "Provide a `txn_id`, a `note`, or a `screenshot`."
             )
         return attrs
+
+
+class MeMaintenanceCreateSerializer(serializers.Serializer[dict[str, object]]):
+    """Validate a tenant maintenance-report body (``POST /me/maintenance``, T-004).
+
+    The tenant reports a problem on *their own* unit, so — unlike the landlord
+    create body — no ``unit_id`` is accepted: the unit (and the active lease) are
+    resolved server-side from the tenant's active lease and never trusted from the
+    client. The request is always created ``open``; resolution stays a landlord
+    action. The view feeds these fields into the **same**
+    ``create_maintenance_request`` pipeline — no new maintenance logic here.
+    """
+
+    description = serializers.CharField()
+    category = serializers.ChoiceField(
+        choices=MaintenanceCategory.choices,
+        required=False,
+        default=MaintenanceCategory.OTHER.value,
+    )
+    photo_ref = serializers.CharField(
+        max_length=255, required=False, allow_blank=True, default=""
+    )

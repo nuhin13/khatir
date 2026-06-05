@@ -11,7 +11,13 @@ from __future__ import annotations
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .me_views import MeLeaseView, MeReceiptsView, MeRentPayView, MeRentView
+from .me_views import (
+    MeLeaseView,
+    MeMaintenanceView,
+    MeReceiptsView,
+    MeRentPayView,
+    MeRentView,
+)
 from .views import (
     TenantOcrView,
     TenantViewSet,
@@ -45,5 +51,8 @@ urlpatterns = [
     # pipeline, scoped to the tenant's own rent requests.
     path("me/rent/<int:pk>/pay", MeRentPayView.as_view(), name="me-rent-pay"),
     path("me/receipts", MeReceiptsView.as_view(), name="me-receipts"),
+    # In-app maintenance report (EPIC-19 T-004): reuses the EPIC-08
+    # create_maintenance_request pipeline, scoped to the tenant's own unit.
+    path("me/maintenance", MeMaintenanceView.as_view(), name="me-maintenance"),
     *router.urls,
 ]

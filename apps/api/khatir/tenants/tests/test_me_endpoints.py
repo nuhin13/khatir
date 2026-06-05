@@ -21,6 +21,7 @@ from khatir.accounts.models import User
 from khatir.accounts.tests.factories import UserFactory
 from khatir.leases.enums import LeaseStatus
 from khatir.leases.tests.factories import LeaseFactory, RentScheduleFactory
+from khatir.maintenance.models import MaintenanceRequest
 from khatir.rent.tests.factories import PaymentFactory, RentRequestFactory
 from khatir.tenants.tests.factories import TenantFactory
 
@@ -185,4 +186,115 @@ def test_me_receipts_excludes_other_tenants_payments() -> None:
 
 def test_me_receipts_unlinked_tenant_denied() -> None:
     resp = _authed(_tenant_user()).get("/api/v1/me/receipts")
+    assert resp.status_code == status.HTTP_403_FORBIDDEN
+
+
+# --- /me/maintenance ---------------------------------------------------------
+
+
+def test_me_maintenance_creates_request_on_own_unit() -> None:
+    user = _tenant_user()
+    tenant = TenantFactory(linked_user=user)
+    lease = LeaseFactory(tenant=tenant, status=LeaseStatus.ACTIVE)
+
+    resp = _authed(user).post(
+        "/api/v1/me/maintenance",
+        {"description": "Leaking tap", "category": "plumbing"},
+        format="json",
+    )
+
+    assert resp.status_code == status.HTTP_201_CREATED
+    assert resp.data["unit_id"] == str(lease.unit_id)
+    assert resp.data["lease_id"] == str(lease.pk)
+    assert resp.data["category"] == "plumbing"
+    assert resp.data["description"] == "Leaking tap"
+    assert resp.data["status"] == "open"
+
+    created = MaintenanceRequest.objects.get(pk=resp.data["id"])
+    assert created.unit_id == lease.unit_id
+    assert created.lease_id == lease.pk
+
+
+def test_me_maintenance_defaults_category_to_other() -> None:
+    user = _tenant_user()
+    LeaseFactory(
+        tenant=TenantFactory(linked_user=user), status=LeaseStatus.ACTIVE
+    )
+
+    resp = _authed(user).post(
+        "/api/v1/me/maintenance",
+        {"description": "Something is broken"},
+        format="json",
+    )
+
+    assert resp.status_code == status.HTTP_201_CREATED
+    assert resp.data["category"] == "other"
+
+
+def test_me_maintenance_404_when_no_active_lease() -> None:
+    user = _tenant_user()
+    tenant = TenantFactory(linked_user=user)
+    LeaseFactory(tenant=tenant, status=LeaseStatus.ENDED)
+
+    resp = _authed(user).post(
+        "/api/v1/me/maintenance",
+        {"description": "Leaking tap"},
+        format="json",
+    )
+
+    assert resp.status_code == status.HTTP_404_NOT_FOUND
+    assert MaintenanceRequest.objects.count() == 0
+
+
+def test_me_maintenance_always_scoped_to_own_unit() -> None:
+    me = _tenant_user()
+    my_lease = LeaseFactory(
+        tenant=TenantFactory(linked_user=me), status=LeaseStatus.ACTIVE
+    )
+    other_lease = LeaseFactory(
+        tenant=TenantFactory(linked_user=_tenant_user()), status=LeaseStatus.ACTIVE
+    )
+
+    resp = _authed(me).post(
+        "/api/v1/me/maintenance",
+        # A client cannot re-parent the request: there is no unit_id input and
+        # the unit is taken from the tenant's own active lease.
+        {"description": "x", "unit_id": str(other_lease.unit_id)},
+        format="json",
+    )
+
+    assert resp.status_code == status.HTTP_201_CREATED
+    assert resp.data["unit_id"] == str(my_lease.unit_id)
+    assert resp.data["unit_id"] != str(other_lease.unit_id)
+
+
+def test_me_maintenance_requires_description() -> None:
+    user = _tenant_user()
+    LeaseFactory(
+        tenant=TenantFactory(linked_user=user), status=LeaseStatus.ACTIVE
+    )
+
+    resp = _authed(user).post("/api/v1/me/maintenance", {}, format="json")
+
+    assert resp.status_code == status.HTTP_400_BAD_REQUEST
+
+
+def test_me_maintenance_unlinked_tenant_denied() -> None:
+    resp = _authed(_tenant_user()).post(
+        "/api/v1/me/maintenance",
+        {"description": "Leaking tap"},
+        format="json",
+    )
+    assert resp.status_code == status.HTTP_403_FORBIDDEN
+
+
+def test_me_maintenance_non_tenant_role_denied() -> None:
+    landlord = UserFactory(role=Role.LANDLORD)
+    TenantFactory(linked_user=landlord)
+
+    resp = _authed(landlord).post(
+        "/api/v1/me/maintenance",
+        {"description": "Leaking tap"},
+        format="json",
+    )
     assert resp.status_code == status.HTTP_403_FORBIDDEN

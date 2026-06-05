@@ -23,7 +23,7 @@ rather than duplicating any proof/maintenance logic (task §3).
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast
 
 from django.db.models import QuerySet
 from rest_framework.exceptions import NotFound
@@ -32,16 +32,23 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from khatir.accounts.models import User
 from khatir.core import storage
 from khatir.core.responses import created, success
 from khatir.leases.models import RentSchedule
 from khatir.leases.serializers import LeaseSerializer, RentScheduleSerializer
+from khatir.maintenance.serializers import MaintenanceRequestSerializer
+from khatir.maintenance.services import create_maintenance_request
 from khatir.rent.enums import PaymentProofType
 from khatir.rent.models import Payment, RentRequest
 from khatir.rent.serializers import RentRequestSerializer
 from khatir.rent.services import submit_payment_proof
 
-from .me_serializers import InAppProofSerializer, ReceiptSerializer
+from .me_serializers import (
+    InAppProofSerializer,
+    MeMaintenanceCreateSerializer,
+    ReceiptSerializer,
+)
 from .permissions import IsLinkedTenant
 from .tenant_account import (
     active_lease_for_user,
@@ -165,3 +172,38 @@ class MeRentPayView(APIView):
 
         note = (data.get("note") or "").strip()
         return PaymentProofType.NOTE, note[:255], ""
+
+
+class MeMaintenanceView(APIView):
+    """``POST /api/v1/me/maintenance`` — report maintenance in-app (T-004).
+
+    The in-app counterpart of the landlord create endpoint: the logged-in tenant
+    reports a problem on *their own* unit. The unit and the active lease are
+    resolved from the tenant's active lease (``tenant_account`` helper) and never
+    trusted from the client, so a tenant can only ever raise a request against
+    their own unit — a tenant with no active lease gets a 404 and never reaches a
+    foreign unit (a missing scope is a P0 security bug,
+    ``04_coding_conventions.md`` §3).
+
+    It feeds the **same** :func:`~khatir.maintenance.services.create_maintenance_request`
+    pipeline as the landlord surface (audit + ``open`` status) — no maintenance
+    logic is duplicated here (task §3).
+    """
+
+    permission_classes = [IsLinkedTenant]
+
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        lease = active_lease_for_user(request.user)
+        if lease is None:
+            raise NotFound("No active lease.")
+
+        body = MeMaintenanceCreateSerializer(data=request.data)
+        body.is_valid(raise_exception=True)
+
+        req = create_maintenance_request(
+            actor=cast(User, request.user),
+            unit=lease.unit,
+            lease_id=lease.pk,
+            **body.validated_data,
+        )
+        return created(MaintenanceRequestSerializer(req).data)
