@@ -4,15 +4,15 @@ epic: EPIC-11
 title: Sidebar navigation + coming-soon stubs
 layer: admin
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-008]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -40,12 +40,12 @@ No DB; admin 🟣; no external; no flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] all §3.1 nav items linked
-- [ ] coming-soon page for unbuilt modules
-- [ ] active link highlight
-- [ ] role visibility per T-008
-- [ ] tests: nav items render, active state
-- [ ] tsc pass
+- [x] all §3.1 nav items linked
+- [x] coming-soon page for unbuilt modules
+- [x] active link highlight
+- [x] role visibility per T-008
+- [x] tests: nav items render, active state
+- [x] tsc pass
 
 ## 12. Test plan
 ### Automated
@@ -54,10 +54,28 @@ No DB; admin 🟣; no external; no flags.
 1. Navigate to each item; unbuilt → coming soon.
 
 ## 13. Acceptance criteria
-- [ ] All sidebar items linked; coming-soon for unbuilt; tests pass.
+- [x] All sidebar items linked; coming-soon for unbuilt; tests pass.
 ## 14. Self-review
-- [ ] Matches admin spec §3.1; role-aware
+- [x] Matches admin spec §3.1; role-aware
 ### Deviations from spec
+- The full sidebar (all §3.1 nav items + routes + role visibility + active-link
+  highlight) and the reusable coming-soon stub were already delivered by T-008's
+  shell work: `_nav.ts` (NAV_ITEMS covering all 13 spec entries incl. the
+  broken-out Kill-switch page, `navForRole`), `components/features/sidebar.tsx`
+  (active highlight via `usePathname`, "Soon" badge for `comingSoon` items),
+  and `components/features/coming-soon.tsx`. Every unbuilt module page under
+  `app/(dashboard)/<module>/page.tsx` renders `<ComingSoon title=…/>`.
+- Coming-soon is a shared component reused by each module route rather than a
+  single `app/(dashboard)/coming-soon/page.tsx`, so each stub keeps its own
+  route/title and nav context (cleaner than one shared route + redirects).
+- This task therefore adds the T-010-specific test coverage that T-008 left
+  open: nav-route linking, coming-soon badge presence, active-link highlight,
+  and ComingSoon render. No production code changes were needed.
 ### Files touched (actual)
+- Update: apps/admin/src/test/sidebar.test.tsx (NAV_ITEMS §3.1 coverage,
+  distinct-route linking, coming-soon flags + "Soon" badge, link hrefs)
+- Add: apps/admin/src/test/sidebar-active.test.tsx (active-link highlight,
+  child-route stays active); apps/admin/src/test/coming-soon.test.tsx
+  (heading + placeholder render)
 ## 15. Notes
 - Later EPICs (12–16) replace the coming-soon stubs one by one.

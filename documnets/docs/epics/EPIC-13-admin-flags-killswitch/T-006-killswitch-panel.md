@@ -4,7 +4,7 @@ epic: EPIC-13
 title: Kill-switch panel page (Next.js)
 layer: admin
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003]
 blocks: []
@@ -47,14 +47,14 @@ No DB; consumes killswitch endpoints; admin 🟣; no external; no flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] 5 named switches with state + last event
-- [ ] MFA re-confirm dialog (6-digit TOTP)
-- [ ] reason textarea + optional lawyer reference
-- [ ] red warning banner if any switch OFF
-- [ ] super-only route guard
-- [ ] event log section per switch
-- [ ] test: renders; MFA dialog opens; confirm fires endpoint
-- [ ] tsc pass
+- [x] 5 named switches with state + last event
+- [x] MFA re-confirm dialog (6-digit TOTP)
+- [x] reason textarea + optional lawyer reference
+- [x] red warning banner if any switch OFF
+- [x] super-only route guard
+- [x] event log section per switch
+- [x] test: renders; MFA dialog opens; confirm fires endpoint
+- [x] tsc pass
 
 ## 12. Test plan
 ### Automated
@@ -63,10 +63,29 @@ No DB; consumes killswitch endpoints; admin 🟣; no external; no flags.
 1. Toggle a switch → MFA dialog → enter code + reason → confirmed → switch OFF → red banner appears.
 
 ## 13. Acceptance criteria
-- [ ] Kill-switch panel with MFA friction; warning banner; event log; super only; tests pass.
+- [x] Kill-switch panel with MFA friction; warning banner; event log; super only; tests pass.
 ## 14. Self-review
-- [ ] MFA required; reason required; intentionally friction-heavy
+- [x] MFA required; reason required; intentionally friction-heavy
 ### Deviations from spec
+- Route is `/kill-switch` (existing scaffold + sidebar) rather than `/killswitch`; the
+  page lives at `app/(dashboard)/kill-switch/page.tsx` so the already-wired nav link is not
+  orphaned. Component files use `killswitch_panel.tsx` / `killswitch_dialog.tsx`.
+- Nav gate changed compliance → super-only: the backend kill-switch endpoints (T-003) are
+  `IsSuperAdmin`, so the spec §2.1 compliance assignment is not what is actually enforced;
+  the nav + server page mirror the real backend gate to avoid an access-denied dead link.
+- "Event log per switch / last event" is sourced from the switch's `updated_at`/`updated_by`
+  (FeatureFlagSerializer, T-002) — the committed T-003 `GET /killswitches` returns only the
+  flag rows; there is no per-switch KillSwitchEvent list endpoint, so the panel surfaces the
+  most-recent-change line the API does expose.
+- MFA dialog enforces a 6-digit numeric code and a ≥20-char reason client-side (spec §4.4.2);
+  the backend re-verifies the TOTP and rejects a bad code with 403 (surfaced inline).
 ### Files touched (actual)
+- `apps/admin/src/lib/api/killswitch.ts` (add — data layer)
+- `apps/admin/src/components/admin/killswitch_dialog.tsx` (add — MFA + reason + lawyer ref)
+- `apps/admin/src/components/admin/killswitch_panel.tsx` (add — switch list + red banner)
+- `apps/admin/src/app/(dashboard)/kill-switch/page.tsx` (update — super-only guard + panel)
+- `apps/admin/src/app/(dashboard)/_nav.ts` (update — Kill-switch live, super-only)
+- `apps/admin/src/test/killswitch.test.tsx` (add)
+- `apps/admin/src/test/sidebar.test.tsx` (update — Kill-switch now a live page)
 ## 15. Notes
 - This is a safety-critical UI. Make it visually scary when switches are off — red banner, warning text.

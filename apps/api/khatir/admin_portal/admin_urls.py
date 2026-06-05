@@ -18,6 +18,7 @@ from khatir.ai_providers.admin_views import (
     AIUsageView,
 )
 
+from .audit_views import AuditLogView
 from .dashboard_views import PlatformDashboardView
 from .pricing_views import (
     PricingTierEditView,
@@ -37,6 +38,8 @@ app_name = "admin_portal_app"
 
 urlpatterns = [
     path("dashboard", PlatformDashboardView.as_view(), name="dashboard"),
+    # EPIC-11.T-011 — compliance audit-log viewer (read-only, paginated).
+    path("audit-log", AuditLogView.as_view(), name="audit-log"),
     # EPIC-12.T-003 — user search + detail + actions.
     path("users", UserSearchView.as_view(), name="users-search"),
     path("users/<int:user_id>", UserDetailView.as_view(), name="users-detail"),

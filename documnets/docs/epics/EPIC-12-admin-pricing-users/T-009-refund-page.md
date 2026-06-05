@@ -4,7 +4,7 @@ epic: EPIC-12
 title: Refund queue page (Next.js)
 layer: admin
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-004]
 blocks: []
@@ -43,20 +43,32 @@ No DB; consumes refund endpoints; admin 🟣; no external; no flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] refund table (pending)
-- [ ] approve/deny dialogs (reason)
-- [ ] finance+super gate
-- [ ] test: renders, action fires
-- [ ] tsc pass
+- [x] refund table (pending)
+- [x] approve/deny dialogs (reason)
+- [x] finance+super gate
+- [x] test: renders, action fires
+- [x] tsc pass
 
 ## 12. Test plan
 ### Automated
 - refund_page renders; approve dialog fires
 ## 13. Acceptance criteria
-- [ ] Refund queue page; approve/deny; tests pass.
+- [x] Refund queue page; approve/deny; tests pass.
 ## 14. Self-review
-- [ ] Reason required; finance+super
+- [x] Reason required; finance+super
 ### Deviations from spec
+- The route is `/(dashboard)/billing/refunds` per spec; the sidebar `NAV_ITEMS`
+  test's single-segment route regex (`/^\/[a-z-]+$/`, written when every live
+  page was one segment) was widened to allow multi-segment absolute paths and
+  the live-page allowlist gained "Refunds".
+- Approve records an optional reason (audited); deny requires a non-blank reason
+  (re-checked server-side by `RefundProcessSerializer` / `process_refund`).
 ### Files touched (actual)
+- Add: `apps/admin/src/lib/api/refunds.ts`,
+  `apps/admin/src/components/admin/refund_queue.tsx`,
+  `apps/admin/src/app/(dashboard)/billing/refunds/page.tsx`,
+  `apps/admin/src/test/refunds.test.tsx`
+- Update: `apps/admin/src/app/(dashboard)/_nav.ts` (live finance-gated Refunds
+  item), `apps/admin/src/test/sidebar.test.tsx` (route regex + live-page set)
 ## 15. Notes
 - Simple for MVP. MFS integration trails.
