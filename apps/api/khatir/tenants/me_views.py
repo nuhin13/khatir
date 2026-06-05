@@ -27,22 +27,30 @@ from typing import Any
 
 from django.db.models import QuerySet
 from rest_framework.exceptions import NotFound
+from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from khatir.core.responses import success
+from khatir.core import storage
+from khatir.core.responses import created, success
 from khatir.leases.models import RentSchedule
 from khatir.leases.serializers import LeaseSerializer, RentScheduleSerializer
+from khatir.rent.enums import PaymentProofType
 from khatir.rent.models import Payment, RentRequest
 from khatir.rent.serializers import RentRequestSerializer
+from khatir.rent.services import submit_payment_proof
 
-from .me_serializers import ReceiptSerializer
+from .me_serializers import InAppProofSerializer, ReceiptSerializer
 from .permissions import IsLinkedTenant
 from .tenant_account import (
     active_lease_for_user,
     leases_for_tenant_user,
 )
+
+# Cap on an inline-uploaded proof screenshot (bytes); mirrors the web-link page
+# (EPIC-07 T-006). Enforced again here as a hard stop on what we read into memory.
+_MAX_SCREENSHOT_BYTES = 8 * 1024 * 1024  # 8 MiB
 
 
 class MeLeaseView(APIView):
@@ -96,3 +104,64 @@ class MeReceiptsView(APIView):
             .order_by("-verified_at", "-created_at")
         )
         return success(ReceiptSerializer(receipts, many=True).data)
+
+
+class MeRentPayView(APIView):
+    """``POST /api/v1/me/rent/{id}/pay`` — submit payment proof in-app.
+
+    The in-app counterpart of the public web-link proof form (EPIC-07 T-006):
+    the logged-in tenant submits a bKash/Nagad transaction id, a note, or a
+    screenshot for one of *their own* rent requests. It feeds the **same**
+    :func:`~khatir.rent.services.submit_payment_proof` pipeline as the web link
+    — no new proof or status logic lives here (task §3).
+
+    Scope is the load-bearing guarantee: ``{id}`` is resolved only within the
+    tenant's own leases (``tenant_account`` helpers), so another tenant's request
+    id resolves to a 404 and is never reachable — a missing scope is a P0
+    security bug (``04_coding_conventions.md`` §3).
+    """
+
+    permission_classes = [IsLinkedTenant]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+
+    def post(self, request: Request, *args: Any, pk: int, **kwargs: Any) -> Response:
+        leases = leases_for_tenant_user(request.user)
+        rent_request = RentRequest.objects.filter(lease__in=leases, pk=pk).first()
+        if rent_request is None:
+            # Never reveal that another tenant's request exists.
+            raise NotFound("Rent request not found.")
+
+        body = InAppProofSerializer(data=request.data)
+        body.is_valid(raise_exception=True)
+        proof_type, value, photo_ref = self._build_proof(body.validated_data)
+
+        submit_payment_proof(
+            rent_request=rent_request,
+            proof_type=proof_type,
+            value=value,
+            photo_ref=photo_ref,
+        )
+        rent_request.refresh_from_db()
+        return created(RentRequestSerializer(rent_request).data)
+
+    @staticmethod
+    def _build_proof(data: dict[str, Any]) -> tuple[str, str, str]:
+        """Map validated input → ``(type, value, photo_ref)`` for the proof.
+
+        Mirrors the web page's precedence (``rent/web_views.py``): a screenshot
+        wins (stored encrypted, returns an opaque ``photo_ref``), then a txn id
+        (``bkash_txn``), then a note. The serializer has already guaranteed at
+        least one is present.
+        """
+        upload = data.get("screenshot")
+        if upload is not None:
+            raw = upload.read(_MAX_SCREENSHOT_BYTES + 1)
+            photo_ref = storage.store_encrypted(raw[:_MAX_SCREENSHOT_BYTES], kind="proof")
+            return PaymentProofType.SCREENSHOT, "", photo_ref
+
+        txn_id = (data.get("txn_id") or "").strip()
+        if txn_id:
+            return PaymentProofType.BKASH_TXN, txn_id[:255], ""
+
+        note = (data.get("note") or "").strip()
+        return PaymentProofType.NOTE, note[:255], ""

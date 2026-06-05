@@ -17,6 +17,11 @@ from rest_framework import serializers
 
 from khatir.rent.models import Payment
 
+# Cap on an inline-uploaded proof screenshot (bytes). Mirrors the web-link page
+# (EPIC-07 T-006): proof screenshots are phone captures, so anything larger is
+# almost certainly abuse and is rejected up front.
+_MAX_SCREENSHOT_BYTES = 8 * 1024 * 1024  # 8 MiB
+
 
 class ReceiptSerializer(serializers.ModelSerializer[Payment]):
     """A confirmed payment as a tenant-facing receipt (``/api/v1/me/receipts``).
@@ -53,3 +58,35 @@ class ReceiptSerializer(serializers.ModelSerializer[Payment]):
             "updated_at",
         )
         read_only_fields = fields
+
+
+class InAppProofSerializer(serializers.Serializer[dict[str, object]]):
+    """Validate an in-app payment-proof body (``POST /me/rent/{id}/pay``, T-003).
+
+    The in-app counterpart of the web-link proof form (EPIC-07 T-006): a tenant
+    submits a bKash/Nagad transaction id, a free-text note, or a screenshot
+    upload. At least one usable field is required. The view feeds the validated
+    fields into the **same** ``submit_payment_proof`` pipeline — no new proof
+    logic here.
+    """
+
+    txn_id = serializers.CharField(
+        max_length=255, required=False, allow_blank=True, trim_whitespace=True
+    )
+    note = serializers.CharField(
+        max_length=255, required=False, allow_blank=True, trim_whitespace=True
+    )
+    screenshot = serializers.FileField(required=False)
+
+    def validate_screenshot(self, value: object) -> object:
+        size = getattr(value, "size", 0)
+        if size and size > _MAX_SCREENSHOT_BYTES:
+            raise serializers.ValidationError("Screenshot is too large (max 8 MiB).")
+        return value
+
+    def validate(self, attrs: dict[str, object]) -> dict[str, object]:
+        if not (attrs.get("txn_id") or attrs.get("note") or attrs.get("screenshot")):
+            raise serializers.ValidationError(
+                "Provide a `txn_id`, a `note`, or a `screenshot`."
+            )
+        return attrs

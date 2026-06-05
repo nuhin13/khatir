@@ -36,7 +36,7 @@ from khatir.messaging.factory import send_with_fallback
 
 from .enums import RentRequestStatus
 from .messaging import send_rent_link
-from .models import Payment, RentRequest
+from .models import Payment, PaymentProof, RentRequest
 from .receipts import render_receipt_pdf
 from .tokens import make_token
 
@@ -166,6 +166,38 @@ def send_rent_request(*, actor: User, request: RentRequest) -> RentRequest:
         after=_snapshot(request),
     )
     return request
+
+
+# ── proof submit: the one PaymentProof pipeline (T-006 web + EPIC-19 in-app) ────
+
+
+def submit_payment_proof(
+    *,
+    rent_request: RentRequest,
+    proof_type: str,
+    value: str = "",
+    photo_ref: str = "",
+) -> PaymentProof:
+    """Record a tenant's payment proof against ``rent_request`` and advance it.
+
+    The single source of truth for the proof step, shared by the public web-link
+    page (EPIC-07 T-006) and the in-app endpoint (EPIC-19 T-003) so neither
+    duplicates the create + status transition. Creates the :class:`PaymentProof`
+    (``submitted_at`` stamped now) and, only when the request is still ``sent``,
+    advances it to ``proof_submitted`` — a re-submission against an already
+    verified/rejected request never regresses its status.
+    """
+    proof = PaymentProof.objects.create(
+        rent_request=rent_request,
+        type=proof_type,
+        value=value,
+        photo_ref=photo_ref,
+        submitted_at=timezone.now(),
+    )
+    if rent_request.status == RentRequestStatus.SENT:
+        rent_request.status = RentRequestStatus.PROOF_SUBMITTED
+        rent_request.save(update_fields=["status", "updated_at"])
+    return proof
 
 
 # ── settle: verify / mark-received / reject (T-007) ─────────────────────────────

@@ -11,7 +11,7 @@ from __future__ import annotations
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .me_views import MeLeaseView, MeReceiptsView, MeRentView
+from .me_views import MeLeaseView, MeReceiptsView, MeRentPayView, MeRentView
 from .views import (
     TenantOcrView,
     TenantViewSet,
@@ -41,6 +41,9 @@ urlpatterns = [
     # IsLinkedTenant, every read scoped through the tenant_account helpers.
     path("me/lease", MeLeaseView.as_view(), name="me-lease"),
     path("me/rent", MeRentView.as_view(), name="me-rent"),
+    # In-app payment proof (EPIC-19 T-003): reuses the EPIC-07 PaymentProof
+    # pipeline, scoped to the tenant's own rent requests.
+    path("me/rent/<int:pk>/pay", MeRentPayView.as_view(), name="me-rent-pay"),
     path("me/receipts", MeReceiptsView.as_view(), name="me-receipts"),
     *router.urls,
 ]

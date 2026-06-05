@@ -15,7 +15,6 @@ from __future__ import annotations
 from django.core.cache import cache
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
-from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
 from khatir.core import storage
@@ -23,6 +22,7 @@ from khatir.core.config import get_config
 
 from .enums import PaymentProofType, RentRequestStatus
 from .models import PaymentProof, RentRequest
+from .services import submit_payment_proof
 from .tokens import ExpiredLinkToken, InvalidLinkToken, resolve_token
 
 # Landlord cash-in instruction (account number) shown on the pay page. Seeded /
@@ -239,19 +239,14 @@ def submit_proof(request: HttpRequest, token: str) -> HttpResponse:
         # Nothing usable submitted — bounce back to the pay page to retry.
         return redirect("rent_web:web-pay", token=token)
 
-    PaymentProof.objects.create(
+    # Same PaymentProof pipeline the in-app endpoint uses (EPIC-19 T-003): create
+    # the proof and advance a still-pending request to ``proof_submitted``.
+    submit_payment_proof(
         rent_request=rent_request,
-        type=proof_type,
+        proof_type=proof_type,
         value=value,
         photo_ref=photo_ref,
-        submitted_at=timezone.now(),
     )
-
-    # First proof advances a still-pending request; a re-submission against an
-    # already verified/rejected request must not regress its status.
-    if rent_request.status == RentRequestStatus.SENT:
-        rent_request.status = RentRequestStatus.PROOF_SUBMITTED
-        rent_request.save(update_fields=["status", "updated_at"])
 
     return redirect("rent_web:web-receipt", token=token)
 
