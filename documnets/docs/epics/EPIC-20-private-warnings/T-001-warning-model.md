@@ -4,7 +4,7 @@ epic: EPIC-20
 title: Warning model + migration
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-06.T-001]
 blocks: [T-002]
@@ -40,20 +40,27 @@ Creates warnings_warning. Reversible. No external. No flags (enforced at endpoin
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] Warning model (lease/tenant/landlord FKs, type, reason, notice_ref)
-- [ ] WarningType enum (late_rent, lease_violation, noise, other)
-- [ ] migration reversible; admin
-- [ ] tests
-- [ ] ruff + mypy clean
+- [x] Warning model (lease/tenant/landlord FKs, type, reason, notice_ref)
+- [x] WarningType enum (late_rent, lease_violation, noise, other)
+- [x] migration reversible; admin
+- [x] tests
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
 - test_warning_create
 ## 13. Acceptance criteria
-- [ ] Model; migration clean; tests + lint pass.
+- [x] Model; migration clean; tests + lint pass.
 ## 14. Self-review
-- [ ] No shared/global structure; landlord+tenant only
+- [x] No shared/global structure; landlord+tenant only
 ### Deviations from spec
+- Added `managers.py` (not in §5 file list) to provide `WarningManager.for_user`
+  scoping the queryset to the issuing landlord — required by the P0 row-level
+  isolation convention (`04_coding_conventions.md` §3). No cross-landlord view.
 ### Files touched (actual)
+- khatir/warnings/{__init__,apps,enums,managers,models,admin}.py
+- khatir/warnings/migrations/{__init__,0001_initial}.py
+- khatir/warnings/tests/{__init__,factories,test_models}.py
+- config/settings/base.py (register khatir.warnings)
 ## 15. Notes
 - There is intentionally NO field or relation that would let warnings be aggregated across landlords. Keep it strictly relational to one lease.
