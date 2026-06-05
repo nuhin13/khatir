@@ -4,7 +4,7 @@ epic: EPIC-17
 title: Consent capture + ConsentRecord write
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-16.T-001]
 blocks: [T-004]
@@ -38,19 +38,28 @@ Writes ConsentRecord (EPIC-16). No external. No flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] record_verification_consent → ConsentRecord
-- [ ] has_valid_consent(tenant) check
-- [ ] tests: consent recorded, validity check
-- [ ] ruff + mypy clean
+- [x] record_verification_consent → ConsentRecord
+- [x] has_valid_consent(tenant) check
+- [x] tests: consent recorded, validity check
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
 - test_consent_recorded, test_valid_consent_check
 ## 13. Acceptance criteria
-- [ ] Consent captured + checkable; tests + lint pass.
+- [x] Consent captured + checkable; tests + lint pass.
 ## 14. Self-review
-- [ ] Verification can't run without consent (enforced in T-004)
+- [x] Verification can't run without consent (enforced in T-004)
 ### Deviations from spec
+- consent_type uses the existing EPIC-16 enum value `ConsentType.PDPA_NID_VERIFICATION`
+  (`pdpa_nid_verification`) rather than the bare `nid_verification` string in the
+  spec note; the enum is the source of truth and has no `nid_verification` member.
+- ConsentRecord (EPIC-16) has no `tenant` FK, so `has_valid_consent(tenant)` scopes
+  consent to the tenant via the `VerificationLog.consent_record` reverse relation
+  (`verification_logs__tenant`). T-004 records consent then links the returned
+  record to the VerificationLog it writes.
 ### Files touched (actual)
+- Add: apps/api/khatir/verification/consent.py
+- Add: apps/api/khatir/verification/tests/test_consent.py
 ## 15. Notes
 - consent_type = 'nid_verification'. Consent is per-verification (or time-bounded) — follow PDPA guidance.
