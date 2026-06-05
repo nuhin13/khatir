@@ -4,7 +4,7 @@ epic: EPIC-17
 title: Verify endpoint (consent → check → Matched/Not Matched)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, T-002, T-003, EPIC-10.T-009]
 blocks: [T-006, T-008, T-010]
@@ -50,14 +50,14 @@ EC vendor (via T-002).
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] tier gate (verification tiers; free → feature_requires_upgrade)
-- [ ] flag gate (nid_verification_enabled → 403 if off)
-- [ ] consent capture (T-003)
-- [ ] provider call with audited NID decrypt
-- [ ] write VerificationLog + status; audit
-- [ ] GET last verification
-- [ ] Tests: matched, not_matched, free-tier blocked, flag-off blocked, no-consent blocked
-- [ ] ruff + mypy clean
+- [x] tier gate (verification tiers; free → feature_requires_upgrade)
+- [x] flag gate (nid_verification_enabled → 403 if off)
+- [x] consent capture (T-003)
+- [x] provider call with audited NID decrypt
+- [x] write VerificationLog + status; audit
+- [x] GET last verification
+- [x] Tests: matched, not_matched, free-tier blocked, flag-off blocked, no-consent blocked
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -66,10 +66,21 @@ EC vendor (via T-002).
 1. Verify a tenant on bundle_10 → Matched/Not Matched.
 
 ## 13. Acceptance criteria
-- [ ] Full verify flow with all gates; boolean result; audited; tests + lint pass.
+- [x] Full verify flow with all gates; boolean result; audited; tests + lint pass.
 ## 14. Self-review
-- [ ] All gates enforced; raw NID audited; no raw EC data returned
+- [x] All gates enforced; raw NID audited; no raw EC data returned
 ### Deviations from spec
+- The `{result, date}` GET response returns `{result: null, date: null}` (not a bare
+  `null` body) when a tenant has never been verified, so the client always parses a
+  stable JSON object shape.
+- Consent gate is satisfied by *capturing* fresh consent on every verify call
+  (`record_verification_consent`, T-003) rather than pre-requiring an existing
+  consent row — the landlord/operator attests permission at the point of action,
+  which is the T-003 contract (`has_valid_consent` is the read-side guard used by
+  the data layer, not a precondition the endpoint enforces).
 ### Files touched (actual)
+- Add: `khatir/verification/views.py`, `services.py`, `serializers.py`, `urls.py`,
+  `flags.py`, `tests/test_verify_api.py`
+- Update: `config/urls.py`
 ## 15. Notes
 - Order matters: tier → flag → consent → check. Fail fast on each gate with a clear error code.
