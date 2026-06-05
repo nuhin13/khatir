@@ -15,6 +15,21 @@ from rest_framework.permissions import BasePermission
 from rest_framework.request import Request
 
 from khatir.properties.permissions import _owns_building
+from khatir.tenants.tenant_account import tenant_for_user
+
+
+class IsLinkedTenant(BasePermission):
+    """Endpoint permission: the user is a tenant linked to an identity record.
+
+    Gates the ``/api/v1/me/`` tenant self-service surface (EPIC-19). A tenant
+    role with no linked :class:`Tenant` record (and any non-tenant role) is
+    denied — they have no own data to scope to. Compose with ``&`` / ``|`` like
+    any other permission; pair with the ``tenant_account`` scoping helpers for
+    the row-level half of the isolation contract.
+    """
+
+    def has_permission(self, request: Request, view: Any) -> bool:
+        return tenant_for_user(request.user) is not None
 
 
 class IsLeaseHolderForUser(BasePermission):
