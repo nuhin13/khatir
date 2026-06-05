@@ -6,17 +6,18 @@ a user is the short, sanitised summary produced here from ``user`` — never a r
 queryset and never another user's records.
 
 T-002 establishes the seam: a single :func:`build_user_context` that the chat
-service injects into the system prompt. It is deliberately conservative — it
-returns only identity-level facts (display name, role, language) that are
-already the caller's own. The richer portfolio/rent summaries (own properties,
-collection totals, …) are layered on by **T-003**, which owns the scoped data
-tools; that task extends this function rather than the view, so scoping stays in
-one auditable place (epic risk: "bot leaks another user's data").
+service injects into the system prompt. T-003 layers the richer portfolio/rent
+summary (own collection / occupancy / overdue figures) onto that same function
+via the scoped data tools in :mod:`khatir.chatbot.tools` — extending this
+function rather than the view, so scoping stays in one auditable place (epic
+risk: "bot leaks another user's data").
 """
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+
+from .tools import format_portfolio_summary, get_portfolio_summary
 
 if TYPE_CHECKING:
     from khatir.accounts.models import User
@@ -40,4 +41,11 @@ def build_user_context(user: User) -> str:
     language = getattr(user, "language", "") or ""
     if language:
         lines.append(f"Preferred language: {language}")
+
+    # T-003: append the user's own portfolio/rent summary. The tool is strictly
+    # own-data (no user-id parameter) and returns an empty block when there is
+    # nothing to report, so identity-only callers are unaffected.
+    portfolio = format_portfolio_summary(get_portfolio_summary(user))
+    if portfolio:
+        lines.append(portfolio)
     return "\n".join(lines)
