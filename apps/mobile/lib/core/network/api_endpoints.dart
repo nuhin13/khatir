@@ -118,6 +118,31 @@ class ApiEndpoints {
   static String rentRequestMarkReceived(String id) =>
       '${rentRequest(id)}/mark-received';
 
+  // Maintenance + expenses (EPIC-08): top-level resources at
+  // `/api/v1/maintenance` and `/api/v1/expenses` (no trailing slash). Maintenance
+  // CRUD + the resolve `@action` (auto-creates an expense). Expenses are CRUD +
+  // a CSV `export` action + a `summary` aggregation for the dashboard.
+  static const String maintenance = '$apiPrefix/maintenance';
+
+  /// `/api/v1/maintenance/{id}` — single maintenance-request detail / update.
+  static String maintenanceRequest(String id) => '$maintenance/$id';
+
+  /// `/api/v1/maintenance/{id}/resolve` — resolve a request (records the cost
+  /// and auto-creates one expense).
+  static String maintenanceResolve(String id) =>
+      '${maintenanceRequest(id)}/resolve';
+
+  static const String expenses = '$apiPrefix/expenses';
+
+  /// `/api/v1/expenses/{id}` — single expense detail / update / delete.
+  static String expense(String id) => '$expenses/$id';
+
+  /// `/api/v1/expenses/export` — stream the (scoped + filtered) expenses as CSV.
+  static const String expensesExport = '$expenses/export';
+
+  /// `/api/v1/expenses/summary` — expense totals by category + by month.
+  static const String expensesSummary = '$expenses/summary';
+
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 
