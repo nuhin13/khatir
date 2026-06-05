@@ -9,6 +9,10 @@ import 'package:khatir_mobile/core/auth/auth_controller.dart';
 import 'package:khatir_mobile/core/auth/auth_state.dart';
 import 'package:khatir_mobile/core/enums/role.dart';
 import 'package:khatir_mobile/core/i18n/locale_provider.dart';
+import 'package:khatir_mobile/features/dashboard/data/dashboard_model.dart';
+import 'package:khatir_mobile/features/dashboard/data/dashboard_providers.dart';
+import 'package:khatir_mobile/features/dashboard/data/dashboard_repository.dart';
+import 'package:khatir_mobile/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:khatir_mobile/features/properties/data/models/portfolio_summary.dart';
 import 'package:khatir_mobile/features/properties/data/properties_providers.dart';
 import 'package:khatir_mobile/features/properties/presentation/screens/landlord_home_screen.dart';
@@ -57,6 +61,21 @@ class _FakeRentRepo extends RentRepository {
       _queue;
 }
 
+/// Dashboard repository test double serving a fixed payload (or throwing), so
+/// the home collection-summary card settles deterministically without network.
+class _FakeDashboardRepo extends DashboardRepository {
+  _FakeDashboardRepo({required this.data, this.fail = false}) : super(Dio());
+
+  final DashboardData data;
+  final bool fail;
+
+  @override
+  Future<DashboardData> fetchDashboard({int? months}) async {
+    if (fail) throw Exception('boom');
+    return data;
+  }
+}
+
 void main() {
   const seedUser = SessionUser(
     id: 'u1',
@@ -79,9 +98,18 @@ void main() {
 
   const empty = PortfolioSummary();
 
+  const dashboard = DashboardData(
+    totalCollected: 71000,
+    totalPending: 12000,
+    collectionRate: 0.85,
+    totalUnits: 14,
+  );
+
   Widget harness({
     required Object portfolioResult,
     List<RentRequest> queue = const [],
+    DashboardData dashboardData = dashboard,
+    bool dashboardFails = false,
   }) {
     final router = GoRouter(
       initialLocation: '/landlord/home',
@@ -89,6 +117,12 @@ void main() {
         GoRoute(
           path: '/landlord/home',
           builder: (context, state) => const LandlordHomeScreen(),
+        ),
+        GoRoute(
+          path: DashboardScreen.routePath,
+          name: DashboardScreen.routeName,
+          builder: (context, state) =>
+              const Scaffold(body: Center(child: Text('DASHBOARD_TAB'))),
         ),
         GoRoute(
           path: '/tenants/add',
@@ -114,6 +148,9 @@ void main() {
         authControllerProvider.overrideWith(() => _FakeAuth(seedUser)),
         portfolioProvider.overrideWith(() => _FakePortfolio(portfolioResult)),
         rentRepositoryProvider.overrideWithValue(_FakeRentRepo(queue)),
+        dashboardRepositoryProvider.overrideWithValue(
+          _FakeDashboardRepo(data: dashboardData, fail: dashboardFails),
+        ),
       ],
       child: Consumer(
         builder: (context, ref, _) {
@@ -259,6 +296,45 @@ void main() {
 
     expect(find.text(bn.home_all_paid), findsOneWidget);
     expect(find.text(bn.home_quick_request), findsNothing);
+  });
+
+  testWidgets('collection card shows real collected and pending totals',
+      (tester) async {
+    await tester.pumpWidget(harness(portfolioResult: populated));
+    await tester.pumpAndSettle();
+
+    // Heading plus the real collected amount and the pending sub-line, all from
+    // the dashboard payload (no placeholder copy).
+    expect(find.text(bn.home_collected), findsOneWidget);
+    expect(find.byKey(const ValueKey('homeCollectedAmount')), findsOneWidget);
+    expect(find.byKey(const ValueKey('homePendingAmount')), findsOneWidget);
+    expect(find.text(bn.home_view_dashboard), findsOneWidget);
+    // The EPIC-09 placeholder copy is gone when data is present.
+    expect(find.text(bn.home_collected_todo), findsNothing);
+  });
+
+  testWidgets('tapping the collection card opens the dashboard tab',
+      (tester) async {
+    await tester.pumpWidget(harness(portfolioResult: populated));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text(bn.home_view_dashboard));
+    await tester.pumpAndSettle();
+
+    expect(find.text('DASHBOARD_TAB'), findsOneWidget);
+  });
+
+  testWidgets('collection card falls back to coming-soon copy on error',
+      (tester) async {
+    await tester.pumpWidget(
+      harness(portfolioResult: populated, dashboardFails: true),
+    );
+    await tester.pumpAndSettle();
+
+    // The card never collapses: heading stays and the coming-soon copy returns.
+    expect(find.text(bn.home_collected), findsOneWidget);
+    expect(find.text(bn.home_collected_todo), findsOneWidget);
+    expect(find.byKey(const ValueKey('homeCollectedAmount')), findsNothing);
   });
 }
 

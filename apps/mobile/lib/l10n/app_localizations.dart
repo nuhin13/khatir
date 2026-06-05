@@ -716,6 +716,18 @@ abstract class AppLocalizations {
   /// **'বিস্তারিত আদায় ও চার্ট শীঘ্রই · Collection detail coming soon'**
   String get home_collected_todo;
 
+  /// Sub-label under the collected amount showing the still-pending total.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাকি {amount} · Pending'**
+  String home_collected_pending(String amount);
+
+  /// Tap hint on the home collection card that opens the dashboard tab.
+  ///
+  /// In bn, this message translates to:
+  /// **'চার্ট দেখুন · View charts'**
+  String get home_view_dashboard;
+
   /// Home late-payers heading with the overdue count.
   ///
   /// In bn, this message translates to:

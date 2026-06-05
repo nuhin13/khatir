@@ -124,6 +124,17 @@
   "home_stat_monthly": "/mo · মাসিক",
   "home_collected": "Collected this month · এ মাসে আদায়",
   "home_collected_todo": "Collection detail & charts coming soon",
+  "home_collected_pending": "Pending · বাকি {amount}",
+  "@home_collected_pending": {
+    "description": "Sub-label under the collected amount showing the still-pending total.",
+    "placeholders": {
+      "amount": { "type": "String", "example": "৳12,000" }
+    }
+  },
+  "home_view_dashboard": "View charts · চার্ট দেখুন",
+  "@home_view_dashboard": {
+    "description": "Tap hint on the home collection card that opens the dashboard tab."
+  },
   "home_late_payers": "{count} rent overdue · {count} টি ভাড়া বাকি",
   "@home_late_payers": {
     "description": "Home late-payers heading with the overdue count.",

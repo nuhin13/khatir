@@ -336,6 +336,14 @@ class AppLocalizationsBn extends AppLocalizations {
       'বিস্তারিত আদায় ও চার্ট শীঘ্রই · Collection detail coming soon';
 
   @override
+  String home_collected_pending(String amount) {
+    return 'বাকি $amount · Pending';
+  }
+
+  @override
+  String get home_view_dashboard => 'চার্ট দেখুন · View charts';
+
+  @override
   String home_late_payers(String count) {
     return '$count টি ভাড়া বাকি · $count rent overdue';
   }
