@@ -143,6 +143,10 @@ class ApiEndpoints {
   /// `/api/v1/expenses/summary` — expense totals by category + by month.
   static const String expensesSummary = '$expenses/summary';
 
+  // Dashboard (EPIC-09): one read endpoint returning every landlord metric in
+  // a single call. `?months=N` overrides the configured default window.
+  static const String dashboard = '$apiPrefix/dashboard';
+
   // Client bootstrap config + feature flags.
   static const String publicConfig = '$apiPrefix/config/public';
 
