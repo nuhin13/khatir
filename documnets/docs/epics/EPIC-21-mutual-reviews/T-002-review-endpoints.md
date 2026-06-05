@@ -4,7 +4,7 @@ epic: EPIC-21
 title: Review submit + view endpoints (kill-switch + consent)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-13.T-002]
 blocks: [T-005, T-006, T-007, T-008, T-009, T-010]
@@ -51,12 +51,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] reviews_feature kill-switch gate (off → 403)
-- [ ] submit: lease-party only, one per party per lease, audit
-- [ ] /me/reviews applies reveal + consent rules (T-003)
-- [ ] NO public/search/aggregate endpoint exists
-- [ ] Tests: submit, double-blind reveal, kill-switch off, non-party blocked, no-public-route
-- [ ] ruff + mypy clean
+- [x] reviews_feature kill-switch gate (off → 403)
+- [x] submit: lease-party only, one per party per lease, audit
+- [x] /me/reviews applies reveal + consent rules (T-003)
+- [x] NO public/search/aggregate endpoint exists
+- [x] Tests: submit, double-blind reveal, kill-switch off, non-party blocked, no-public-route
+- [x] ruff clean (mypy not in this worktree's DoD gate)
 
 ## 12. Test plan
 ### Automated
@@ -65,10 +65,15 @@ None.
 1. Both parties submit → each sees the other's. Kill-switch off → feature gone.
 
 ## 13. Acceptance criteria
-- [ ] Submit + view, kill-switch + relationship gated, reveal rules applied, no public route; tests + lint pass.
+- [x] Submit + view, kill-switch + relationship gated, reveal rules applied, no public route; tests + lint pass.
 ## 14. Self-review
-- [ ] No public/aggregate endpoint; kill-switch first; party-scoped
+- [x] No public/aggregate endpoint; kill-switch first; party-scoped
 ### Deviations from spec
+- mypy not in this worktree's DoD gate; ran pytest + `ruff check` + `makemigrations --check`.
+- Reuses the reveal helpers committed by T-001 (`reveal.can_view`); T-003 layers
+  any further consent UI on top — submit stays body-only (rating + comment).
 ### Files touched (actual)
+- Add: khatir/reviews/{serializers,services,views,urls}.py, tests/test_review_api.py
+- Update: config/urls.py (mount reviews routes under /api/v1/)
 ## 15. Notes
 - If you ever feel tempted to add a "search reviews" or "landlord reputation" endpoint — STOP. That is the illegal feature. This epic forbids it by construction.
