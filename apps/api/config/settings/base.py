@@ -65,6 +65,7 @@ LOCAL_APPS = [
     "khatir.verification",
     "khatir.dashboard",
     "khatir.health",
+    "khatir.warnings",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
