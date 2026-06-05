@@ -9,8 +9,16 @@ class BanglaNumerals {
   BanglaNumerals._();
 
   /// Formats [value] using the digits of [localeCode] ('bn' or 'en').
-  static String format(num value, String localeCode) {
-    return NumberFormat.decimalPattern(localeCode).format(value);
+  ///
+  /// By default the locale's grouping separators are applied (e.g. `1,200`).
+  /// Pass `grouped: false` to drop them — useful for date parts (year/month/day)
+  /// where a thousands separator on the year would be wrong.
+  static String format(num value, String localeCode, {bool grouped = true}) {
+    final fmt = NumberFormat.decimalPattern(localeCode);
+    if (!grouped) {
+      fmt.turnOffGrouping();
+    }
+    return fmt.format(value);
   }
 
   /// Converts the Western digits in [input] to Bengali digits.

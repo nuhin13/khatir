@@ -7,6 +7,9 @@ import '../../features/auth/presentation/screens/otp_entry_screen.dart';
 import '../../features/auth/presentation/screens/phone_entry_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_pdf_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
+import '../../features/leases/presentation/screens/lease_detail_screen.dart';
+import '../../features/leases/presentation/screens/lease_form_screen.dart';
+import '../../features/leases/presentation/screens/lease_list_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/more_screen.dart';
@@ -463,6 +466,52 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
           ),
         ],
+      ),
+
+      // ── Lease create / edit (EPIC-06 T-008) ─────────────────────────────
+      // Launched from unit detail in unit context: the target unit id is
+      // carried as a `?unit=` query parameter (same convention as the
+      // add-tenant flow). `/lease/new` creates a draft (optionally activating
+      // it); `/lease/:id/edit` edits an existing draft's terms. Both sit on the
+      // root navigator so they cover the shell, and pop back to the unit on
+      // save so its lease section re-renders (T-009).
+      GoRoute(
+        path: LeaseFormScreen.routePath,
+        name: LeaseFormScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeaseFormScreen(
+          unitId: state.uri.queryParameters['unit'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: LeaseFormScreen.editRoutePath,
+        name: LeaseFormScreen.editRouteName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeaseFormScreen(
+          unitId: state.uri.queryParameters['unit'] ?? '',
+          leaseId: state.pathParameters['id'],
+        ),
+      ),
+
+      // ── Lease list / detail (EPIC-06 T-010) ─────────────────────────────
+      // The caller's leases (`/leases`) and a single lease's detail
+      // (`/lease/:id`), reachable from More / portfolio. Both sit on the root
+      // navigator so they cover the landlord shell when pushed. The detail
+      // route is registered after the literal `/lease/new` and `/lease/:id/edit`
+      // routes above so those are not captured by the `:id` parameter.
+      GoRoute(
+        path: LeaseListScreen.routePath,
+        name: LeaseListScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const LeaseListScreen(),
+      ),
+      GoRoute(
+        path: LeaseDetailScreen.routePath,
+        name: LeaseDetailScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeaseDetailScreen(
+          leaseId: state.pathParameters['id'] ?? '',
+        ),
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────

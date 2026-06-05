@@ -531,6 +531,15 @@
   "unit_no_tenant": "এখনো কোনো ভাড়াটিয়া নেই",
   "unit_no_tenant_body": "এই ইউনিটে একজন ভাড়াটিয়া যোগ করুন।",
   "unit_tenant_section": "ভাড়াটিয়া ও লিজ",
+  "unit_lease_active": "চলমান লিজ",
+  "unit_lease_term": "{start} – {end}",
+  "unit_lease_no_dates": "মেয়াদ নির্ধারিত নয়",
+  "unit_next_due": "পরবর্তী কিস্তি",
+  "unit_next_due_value": "{period} · ৳{amount}",
+  "unit_next_due_none": "কোনো বকেয়া কিস্তি নেই",
+  "unit_create_lease": "লিজ তৈরি করুন",
+  "unit_lease_verified": "NID যাচাইকৃত",
+  "unit_lease_unverified": "যাচাই হয়নি",
   "unit_edit": "সম্পাদনা",
   "unit_edit_rent_label": "মাসিক ভাড়া (৳)",
   "unit_save": "সংরক্ষণ",
@@ -994,5 +1003,199 @@
   "dmp_pdf_action_failed": "কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।",
   "@dmp_pdf_action_failed": {
     "description": "Snackbar shown when a share/download action fails."
+  },
+  "lease_new_title": "নতুন ভাড়া চুক্তি",
+  "@lease_new_title": {
+    "description": "App-bar title of the lease create form."
+  },
+  "lease_edit_title": "চুক্তি সম্পাদনা",
+  "@lease_edit_title": {
+    "description": "App-bar title of the lease edit form."
+  },
+  "lease_section_tenant": "ভাড়াটে",
+  "@lease_section_tenant": {
+    "description": "Section heading above the tenant picker on the lease form."
+  },
+  "lease_section_terms": "শর্তাবলি",
+  "@lease_section_terms": {
+    "description": "Section heading above the rent/advance/dates terms on the lease form."
+  },
+  "lease_tenant": "ভাড়াটে",
+  "@lease_tenant": {
+    "description": "Label of the tenant picker field on the lease form."
+  },
+  "lease_tenant_hint": "একজন ভাড়াটে বাছাই করুন",
+  "@lease_tenant_hint": {
+    "description": "Placeholder of the tenant picker when no tenant is selected."
+  },
+  "lease_tenant_empty": "এই ইউনিটে কোনো ভাড়াটে যোগ করা হয়নি। আগে একজন ভাড়াটে যোগ করুন।",
+  "@lease_tenant_empty": {
+    "description": "Helper shown when the unit has no tenants to lease to."
+  },
+  "lease_rent": "মাসিক ভাড়া",
+  "@lease_rent": {
+    "description": "Monthly rent amount field label on the lease form."
+  },
+  "lease_advance": "অগ্রিম",
+  "@lease_advance": {
+    "description": "Advance (deposit) amount field label on the lease form."
+  },
+  "lease_start": "শুরুর তারিখ",
+  "@lease_start": {
+    "description": "Lease start-date field label."
+  },
+  "lease_end": "শেষের তারিখ",
+  "@lease_end": {
+    "description": "Lease end-date field label."
+  },
+  "lease_due_day": "প্রতি মাসের পরিশোধের দিন",
+  "@lease_due_day": {
+    "description": "Monthly rent due-day field label (defaults from config)."
+  },
+  "lease_due_day_value": "প্রতি মাসের {day} তারিখ",
+  "@lease_due_day_value": {
+    "description": "Formatted due-day value (e.g. the 5th of each month).",
+    "placeholders": {
+      "day": { "type": "int" }
+    }
+  },
+  "lease_due_day_note": "ভাড়ার সময়সূচি তৈরিতে এই দিনটি ব্যবহৃত হয়।",
+  "@lease_due_day_note": {
+    "description": "Helper explaining the due-day drives the generated rent schedule."
+  },
+  "lease_save": "খসড়া সংরক্ষণ",
+  "@lease_save": {
+    "description": "Primary button — saves the lease as a draft."
+  },
+  "lease_activate": "সংরক্ষণ ও সক্রিয় করুন",
+  "@lease_activate": {
+    "description": "Button that creates the lease draft and activates it (generates the schedule)."
+  },
+  "lease_err_tenant": "চুক্তি তৈরি করতে একজন ভাড়াটে বাছাই করুন",
+  "@lease_err_tenant": {
+    "description": "Validation error when no tenant is selected."
+  },
+  "lease_err_rent": "একটি বৈধ ভাড়ার পরিমাণ দিন",
+  "@lease_err_rent": {
+    "description": "Validation error for a missing/invalid rent amount."
+  },
+  "lease_err_dates": "শেষের তারিখ অবশ্যই শুরুর তারিখের পরে হতে হবে",
+  "@lease_err_dates": {
+    "description": "Validation error when the end date is not after the start date."
+  },
+  "lease_saved": "চুক্তি খসড়া হিসেবে সংরক্ষিত হয়েছে",
+  "@lease_saved": {
+    "description": "Snackbar shown after a lease draft is saved."
+  },
+  "lease_activated": "চুক্তি সক্রিয় হয়েছে — ভাড়ার সময়সূচি তৈরি হয়েছে",
+  "@lease_activated": {
+    "description": "Snackbar shown after a lease is activated and its schedule generated."
+  },
+  "lease_save_error": "চুক্তি সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+  "@lease_save_error": {
+    "description": "Snackbar shown when saving/activating a lease fails."
+  },
+  "lease_active_exists": "এই ইউনিটে ইতিমধ্যে একটি সক্রিয় চুক্তি রয়েছে।",
+  "@lease_active_exists": {
+    "description": "Friendly message when the backend rejects activation because the unit already has an active lease."
+  },
+  "leases_title": "ভাড়া চুক্তি",
+  "@leases_title": {
+    "description": "App-bar title of the lease list screen."
+  },
+  "leases_empty_title": "এখনো কোনো চুক্তি নেই",
+  "@leases_empty_title": {
+    "description": "Empty-state title on the lease list when the landlord has no leases."
+  },
+  "leases_empty": "একটি ইউনিট থেকে ভাড়া চুক্তি তৈরি করুন, তাহলে এখানে দেখা যাবে।",
+  "@leases_empty": {
+    "description": "Empty-state body on the lease list."
+  },
+  "lease_detail_title": "চুক্তির বিবরণ",
+  "@lease_detail_title": {
+    "description": "App-bar title of the lease detail screen."
+  },
+  "lease_status_draft": "খসড়া",
+  "@lease_status_draft": {
+    "description": "Label for a draft lease status."
+  },
+  "lease_status_active": "সক্রিয়",
+  "@lease_status_active": {
+    "description": "Label for an active lease status."
+  },
+  "lease_status_ended": "সমাপ্ত",
+  "@lease_status_ended": {
+    "description": "Label for an ended (natural end-of-term) lease status."
+  },
+  "lease_status_terminated": "বাতিল",
+  "@lease_status_terminated": {
+    "description": "Label for a terminated (early-closed) lease status."
+  },
+  "lease_section_schedule": "ভাড়ার সময়সূচি",
+  "@lease_section_schedule": {
+    "description": "Section heading above the rent-schedule summary on lease detail."
+  },
+  "lease_schedule_empty": "কোনো সময়সূচি নেই — চুক্তি সক্রিয় করুন।",
+  "@lease_schedule_empty": {
+    "description": "Shown on lease detail when the lease has no rent-schedule rows."
+  },
+  "lease_schedule_summary": "{count} টি কিস্তি",
+  "@lease_schedule_summary": {
+    "description": "Count summary of the rent-schedule periods.",
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "lease_term_range": "{start} – {end}",
+  "@lease_term_range": {
+    "description": "Lease term shown as start – end on the detail screen.",
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "lease_rent_amount": "মাসিক ভাড়া",
+  "@lease_rent_amount": {
+    "description": "Label for the lease's monthly rent on the detail screen."
+  },
+  "lease_sched_status_pending": "বাকি",
+  "@lease_sched_status_pending": {
+    "description": "Rent-schedule row status: pending."
+  },
+  "lease_sched_status_requested": "অনুরোধ করা হয়েছে",
+  "@lease_sched_status_requested": {
+    "description": "Rent-schedule row status: requested."
+  },
+  "lease_sched_status_paid": "পরিশোধিত",
+  "@lease_sched_status_paid": {
+    "description": "Rent-schedule row status: paid."
+  },
+  "lease_sched_status_overdue": "মেয়াদোত্তীর্ণ",
+  "@lease_sched_status_overdue": {
+    "description": "Rent-schedule row status: overdue."
+  },
+  "lease_terminate": "চুক্তি বাতিল করুন",
+  "@lease_terminate": {
+    "description": "Action button that terminates an active lease on the detail screen."
+  },
+  "lease_terminate_confirm_title": "চুক্তি বাতিল করবেন?",
+  "@lease_terminate_confirm_title": {
+    "description": "Title of the terminate confirmation dialog."
+  },
+  "lease_terminate_confirm_body": "চুক্তিটি বন্ধ হয়ে যাবে এবং আর সক্রিয় থাকবে না।",
+  "@lease_terminate_confirm_body": {
+    "description": "Body of the terminate confirmation dialog."
+  },
+  "lease_terminate_cancel": "বাতিল",
+  "@lease_terminate_cancel": {
+    "description": "Cancel button on the terminate confirmation dialog."
+  },
+  "lease_terminated_ok": "চুক্তি বাতিল হয়েছে",
+  "@lease_terminated_ok": {
+    "description": "Snackbar shown after a lease is terminated."
+  },
+  "lease_terminate_error": "চুক্তি বাতিল করা যায়নি। আবার চেষ্টা করুন।",
+  "@lease_terminate_error": {
+    "description": "Snackbar shown when terminating a lease fails."
   }
 }

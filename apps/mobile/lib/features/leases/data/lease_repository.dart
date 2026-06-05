@@ -19,6 +19,25 @@ class LeaseRepository {
 
   final Dio _dio;
 
+  /// `GET /leases` — the caller's leases (one page). Scoped server-side via
+  /// `for_user`, returned in the standard `{results, pagination}` envelope, so
+  /// only the `results` array is unwrapped here (the lease-list screen renders a
+  /// single page; pagination cursors are ignored for now).
+  Future<List<Lease>> listLeases() async {
+    try {
+      final res = await _dio.get<Map<String, dynamic>>(ApiEndpoints.leases);
+      final data = res.data ?? const <String, dynamic>{};
+      final results = data['results'];
+      if (results is! List) return const <Lease>[];
+      return results
+          .whereType<Map<String, dynamic>>()
+          .map(Lease.fromJson)
+          .toList(growable: false);
+    } on DioException catch (e) {
+      throw _asApiException(e);
+    }
+  }
+
   /// `GET /leases/{id}` — one lease the caller owns.
   Future<Lease> getLease(String id) async {
     try {

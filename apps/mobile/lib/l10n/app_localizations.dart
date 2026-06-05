@@ -932,6 +932,60 @@ abstract class AppLocalizations {
   /// **'ভাড়াটিয়া ও লিজ'**
   String get unit_tenant_section;
 
+  /// No description provided for @unit_lease_active.
+  ///
+  /// In bn, this message translates to:
+  /// **'চলমান লিজ'**
+  String get unit_lease_active;
+
+  /// No description provided for @unit_lease_term.
+  ///
+  /// In bn, this message translates to:
+  /// **'{start} – {end}'**
+  String unit_lease_term(Object end, Object start);
+
+  /// No description provided for @unit_lease_no_dates.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেয়াদ নির্ধারিত নয়'**
+  String get unit_lease_no_dates;
+
+  /// No description provided for @unit_next_due.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী কিস্তি'**
+  String get unit_next_due;
+
+  /// No description provided for @unit_next_due_value.
+  ///
+  /// In bn, this message translates to:
+  /// **'{period} · ৳{amount}'**
+  String unit_next_due_value(Object amount, Object period);
+
+  /// No description provided for @unit_next_due_none.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো বকেয়া কিস্তি নেই'**
+  String get unit_next_due_none;
+
+  /// No description provided for @unit_create_lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'লিজ তৈরি করুন'**
+  String get unit_create_lease;
+
+  /// No description provided for @unit_lease_verified.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাইকৃত'**
+  String get unit_lease_verified;
+
+  /// No description provided for @unit_lease_unverified.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই হয়নি'**
+  String get unit_lease_unverified;
+
   /// No description provided for @unit_edit.
   ///
   /// In bn, this message translates to:
@@ -1879,6 +1933,282 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
   String get dmp_pdf_action_failed;
+
+  /// App-bar title of the lease create form.
+  ///
+  /// In bn, this message translates to:
+  /// **'নতুন ভাড়া চুক্তি'**
+  String get lease_new_title;
+
+  /// App-bar title of the lease edit form.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি সম্পাদনা'**
+  String get lease_edit_title;
+
+  /// Section heading above the tenant picker on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটে'**
+  String get lease_section_tenant;
+
+  /// Section heading above the rent/advance/dates terms on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'শর্তাবলি'**
+  String get lease_section_terms;
+
+  /// Label of the tenant picker field on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটে'**
+  String get lease_tenant;
+
+  /// Placeholder of the tenant picker when no tenant is selected.
+  ///
+  /// In bn, this message translates to:
+  /// **'একজন ভাড়াটে বাছাই করুন'**
+  String get lease_tenant_hint;
+
+  /// Helper shown when the unit has no tenants to lease to.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই ইউনিটে কোনো ভাড়াটে যোগ করা হয়নি। আগে একজন ভাড়াটে যোগ করুন।'**
+  String get lease_tenant_empty;
+
+  /// Monthly rent amount field label on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাসিক ভাড়া'**
+  String get lease_rent;
+
+  /// Advance (deposit) amount field label on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'অগ্রিম'**
+  String get lease_advance;
+
+  /// Lease start-date field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুরুর তারিখ'**
+  String get lease_start;
+
+  /// Lease end-date field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'শেষের তারিখ'**
+  String get lease_end;
+
+  /// Monthly rent due-day field label (defaults from config).
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রতি মাসের পরিশোধের দিন'**
+  String get lease_due_day;
+
+  /// Formatted due-day value (e.g. the 5th of each month).
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রতি মাসের {day} তারিখ'**
+  String lease_due_day_value(int day);
+
+  /// Helper explaining the due-day drives the generated rent schedule.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার সময়সূচি তৈরিতে এই দিনটি ব্যবহৃত হয়।'**
+  String get lease_due_day_note;
+
+  /// Primary button — saves the lease as a draft.
+  ///
+  /// In bn, this message translates to:
+  /// **'খসড়া সংরক্ষণ'**
+  String get lease_save;
+
+  /// Button that creates the lease draft and activates it (generates the schedule).
+  ///
+  /// In bn, this message translates to:
+  /// **'সংরক্ষণ ও সক্রিয় করুন'**
+  String get lease_activate;
+
+  /// Validation error when no tenant is selected.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি তৈরি করতে একজন ভাড়াটে বাছাই করুন'**
+  String get lease_err_tenant;
+
+  /// Validation error for a missing/invalid rent amount.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি বৈধ ভাড়ার পরিমাণ দিন'**
+  String get lease_err_rent;
+
+  /// Validation error when the end date is not after the start date.
+  ///
+  /// In bn, this message translates to:
+  /// **'শেষের তারিখ অবশ্যই শুরুর তারিখের পরে হতে হবে'**
+  String get lease_err_dates;
+
+  /// Snackbar shown after a lease draft is saved.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি খসড়া হিসেবে সংরক্ষিত হয়েছে'**
+  String get lease_saved;
+
+  /// Snackbar shown after a lease is activated and its schedule generated.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি সক্রিয় হয়েছে — ভাড়ার সময়সূচি তৈরি হয়েছে'**
+  String get lease_activated;
+
+  /// Snackbar shown when saving/activating a lease fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।'**
+  String get lease_save_error;
+
+  /// Friendly message when the backend rejects activation because the unit already has an active lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই ইউনিটে ইতিমধ্যে একটি সক্রিয় চুক্তি রয়েছে।'**
+  String get lease_active_exists;
+
+  /// App-bar title of the lease list screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া চুক্তি'**
+  String get leases_title;
+
+  /// Empty-state title on the lease list when the landlord has no leases.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো চুক্তি নেই'**
+  String get leases_empty_title;
+
+  /// Empty-state body on the lease list.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি ইউনিট থেকে ভাড়া চুক্তি তৈরি করুন, তাহলে এখানে দেখা যাবে।'**
+  String get leases_empty;
+
+  /// App-bar title of the lease detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তির বিবরণ'**
+  String get lease_detail_title;
+
+  /// Label for a draft lease status.
+  ///
+  /// In bn, this message translates to:
+  /// **'খসড়া'**
+  String get lease_status_draft;
+
+  /// Label for an active lease status.
+  ///
+  /// In bn, this message translates to:
+  /// **'সক্রিয়'**
+  String get lease_status_active;
+
+  /// Label for an ended (natural end-of-term) lease status.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাপ্ত'**
+  String get lease_status_ended;
+
+  /// Label for a terminated (early-closed) lease status.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
+  String get lease_status_terminated;
+
+  /// Section heading above the rent-schedule summary on lease detail.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার সময়সূচি'**
+  String get lease_section_schedule;
+
+  /// Shown on lease detail when the lease has no rent-schedule rows.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো সময়সূচি নেই — চুক্তি সক্রিয় করুন।'**
+  String get lease_schedule_empty;
+
+  /// Count summary of the rent-schedule periods.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি কিস্তি'**
+  String lease_schedule_summary(String count);
+
+  /// Lease term shown as start – end on the detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'{start} – {end}'**
+  String lease_term_range(String start, String end);
+
+  /// Label for the lease's monthly rent on the detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাসিক ভাড়া'**
+  String get lease_rent_amount;
+
+  /// Rent-schedule row status: pending.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাকি'**
+  String get lease_sched_status_pending;
+
+  /// Rent-schedule row status: requested.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ করা হয়েছে'**
+  String get lease_sched_status_requested;
+
+  /// Rent-schedule row status: paid.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিশোধিত'**
+  String get lease_sched_status_paid;
+
+  /// Rent-schedule row status: overdue.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেয়াদোত্তীর্ণ'**
+  String get lease_sched_status_overdue;
+
+  /// Action button that terminates an active lease on the detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি বাতিল করুন'**
+  String get lease_terminate;
+
+  /// Title of the terminate confirmation dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি বাতিল করবেন?'**
+  String get lease_terminate_confirm_title;
+
+  /// Body of the terminate confirmation dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তিটি বন্ধ হয়ে যাবে এবং আর সক্রিয় থাকবে না।'**
+  String get lease_terminate_confirm_body;
+
+  /// Cancel button on the terminate confirmation dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
+  String get lease_terminate_cancel;
+
+  /// Snackbar shown after a lease is terminated.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি বাতিল হয়েছে'**
+  String get lease_terminated_ok;
+
+  /// Snackbar shown when terminating a lease fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি বাতিল করা যায়নি। আবার চেষ্টা করুন।'**
+  String get lease_terminate_error;
 }
 
 class _AppLocalizationsDelegate

@@ -10,6 +10,31 @@ final leaseRepositoryProvider = Provider<LeaseRepository>(
   (ref) => LeaseRepository(ref.watch(dioClientProvider)),
 );
 
+// ── The caller's lease list ───────────────────────────────────────────────--
+
+/// Loads the caller's leases (one page) as [AsyncValue], with a [refresh] for
+/// pull-to-retry. Used by the lease list screen (T-010). Scoped server-side, so
+/// it only ever yields leases the user owns.
+class LeasesListController extends AsyncNotifier<List<Lease>> {
+  @override
+  Future<List<Lease>> build() =>
+      ref.watch(leaseRepositoryProvider).listLeases();
+
+  /// Re-fetches the lease list into [state].
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(
+      () => ref.read(leaseRepositoryProvider).listLeases(),
+    );
+  }
+}
+
+/// The caller's lease list.
+final leasesListProvider =
+    AsyncNotifierProvider<LeasesListController, List<Lease>>(
+  LeasesListController.new,
+);
+
 // ── A single lease's rent schedule ────────────────────────────────────────--
 
 /// Loads a lease's rent schedule, keyed by lease id, exposing [AsyncValue].

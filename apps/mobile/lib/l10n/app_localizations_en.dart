@@ -449,6 +449,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unit_tenant_section => 'ভাড়াটিয়া ও লিজ · Tenant & lease';
 
   @override
+  String get unit_lease_active => 'চলমান লিজ';
+
+  @override
+  String unit_lease_term(Object end, Object start) {
+    return '$start – $end';
+  }
+
+  @override
+  String get unit_lease_no_dates => 'মেয়াদ নির্ধারিত নয়';
+
+  @override
+  String get unit_next_due => 'পরবর্তী কিস্তি';
+
+  @override
+  String unit_next_due_value(Object amount, Object period) {
+    return '$period · ৳$amount';
+  }
+
+  @override
+  String get unit_next_due_none => 'কোনো বকেয়া কিস্তি নেই';
+
+  @override
+  String get unit_create_lease => 'লিজ তৈরি করুন';
+
+  @override
+  String get unit_lease_verified => 'NID যাচাইকৃত';
+
+  @override
+  String get unit_lease_unverified => 'যাচাই হয়নি';
+
+  @override
   String get unit_edit => 'সম্পাদনা · Edit';
 
   @override
@@ -945,4 +976,162 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get dmp_pdf_action_failed =>
       'Could not complete that. Please try again.';
+
+  @override
+  String get lease_new_title => 'নতুন ভাড়া চুক্তি · New lease';
+
+  @override
+  String get lease_edit_title => 'চুক্তি সম্পাদনা · Edit lease';
+
+  @override
+  String get lease_section_tenant => 'ভাড়াটে · Tenant';
+
+  @override
+  String get lease_section_terms => 'শর্তাবলি · Terms';
+
+  @override
+  String get lease_tenant => 'ভাড়াটে · Tenant';
+
+  @override
+  String get lease_tenant_hint => 'একজন ভাড়াটে বাছাই করুন · Select a tenant';
+
+  @override
+  String get lease_tenant_empty =>
+      'এই ইউনিটে কোনো ভাড়াটে যোগ করা হয়নি · Add a tenant to this unit first.';
+
+  @override
+  String get lease_rent => 'মাসিক ভাড়া · Monthly rent';
+
+  @override
+  String get lease_advance => 'অগ্রিম · Advance';
+
+  @override
+  String get lease_start => 'শুরুর তারিখ · Start date';
+
+  @override
+  String get lease_end => 'শেষের তারিখ · End date';
+
+  @override
+  String get lease_due_day => 'পরিশোধের দিন · Due day';
+
+  @override
+  String lease_due_day_value(int day) {
+    return 'প্রতি মাসের $day তারিখ · $day of each month';
+  }
+
+  @override
+  String get lease_due_day_note =>
+      'ভাড়ার সময়সূচি তৈরিতে এই দিনটি ব্যবহৃত হয় · Used to generate the rent schedule.';
+
+  @override
+  String get lease_save => 'খসড়া সংরক্ষণ · Save draft';
+
+  @override
+  String get lease_activate => 'সংরক্ষণ ও সক্রিয় · Save & activate';
+
+  @override
+  String get lease_err_tenant =>
+      'চুক্তি তৈরি করতে একজন ভাড়াটে বাছাই করুন · Select a tenant to create the lease';
+
+  @override
+  String get lease_err_rent =>
+      'একটি বৈধ ভাড়ার পরিমাণ দিন · Enter a valid rent amount';
+
+  @override
+  String get lease_err_dates =>
+      'শেষের তারিখ শুরুর তারিখের পরে হতে হবে · End date must be after the start date';
+
+  @override
+  String get lease_saved =>
+      'চুক্তি খসড়া হিসেবে সংরক্ষিত · Lease saved as a draft';
+
+  @override
+  String get lease_activated =>
+      'চুক্তি সক্রিয় — সময়সূচি তৈরি হয়েছে · Lease activated — schedule generated';
+
+  @override
+  String get lease_save_error =>
+      'চুক্তি সংরক্ষণ করা যায়নি · Could not save the lease. Please try again.';
+
+  @override
+  String get lease_active_exists =>
+      'এই ইউনিটে ইতিমধ্যে একটি সক্রিয় চুক্তি আছে · This unit already has an active lease.';
+
+  @override
+  String get leases_title => 'ভাড়া চুক্তি · Leases';
+
+  @override
+  String get leases_empty_title => 'এখনো কোনো চুক্তি নেই · No leases yet';
+
+  @override
+  String get leases_empty =>
+      'একটি ইউনিট থেকে ভাড়া চুক্তি তৈরি করুন · Create a lease from a unit to see it here.';
+
+  @override
+  String get lease_detail_title => 'চুক্তির বিবরণ · Lease detail';
+
+  @override
+  String get lease_status_draft => 'খসড়া · Draft';
+
+  @override
+  String get lease_status_active => 'সক্রিয় · Active';
+
+  @override
+  String get lease_status_ended => 'সমাপ্ত · Ended';
+
+  @override
+  String get lease_status_terminated => 'বাতিল · Terminated';
+
+  @override
+  String get lease_section_schedule => 'ভাড়ার সময়সূচি · Rent schedule';
+
+  @override
+  String get lease_schedule_empty =>
+      'কোনো সময়সূচি নেই — চুক্তি সক্রিয় করুন · No schedule yet — activate the lease.';
+
+  @override
+  String lease_schedule_summary(String count) {
+    return '$count টি কিস্তি · $count periods';
+  }
+
+  @override
+  String lease_term_range(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get lease_rent_amount => 'মাসিক ভাড়া · Monthly rent';
+
+  @override
+  String get lease_sched_status_pending => 'বাকি · Pending';
+
+  @override
+  String get lease_sched_status_requested => 'অনুরোধ করা হয়েছে · Requested';
+
+  @override
+  String get lease_sched_status_paid => 'পরিশোধিত · Paid';
+
+  @override
+  String get lease_sched_status_overdue => 'মেয়াদোত্তীর্ণ · Overdue';
+
+  @override
+  String get lease_terminate => 'চুক্তি বাতিল করুন · Terminate lease';
+
+  @override
+  String get lease_terminate_confirm_title =>
+      'চুক্তি বাতিল করবেন? · Terminate this lease?';
+
+  @override
+  String get lease_terminate_confirm_body =>
+      'চুক্তিটি বন্ধ হয়ে যাবে এবং আর সক্রিয় থাকবে না · The lease will be closed and no longer active.';
+
+  @override
+  String get lease_terminate_cancel => 'বাতিল · Cancel';
+
+  @override
+  String get lease_terminated_ok => 'চুক্তি বাতিল হয়েছে · Lease terminated';
+
+  @override
+  String get lease_terminate_error =>
+      'চুক্তি বাতিল করা যায়নি · Could not terminate the lease. Please try again.';
 }
