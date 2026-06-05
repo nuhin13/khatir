@@ -4,7 +4,7 @@ epic: EPIC-18
 title: Seed lease config + flag + disclaimer
 layer: backend
 size: XS
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-00.T-005, EPIC-13.T-001]
 blocks: []
