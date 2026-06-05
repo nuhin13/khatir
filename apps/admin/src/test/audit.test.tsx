@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
-import AuditPage from "@/app/(dashboard)/audit/page";
+import { AuditLogClient } from "@/app/(dashboard)/compliance/audit/audit_client";
 import type { AuditPage as AuditPageData, AuditEntry } from "@/lib/api/audit";
 
 const fetchAuditLog = vi.fn<(...args: unknown[]) => Promise<AuditPageData>>();
@@ -50,10 +50,10 @@ function renderPage() {
   const wrapper = ({ children }: { children: ReactNode }) => (
     <QueryClientProvider client={client}>{children}</QueryClientProvider>
   );
-  return render(<AuditPage />, { wrapper });
+  return render(<AuditLogClient />, { wrapper });
 }
 
-describe("AuditPage", () => {
+describe("AuditLogClient", () => {
   beforeEach(() => {
     fetchAuditLog.mockReset();
   });
@@ -144,5 +144,44 @@ describe("AuditPage", () => {
       expect(screen.getByText("Could not load the audit log")).toBeTruthy();
     });
     expect(screen.getByRole("button", { name: "Retry" })).toBeTruthy();
+  });
+
+  it("renders a CSV export link that targets the format=csv endpoint", async () => {
+    fetchAuditLog.mockResolvedValue(makePage([makeEntry()]));
+    renderPage();
+
+    await waitFor(() => {
+      expect(screen.getByText("admin_user.disable")).toBeTruthy();
+    });
+
+    const exportLink = screen.getByRole("link", {
+      name: "Export filtered audit log as CSV",
+    });
+    const href = exportLink.getAttribute("href") ?? "";
+    expect(href).toContain("/admin/api/audit-log");
+    expect(href).toContain("format=csv");
+    expect(exportLink.getAttribute("download")).toBe("audit-log.csv");
+  });
+
+  it("threads the active filters into the CSV export link", async () => {
+    fetchAuditLog.mockResolvedValue(makePage([makeEntry()]));
+    renderPage();
+
+    await waitFor(() => {
+      expect(screen.getByText("admin_user.disable")).toBeTruthy();
+    });
+
+    fireEvent.change(screen.getByLabelText("Filter by action"), {
+      target: { value: "feature_flag.toggle" },
+    });
+
+    await waitFor(() => {
+      const href =
+        screen
+          .getByRole("link", { name: "Export filtered audit log as CSV" })
+          .getAttribute("href") ?? "";
+      expect(href).toContain("action=feature_flag.toggle");
+      expect(href).toContain("format=csv");
+    });
   });
 });

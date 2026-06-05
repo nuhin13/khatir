@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { apiFetch } from "./client";
+import { apiFetch, API_BASE_URL } from "./client";
 
 /**
  * Audit-log data layer — EPIC-11.T-011.
@@ -67,4 +67,24 @@ export function auditQueryKey(filters: AuditFilters = {}) {
 /** Fetch + validate a page of audit-log entries. */
 export function fetchAuditLog(filters: AuditFilters = {}): Promise<AuditPage> {
   return apiFetch(auditLogPath(filters), auditPageSchema);
+}
+
+/**
+ * Build the absolute `?format=csv` download URL for the current filter set
+ * (EPIC-16.T-002 streams the full filtered ledger as a CSV attachment —
+ * "Export: CSV download (Compliance Admin only)", Admin Portal spec §4.5.1).
+ *
+ * The cursor is intentionally dropped: an export covers the entire filtered set,
+ * not the page the viewer happens to be looking at. The path is returned
+ * absolute (prefixed with {@link API_BASE_URL}) so it can drive a direct browser
+ * navigation/download rather than an `apiFetch` JSON round-trip.
+ */
+export function auditCsvUrl(filters: AuditFilters = {}): string {
+  const { cursor: _cursor, ...rest } = filters;
+  void _cursor;
+  const params = new URLSearchParams({ format: "csv" });
+  for (const [key, value] of Object.entries(rest)) {
+    if (value !== undefined && value !== "") params.set(key, value);
+  }
+  return `${API_BASE_URL}/admin/api/audit-log?${params.toString()}`;
 }

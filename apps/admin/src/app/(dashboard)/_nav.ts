@@ -104,17 +104,22 @@ export const NAV_ITEMS: readonly NavItem[] = [
     roles: ["ops"],
   },
   {
+    // Enhanced audit log now lives under the Compliance module (Admin Portal
+    // spec §4.5.1) — full filters + CSV export + before/after diff, gated
+    // compliance+super (compliance/views.py, EPIC-16.T-002). Built in
+    // EPIC-16.T-006.
     label: "Audit log",
-    href: "/audit",
+    href: "/compliance/audit",
     icon: ScrollText,
     roles: ["compliance"],
   },
   {
+    // Compliance module root forwards to the audit log (its first tab). Same
+    // compliance+super gate. Built in EPIC-16.T-006.
     label: "Compliance",
     href: "/compliance",
     icon: ClipboardCheck,
     roles: ["compliance"],
-    comingSoon: true,
   },
   { label: "System", href: "/system", icon: Settings, roles: [], comingSoon: true },
   { label: "Support", href: "/support", icon: LifeBuoy, roles: ["ops", "support"], comingSoon: true },
