@@ -1438,5 +1438,84 @@
   "receipt_retry": "আবার চেষ্টা",
   "@receipt_retry": {
     "description": "Retry button shown in the receipt load-error state."
-  }
+  },
+  "expenses_title": "মেরামত ও খরচ",
+  "@expenses_title": {
+    "description": "App-bar title for the maintenance & expenses list screen."
+  },
+  "expenses_this_month": "এ মাসে",
+  "@expenses_this_month": {
+    "description": "Chip on the totals hero card scoping the total to the current month."
+  },
+  "expenses_total": "মোট খরচ",
+  "@expenses_total": {
+    "description": "Label above the big total-expenses figure on the hero card."
+  },
+  "expenses_total_amount": "৳{amount}",
+  "@expenses_total_amount": {
+    "description": "The total-expenses amount, prefixed with the Taka sign.",
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "expenses_count": "{count} টি খরচ",
+  "@expenses_count": {
+    "description": "Sub-line under the total showing how many expenses are in view.",
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "expenses_filter_all": "সব",
+  "@expenses_filter_all": {
+    "description": "Filter chip that clears the building filter (shows every expense)."
+  },
+  "expenses_section_recent": "সাম্প্রতিক খরচ",
+  "@expenses_section_recent": {
+    "description": "Section heading above the list of expense rows."
+  },
+  "expenses_source_manual": "ম্যানুয়াল",
+  "@expenses_source_manual": {
+    "description": "Source chip for an expense logged manually by the landlord."
+  },
+  "expenses_source_request": "মেরামত",
+  "@expenses_source_request": {
+    "description": "Source chip for an expense auto-created from resolving a maintenance request."
+  },
+  "expenses_amount": "৳{amount}",
+  "@expenses_amount": {
+    "description": "An expense row's amount, prefixed with the Taka sign.",
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "expenses_add": "খরচ যোগ",
+  "@expenses_add": {
+    "description": "App-bar action / CTA to log a new manual expense."
+  },
+  "expenses_export": "CSV রপ্তানি",
+  "@expenses_export": {
+    "description": "Action to export the (filtered) expenses as a shareable CSV file."
+  },
+  "expenses_export_failed": "রপ্তানি সম্পন্ন হয়নি। আবার চেষ্টা করুন।",
+  "@expenses_export_failed": {
+    "description": "Snackbar shown when the CSV export/share fails."
+  },
+  "expenses_empty": "এখনও কোনো খরচ নেই",
+  "@expenses_empty": {
+    "description": "Empty-state message when the landlord has logged no expenses."
+  },
+  "expenses_category_plumbing": "প্লাম্বিং",
+  "@expenses_category_plumbing": { "description": "Expense category label: plumbing." },
+  "expenses_category_paint": "পেইন্ট",
+  "@expenses_category_paint": { "description": "Expense category label: paint." },
+  "expenses_category_electrical": "বিদ্যুৎ",
+  "@expenses_category_electrical": { "description": "Expense category label: electrical." },
+  "expenses_category_structural": "স্ট্রাকচার",
+  "@expenses_category_structural": { "description": "Expense category label: structural." },
+  "expenses_category_appliance": "অ্যাপ্লায়েন্স",
+  "@expenses_category_appliance": { "description": "Expense category label: appliance." },
+  "expenses_category_utility": "ইউটিলিটি",
+  "@expenses_category_utility": { "description": "Expense category label: utility." },
+  "expenses_category_other": "অন্যান্য",
+  "@expenses_category_other": { "description": "Expense category label: other." }
 }

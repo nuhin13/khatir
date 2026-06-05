@@ -214,7 +214,7 @@ When a screen task needs one of these, it uses the shared widget — it does not
 | 16 | `rentReq` | Rent request | Landlord | screens-landlord2.js | EPIC-07 | T-011 | ☑ |
 | 17 | `verifyPay` | Verify payment | Landlord | screens-landlord2.js | EPIC-07 | T-012 | ☑ |
 | 18 | `receipt` | Receipt | Landlord | screens-landlord2.js | EPIC-07 | T-013 | ☑ |
-| 19 | `expenses` | Maintenance & expenses | Landlord | screens-landlord2.js | EPIC-08 | T-008 | ☐ |
+| 19 | `expenses` | Maintenance & expenses | Landlord | screens-landlord2.js | EPIC-08 | T-008 | ☑ |
 | 20 | `addExpense` | Add expense | Landlord | screens-landlord2.js | EPIC-08 | T-009 | ☐ |
 | 21 | `dashboard` | Dashboard / charts | Landlord | screens-landlord2.js | EPIC-09 | T-006 | ☐ |
 | 22 | `more` | More menu (profile, lang) | Landlord | screens-landlord2.js | EPIC-02 | T-007 | ☐ |

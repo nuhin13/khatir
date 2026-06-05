@@ -1328,4 +1328,74 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get receipt_retry => 'আবার চেষ্টা · Retry';
+
+  @override
+  String get expenses_title => 'মেরামত ও খরচ · Maintenance';
+
+  @override
+  String get expenses_this_month => 'এ মাসে · This month';
+
+  @override
+  String get expenses_total => 'মোট খরচ · Total expenses';
+
+  @override
+  String expenses_total_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String expenses_count(String count) {
+    return '$count টি খরচ · expenses';
+  }
+
+  @override
+  String get expenses_filter_all => 'সব · All';
+
+  @override
+  String get expenses_section_recent => 'সাম্প্রতিক খরচ · Recent expenses';
+
+  @override
+  String get expenses_source_manual => 'ম্যানুয়াল · Manual';
+
+  @override
+  String get expenses_source_request => 'মেরামত · Maintenance';
+
+  @override
+  String expenses_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String get expenses_add => 'খরচ যোগ · Add expense';
+
+  @override
+  String get expenses_export => 'CSV রপ্তানি · Export CSV';
+
+  @override
+  String get expenses_export_failed =>
+      'রপ্তানি সম্পন্ন হয়নি · Couldn\'t export. Please try again.';
+
+  @override
+  String get expenses_empty => 'এখনও কোনো খরচ নেই · No expenses yet';
+
+  @override
+  String get expenses_category_plumbing => 'প্লাম্বিং · Plumbing';
+
+  @override
+  String get expenses_category_paint => 'পেইন্ট · Paint';
+
+  @override
+  String get expenses_category_electrical => 'বিদ্যুৎ · Electrical';
+
+  @override
+  String get expenses_category_structural => 'স্ট্রাকচার · Structural';
+
+  @override
+  String get expenses_category_appliance => 'অ্যাপ্লায়েন্স · Appliance';
+
+  @override
+  String get expenses_category_utility => 'ইউটিলিটি · Utility';
+
+  @override
+  String get expenses_category_other => 'অন্যান্য · Other';
 }

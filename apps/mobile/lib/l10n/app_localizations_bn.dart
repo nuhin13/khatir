@@ -1301,4 +1301,74 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get receipt_retry => 'আবার চেষ্টা';
+
+  @override
+  String get expenses_title => 'মেরামত ও খরচ';
+
+  @override
+  String get expenses_this_month => 'এ মাসে';
+
+  @override
+  String get expenses_total => 'মোট খরচ';
+
+  @override
+  String expenses_total_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String expenses_count(String count) {
+    return '$count টি খরচ';
+  }
+
+  @override
+  String get expenses_filter_all => 'সব';
+
+  @override
+  String get expenses_section_recent => 'সাম্প্রতিক খরচ';
+
+  @override
+  String get expenses_source_manual => 'ম্যানুয়াল';
+
+  @override
+  String get expenses_source_request => 'মেরামত';
+
+  @override
+  String expenses_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String get expenses_add => 'খরচ যোগ';
+
+  @override
+  String get expenses_export => 'CSV রপ্তানি';
+
+  @override
+  String get expenses_export_failed =>
+      'রপ্তানি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get expenses_empty => 'এখনও কোনো খরচ নেই';
+
+  @override
+  String get expenses_category_plumbing => 'প্লাম্বিং';
+
+  @override
+  String get expenses_category_paint => 'পেইন্ট';
+
+  @override
+  String get expenses_category_electrical => 'বিদ্যুৎ';
+
+  @override
+  String get expenses_category_structural => 'স্ট্রাকচার';
+
+  @override
+  String get expenses_category_appliance => 'অ্যাপ্লায়েন্স';
+
+  @override
+  String get expenses_category_utility => 'ইউটিলিটি';
+
+  @override
+  String get expenses_category_other => 'অন্যান্য';
 }

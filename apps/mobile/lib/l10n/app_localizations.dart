@@ -2545,6 +2545,132 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'আবার চেষ্টা'**
   String get receipt_retry;
+
+  /// App-bar title for the maintenance & expenses list screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামত ও খরচ'**
+  String get expenses_title;
+
+  /// Chip on the totals hero card scoping the total to the current month.
+  ///
+  /// In bn, this message translates to:
+  /// **'এ মাসে'**
+  String get expenses_this_month;
+
+  /// Label above the big total-expenses figure on the hero card.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোট খরচ'**
+  String get expenses_total;
+
+  /// The total-expenses amount, prefixed with the Taka sign.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
+  String expenses_total_amount(String amount);
+
+  /// Sub-line under the total showing how many expenses are in view.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি খরচ'**
+  String expenses_count(String count);
+
+  /// Filter chip that clears the building filter (shows every expense).
+  ///
+  /// In bn, this message translates to:
+  /// **'সব'**
+  String get expenses_filter_all;
+
+  /// Section heading above the list of expense rows.
+  ///
+  /// In bn, this message translates to:
+  /// **'সাম্প্রতিক খরচ'**
+  String get expenses_section_recent;
+
+  /// Source chip for an expense logged manually by the landlord.
+  ///
+  /// In bn, this message translates to:
+  /// **'ম্যানুয়াল'**
+  String get expenses_source_manual;
+
+  /// Source chip for an expense auto-created from resolving a maintenance request.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামত'**
+  String get expenses_source_request;
+
+  /// An expense row's amount, prefixed with the Taka sign.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
+  String expenses_amount(String amount);
+
+  /// App-bar action / CTA to log a new manual expense.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ যোগ'**
+  String get expenses_add;
+
+  /// Action to export the (filtered) expenses as a shareable CSV file.
+  ///
+  /// In bn, this message translates to:
+  /// **'CSV রপ্তানি'**
+  String get expenses_export;
+
+  /// Snackbar shown when the CSV export/share fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'রপ্তানি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
+  String get expenses_export_failed;
+
+  /// Empty-state message when the landlord has logged no expenses.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনও কোনো খরচ নেই'**
+  String get expenses_empty;
+
+  /// Expense category label: plumbing.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্লাম্বিং'**
+  String get expenses_category_plumbing;
+
+  /// Expense category label: paint.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেইন্ট'**
+  String get expenses_category_paint;
+
+  /// Expense category label: electrical.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিদ্যুৎ'**
+  String get expenses_category_electrical;
+
+  /// Expense category label: structural.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্ট্রাকচার'**
+  String get expenses_category_structural;
+
+  /// Expense category label: appliance.
+  ///
+  /// In bn, this message translates to:
+  /// **'অ্যাপ্লায়েন্স'**
+  String get expenses_category_appliance;
+
+  /// Expense category label: utility.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউটিলিটি'**
+  String get expenses_category_utility;
+
+  /// Expense category label: other.
+  ///
+  /// In bn, this message translates to:
+  /// **'অন্যান্য'**
+  String get expenses_category_other;
 }
 
 class _AppLocalizationsDelegate

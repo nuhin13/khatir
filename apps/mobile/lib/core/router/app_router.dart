@@ -10,6 +10,7 @@ import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
 import '../../features/leases/presentation/screens/lease_detail_screen.dart';
 import '../../features/leases/presentation/screens/lease_form_screen.dart';
 import '../../features/leases/presentation/screens/lease_list_screen.dart';
+import '../../features/maintenance/presentation/screens/expenses_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/more_screen.dart';
@@ -577,6 +578,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => LeaseDetailScreen(
           leaseId: state.pathParameters['id'] ?? '',
         ),
+      ),
+
+      // ── Maintenance & expenses (EPIC-08 T-008) ──────────────────────────
+      // The maintenance & expenses list (`/expenses`): the butter total hero, a
+      // building filter, and the manual + maintenance-sourced expense rows. The
+      // app-bar Add action pushes `/expenses/add` (EPIC-08 T-009) and Export
+      // shares the scoped + filtered CSV. Sits on the root navigator so it
+      // covers the landlord shell when pushed from home / portfolio / More.
+      GoRoute(
+        path: ExpensesScreen.routePath,
+        name: ExpensesScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ExpensesScreen(),
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────
