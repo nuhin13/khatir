@@ -2287,6 +2287,126 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'অনুরোধ পাঠানো যায়নি। আবার চেষ্টা করুন।'**
   String get rent_request_error;
+
+  /// App-bar title of the verify-payment screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেমেন্ট যাচাই'**
+  String get verify_title;
+
+  /// Header line: the tenant claims to have paid.
+  ///
+  /// In bn, this message translates to:
+  /// **'{name} বলছেন ভাড়া দিয়েছেন'**
+  String verify_claim(String name);
+
+  /// Subline under the claim: the requested amount and billing period.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount} · {period}'**
+  String verify_amount_period(String amount, String period);
+
+  /// Section title above the tenant's submitted payment proof.
+  ///
+  /// In bn, this message translates to:
+  /// **'জমা প্রমাণ'**
+  String get verify_proof;
+
+  /// Shown in the proof viewer when the tenant has not submitted any proof.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো প্রমাণ জমা পড়েনি'**
+  String get verify_proof_none;
+
+  /// Shown in the proof viewer when the signed-URL screenshot fails to load.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি লোড করা যায়নি'**
+  String get verify_proof_image_failed;
+
+  /// Label for the transaction-id line in the proof details.
+  ///
+  /// In bn, this message translates to:
+  /// **'লেনদেন আইডি'**
+  String get verify_proof_txn;
+
+  /// Label for the amount line in the proof details.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিমাণ'**
+  String get verify_proof_amount;
+
+  /// Primary action: verify the proof and generate a receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'টাকা পেয়েছি'**
+  String get verify_confirm;
+
+  /// Secondary action: reject the request with a reason.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো পাইনি'**
+  String get verify_reject;
+
+  /// Label/title of the reject-reason input dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রত্যাখ্যানের কারণ লিখুন'**
+  String get verify_reason;
+
+  /// Hint text inside the reject-reason input.
+  ///
+  /// In bn, this message translates to:
+  /// **'কেন গ্রহণ করছেন না?'**
+  String get verify_reason_hint;
+
+  /// Validation error when a reject reason is left empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি কারণ লিখুন'**
+  String get verify_reason_required;
+
+  /// Cancel button in the reject-reason dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
+  String get verify_reason_cancel;
+
+  /// Confirm button in the reject-reason dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রত্যাখ্যান'**
+  String get verify_reason_submit;
+
+  /// Snackbar shown after the payment proof is verified.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই সম্পন্ন'**
+  String get verify_verified;
+
+  /// Snackbar shown after the request is rejected.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ প্রত্যাখ্যান করা হয়েছে'**
+  String get verify_rejected;
+
+  /// Snackbar shown when verify/reject fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
+  String get verify_error;
+
+  /// Shown when the rent request cannot be loaded.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ লোড করা যায়নি'**
+  String get verify_load_error;
+
+  /// Retry button shown in the load-error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get verify_retry;
 }
 
 class _AppLocalizationsDelegate

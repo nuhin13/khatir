@@ -1178,4 +1178,75 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get rent_request_error =>
       'অনুরোধ পাঠানো যায়নি · Couldn\'t send the request. Please try again.';
+
+  @override
+  String get verify_title => 'পেমেন্ট যাচাই · Verify';
+
+  @override
+  String verify_claim(String name) {
+    return '$name বলছেন ভাড়া দিয়েছেন · $name says they paid';
+  }
+
+  @override
+  String verify_amount_period(String amount, String period) {
+    return '৳$amount · $period';
+  }
+
+  @override
+  String get verify_proof => 'জমা প্রমাণ · Submitted proof';
+
+  @override
+  String get verify_proof_none =>
+      'এখনো কোনো প্রমাণ জমা পড়েনি · No proof submitted yet';
+
+  @override
+  String get verify_proof_image_failed =>
+      'ছবি লোড করা যায়নি · Couldn\'t load the image';
+
+  @override
+  String get verify_proof_txn => 'Txn ID';
+
+  @override
+  String get verify_proof_amount => 'Amount';
+
+  @override
+  String get verify_confirm => 'টাকা পেয়েছি · Received';
+
+  @override
+  String get verify_reject => 'এখনো পাইনি · Not yet received';
+
+  @override
+  String get verify_reason => 'কারণ লিখুন · Reason for rejecting';
+
+  @override
+  String get verify_reason_hint =>
+      'কেন গ্রহণ করছেন না? · Why are you rejecting this?';
+
+  @override
+  String get verify_reason_required =>
+      'একটি কারণ লিখুন · Please enter a reason';
+
+  @override
+  String get verify_reason_cancel => 'বাতিল · Cancel';
+
+  @override
+  String get verify_reason_submit => 'প্রত্যাখ্যান · Reject';
+
+  @override
+  String get verify_verified => 'যাচাই সম্পন্ন · Verified';
+
+  @override
+  String get verify_rejected =>
+      'অনুরোধ প্রত্যাখ্যান করা হয়েছে · Request rejected';
+
+  @override
+  String get verify_error =>
+      'কাজটি সম্পন্ন হয়নি · Couldn\'t complete that. Please try again.';
+
+  @override
+  String get verify_load_error =>
+      'অনুরোধ লোড করা যায়নি · Couldn\'t load the request';
+
+  @override
+  String get verify_retry => 'আবার চেষ্টা · Retry';
 }

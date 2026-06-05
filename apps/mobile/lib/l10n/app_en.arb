@@ -1141,5 +1141,92 @@
   "rent_request_error": "অনুরোধ পাঠানো যায়নি · Couldn't send the request. Please try again.",
   "@rent_request_error": {
     "description": "Snackbar shown when creating/sending/marking the request fails."
+  },
+  "verify_title": "পেমেন্ট যাচাই · Verify",
+  "@verify_title": {
+    "description": "App-bar title of the verify-payment screen."
+  },
+  "verify_claim": "{name} বলছেন ভাড়া দিয়েছেন · {name} says they paid",
+  "@verify_claim": {
+    "description": "Header line: the tenant claims to have paid.",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "verify_amount_period": "৳{amount} · {period}",
+  "@verify_amount_period": {
+    "description": "Subline under the claim: the requested amount and billing period.",
+    "placeholders": {
+      "amount": { "type": "String" },
+      "period": { "type": "String" }
+    }
+  },
+  "verify_proof": "জমা প্রমাণ · Submitted proof",
+  "@verify_proof": {
+    "description": "Section title above the tenant's submitted payment proof."
+  },
+  "verify_proof_none": "এখনো কোনো প্রমাণ জমা পড়েনি · No proof submitted yet",
+  "@verify_proof_none": {
+    "description": "Shown in the proof viewer when the tenant has not submitted any proof."
+  },
+  "verify_proof_image_failed": "ছবি লোড করা যায়নি · Couldn't load the image",
+  "@verify_proof_image_failed": {
+    "description": "Shown in the proof viewer when the signed-URL screenshot fails to load."
+  },
+  "verify_proof_txn": "Txn ID",
+  "@verify_proof_txn": {
+    "description": "Label for the transaction-id line in the proof details."
+  },
+  "verify_proof_amount": "Amount",
+  "@verify_proof_amount": {
+    "description": "Label for the amount line in the proof details."
+  },
+  "verify_confirm": "টাকা পেয়েছি · Received",
+  "@verify_confirm": {
+    "description": "Primary action: verify the proof and generate a receipt."
+  },
+  "verify_reject": "এখনো পাইনি · Not yet received",
+  "@verify_reject": {
+    "description": "Secondary action: reject the request with a reason."
+  },
+  "verify_reason": "কারণ লিখুন · Reason for rejecting",
+  "@verify_reason": {
+    "description": "Label/title of the reject-reason input dialog."
+  },
+  "verify_reason_hint": "কেন গ্রহণ করছেন না? · Why are you rejecting this?",
+  "@verify_reason_hint": {
+    "description": "Hint text inside the reject-reason input."
+  },
+  "verify_reason_required": "একটি কারণ লিখুন · Please enter a reason",
+  "@verify_reason_required": {
+    "description": "Validation error when a reject reason is left empty."
+  },
+  "verify_reason_cancel": "বাতিল · Cancel",
+  "@verify_reason_cancel": {
+    "description": "Cancel button in the reject-reason dialog."
+  },
+  "verify_reason_submit": "প্রত্যাখ্যান · Reject",
+  "@verify_reason_submit": {
+    "description": "Confirm button in the reject-reason dialog."
+  },
+  "verify_verified": "যাচাই সম্পন্ন · Verified",
+  "@verify_verified": {
+    "description": "Snackbar shown after the payment proof is verified."
+  },
+  "verify_rejected": "অনুরোধ প্রত্যাখ্যান করা হয়েছে · Request rejected",
+  "@verify_rejected": {
+    "description": "Snackbar shown after the request is rejected."
+  },
+  "verify_error": "কাজটি সম্পন্ন হয়নি · Couldn't complete that. Please try again.",
+  "@verify_error": {
+    "description": "Snackbar shown when verify/reject fails."
+  },
+  "verify_load_error": "অনুরোধ লোড করা যায়নি · Couldn't load the request",
+  "@verify_load_error": {
+    "description": "Shown when the rent request cannot be loaded."
+  },
+  "verify_retry": "আবার চেষ্টা · Retry",
+  "@verify_retry": {
+    "description": "Retry button shown in the load-error state."
   }
 }

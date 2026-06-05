@@ -18,6 +18,7 @@ import '../../features/properties/presentation/screens/portfolio_screen.dart';
 import '../../features/properties/presentation/screens/unit_detail_screen.dart';
 import '../../features/properties/presentation/wizard/wizard_host.dart';
 import '../../features/rent/presentation/screens/rent_request_screen.dart';
+import '../../features/rent/presentation/screens/verify_payment_screen.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
@@ -510,6 +511,27 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             leaseId: q['lease'] ?? '',
             initialAmount: double.tryParse(q['amount'] ?? ''),
             initialPeriod: q['period'],
+          );
+        },
+      ),
+
+      // ── Verify payment (EPIC-07 T-012) ──────────────────────────────────
+      // The proof-review screen, launched from a rent-collection queue row at
+      // `/rent/:id/verify`. The optional tenant name + submitted [PaymentProof]
+      // ride along via `extra` (the rent detail endpoint does not yet surface
+      // the proof); the screen verifies (→ receipt) or rejects with a reason.
+      // Sits on the root navigator so it covers the landlord shell when pushed.
+      GoRoute(
+        path: VerifyPaymentScreen.routePath,
+        name: VerifyPaymentScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final extra = state.extra;
+          final args = extra is VerifyPaymentArgs ? extra : null;
+          return VerifyPaymentScreen(
+            requestId: state.pathParameters['id'] ?? '',
+            tenantName: args?.tenantName,
+            proof: args?.proof,
           );
         },
       ),
