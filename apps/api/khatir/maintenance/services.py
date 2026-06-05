@@ -47,19 +47,25 @@ def _scoped_unit(actor: User, unit_id: Any) -> Unit:
 def create_maintenance_request(
     *,
     actor: User,
-    unit_id: Any,
     description: str,
     category: str,
+    unit_id: Any = None,
+    unit: Unit | None = None,
     photo_ref: str = "",
     lease_id: Any | None = None,
 ) -> MaintenanceRequest:
     """Create an ``open`` maintenance request and audit it (``maintenance.create``).
 
-    The unit is resolved through ``Unit.objects.for_user(actor)`` so the caller
-    can only report a problem on a unit they own/manage; an out-of-scope unit
-    raises 404. The request always starts ``open`` (status is not client-set).
+    The landlord surface passes ``unit_id`` and the unit is resolved through
+    ``Unit.objects.for_user(actor)`` so the caller can only report a problem on a
+    unit they own/manage; an out-of-scope unit raises 404. A tenant reports on
+    *their own* unit, which has already been scoped from their active lease
+    (EPIC-19 T-004), so that caller passes a pre-resolved ``unit`` and skips the
+    landlord ``for_user`` scope. Exactly one of ``unit_id`` / ``unit`` is given.
+    The request always starts ``open`` (status is not client-set).
     """
-    unit = _scoped_unit(actor, unit_id)
+    if unit is None:
+        unit = _scoped_unit(actor, unit_id)
 
     request = cast(
         MaintenanceRequest,

@@ -11,6 +11,13 @@ from __future__ import annotations
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
+from .me_views import (
+    MeLeaseView,
+    MeMaintenanceView,
+    MeReceiptsView,
+    MeRentPayView,
+    MeRentView,
+)
 from .views import (
     TenantOcrView,
     TenantViewSet,
@@ -36,5 +43,16 @@ urlpatterns = [
     ),
     # Free-tier counter consumed by More/plan + EPIC-10 (T-008 §7/§8).
     path("usage", UsageView.as_view(), name="usage"),
+    # Tenant self-service surface (EPIC-19 T-002): read-only, gated by
+    # IsLinkedTenant, every read scoped through the tenant_account helpers.
+    path("me/lease", MeLeaseView.as_view(), name="me-lease"),
+    path("me/rent", MeRentView.as_view(), name="me-rent"),
+    # In-app payment proof (EPIC-19 T-003): reuses the EPIC-07 PaymentProof
+    # pipeline, scoped to the tenant's own rent requests.
+    path("me/rent/<int:pk>/pay", MeRentPayView.as_view(), name="me-rent-pay"),
+    path("me/receipts", MeReceiptsView.as_view(), name="me-receipts"),
+    # In-app maintenance report (EPIC-19 T-004): reuses the EPIC-08
+    # create_maintenance_request pipeline, scoped to the tenant's own unit.
+    path("me/maintenance", MeMaintenanceView.as_view(), name="me-maintenance"),
     *router.urls,
 ]
