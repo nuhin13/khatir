@@ -1682,4 +1682,17 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get plan_empty => 'কোনো প্ল্যান নেই';
+
+  @override
+  String get upgrade_title => 'আপনি ফ্রি সীমায় পৌঁছেছেন';
+
+  @override
+  String get upgrade_body =>
+      'ফ্রি প্ল্যানে প্রথম ২ জন ভাড়াটিয়া অন্তর্ভুক্ত। আরও যোগ করতে ও NID যাচাই চালু করতে আপগ্রেড করুন।';
+
+  @override
+  String get upgrade_cta => 'প্ল্যান আপগ্রেড';
+
+  @override
+  String get upgrade_later => 'এখন নয়';
 }

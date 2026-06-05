@@ -3235,6 +3235,30 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'কোনো প্ল্যান নেই'**
   String get plan_empty;
+
+  /// Upgrade bottom-sheet title shown when a free-tier landlord hits the tenant limit.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনি ফ্রি সীমায় পৌঁছেছেন'**
+  String get upgrade_title;
+
+  /// Upgrade bottom-sheet body explaining the free-tier tenant limit.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্রি প্ল্যানে প্রথম ২ জন ভাড়াটিয়া অন্তর্ভুক্ত। আরও যোগ করতে ও NID যাচাই চালু করতে আপগ্রেড করুন।'**
+  String get upgrade_body;
+
+  /// Primary button on the upgrade prompt; routes to the plan screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্ল্যান আপগ্রেড'**
+  String get upgrade_cta;
+
+  /// Dismiss action on the upgrade prompt.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখন নয়'**
+  String get upgrade_later;
 }
 
 class _AppLocalizationsDelegate

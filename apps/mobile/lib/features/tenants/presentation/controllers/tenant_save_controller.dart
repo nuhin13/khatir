@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../core/network/api_exception.dart';
+import '../../../../features/billing/presentation/widgets/upgrade_prompt.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../data/models/family_member.dart';
 import '../../data/models/tenant_create_result.dart';
@@ -64,6 +65,10 @@ class TenantSaveDraft {
 class TenantSaveController {
   const TenantSaveController(this._ref);
 
+  /// The backend error-envelope code (see `core/enums.py` → `ErrorCode`) raised
+  /// when a free-tier owner is already at their tenant allowance.
+  static const String _kTierLimitExceeded = 'tier_limit_exceeded';
+
   final WidgetRef _ref;
 
   /// Creates the tenant from [draft] and, on success, navigates to the DMP form
@@ -85,8 +90,15 @@ class TenantSaveController {
         pathParameters: {'tenantId': result.tenant.id},
       );
       return true;
-    } on ApiException catch (_) {
+    } on ApiException catch (e) {
       if (!context.mounted) return false;
+      // Free-tier landlord at their tenant allowance: instead of a bare error,
+      // surface the friendly upgrade prompt (T-008) which routes to the plan
+      // screen. Treat as a non-fatal outcome — the caller just clears loading.
+      if (e.errorCode == _kTierLimitExceeded) {
+        await UpgradePrompt.show(context);
+        return false;
+      }
       _showError(context, l10n.tenant_save_error);
       return false;
     } catch (_) {

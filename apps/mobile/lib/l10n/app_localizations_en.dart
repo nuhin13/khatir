@@ -1714,4 +1714,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get plan_empty => 'No plans available';
+
+  @override
+  String get upgrade_title => 'You\'ve reached your free limit';
+
+  @override
+  String get upgrade_body =>
+      'Free plans cover your first 2 tenants. Upgrade to add more and unlock NID verification.';
+
+  @override
+  String get upgrade_cta => 'Upgrade plan';
+
+  @override
+  String get upgrade_later => 'Not now';
 }

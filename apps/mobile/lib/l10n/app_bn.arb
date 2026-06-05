@@ -1785,5 +1785,13 @@
   "plan_billing_error": "আপগ্রেড করা যায়নি · আবার চেষ্টা করুন",
   "@plan_billing_error": { "description": "Snackbar when a subscribe request fails." },
   "plan_empty": "কোনো প্ল্যান নেই",
-  "@plan_empty": { "description": "Empty state when no tiers are configured." }
+  "@plan_empty": { "description": "Empty state when no tiers are configured." },
+  "upgrade_title": "আপনি ফ্রি সীমায় পৌঁছেছেন",
+  "@upgrade_title": { "description": "Upgrade bottom-sheet title shown when a free-tier landlord hits the tenant limit." },
+  "upgrade_body": "ফ্রি প্ল্যানে প্রথম ২ জন ভাড়াটিয়া অন্তর্ভুক্ত। আরও যোগ করতে ও NID যাচাই চালু করতে আপগ্রেড করুন।",
+  "@upgrade_body": { "description": "Upgrade bottom-sheet body explaining the free-tier tenant limit." },
+  "upgrade_cta": "প্ল্যান আপগ্রেড",
+  "@upgrade_cta": { "description": "Primary button on the upgrade prompt; routes to the plan screen." },
+  "upgrade_later": "এখন নয়",
+  "@upgrade_later": { "description": "Dismiss action on the upgrade prompt." }
 }

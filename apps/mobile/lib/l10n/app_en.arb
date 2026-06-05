@@ -1676,5 +1676,21 @@
   "plan_billing_note": "Prices admin-configurable · illustrative",
   "plan_billing_confirm_pending": "We'll confirm once payment clears",
   "plan_billing_error": "Couldn't upgrade · please try again",
-  "plan_empty": "No plans available"
+  "plan_empty": "No plans available",
+  "upgrade_title": "You've reached your free limit",
+  "@upgrade_title": {
+    "description": "Upgrade bottom-sheet title shown when a free-tier landlord hits the tenant limit."
+  },
+  "upgrade_body": "Free plans cover your first 2 tenants. Upgrade to add more and unlock NID verification.",
+  "@upgrade_body": {
+    "description": "Upgrade bottom-sheet body explaining the free-tier tenant limit."
+  },
+  "upgrade_cta": "Upgrade plan",
+  "@upgrade_cta": {
+    "description": "Primary button on the upgrade prompt; routes to the plan screen."
+  },
+  "upgrade_later": "Not now",
+  "@upgrade_later": {
+    "description": "Dismiss action on the upgrade prompt."
+  }
 }
