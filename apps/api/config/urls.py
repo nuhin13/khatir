@@ -40,6 +40,10 @@ urlpatterns = [
     # (/n/<token>/open.gif) and provider delivery webhook (/n/<token>/delivered).
     # Token-scoped, hit by browsers/providers, so rooted outside ``/api/v1/``.
     path("", include("khatir.notifications.web_urls")),
+    # Public, no-login recipient view of a tenant-shared rental history
+    # (EPIC-24 T-008): /h/<token>. Server-rendered HTML, token-scoped, so it
+    # lives at the root rather than under ``/api/v1/``.
+    path("", include("khatir.historyshare.web_urls")),
     path("api/v1/", include("khatir.health.urls")),
     path("api/v1/", include("khatir.accounts.profile_urls")),
     path("api/v1/", include("khatir.properties.urls")),
@@ -59,10 +63,15 @@ urlpatterns = [
     path("api/v1/", include("khatir.billing.urls")),
     path("api/v1/", include("khatir.dashboard.urls")),
 <<<<<<< HEAD
+<<<<<<< HEAD
     path("api/v1/", include("khatir.managers.urls")),
 =======
     path("api/v1/", include("khatir.chatbot.urls")),
 >>>>>>> wave2be/E23
+=======
+    # Tenant-initiated rental-history sharing (EPIC-24) — /api/v1/me/history-shares.
+    path("api/v1/", include("khatir.historyshare.urls")),
+>>>>>>> wave2be/E24
     path("api/v1/auth/", include("khatir.accounts.urls")),
     # OpenAPI schema + interactive docs (drf-spectacular).
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
