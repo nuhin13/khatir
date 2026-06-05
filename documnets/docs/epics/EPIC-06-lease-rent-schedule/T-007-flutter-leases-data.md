@@ -4,15 +4,15 @@ epic: EPIC-06
 title: Flutter leases data layer
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, T-004]
 blocks: [T-008, T-009, T-010]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -46,11 +46,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] freezed Lease/RentSchedule models
-- [ ] repo create/activate/terminate/getSchedule/unitLease
-- [ ] providers
-- [ ] tests (mocked)
-- [ ] analyze + test pass
+- [x] freezed Lease/RentSchedule models
+- [x] repo create/activate/terminate/getSchedule/unitLease
+- [x] providers
+- [x] tests (mocked)
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -59,12 +59,22 @@ None.
 1. Create + activate via repo.
 
 ## 13. Acceptance criteria
-- [ ] Typed leases data layer; tests + analyze pass.
+- [x] Typed leases data layer; tests + analyze pass.
 
 ## 14. Self-review
-- [ ] Wire schema matches backend; enums aligned
+- [x] Wire schema matches backend; enums aligned
 ### Deviations from spec
+- Provider lifecycle method renamed `update` → `editTerms` to avoid clashing
+  with the inherited `AsyncNotifier.update(...)` signature (a real compile
+  error otherwise). No external API impact (the data layer has no UI consumers
+  yet — T-008/T-009/T-010 wire it).
 ### Files touched (actual)
+- apps/mobile/lib/features/leases/data/models/lease_enums.dart (add)
+- apps/mobile/lib/features/leases/data/models/models.dart (+ generated .freezed.dart) (add)
+- apps/mobile/lib/features/leases/data/lease_repository.dart (add)
+- apps/mobile/lib/features/leases/data/providers.dart (add)
+- apps/mobile/lib/core/network/api_endpoints.dart (lease/schedule/unitLease routes)
+- apps/mobile/test/leases_repo_test.dart (add)
 
 ## 15. Notes for the implementing agent
 - Mirror enums.md LeaseStatus/RentScheduleStatus as Dart enums.

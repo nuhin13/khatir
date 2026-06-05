@@ -10,6 +10,7 @@ import '../../../../core/i18n/locale_provider.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/screens/phone_entry_screen.dart';
+import '../../../billing/presentation/screens/plan_screen.dart';
 import '../../../onboarding/presentation/screens/onboarding_screen.dart';
 import '../../../role/presentation/screens/role_chooser_screen.dart';
 import '../widgets/more_row.dart';
@@ -130,7 +131,7 @@ class MoreScreen extends ConsumerWidget {
         icon: Icons.credit_card,
         titleBn: l10n.more_plan,
         titleEn: l10n.more_plan_en,
-        onTap: () => _comingSoon(context, l10n.more_plan),
+        onTap: () => context.push(PlanScreen.routePath),
       ),
       if (_isLandlordLike) ...[
         _RowSpec(

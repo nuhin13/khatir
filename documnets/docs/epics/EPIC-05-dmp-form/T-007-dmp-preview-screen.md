@@ -4,7 +4,7 @@ epic: EPIC-05
 title: Flutter DMP form preview screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-04.T-014, T-004]
 blocks: [T-008]
@@ -56,12 +56,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] dmp_preview_screen matches design
-- [ ] loads + displays assembled data (masked NID)
-- [ ] generate → PDF screen
-- [ ] edit → tenant
-- [ ] states; ARB bn + en; widget test
-- [ ] analyze + test pass
+- [x] dmp_preview_screen matches design
+- [x] loads + displays assembled data (masked NID)
+- [x] generate → PDF screen
+- [x] edit → tenant
+- [x] states; ARB bn + en; widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -70,14 +70,29 @@ None.
 1. Add tenant → DMP preview shows data → generate.
 
 ## 13. Acceptance criteria
-- [ ] Preview matches design; generate flows to PDF.
-- [ ] **Screen `dmp` built** (ledger row).
-- [ ] Test + analyze pass.
+- [x] Preview matches design; generate flows to PDF.
+- [x] **Screen `dmp` built** (ledger row).
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] Masked NID only; matches design; tokens
+- [x] Masked NID only; matches design; tokens
 ### Deviations from spec
+- Generate routes to a nested placeholder PDF route `/dmpform/{id}/pdf`
+  (reusing `DmpPlaceholderScreen`) so the flow resolves until T-008 fills in
+  the real PDF screen. The route name (`dmpForm`) is unchanged so the EPIC-04
+  save action keeps routing here.
+- The preview backend endpoint `GET /tenants/{id}/dmpform` (T-004) is not
+  present in this worktree's API tree; the mobile client codes against the
+  documented masked-NID `DmpData` contract (T-002/T-004 §1).
 ### Files touched (actual)
+- lib/features/dmpform/data/models/dmp_preview.dart (add)
+- lib/features/dmpform/data/dmpform_repository.dart (add)
+- lib/features/dmpform/data/dmpform_providers.dart (add)
+- lib/features/dmpform/presentation/screens/dmp_preview_screen.dart (add)
+- lib/core/network/api_endpoints.dart (add tenantDmpForm)
+- lib/core/router/app_router.dart (real preview route + nested pdf placeholder)
+- lib/l10n/app_bn.arb, lib/l10n/app_en.arb (dmp_* keys)
+- test/dmp_preview_test.dart (add)
 
 ## 15. Notes for the implementing agent
 - This closes the EPIC-04→05 seam: EPIC-04 T-016 now routes here for real (remove its placeholder).

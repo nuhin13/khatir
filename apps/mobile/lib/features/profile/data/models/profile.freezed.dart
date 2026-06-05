@@ -211,7 +211,7 @@ return $default(_that.id,_that.phone,_that.name,_that.role,_that.language);case 
 
 class _Profile implements Profile {
   const _Profile({required this.id, this.phone, this.name, this.role, this.language});
-
+  
 
 @override final  String id;
 @override final  String? phone;

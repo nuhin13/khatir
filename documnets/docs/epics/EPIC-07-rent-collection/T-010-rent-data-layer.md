@@ -4,7 +4,7 @@ epic: EPIC-07
 title: Flutter rent data layer
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, T-007]
 blocks: [T-011, T-012, T-013, T-014]
@@ -46,11 +46,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] freezed models
-- [ ] repo create/queue/verify/reject/markReceived/receipt
-- [ ] providers
-- [ ] tests (mocked)
-- [ ] analyze + test pass
+- [x] freezed models
+- [x] repo create/queue/verify/reject/markReceived/receipt
+- [x] providers
+- [x] tests (mocked)
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -59,12 +59,19 @@ None.
 1. Create + verify via repo.
 
 ## 13. Acceptance criteria
-- [ ] Typed rent data layer; tests + analyze pass.
+- [x] Typed rent data layer; tests + analyze pass.
 
 ## 14. Self-review
-- [ ] Wire schema matches backend
+- [x] Wire schema matches backend
 ### Deviations from spec
+- None. Enums (RentRequestStatus/PaymentProofType/Channel) match enums.md §RentRequestStatus/§PaymentProofType. Data layer was authored alongside sibling EPIC-07 tasks (T-003/T-004/T-007/T-011/T-013 endpoints) and integrates with them; verified complete here.
 ### Files touched (actual)
+- lib/features/rent/data/models/models.dart (freezed RentRequest/PaymentProof/Payment)
+- lib/features/rent/data/models/models.freezed.dart
+- lib/features/rent/data/models/rent_enums.dart
+- lib/features/rent/data/rent_repository.dart
+- lib/features/rent/data/providers.dart
+- test/rent_request_test.dart
 
 ## 15. Notes for the implementing agent
 - Enums per enums.md (RentRequestStatus etc.).

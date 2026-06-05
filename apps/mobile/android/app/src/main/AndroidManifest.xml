@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Voice tenant entry (EPIC-04 T-012): record a short Bangla clip for ASR.
+         The clip is uploaded then discarded — never persisted on device. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"

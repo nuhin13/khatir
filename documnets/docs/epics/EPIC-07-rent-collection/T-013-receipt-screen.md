@@ -4,7 +4,7 @@ epic: EPIC-07
 title: Flutter receipt screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-010]
 blocks: []
@@ -56,10 +56,10 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] receipt_screen matches design
-- [ ] receipt summary + PDF preview/share (reuse EPIC-05 pattern)
-- [ ] states; route; ARB bn + en; widget test
-- [ ] analyze + test pass
+- [x] receipt_screen matches design
+- [x] receipt summary + PDF preview/share (reuse EPIC-05 pattern)
+- [x] states; route; ARB bn + en; widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -68,15 +68,30 @@ None.
 1. After verify → receipt → share to tenant.
 
 ## 13. Acceptance criteria
-- [ ] Receipt screen matches design; share works.
-- [ ] **Screen `receipt` built** (ledger row).
-- [ ] EPIC-07 rent loop works end-to-end (request→pay→verify→receipt).
-- [ ] Test + analyze pass.
+- [x] Receipt screen matches design; share works.
+- [x] **Screen `receipt` built** (ledger row).
+- [x] EPIC-07 rent loop works end-to-end (request→pay→verify→receipt).
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] Reuses PDF share pattern; tokens
+- [x] Reuses PDF share pattern; tokens
 ### Deviations from spec
+- The backend exposes no GET receipt endpoint yet and the rent detail endpoint
+  does not surface the tenant/unit/method/receipt-no/signed-PDF URL, so those
+  contextual receipt fields ride into the screen via a typed router `extra`
+  payload (`ReceiptArgs`) — the same convention the T-012 verify screen uses for
+  the submitted proof. When a signed PDF URL is supplied, Share/Download act on
+  the real PDF (reusing the EPIC-05 T-008 share_plus + printing seam, mirrored as
+  `ReceiptSharer`/`receiptSharerProvider`); when absent, Share falls back to a
+  plain-text receipt summary. Missing field values degrade to a neutral dash.
 ### Files touched (actual)
+- Add: apps/mobile/lib/features/rent/presentation/screens/receipt_screen.dart
+- Add: apps/mobile/lib/features/rent/data/receipt_sharer.dart
+- Add: apps/mobile/test/receipt_test.dart
+- Update: apps/mobile/lib/features/rent/data/rent_repository.dart (fetchReceiptBytes)
+- Update: apps/mobile/lib/features/rent/data/providers.dart (receiptBytesProvider)
+- Update: apps/mobile/lib/core/router/app_router.dart (/rent/:id/receipt route)
+- Update: apps/mobile/lib/l10n/app_en.arb + app_bn.arb (receipt_* keys)
 
 ## 15. Notes for the implementing agent
 - Reuse share_plus + pdf preview from EPIC-05 T-008. This is the EPIC-07 validation gate (full rent loop).

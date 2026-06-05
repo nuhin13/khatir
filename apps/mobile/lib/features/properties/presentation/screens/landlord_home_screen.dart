@@ -7,6 +7,10 @@ import '../../../../core/auth/auth_controller.dart';
 import '../../../../core/i18n/bangla_numerals.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../dashboard/data/dashboard_model.dart';
+import '../../../dashboard/data/dashboard_providers.dart';
+import '../../../dashboard/presentation/screens/dashboard_screen.dart';
+import '../../../rent/presentation/widgets/late_payers_section.dart';
 import '../../data/models/portfolio_summary.dart';
 import '../../data/properties_providers.dart';
 
@@ -22,8 +26,9 @@ import '../../data/properties_providers.dart';
 /// * **Quick stat tiles** — buildings, units, and monthly rent total, all from
 ///   the portfolio totals.
 /// * **Collection summary card** — "collected this month" heading with the
-///   detailed amount/chart and the late-payer list deferred to EPIC-09/07
-///   (regions marked `TODO(EPIC-09)`).
+///   current-month collected/pending totals (from `/dashboard`, EPIC-09 T-006)
+///   plus the EPIC-07 late-payer list. The card taps through to the dashboard /
+///   Charts tab for the full chart breakdown.
 ///
 /// States: loading (spinner), error (retry), empty (no buildings → friendly
 /// empty state with an add-building CTA), and data. All colors/spacing/radii
@@ -70,6 +75,13 @@ class LandlordHomeScreen extends ConsumerWidget {
   static void _addBuilding(BuildContext context) {
     context.pushNamed('addBuilding');
   }
+
+  /// Collection-card tap → switch the shell to the dashboard / Charts tab
+  /// (EPIC-09 T-006). `goNamed` on a [StatefulShellRoute] branch root activates
+  /// that branch rather than pushing on top of the home stack.
+  static void _openDashboard(BuildContext context) {
+    context.goNamed(DashboardScreen.routeName);
+  }
 }
 
 /// The populated home content (greeting + hero CTA + stats + collection card).
@@ -107,7 +119,9 @@ class _HomeBody extends ConsumerWidget {
           const SizedBox(height: KhatirSpacing.s4),
           _StatTiles(totals: totals, localeCode: localeCode),
           const SizedBox(height: KhatirSpacing.s3),
-          const _CollectionCard(),
+          _CollectionCard(
+            onViewDashboard: () => LandlordHomeScreen._openDashboard(context),
+          ),
         ],
       ),
     );
@@ -426,16 +440,26 @@ class _StatTile extends StatelessWidget {
   }
 }
 
-/// Collection summary card. The "collected this month" heading is real; the
-/// detailed collected/expected amount, the progress chart, and the late-payer
-/// list all land in later epics (charts EPIC-09, rent actions EPIC-07) so they
-/// are shown as a marked placeholder region here.
-class _CollectionCard extends StatelessWidget {
-  const _CollectionCard();
+/// Collection summary card (EPIC-09 T-007). The "collected this month" heading
+/// is followed by the current-month collected total, the still-pending amount,
+/// and a thin collection-rate progress bar — all sourced from one
+/// `GET /dashboard` read via [dashboardProvider] (owner-scoped + cached). The
+/// summary region taps through to the dashboard / Charts tab; the late-payer
+/// list below is the real EPIC-07 T-014 widget.
+class _CollectionCard extends ConsumerWidget {
+  const _CollectionCard({required this.onViewDashboard});
+
+  /// Tapping the summary region opens the dashboard / Charts tab.
+  final VoidCallback onViewDashboard;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final localeCode = Localizations.localeOf(context).languageCode;
+    // Default window (null) — same payload the dashboard tab shows, so the read
+    // is shared/deduped and never fans out a per-card request.
+    final async = ref.watch(dashboardProvider(null));
+
     return Container(
       padding: const EdgeInsets.all(KhatirSpacing.s4),
       decoration: BoxDecoration(
@@ -453,40 +477,176 @@ class _CollectionCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: KhatirSpacing.s3),
-          // TODO(EPIC-09) replace with the real collected/expected amount +
-          // progress chart, and the late-payer list (rent actions in EPIC-07).
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              vertical: KhatirSpacing.s5,
-              horizontal: KhatirSpacing.s4,
-            ),
-            decoration: BoxDecoration(
-              color: KhatirColors.sageBg,
-              borderRadius: BorderRadius.circular(KhatirRadius.tile),
-            ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.insights_outlined,
-                  size: 20,
-                  color: KhatirColors.sageDk,
-                ),
-                const SizedBox(width: KhatirSpacing.s3),
-                Expanded(
-                  child: Text(
-                    l10n.home_collected_todo,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: KhatirColors.sageDk,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
+          _CollectionSummary(
+            data: async.valueOrNull ?? const DashboardData(),
+            isLoading: async.isLoading && !async.hasValue,
+            hasError: async.hasError && !async.hasValue,
+            localeCode: localeCode,
+            l10n: l10n,
+            onTap: onViewDashboard,
+          ),
+          const SizedBox(height: KhatirSpacing.s3),
+          const LatePayersSection(),
+        ],
+      ),
+    );
+  }
+}
+
+/// The tappable collected/pending summary tile inside the collection card.
+/// Shows the collected total, a pending sub-line, a collection-rate bar, and a
+/// "view charts" affordance. While the first read is in flight it renders a
+/// lightweight loading row; on error it falls back to the same coming-soon copy
+/// the placeholder used so the card never collapses.
+class _CollectionSummary extends StatelessWidget {
+  const _CollectionSummary({
+    required this.data,
+    required this.isLoading,
+    required this.hasError,
+    required this.localeCode,
+    required this.l10n,
+    required this.onTap,
+  });
+
+  final DashboardData data;
+  final bool isLoading;
+  final bool hasError;
+  final String localeCode;
+  final AppLocalizations l10n;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final radius = BorderRadius.circular(KhatirRadius.tile);
+    return Material(
+      color: KhatirColors.sageBg,
+      borderRadius: radius,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: radius,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: KhatirSpacing.s4,
+            horizontal: KhatirSpacing.s4,
+          ),
+          child: isLoading
+              ? _buildLoading()
+              : hasError
+                  ? _buildFallback()
+                  : _buildData(context),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoading() {
+    return const SizedBox(
+      height: 20,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 16,
+            height: 16,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: KhatirColors.sageDk,
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildFallback() {
+    return Row(
+      children: [
+        const Icon(
+          Icons.insights_outlined,
+          size: 20,
+          color: KhatirColors.sageDk,
+        ),
+        const SizedBox(width: KhatirSpacing.s3),
+        Expanded(
+          child: Text(
+            l10n.home_collected_todo,
+            style: AppTextStyles.bodySmall.copyWith(
+              color: KhatirColors.sageDk,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildData(BuildContext context) {
+    final collected = l10n.home_currency_amount(
+      BanglaNumerals.format(data.totalCollected.round(), localeCode),
+    );
+    final pending = l10n.home_collected_pending(
+      l10n.home_currency_amount(
+        BanglaNumerals.format(data.totalPending.round(), localeCode),
+      ),
+    );
+    // collection_rate arrives as a 0..1 float; clamp before driving the bar.
+    final rate = data.collectionRate.clamp(0.0, 1.0);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    collected,
+                    key: const ValueKey('homeCollectedAmount'),
+                    style: AppTextStyles.titleLarge.copyWith(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 22,
+                      color: KhatirColors.sageDk,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    pending,
+                    key: const ValueKey('homePendingAmount'),
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: KhatirColors.mutedDk,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(
+              Icons.chevron_right,
+              size: 20,
+              color: KhatirColors.sageDk,
+            ),
+          ],
+        ),
+        const SizedBox(height: KhatirSpacing.s3),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(KhatirRadius.pill),
+          child: LinearProgressIndicator(
+            value: rate,
+            minHeight: 6,
+            backgroundColor: KhatirColors.card,
+            valueColor: const AlwaysStoppedAnimation(KhatirColors.sage),
+          ),
+        ),
+        const SizedBox(height: KhatirSpacing.s2),
+        Text(
+          l10n.home_view_dashboard,
+          style: AppTextStyles.bodySmall.copyWith(
+            color: KhatirColors.sageDk,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
     );
   }
 }

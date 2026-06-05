@@ -336,6 +336,28 @@ class AppLocalizationsBn extends AppLocalizations {
       'বিস্তারিত আদায় ও চার্ট শীঘ্রই · Collection detail coming soon';
 
   @override
+  String home_collected_pending(String amount) {
+    return 'বাকি $amount · Pending';
+  }
+
+  @override
+  String get home_view_dashboard => 'চার্ট দেখুন · View charts';
+
+  @override
+  String home_late_payers(String count) {
+    return '$count টি ভাড়া বাকি · $count rent overdue';
+  }
+
+  @override
+  String get home_late_payers_one => 'ভাড়া বাকি · Rent overdue';
+
+  @override
+  String get home_all_paid => 'সব ভাড়া আদায় হয়েছে · All rent collected';
+
+  @override
+  String get home_quick_request => 'চান · Ask';
+
+  @override
   String get home_add_building => 'বিল্ডিং যোগ করুন · Add building';
 
   @override
@@ -452,6 +474,71 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get unit_tenant_section => 'ভাড়াটিয়া ও লিজ';
+
+  @override
+  String get unit_maintenance => 'মেরামত';
+
+  @override
+  String get unit_expenses => 'খরচ';
+
+  @override
+  String get unit_view_all => 'সব দেখুন';
+
+  @override
+  String unit_maint_open_count(String count) {
+    return '$count টি খোলা';
+  }
+
+  @override
+  String get unit_maint_empty => 'কোনো অনুরোধ নেই';
+
+  @override
+  String get unit_maint_status_open => 'খোলা';
+
+  @override
+  String unit_expenses_total(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String unit_expenses_count(String count) {
+    return '$count টি খরচ';
+  }
+
+  @override
+  String get unit_expenses_empty => 'কোনো খরচ নেই';
+
+  @override
+  String get unit_section_error => 'লোড করা যায়নি';
+
+  @override
+  String get unit_lease_active => 'সক্রিয় লিজ';
+
+  @override
+  String get unit_lease_term => 'মেয়াদ';
+
+  @override
+  String get unit_lease_no_dates => 'মেয়াদ নির্ধারিত নয়';
+
+  @override
+  String get unit_next_due => 'পরবর্তী কিস্তি';
+
+  @override
+  String unit_next_due_value(String amount, String period) {
+    return '৳$amount · $period';
+  }
+
+  @override
+  String get unit_next_due_none => 'কোনো বকেয়া কিস্তি নেই';
+
+  @override
+  String get unit_create_lease => 'লিজ তৈরি করুন';
+
+  @override
+  String get unit_lease_verified => 'NID যাচাইকৃত';
+
+  @override
+  String get unit_lease_unverified => 'যাচাই হয়নি';
 
   @override
   String get unit_edit => 'সম্পাদনা';
@@ -652,4 +739,973 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get wizard_saved => 'বিল্ডিং সেভ হয়েছে';
+
+  @override
+  String get add_tenant_title => 'ভাড়াটিয়া যোগ · Add tenant';
+
+  @override
+  String get add_tenant_hero_title => 'চলুন একজন ভাড়াটিয়া যোগ করি';
+
+  @override
+  String get add_tenant_hero_sub => 'কীভাবে শুরু করবেন?';
+
+  @override
+  String get add_tenant_ocr => 'NID-এর ছবি তুলুন';
+
+  @override
+  String get add_tenant_ocr_sub => 'ছবি তুলুন — AI সব পূরণ করবে';
+
+  @override
+  String get add_tenant_voice => 'ভয়েস দিয়ে বলুন';
+
+  @override
+  String get add_tenant_voice_sub => 'বাংলায় বলুন';
+
+  @override
+  String get add_tenant_manual => 'হাতে লিখুন';
+
+  @override
+  String get add_tenant_manual_sub => 'নিজে পূরণ করুন';
+
+  @override
+  String get add_tenant_tip =>
+      'টিপ: NID ছবি পদ্ধতি সবচেয়ে দ্রুত — ২ মিনিটে শেষ';
+
+  @override
+  String get ocr_capture_title => 'NID স্ক্যান';
+
+  @override
+  String get ocr_capture_heading => 'NID-এর ছবি তুলুন';
+
+  @override
+  String get ocr_frame_hint => 'NID কার্ড ফ্রেমে রাখুন';
+
+  @override
+  String get ocr_privacy_note => 'ভালো আলোতে ধরুন। ছবি কোথাও পাঠানো হবে না।';
+
+  @override
+  String get ocr_take_photo => 'ছবি তুলুন';
+
+  @override
+  String get ocr_from_gallery => 'গ্যালারি থেকে';
+
+  @override
+  String get ocr_processing => 'AI পড়ছে…';
+
+  @override
+  String get ocr_error => 'ছবি পড়া যায়নি';
+
+  @override
+  String get ocr_retry => 'আবার চেষ্টা';
+
+  @override
+  String get ocr_review_title => 'যাচাই করুন';
+
+  @override
+  String get ocr_review_banner => 'AI বুঝে নিয়েছে — যাচাই করুন';
+
+  @override
+  String get ocr_low_confidence => 'এটি ভালোভাবে পড়া যায়নি — যাচাই করুন';
+
+  @override
+  String get tenant_name => 'নাম';
+
+  @override
+  String get tenant_nid => 'NID নম্বর';
+
+  @override
+  String get tenant_dob => 'জন্ম তারিখ';
+
+  @override
+  String get tenant_address => 'ঠিকানা';
+
+  @override
+  String get ocr_err_name => 'নাম দিন';
+
+  @override
+  String get ocr_err_nid => 'NID নম্বর দিন';
+
+  @override
+  String get ocr_family_section => 'পরিবার সদস্য';
+
+  @override
+  String get ocr_family_add => '+ সদস্য যোগ';
+
+  @override
+  String get ocr_family_name => 'নাম';
+
+  @override
+  String get ocr_family_relation => 'সম্পর্ক';
+
+  @override
+  String get ocr_family_remove => 'সরান';
+
+  @override
+  String get family_add => '+ সদস্য যোগ';
+
+  @override
+  String get family_name => 'নাম';
+
+  @override
+  String get family_relation => 'সম্পর্ক';
+
+  @override
+  String get family_remove => 'সরান';
+
+  @override
+  String get ocr_confirm => 'পরবর্তী — ফর্ম তৈরি 🚀';
+
+  @override
+  String get voice_title => 'ভয়েস ফর্ম';
+
+  @override
+  String get voice_heading => 'আমাকে বলুন!';
+
+  @override
+  String get voice_tap_to_record => 'মাইক চাপুন';
+
+  @override
+  String get voice_recording => 'শুনছি… ছেড়ে দিন';
+
+  @override
+  String get voice_processing => 'AI বুঝছে…';
+
+  @override
+  String get voice_error => 'শোনা যায়নি — আবার চেষ্টা করুন';
+
+  @override
+  String get voice_example_label => 'উদাহরণ';
+
+  @override
+  String get voice_example =>
+      '\"নতুন ভাড়াটিয়া, নাম রহিম উদ্দিন, ফ্ল্যাট ৪বি, ভাড়া ছাব্বিশ হাজার, মার্চ থেকে…\"';
+
+  @override
+  String get voice_unavailable => 'ভয়েস ফর্ম এখন বন্ধ আছে।';
+
+  @override
+  String get manual_title => 'হাতে DMP ফর্ম';
+
+  @override
+  String get manual_intro =>
+      'সরকারি ভাড়াটিয়া তথ্য ফরমের সব ঘর হাতে পূরণ করুন।';
+
+  @override
+  String get manual_section_landlord => '১. বাড়িওয়ালা';
+
+  @override
+  String get manual_section_tenant => '২. ভাড়াটিয়া';
+
+  @override
+  String get manual_section_unit => '৩. বর্তমান বাসা';
+
+  @override
+  String get manual_section_family => '৪. পরিবার ও কর্মচারী';
+
+  @override
+  String get manual_full_name => 'পূর্ণ নাম';
+
+  @override
+  String get manual_occupation => 'পেশা';
+
+  @override
+  String get manual_permanent_address => 'স্থায়ী ঠিকানা';
+
+  @override
+  String get manual_building => 'বিল্ডিং';
+
+  @override
+  String get manual_unit => 'ইউনিট';
+
+  @override
+  String get manual_rent => 'ভাড়া';
+
+  @override
+  String get manual_move_in => 'ওঠার তারিখ';
+
+  @override
+  String get tenant_mobile => 'মোবাইল';
+
+  @override
+  String get manual_proceed => 'ফর্ম তৈরি ও PDF দেখুন 🚀';
+
+  @override
+  String get tenant_save_error =>
+      'ভাড়াটে সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String tenant_free_tier_status(int used, int limit) {
+    return 'ফ্রি প্ল্যান: $used/$limit ভাড়াটে ব্যবহৃত';
+  }
+
+  @override
+  String get dmp_placeholder_title => 'DMP ফর্ম';
+
+  @override
+  String get dmp_placeholder_heading => 'ভাড়াটে সংরক্ষিত হয়েছে!';
+
+  @override
+  String get dmp_placeholder_body => 'DMP (পুলিশ) ফর্ম শীঘ্রই এখানে তৈরি হবে।';
+
+  @override
+  String get dmp_title => 'ডিএমপি ফর্ম · DMP form';
+
+  @override
+  String get dmp_ready => 'প্রস্তুত';
+
+  @override
+  String get dmp_hero_title => 'সব হয়ে গেছে!';
+
+  @override
+  String get dmp_hero_sub => 'ফর্ম তৈরি হয়েছে';
+
+  @override
+  String get dmp_org => 'ঢাকা মেট্রোপলিটন পুলিশ';
+
+  @override
+  String get dmp_org_sub => 'DMP · CIMS · TENANT INFORMATION';
+
+  @override
+  String get dmp_org_badge => 'ভাড়াটিয়া তথ্য ফরম';
+
+  @override
+  String get dmp_field_tenant => 'ভাড়াটিয়া · Tenant';
+
+  @override
+  String get dmp_field_nid => 'NID';
+
+  @override
+  String get dmp_field_landlord => 'বাড়িওয়ালা · Landlord';
+
+  @override
+  String get dmp_field_address => 'ঠিকানা · Address';
+
+  @override
+  String get dmp_field_present => 'বর্তমান ঠিকানা';
+
+  @override
+  String get dmp_field_permanent => 'স্থায়ী ঠিকানা';
+
+  @override
+  String get dmp_field_dob => 'জন্ম তারিখ';
+
+  @override
+  String get dmp_field_phone => 'মোবাইল · Phone';
+
+  @override
+  String get dmp_field_family => 'পরিবার · Family';
+
+  @override
+  String get dmp_generate => 'PDF তৈরি করুন · Generate PDF';
+
+  @override
+  String get dmp_edit => 'সম্পাদনা · Edit';
+
+  @override
+  String get dmp_error => 'ফর্ম লোড করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get dmp_retry => 'আবার চেষ্টা';
+
+  @override
+  String get dmp_pdf_title => 'DMP PDF · ডিএমপি পিডিএফ';
+
+  @override
+  String get dmp_generating => 'আপনার ফর্ম তৈরি হচ্ছে…';
+
+  @override
+  String get dmp_pdf_download => 'নামান · Download';
+
+  @override
+  String get dmp_pdf_share => 'শেয়ার · Share';
+
+  @override
+  String get dmp_pdf_whatsapp => 'WhatsApp-এ পাঠান · Share on WhatsApp';
+
+  @override
+  String get dmp_pdf_error => 'পিডিএফ তৈরি করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get dmp_pdf_action_failed => 'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get lease_new_title => 'নতুন ভাড়া চুক্তি';
+
+  @override
+  String get lease_edit_title => 'চুক্তি সম্পাদনা';
+
+  @override
+  String get lease_section_tenant => 'ভাড়াটে';
+
+  @override
+  String get lease_section_terms => 'শর্তাবলি';
+
+  @override
+  String get lease_tenant => 'ভাড়াটে';
+
+  @override
+  String get lease_tenant_hint => 'একজন ভাড়াটে বাছাই করুন';
+
+  @override
+  String get lease_tenant_empty =>
+      'এই ইউনিটে কোনো ভাড়াটে যোগ করা হয়নি। আগে একজন ভাড়াটে যোগ করুন।';
+
+  @override
+  String get lease_rent => 'মাসিক ভাড়া';
+
+  @override
+  String get lease_advance => 'অগ্রিম';
+
+  @override
+  String get lease_start => 'শুরুর তারিখ';
+
+  @override
+  String get lease_end => 'শেষের তারিখ';
+
+  @override
+  String get lease_due_day => 'প্রতি মাসের পরিশোধের দিন';
+
+  @override
+  String lease_due_day_value(int day) {
+    return 'প্রতি মাসের $day তারিখ';
+  }
+
+  @override
+  String get lease_due_day_note =>
+      'ভাড়ার সময়সূচি তৈরিতে এই দিনটি ব্যবহৃত হয়।';
+
+  @override
+  String get lease_save => 'খসড়া সংরক্ষণ';
+
+  @override
+  String get lease_activate => 'সংরক্ষণ ও সক্রিয় করুন';
+
+  @override
+  String get lease_err_tenant => 'চুক্তি তৈরি করতে একজন ভাড়াটে বাছাই করুন';
+
+  @override
+  String get lease_err_rent => 'একটি বৈধ ভাড়ার পরিমাণ দিন';
+
+  @override
+  String get lease_err_dates => 'শেষের তারিখ অবশ্যই শুরুর তারিখের পরে হতে হবে';
+
+  @override
+  String get lease_saved => 'চুক্তি খসড়া হিসেবে সংরক্ষিত হয়েছে';
+
+  @override
+  String get lease_activated =>
+      'চুক্তি সক্রিয় হয়েছে — ভাড়ার সময়সূচি তৈরি হয়েছে';
+
+  @override
+  String get lease_save_error => 'চুক্তি সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get lease_active_exists =>
+      'এই ইউনিটে ইতিমধ্যে একটি সক্রিয় চুক্তি রয়েছে।';
+
+  @override
+  String get leases_title => 'ভাড়া চুক্তি';
+
+  @override
+  String get leases_empty_title => 'এখনো কোনো চুক্তি নেই';
+
+  @override
+  String get leases_empty =>
+      'একটি ইউনিট থেকে ভাড়া চুক্তি তৈরি করুন, তাহলে এখানে দেখা যাবে।';
+
+  @override
+  String get lease_detail_title => 'চুক্তির বিবরণ';
+
+  @override
+  String get lease_status_draft => 'খসড়া';
+
+  @override
+  String get lease_status_active => 'সক্রিয়';
+
+  @override
+  String get lease_status_ended => 'সমাপ্ত';
+
+  @override
+  String get lease_status_terminated => 'বাতিল';
+
+  @override
+  String get lease_section_schedule => 'ভাড়ার সময়সূচি';
+
+  @override
+  String get lease_schedule_empty => 'কোনো সময়সূচি নেই — চুক্তি সক্রিয় করুন।';
+
+  @override
+  String lease_schedule_summary(String count) {
+    return '$count টি কিস্তি';
+  }
+
+  @override
+  String lease_term_range(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get lease_rent_amount => 'মাসিক ভাড়া';
+
+  @override
+  String get lease_sched_status_pending => 'বাকি';
+
+  @override
+  String get lease_sched_status_requested => 'অনুরোধ করা হয়েছে';
+
+  @override
+  String get lease_sched_status_paid => 'পরিশোধিত';
+
+  @override
+  String get lease_sched_status_overdue => 'মেয়াদোত্তীর্ণ';
+
+  @override
+  String get lease_terminate => 'চুক্তি বাতিল করুন';
+
+  @override
+  String get lease_terminate_confirm_title => 'চুক্তি বাতিল করবেন?';
+
+  @override
+  String get lease_terminate_confirm_body =>
+      'চুক্তিটি বন্ধ হয়ে যাবে এবং আর সক্রিয় থাকবে না।';
+
+  @override
+  String get lease_terminate_cancel => 'বাতিল';
+
+  @override
+  String get lease_terminated_ok => 'চুক্তি বাতিল হয়েছে';
+
+  @override
+  String get lease_terminate_error =>
+      'চুক্তি বাতিল করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get rent_request_title => 'ভাড়ার অনুরোধ';
+
+  @override
+  String get rent_request_heading => 'ভাড়া চান';
+
+  @override
+  String get rent_request_subtitle =>
+      'অ্যাপ না থাকলেও সমস্যা নেই — WhatsApp-এ লিংক পাবেন';
+
+  @override
+  String get rent_request_amount => 'ভাড়ার পরিমাণ';
+
+  @override
+  String get rent_request_period => 'সময়কাল';
+
+  @override
+  String get rent_request_period_hint => 'YYYY-MM (যেমন 2026-06)';
+
+  @override
+  String get rent_send_whatsapp => 'WhatsApp লিংক পাঠান';
+
+  @override
+  String get rent_mark_received => 'টাকা পেয়েছি (নগদ)';
+
+  @override
+  String get rent_request_err_amount => 'সঠিক পরিমাণ লিখুন';
+
+  @override
+  String get rent_request_err_period => 'YYYY-MM ফরম্যাটে সময়কাল লিখুন';
+
+  @override
+  String get rent_request_sent => 'লিংক পাঠানো হয়েছে';
+
+  @override
+  String get rent_request_received => 'টাকা পেয়েছি বলে রেকর্ড হয়েছে';
+
+  @override
+  String get rent_request_error => 'অনুরোধ পাঠানো যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get verify_title => 'পেমেন্ট যাচাই';
+
+  @override
+  String verify_claim(String name) {
+    return '$name বলছেন ভাড়া দিয়েছেন';
+  }
+
+  @override
+  String verify_amount_period(String amount, String period) {
+    return '৳$amount · $period';
+  }
+
+  @override
+  String get verify_proof => 'জমা প্রমাণ';
+
+  @override
+  String get verify_proof_none => 'এখনো কোনো প্রমাণ জমা পড়েনি';
+
+  @override
+  String get verify_proof_image_failed => 'ছবি লোড করা যায়নি';
+
+  @override
+  String get verify_proof_txn => 'লেনদেন আইডি';
+
+  @override
+  String get verify_proof_amount => 'পরিমাণ';
+
+  @override
+  String get verify_confirm => 'টাকা পেয়েছি';
+
+  @override
+  String get verify_reject => 'এখনো পাইনি';
+
+  @override
+  String get verify_reason => 'প্রত্যাখ্যানের কারণ লিখুন';
+
+  @override
+  String get verify_reason_hint => 'কেন গ্রহণ করছেন না?';
+
+  @override
+  String get verify_reason_required => 'একটি কারণ লিখুন';
+
+  @override
+  String get verify_reason_cancel => 'বাতিল';
+
+  @override
+  String get verify_reason_submit => 'প্রত্যাখ্যান';
+
+  @override
+  String get verify_verified => 'যাচাই সম্পন্ন';
+
+  @override
+  String get verify_rejected => 'অনুরোধ প্রত্যাখ্যান করা হয়েছে';
+
+  @override
+  String get verify_error => 'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get verify_load_error => 'অনুরোধ লোড করা যায়নি';
+
+  @override
+  String get verify_retry => 'আবার চেষ্টা';
+
+  @override
+  String get receipt_title => 'রসিদ';
+
+  @override
+  String get receipt_ready => 'রসিদ তৈরি হয়েছে';
+
+  @override
+  String get receipt_ready_sub => 'ভাড়াটিয়াকে পাঠিয়ে দিন';
+
+  @override
+  String get receipt_heading => 'ভাড়ার রসিদ';
+
+  @override
+  String receipt_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String get receipt_tenant => 'ভাড়াটিয়া';
+
+  @override
+  String get receipt_unit => 'ইউনিট';
+
+  @override
+  String get receipt_period => 'সময়কাল';
+
+  @override
+  String get receipt_method => 'পদ্ধতি';
+
+  @override
+  String get receipt_status => 'স্ট্যাটাস';
+
+  @override
+  String get receipt_status_paid => '✓ পরিশোধিত';
+
+  @override
+  String get receipt_no => 'রসিদ নং';
+
+  @override
+  String get receipt_share => 'ভাড়াটিয়াকে পাঠান';
+
+  @override
+  String get receipt_done => 'PDF · সম্পন্ন';
+
+  @override
+  String get receipt_dash => '—';
+
+  @override
+  String receipt_share_text(String amount, String period) {
+    return 'ভাড়ার রসিদ\n৳$amount · $period';
+  }
+
+  @override
+  String get receipt_action_failed => 'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get receipt_load_error => 'রসিদ লোড করা যায়নি';
+
+  @override
+  String get receipt_retry => 'আবার চেষ্টা';
+
+  @override
+  String get expenses_title => 'মেরামত ও খরচ';
+
+  @override
+  String get expenses_this_month => 'এ মাসে';
+
+  @override
+  String get expenses_total => 'মোট খরচ';
+
+  @override
+  String expenses_total_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String expenses_count(String count) {
+    return '$count টি খরচ';
+  }
+
+  @override
+  String get expenses_filter_all => 'সব';
+
+  @override
+  String get expenses_section_recent => 'সাম্প্রতিক খরচ';
+
+  @override
+  String get expenses_source_manual => 'ম্যানুয়াল';
+
+  @override
+  String get expenses_source_request => 'মেরামত';
+
+  @override
+  String expenses_amount(String amount) {
+    return '৳$amount';
+  }
+
+  @override
+  String get expenses_add => 'খরচ যোগ';
+
+  @override
+  String get expenses_export => 'CSV রপ্তানি';
+
+  @override
+  String get expenses_export_failed =>
+      'রপ্তানি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get expenses_empty => 'এখনও কোনো খরচ নেই';
+
+  @override
+  String get expenses_category_plumbing => 'প্লাম্বিং';
+
+  @override
+  String get expenses_category_paint => 'পেইন্ট';
+
+  @override
+  String get expenses_category_electrical => 'বিদ্যুৎ';
+
+  @override
+  String get expenses_category_structural => 'স্ট্রাকচার';
+
+  @override
+  String get expenses_category_appliance => 'অ্যাপ্লায়েন্স';
+
+  @override
+  String get expenses_category_utility => 'ইউটিলিটি';
+
+  @override
+  String get expenses_category_other => 'অন্যান্য';
+
+  @override
+  String get add_expense_title => 'খরচ যোগ';
+
+  @override
+  String get expense_amount => 'পরিমাণ';
+
+  @override
+  String get expense_amount_hint => '৳ ০';
+
+  @override
+  String get expense_category => 'খাত';
+
+  @override
+  String get expense_unit => 'ইউনিট';
+
+  @override
+  String get expense_building => 'ভবন';
+
+  @override
+  String get expense_unit_hint => 'একটি ইউনিট বাছুন';
+
+  @override
+  String get expense_building_hint => 'একটি ভবন বাছুন';
+
+  @override
+  String get expense_date => 'তারিখ';
+
+  @override
+  String get expense_note => 'নোট (ঐচ্ছিক)';
+
+  @override
+  String get expense_receipt => 'রসিদ (ঐচ্ছিক)';
+
+  @override
+  String get expense_receipt_add => 'রসিদ যোগ করুন';
+
+  @override
+  String get expense_receipt_attached => 'রসিদ যুক্ত হয়েছে';
+
+  @override
+  String get expense_receipt_remove => 'সরান';
+
+  @override
+  String get expense_save => 'খরচ সেভ করুন';
+
+  @override
+  String get expense_err_amount => 'একটি বৈধ পরিমাণ দিন';
+
+  @override
+  String get expense_err_unit => 'ইউনিট বাছাই করুন';
+
+  @override
+  String get expense_saved => 'খরচ সেভ হয়েছে';
+
+  @override
+  String get expense_save_failed => 'সেভ হয়নি';
+
+  @override
+  String get maintenance_title => 'মেরামতের অনুরোধ';
+
+  @override
+  String get maintenance_section_open => 'নতুন অনুরোধ';
+
+  @override
+  String maintenance_open_count(String count) {
+    return '$count টি অপেক্ষায়';
+  }
+
+  @override
+  String maintenance_unit(String unit) {
+    return 'ইউনিট $unit';
+  }
+
+  @override
+  String get maintenance_resolve => 'সমাধান + খরচ';
+
+  @override
+  String get maintenance_resolved_badge => 'সমাধান হয়েছে';
+
+  @override
+  String get maintenance_cost => 'খরচ';
+
+  @override
+  String get maintenance_cost_hint => '৳ ০';
+
+  @override
+  String get maintenance_resolution_note => 'নোট (ঐচ্ছিক)';
+
+  @override
+  String get maintenance_resolve_title => 'সমাধান + খরচ';
+
+  @override
+  String get maintenance_resolve_hint => 'এই খরচ একটি খরচ এন্ট্রি তৈরি করবে';
+
+  @override
+  String get maintenance_resolve_confirm => 'সমাধান করুন';
+
+  @override
+  String get maintenance_resolve_cancel => 'বাতিল';
+
+  @override
+  String get maintenance_err_cost => 'একটি বৈধ খরচ দিন';
+
+  @override
+  String get maintenance_resolved => 'অনুরোধ সমাধান হয়েছে';
+
+  @override
+  String get maintenance_resolve_failed => 'সমাধান হয়নি';
+
+  @override
+  String get maintenance_empty => 'কোনো খোলা অনুরোধ নেই';
+
+  @override
+  String get maintenance_category_plumbing => 'পানি';
+
+  @override
+  String get maintenance_category_electrical => 'বিদ্যুৎ';
+
+  @override
+  String get maintenance_category_paint => 'পেইন্ট';
+
+  @override
+  String get maintenance_category_structural => 'স্ট্রাকচার';
+
+  @override
+  String get maintenance_category_appliance => 'অ্যাপ্লায়েন্স';
+
+  @override
+  String get maintenance_category_utility => 'ইউটিলিটি';
+
+  @override
+  String get maintenance_category_other => 'অন্যান্য';
+
+  @override
+  String get dashboard_title => 'ড্যাশবোর্ড';
+
+  @override
+  String get dashboard_income => 'এ মাসের মোট আয়';
+
+  @override
+  String dashboard_amount(String value) {
+    return '৳$value';
+  }
+
+  @override
+  String get dashboard_collection => 'আদায় হার (৬ মাস)';
+
+  @override
+  String get dashboard_occupancy => 'অকুপেন্সি';
+
+  @override
+  String dashboard_occupancy_units(String occupied, String total) {
+    return '$occupied/$total';
+  }
+
+  @override
+  String get dashboard_occupied => 'ভাড়া হয়েছে';
+
+  @override
+  String get dashboard_vacant => 'খালি';
+
+  @override
+  String get dashboard_income_expense => 'আয় ও খরচ';
+
+  @override
+  String get dashboard_income_legend => 'আয়';
+
+  @override
+  String get dashboard_expense_legend => 'খরচ';
+
+  @override
+  String get dashboard_income_series => 'আয়';
+
+  @override
+  String get dashboard_expense_series => 'খরচ';
+
+  @override
+  String get dashboard_expenses => 'প্রধান খরচ 💸';
+
+  @override
+  String get dashboard_late => 'দেরিতে ভাড়া';
+
+  @override
+  String get dashboard_late_none => 'কেউ দেরিতে নেই';
+
+  @override
+  String dashboard_late_count(String count) {
+    return '$count জন দেরিতে';
+  }
+
+  @override
+  String get dashboard_late_request => 'ভাড়ার অনুরোধ পাঠান';
+
+  @override
+  String get dashboard_chart_empty => 'কোনো তথ্য নেই';
+
+  @override
+  String get dashboard_empty =>
+      'এখনো কোনো তথ্য নেই — ভাড়াটিয়া যোগ করুন ও ভাড়া লিপিবদ্ধ করুন।';
+
+  @override
+  String get plan_title => 'প্ল্যান · Plan';
+
+  @override
+  String get plan_current => 'এখন';
+
+  @override
+  String plan_current_banner(String tier) {
+    return 'এখন $tier-এ আছেন';
+  }
+
+  @override
+  String plan_usage(String used, String limit) {
+    return '$used/$limit ভাড়াটিয়া ব্যবহৃত';
+  }
+
+  @override
+  String plan_usage_unlimited(String used) {
+    return '$used ভাড়াটিয়া · সীমাহীন';
+  }
+
+  @override
+  String get plan_free => 'ফ্রি';
+
+  @override
+  String get plan_upgrade => 'bKash / Nagad দিয়ে আপগ্রেড';
+
+  @override
+  String get plan_choose => 'এই প্ল্যান নিন';
+
+  @override
+  String get plan_best_value => '⭐ সেরা মূল্য';
+
+  @override
+  String get plan_per_month => '/মাস';
+
+  @override
+  String get plan_per_tenant_month => '/ভাড়াটিয়া/মাস';
+
+  @override
+  String plan_band(String min, String max) {
+    return '$min–$max ভাড়াটিয়া';
+  }
+
+  @override
+  String plan_band_min(String min) {
+    return '$min+ ভাড়াটিয়া';
+  }
+
+  @override
+  String get plan_band_unlimited => 'সীমাহীন ভাড়াটিয়া';
+
+  @override
+  String get plan_includes_verification => '+ NID যাচাই';
+
+  @override
+  String get plan_billing_note => 'দাম অ্যাডমিন-নিয়ন্ত্রিত · নমুনা';
+
+  @override
+  String get plan_billing_confirm_pending => 'পেমেন্ট নিশ্চিত হলে আমরা জানাব';
+
+  @override
+  String get plan_billing_error => 'আপগ্রেড করা যায়নি · আবার চেষ্টা করুন';
+
+  @override
+  String get plan_empty => 'কোনো প্ল্যান নেই';
+
+  @override
+  String get upgrade_title => 'আপনি ফ্রি সীমায় পৌঁছেছেন';
+
+  @override
+  String get upgrade_body =>
+      'ফ্রি প্ল্যানে প্রথম ২ জন ভাড়াটিয়া অন্তর্ভুক্ত। আরও যোগ করতে ও NID যাচাই চালু করতে আপগ্রেড করুন।';
+
+  @override
+  String get upgrade_cta => 'প্ল্যান আপগ্রেড';
+
+  @override
+  String get upgrade_later => 'এখন নয়';
+
+  @override
+  String get unit_lease_request_rent => 'ভাড়া চান';
+
+  @override
+  String get unit_lease_none => 'এখনো কোনো লিজ নেই';
+
+  @override
+  String get unit_lease_none_body => 'এই ইউনিটের জন্য একটি লিজ তৈরি করুন।';
+
+  @override
+  String get unit_tenant_verified => 'NID যাচাইকৃত';
+
+  @override
+  String get unit_tenant_unverified => 'NID যাচাই হয়নি';
 }

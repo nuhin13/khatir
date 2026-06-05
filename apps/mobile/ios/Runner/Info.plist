@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- Voice tenant entry (EPIC-04 T-012): mic access to record a Bangla clip
+	     for ASR. The clip is uploaded then discarded — never persisted. -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Khatir uses the microphone so you can speak a tenant's details in Bangla. The recording is uploaded for transcription, then discarded.</string>
 </dict>
 </plist>

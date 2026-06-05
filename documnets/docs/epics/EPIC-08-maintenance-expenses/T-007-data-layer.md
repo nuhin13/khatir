@@ -4,15 +4,15 @@ epic: EPIC-08
 title: Flutter maintenance+expense data layer
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002, T-003]
 blocks: [T-008, T-009, T-010, T-011]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -46,12 +46,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] freezed models
-- [ ] maintenance repo (queue/resolve)
-- [ ] expense repo (CRUD/export)
-- [ ] providers
-- [ ] tests (mocked)
-- [ ] analyze + test pass
+- [x] freezed models
+- [x] maintenance repo (queue/resolve)
+- [x] expense repo (CRUD/export)
+- [x] providers
+- [x] tests (mocked)
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -60,12 +60,23 @@ None.
 1. List + resolve via repo.
 
 ## 13. Acceptance criteria
-- [ ] Typed data layer; tests + analyze pass.
+- [x] Typed data layer; tests + analyze pass.
 
 ## 14. Self-review
-- [ ] Wire schema matches backend
+- [x] Wire schema matches backend
 ### Deviations from spec
+- None. Models/repos mirror the committed T-002/T-003 serializers exactly.
+- The summary aggregation types (ExpenseSummary/by_category/by_month) and the
+  CSV export helper were added here so T-012 (expense summary hook) consumes a
+  ready typed slice; both come straight off the existing backend endpoints.
 ### Files touched (actual)
+- apps/mobile/lib/features/maintenance/data/models/maintenance_enums.dart (add)
+- apps/mobile/lib/features/maintenance/data/models/models.dart (+ models.freezed.dart) (add)
+- apps/mobile/lib/features/maintenance/data/maintenance_repository.dart (add)
+- apps/mobile/lib/features/maintenance/data/expense_repository.dart (add)
+- apps/mobile/lib/features/maintenance/data/providers.dart (add)
+- apps/mobile/lib/core/network/api_endpoints.dart (update: maintenance/expenses paths)
+- apps/mobile/test/maintenance_data_layer_test.dart (add)
 
 ## 15. Notes for the implementing agent
 - Enums per enums.md.

@@ -716,6 +716,42 @@ abstract class AppLocalizations {
   /// **'বিস্তারিত আদায় ও চার্ট শীঘ্রই · Collection detail coming soon'**
   String get home_collected_todo;
 
+  /// Sub-label under the collected amount showing the still-pending total.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাকি {amount} · Pending'**
+  String home_collected_pending(String amount);
+
+  /// Tap hint on the home collection card that opens the dashboard tab.
+  ///
+  /// In bn, this message translates to:
+  /// **'চার্ট দেখুন · View charts'**
+  String get home_view_dashboard;
+
+  /// Home late-payers heading with the overdue count.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি ভাড়া বাকি · {count} rent overdue'**
+  String home_late_payers(String count);
+
+  /// Per-row label on a single overdue rent request.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া বাকি · Rent overdue'**
+  String get home_late_payers_one;
+
+  /// Home empty/all-paid reassurance when nothing is overdue.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব ভাড়া আদায় হয়েছে · All rent collected'**
+  String get home_all_paid;
+
+  /// Compact quick-request action on a late-payer row.
+  ///
+  /// In bn, this message translates to:
+  /// **'চান · Ask'**
+  String get home_quick_request;
+
   /// Empty-state primary action: add the first building.
   ///
   /// In bn, this message translates to:
@@ -931,6 +967,120 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'ভাড়াটিয়া ও লিজ'**
   String get unit_tenant_section;
+
+  /// No description provided for @unit_maintenance.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামত'**
+  String get unit_maintenance;
+
+  /// No description provided for @unit_expenses.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ'**
+  String get unit_expenses;
+
+  /// No description provided for @unit_view_all.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব দেখুন'**
+  String get unit_view_all;
+
+  /// No description provided for @unit_maint_open_count.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি খোলা'**
+  String unit_maint_open_count(String count);
+
+  /// No description provided for @unit_maint_empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো অনুরোধ নেই'**
+  String get unit_maint_empty;
+
+  /// No description provided for @unit_maint_status_open.
+  ///
+  /// In bn, this message translates to:
+  /// **'খোলা'**
+  String get unit_maint_status_open;
+
+  /// No description provided for @unit_expenses_total.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
+  String unit_expenses_total(String amount);
+
+  /// No description provided for @unit_expenses_count.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি খরচ'**
+  String unit_expenses_count(String count);
+
+  /// No description provided for @unit_expenses_empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো খরচ নেই'**
+  String get unit_expenses_empty;
+
+  /// No description provided for @unit_section_error.
+  ///
+  /// In bn, this message translates to:
+  /// **'লোড করা যায়নি'**
+  String get unit_section_error;
+
+  /// Heading for the active-lease summary card on the unit-detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'সক্রিয় লিজ'**
+  String get unit_lease_active;
+
+  /// Label for the lease term (start – end) on the unit-detail lease summary.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেয়াদ'**
+  String get unit_lease_term;
+
+  /// No description provided for @unit_lease_no_dates.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেয়াদ নির্ধারিত নয়'**
+  String get unit_lease_no_dates;
+
+  /// Label preceding the next upcoming rent period on the unit-detail lease summary.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী কিস্তি'**
+  String get unit_next_due;
+
+  /// The next upcoming rent period: amount and period.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount} · {period}'**
+  String unit_next_due_value(String amount, String period);
+
+  /// Shown on the unit-detail lease summary when the active lease has no upcoming (unpaid) period.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো বকেয়া কিস্তি নেই'**
+  String get unit_next_due_none;
+
+  /// CTA on the unit-detail screen to create a new lease when the unit has none.
+  ///
+  /// In bn, this message translates to:
+  /// **'লিজ তৈরি করুন'**
+  String get unit_create_lease;
+
+  /// No description provided for @unit_lease_verified.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাইকৃত'**
+  String get unit_lease_verified;
+
+  /// No description provided for @unit_lease_unverified.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই হয়নি'**
+  String get unit_lease_unverified;
 
   /// No description provided for @unit_edit.
   ///
@@ -1315,6 +1465,1830 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'বিল্ডিং সেভ হয়েছে'**
   String get wizard_saved;
+
+  /// Add-tenant method chooser top-bar title (bilingual).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া যোগ · Add tenant'**
+  String get add_tenant_title;
+
+  /// Add-tenant chooser hero headline.
+  ///
+  /// In bn, this message translates to:
+  /// **'চলুন একজন ভাড়াটিয়া যোগ করি'**
+  String get add_tenant_hero_title;
+
+  /// Add-tenant chooser hero sub-prompt (handwritten accent).
+  ///
+  /// In bn, this message translates to:
+  /// **'কীভাবে শুরু করবেন?'**
+  String get add_tenant_hero_sub;
+
+  /// OCR method card title.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID-এর ছবি তুলুন'**
+  String get add_tenant_ocr;
+
+  /// OCR method card subtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি তুলুন — AI সব পূরণ করবে'**
+  String get add_tenant_ocr_sub;
+
+  /// Voice method card title.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভয়েস দিয়ে বলুন'**
+  String get add_tenant_voice;
+
+  /// Voice method card subtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাংলায় বলুন'**
+  String get add_tenant_voice_sub;
+
+  /// Manual method card title.
+  ///
+  /// In bn, this message translates to:
+  /// **'হাতে লিখুন'**
+  String get add_tenant_manual;
+
+  /// Manual method card subtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'নিজে পূরণ করুন'**
+  String get add_tenant_manual_sub;
+
+  /// Tip card under the method list.
+  ///
+  /// In bn, this message translates to:
+  /// **'টিপ: NID ছবি পদ্ধতি সবচেয়ে দ্রুত — ২ মিনিটে শেষ'**
+  String get add_tenant_tip;
+
+  /// Top-bar title for the NID OCR capture screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID স্ক্যান'**
+  String get ocr_capture_title;
+
+  /// Handwritten-style heading above the camera frame.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID-এর ছবি তুলুন'**
+  String get ocr_capture_heading;
+
+  /// Hint inside the camera viewfinder frame.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID কার্ড ফ্রেমে রাখুন'**
+  String get ocr_frame_hint;
+
+  /// Privacy reassurance card under the camera frame.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভালো আলোতে ধরুন। ছবি কোথাও পাঠানো হবে না।'**
+  String get ocr_privacy_note;
+
+  /// Camera capture button.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি তুলুন'**
+  String get ocr_take_photo;
+
+  /// Gallery fallback button.
+  ///
+  /// In bn, this message translates to:
+  /// **'গ্যালারি থেকে'**
+  String get ocr_from_gallery;
+
+  /// Loading label shown while the upload + OCR runs.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI পড়ছে…'**
+  String get ocr_processing;
+
+  /// Error heading shown when OCR fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি পড়া যায়নি'**
+  String get ocr_error;
+
+  /// Retry button shown on the OCR error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get ocr_retry;
+
+  /// Top-bar title for the OCR review/edit screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই করুন'**
+  String get ocr_review_title;
+
+  /// Banner reminding the landlord to verify the extracted fields.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI বুঝে নিয়েছে — যাচাই করুন'**
+  String get ocr_review_banner;
+
+  /// Hint shown under a field the OCR extracted with low confidence.
+  ///
+  /// In bn, this message translates to:
+  /// **'এটি ভালোভাবে পড়া যায়নি — যাচাই করুন'**
+  String get ocr_low_confidence;
+
+  /// Label for the tenant name field.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম'**
+  String get tenant_name;
+
+  /// Label for the tenant NID number field.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID নম্বর'**
+  String get tenant_nid;
+
+  /// Label for the tenant date-of-birth field.
+  ///
+  /// In bn, this message translates to:
+  /// **'জন্ম তারিখ'**
+  String get tenant_dob;
+
+  /// Label for the tenant address field.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঠিকানা'**
+  String get tenant_address;
+
+  /// Validation error when the name field is empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম দিন'**
+  String get ocr_err_name;
+
+  /// Validation error when the NID field is empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID নম্বর দিন'**
+  String get ocr_err_nid;
+
+  /// Section heading for the family-members sub-form.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিবার সদস্য'**
+  String get ocr_family_section;
+
+  /// Button to add a family-member row.
+  ///
+  /// In bn, this message translates to:
+  /// **'+ সদস্য যোগ'**
+  String get ocr_family_add;
+
+  /// Label for a family-member name field.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম'**
+  String get ocr_family_name;
+
+  /// Label for a family-member relation field.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পর্ক'**
+  String get ocr_family_relation;
+
+  /// Tooltip/label to remove a family-member row.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরান'**
+  String get ocr_family_remove;
+
+  /// Shared family sub-form: add a family-member row.
+  ///
+  /// In bn, this message translates to:
+  /// **'+ সদস্য যোগ'**
+  String get family_add;
+
+  /// Shared family sub-form: label for a family-member name field.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম'**
+  String get family_name;
+
+  /// Shared family sub-form: label for a family-member relation field.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পর্ক'**
+  String get family_relation;
+
+  /// Shared family sub-form: tooltip to remove a family-member row.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরান'**
+  String get family_remove;
+
+  /// Proceed button that saves the reviewed tenant and continues to the DMP form.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী — ফর্ম তৈরি 🚀'**
+  String get ocr_confirm;
+
+  /// App-bar title for the voice tenant-entry screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভয়েস ফর্ম'**
+  String get voice_title;
+
+  /// Handwritten hero greeting above the mic on the voice screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমাকে বলুন!'**
+  String get voice_heading;
+
+  /// Prompt/label inviting the user to press the mic to start recording.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাইক চাপুন'**
+  String get voice_tap_to_record;
+
+  /// Label shown under the mic while recording is in progress.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুনছি… ছেড়ে দিন'**
+  String get voice_recording;
+
+  /// Loading label while the clip uploads and ASR extracts fields.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI বুঝছে…'**
+  String get voice_processing;
+
+  /// Error message when recording, mic permission, or upload fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'শোনা যায়নি — আবার চেষ্টা করুন'**
+  String get voice_error;
+
+  /// Label above the example phrasing card on the voice screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'উদাহরণ'**
+  String get voice_example_label;
+
+  /// Example Bangla phrasing the landlord can speak.
+  ///
+  /// In bn, this message translates to:
+  /// **'\"নতুন ভাড়াটিয়া, নাম রহিম উদ্দিন, ফ্ল্যাট ৪বি, ভাড়া ছাব্বিশ হাজার, মার্চ থেকে…\"'**
+  String get voice_example;
+
+  /// Shown when the voice_tenant_entry feature flag is off.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভয়েস ফর্ম এখন বন্ধ আছে।'**
+  String get voice_unavailable;
+
+  /// App-bar title of the manual tenant-entry form.
+  ///
+  /// In bn, this message translates to:
+  /// **'হাতে DMP ফর্ম'**
+  String get manual_title;
+
+  /// Intro banner explaining the manual form fills the DMP fields by hand.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরকারি ভাড়াটিয়া তথ্য ফরমের সব ঘর হাতে পূরণ করুন।'**
+  String get manual_intro;
+
+  /// Section heading for the landlord block of the manual form.
+  ///
+  /// In bn, this message translates to:
+  /// **'১. বাড়িওয়ালা'**
+  String get manual_section_landlord;
+
+  /// Section heading for the tenant block of the manual form.
+  ///
+  /// In bn, this message translates to:
+  /// **'২. ভাড়াটিয়া'**
+  String get manual_section_tenant;
+
+  /// Section heading for the current-unit block of the manual form.
+  ///
+  /// In bn, this message translates to:
+  /// **'৩. বর্তমান বাসা'**
+  String get manual_section_unit;
+
+  /// Section heading for the family & staff block of the manual form.
+  ///
+  /// In bn, this message translates to:
+  /// **'৪. পরিবার ও কর্মচারী'**
+  String get manual_section_family;
+
+  /// Tenant full-name field label (required).
+  ///
+  /// In bn, this message translates to:
+  /// **'পূর্ণ নাম'**
+  String get manual_full_name;
+
+  /// Tenant occupation field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেশা'**
+  String get manual_occupation;
+
+  /// Tenant permanent-address field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্থায়ী ঠিকানা'**
+  String get manual_permanent_address;
+
+  /// Current-unit building field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিল্ডিং'**
+  String get manual_building;
+
+  /// Current-unit unit field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট'**
+  String get manual_unit;
+
+  /// Current-unit monthly rent field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া'**
+  String get manual_rent;
+
+  /// Current-unit move-in date field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ওঠার তারিখ'**
+  String get manual_move_in;
+
+  /// Shared mobile-number field label for tenant forms.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল'**
+  String get tenant_mobile;
+
+  /// Proceed button on the manual form — builds the DMP form.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফর্ম তৈরি ও PDF দেখুন 🚀'**
+  String get manual_proceed;
+
+  /// Snackbar shown when saving a tenant fails (network/server error).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটে সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।'**
+  String get tenant_save_error;
+
+  /// Free-tier usage toast after saving a tenant (e.g. 1/2 used).
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্রি প্ল্যান: {used}/{limit} ভাড়াটে ব্যবহৃত'**
+  String tenant_free_tier_status(int used, int limit);
+
+  /// App-bar title of the DMP form placeholder screen (until EPIC-05).
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP ফর্ম'**
+  String get dmp_placeholder_title;
+
+  /// Heading on the DMP placeholder confirming the tenant was saved.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটে সংরক্ষিত হয়েছে!'**
+  String get dmp_placeholder_heading;
+
+  /// Body on the DMP placeholder explaining the real form lands in EPIC-05.
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP (পুলিশ) ফর্ম শীঘ্রই এখানে তৈরি হবে।'**
+  String get dmp_placeholder_body;
+
+  /// App-bar title of the DMP form preview screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ডিএমপি ফর্ম · DMP form'**
+  String get dmp_title;
+
+  /// Top-bar chip indicating the DMP form is assembled and ready.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রস্তুত'**
+  String get dmp_ready;
+
+  /// Celebratory heading on the DMP preview — the form is assembled.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব হয়ে গেছে!'**
+  String get dmp_hero_title;
+
+  /// Subheading under the DMP preview hero.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফর্ম তৈরি হয়েছে'**
+  String get dmp_hero_sub;
+
+  /// Organisation name printed at the top of the DMP form card.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঢাকা মেট্রোপলিটন পুলিশ'**
+  String get dmp_org;
+
+  /// Sub-label under the DMP org name on the form card.
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP · CIMS · TENANT INFORMATION'**
+  String get dmp_org_sub;
+
+  /// Pill badge describing the DMP form type.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া তথ্য ফরম'**
+  String get dmp_org_badge;
+
+  /// Field label: tenant name.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া · Tenant'**
+  String get dmp_field_tenant;
+
+  /// Field label: national ID (masked).
+  ///
+  /// In bn, this message translates to:
+  /// **'NID'**
+  String get dmp_field_nid;
+
+  /// Field label: landlord name.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাড়িওয়ালা · Landlord'**
+  String get dmp_field_landlord;
+
+  /// Field label: building/rented address.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঠিকানা · Address'**
+  String get dmp_field_address;
+
+  /// Field label: tenant present address.
+  ///
+  /// In bn, this message translates to:
+  /// **'বর্তমান ঠিকানা'**
+  String get dmp_field_present;
+
+  /// Field label: tenant permanent address.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্থায়ী ঠিকানা'**
+  String get dmp_field_permanent;
+
+  /// Field label: date of birth.
+  ///
+  /// In bn, this message translates to:
+  /// **'জন্ম তারিখ'**
+  String get dmp_field_dob;
+
+  /// Field label: landlord phone.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল · Phone'**
+  String get dmp_field_phone;
+
+  /// Section label for the household members table.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিবার · Family'**
+  String get dmp_field_family;
+
+  /// Primary action: generate the DMP PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF তৈরি করুন · Generate PDF'**
+  String get dmp_generate;
+
+  /// Secondary action: go back to edit the tenant.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পাদনা · Edit'**
+  String get dmp_edit;
+
+  /// Error state message on the DMP preview.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফর্ম লোড করা যায়নি। আবার চেষ্টা করুন।'**
+  String get dmp_error;
+
+  /// Retry button on the DMP preview error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get dmp_retry;
+
+  /// Title of the DMP PDF preview + share screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'DMP PDF · ডিএমপি পিডিএফ'**
+  String get dmp_pdf_title;
+
+  /// Loading message while the DMP PDF is generated + downloaded.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনার ফর্ম তৈরি হচ্ছে…'**
+  String get dmp_generating;
+
+  /// Primary action: download/save the generated DMP PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'নামান · Download'**
+  String get dmp_pdf_download;
+
+  /// Secondary action: share the DMP PDF via the OS sheet (WhatsApp/system).
+  ///
+  /// In bn, this message translates to:
+  /// **'শেয়ার · Share'**
+  String get dmp_pdf_share;
+
+  /// WhatsApp-specific share label for the DMP PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'WhatsApp-এ পাঠান · Share on WhatsApp'**
+  String get dmp_pdf_whatsapp;
+
+  /// Error state message when DMP PDF generation fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'পিডিএফ তৈরি করা যায়নি। আবার চেষ্টা করুন।'**
+  String get dmp_pdf_error;
+
+  /// Snackbar shown when a share/download action fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
+  String get dmp_pdf_action_failed;
+
+  /// App-bar title of the lease create form.
+  ///
+  /// In bn, this message translates to:
+  /// **'নতুন ভাড়া চুক্তি'**
+  String get lease_new_title;
+
+  /// App-bar title of the lease edit form.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি সম্পাদনা'**
+  String get lease_edit_title;
+
+  /// Section heading above the tenant picker on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটে'**
+  String get lease_section_tenant;
+
+  /// Section heading above the rent/advance/dates terms on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'শর্তাবলি'**
+  String get lease_section_terms;
+
+  /// Label of the tenant picker field on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটে'**
+  String get lease_tenant;
+
+  /// Placeholder of the tenant picker when no tenant is selected.
+  ///
+  /// In bn, this message translates to:
+  /// **'একজন ভাড়াটে বাছাই করুন'**
+  String get lease_tenant_hint;
+
+  /// Helper shown when the unit has no tenants to lease to.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই ইউনিটে কোনো ভাড়াটে যোগ করা হয়নি। আগে একজন ভাড়াটে যোগ করুন।'**
+  String get lease_tenant_empty;
+
+  /// Monthly rent amount field label on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাসিক ভাড়া'**
+  String get lease_rent;
+
+  /// Advance (deposit) amount field label on the lease form.
+  ///
+  /// In bn, this message translates to:
+  /// **'অগ্রিম'**
+  String get lease_advance;
+
+  /// Lease start-date field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুরুর তারিখ'**
+  String get lease_start;
+
+  /// Lease end-date field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'শেষের তারিখ'**
+  String get lease_end;
+
+  /// Monthly rent due-day field label (defaults from config).
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রতি মাসের পরিশোধের দিন'**
+  String get lease_due_day;
+
+  /// Formatted due-day value (e.g. the 5th of each month).
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রতি মাসের {day} তারিখ'**
+  String lease_due_day_value(int day);
+
+  /// Helper explaining the due-day drives the generated rent schedule.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার সময়সূচি তৈরিতে এই দিনটি ব্যবহৃত হয়।'**
+  String get lease_due_day_note;
+
+  /// Primary button — saves the lease as a draft.
+  ///
+  /// In bn, this message translates to:
+  /// **'খসড়া সংরক্ষণ'**
+  String get lease_save;
+
+  /// Button that creates the lease draft and activates it (generates the schedule).
+  ///
+  /// In bn, this message translates to:
+  /// **'সংরক্ষণ ও সক্রিয় করুন'**
+  String get lease_activate;
+
+  /// Validation error when no tenant is selected.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি তৈরি করতে একজন ভাড়াটে বাছাই করুন'**
+  String get lease_err_tenant;
+
+  /// Validation error for a missing/invalid rent amount.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি বৈধ ভাড়ার পরিমাণ দিন'**
+  String get lease_err_rent;
+
+  /// Validation error when the end date is not after the start date.
+  ///
+  /// In bn, this message translates to:
+  /// **'শেষের তারিখ অবশ্যই শুরুর তারিখের পরে হতে হবে'**
+  String get lease_err_dates;
+
+  /// Snackbar shown after a lease draft is saved.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি খসড়া হিসেবে সংরক্ষিত হয়েছে'**
+  String get lease_saved;
+
+  /// Snackbar shown after a lease is activated and its schedule generated.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি সক্রিয় হয়েছে — ভাড়ার সময়সূচি তৈরি হয়েছে'**
+  String get lease_activated;
+
+  /// Snackbar shown when saving/activating a lease fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।'**
+  String get lease_save_error;
+
+  /// Friendly message when the backend rejects activation because the unit already has an active lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই ইউনিটে ইতিমধ্যে একটি সক্রিয় চুক্তি রয়েছে।'**
+  String get lease_active_exists;
+
+  /// App-bar title of the lease list screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া চুক্তি'**
+  String get leases_title;
+
+  /// Empty-state title on the lease list when the landlord has no leases.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো চুক্তি নেই'**
+  String get leases_empty_title;
+
+  /// Empty-state body on the lease list.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি ইউনিট থেকে ভাড়া চুক্তি তৈরি করুন, তাহলে এখানে দেখা যাবে।'**
+  String get leases_empty;
+
+  /// App-bar title of the lease detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তির বিবরণ'**
+  String get lease_detail_title;
+
+  /// Label for a draft lease status.
+  ///
+  /// In bn, this message translates to:
+  /// **'খসড়া'**
+  String get lease_status_draft;
+
+  /// Label for an active lease status.
+  ///
+  /// In bn, this message translates to:
+  /// **'সক্রিয়'**
+  String get lease_status_active;
+
+  /// Label for an ended (natural end-of-term) lease status.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাপ্ত'**
+  String get lease_status_ended;
+
+  /// Label for a terminated (early-closed) lease status.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
+  String get lease_status_terminated;
+
+  /// Section heading above the rent-schedule summary on lease detail.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার সময়সূচি'**
+  String get lease_section_schedule;
+
+  /// Shown on lease detail when the lease has no rent-schedule rows.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো সময়সূচি নেই — চুক্তি সক্রিয় করুন।'**
+  String get lease_schedule_empty;
+
+  /// Count summary of the rent-schedule periods.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি কিস্তি'**
+  String lease_schedule_summary(String count);
+
+  /// Lease term shown as start – end on the detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'{start} – {end}'**
+  String lease_term_range(String start, String end);
+
+  /// Label for the lease's monthly rent on the detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাসিক ভাড়া'**
+  String get lease_rent_amount;
+
+  /// Rent-schedule row status: pending.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাকি'**
+  String get lease_sched_status_pending;
+
+  /// Rent-schedule row status: requested.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ করা হয়েছে'**
+  String get lease_sched_status_requested;
+
+  /// Rent-schedule row status: paid.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিশোধিত'**
+  String get lease_sched_status_paid;
+
+  /// Rent-schedule row status: overdue.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেয়াদোত্তীর্ণ'**
+  String get lease_sched_status_overdue;
+
+  /// Action button that terminates an active lease on the detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি বাতিল করুন'**
+  String get lease_terminate;
+
+  /// Title of the terminate confirmation dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি বাতিল করবেন?'**
+  String get lease_terminate_confirm_title;
+
+  /// Body of the terminate confirmation dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তিটি বন্ধ হয়ে যাবে এবং আর সক্রিয় থাকবে না।'**
+  String get lease_terminate_confirm_body;
+
+  /// Cancel button on the terminate confirmation dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
+  String get lease_terminate_cancel;
+
+  /// Snackbar shown after a lease is terminated.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি বাতিল হয়েছে'**
+  String get lease_terminated_ok;
+
+  /// Snackbar shown when terminating a lease fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি বাতিল করা যায়নি। আবার চেষ্টা করুন।'**
+  String get lease_terminate_error;
+
+  /// App-bar title of the rent-request screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার অনুরোধ'**
+  String get rent_request_title;
+
+  /// Hero heading on the rent-request screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া চান'**
+  String get rent_request_heading;
+
+  /// Hero subtitle explaining the tenant gets a WhatsApp link.
+  ///
+  /// In bn, this message translates to:
+  /// **'অ্যাপ না থাকলেও সমস্যা নেই — WhatsApp-এ লিংক পাবেন'**
+  String get rent_request_subtitle;
+
+  /// Label of the rent amount field on the rent-request screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার পরিমাণ'**
+  String get rent_request_amount;
+
+  /// Label of the billing period (YYYY-MM) field on the rent-request screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'সময়কাল'**
+  String get rent_request_period;
+
+  /// Helper text for the period field's expected YYYY-MM format.
+  ///
+  /// In bn, this message translates to:
+  /// **'YYYY-MM (যেমন 2026-06)'**
+  String get rent_request_period_hint;
+
+  /// Primary action: create the request and send the tenant link.
+  ///
+  /// In bn, this message translates to:
+  /// **'WhatsApp লিংক পাঠান'**
+  String get rent_send_whatsapp;
+
+  /// Secondary action: record an off-platform cash payment and settle.
+  ///
+  /// In bn, this message translates to:
+  /// **'টাকা পেয়েছি (নগদ)'**
+  String get rent_mark_received;
+
+  /// Validation error when the rent amount is missing or not positive.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক পরিমাণ লিখুন'**
+  String get rent_request_err_amount;
+
+  /// Validation error when the period is not in YYYY-MM format.
+  ///
+  /// In bn, this message translates to:
+  /// **'YYYY-MM ফরম্যাটে সময়কাল লিখুন'**
+  String get rent_request_err_period;
+
+  /// Snackbar shown after the rent link is created and sent.
+  ///
+  /// In bn, this message translates to:
+  /// **'লিংক পাঠানো হয়েছে'**
+  String get rent_request_sent;
+
+  /// Snackbar shown after a cash payment is marked received.
+  ///
+  /// In bn, this message translates to:
+  /// **'টাকা পেয়েছি বলে রেকর্ড হয়েছে'**
+  String get rent_request_received;
+
+  /// Snackbar shown when creating/sending/marking the request fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ পাঠানো যায়নি। আবার চেষ্টা করুন।'**
+  String get rent_request_error;
+
+  /// App-bar title of the verify-payment screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেমেন্ট যাচাই'**
+  String get verify_title;
+
+  /// Header line: the tenant claims to have paid.
+  ///
+  /// In bn, this message translates to:
+  /// **'{name} বলছেন ভাড়া দিয়েছেন'**
+  String verify_claim(String name);
+
+  /// Subline under the claim: the requested amount and billing period.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount} · {period}'**
+  String verify_amount_period(String amount, String period);
+
+  /// Section title above the tenant's submitted payment proof.
+  ///
+  /// In bn, this message translates to:
+  /// **'জমা প্রমাণ'**
+  String get verify_proof;
+
+  /// Shown in the proof viewer when the tenant has not submitted any proof.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো প্রমাণ জমা পড়েনি'**
+  String get verify_proof_none;
+
+  /// Shown in the proof viewer when the signed-URL screenshot fails to load.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি লোড করা যায়নি'**
+  String get verify_proof_image_failed;
+
+  /// Label for the transaction-id line in the proof details.
+  ///
+  /// In bn, this message translates to:
+  /// **'লেনদেন আইডি'**
+  String get verify_proof_txn;
+
+  /// Label for the amount line in the proof details.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিমাণ'**
+  String get verify_proof_amount;
+
+  /// Primary action: verify the proof and generate a receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'টাকা পেয়েছি'**
+  String get verify_confirm;
+
+  /// Secondary action: reject the request with a reason.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো পাইনি'**
+  String get verify_reject;
+
+  /// Label/title of the reject-reason input dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রত্যাখ্যানের কারণ লিখুন'**
+  String get verify_reason;
+
+  /// Hint text inside the reject-reason input.
+  ///
+  /// In bn, this message translates to:
+  /// **'কেন গ্রহণ করছেন না?'**
+  String get verify_reason_hint;
+
+  /// Validation error when a reject reason is left empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি কারণ লিখুন'**
+  String get verify_reason_required;
+
+  /// Cancel button in the reject-reason dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
+  String get verify_reason_cancel;
+
+  /// Confirm button in the reject-reason dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রত্যাখ্যান'**
+  String get verify_reason_submit;
+
+  /// Snackbar shown after the payment proof is verified.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই সম্পন্ন'**
+  String get verify_verified;
+
+  /// Snackbar shown after the request is rejected.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ প্রত্যাখ্যান করা হয়েছে'**
+  String get verify_rejected;
+
+  /// Snackbar shown when verify/reject fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
+  String get verify_error;
+
+  /// Shown when the rent request cannot be loaded.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ লোড করা যায়নি'**
+  String get verify_load_error;
+
+  /// Retry button shown in the load-error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get verify_retry;
+
+  /// App-bar title of the rent receipt screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ'**
+  String get receipt_title;
+
+  /// Hero headline shown after a payment is verified and the receipt is generated.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ তৈরি হয়েছে'**
+  String get receipt_ready;
+
+  /// Hero subline under the receipt-ready headline.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়াকে পাঠিয়ে দিন'**
+  String get receipt_ready_sub;
+
+  /// Title printed at the top of the receipt card.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার রসিদ'**
+  String get receipt_heading;
+
+  /// The large paid amount shown on the receipt card.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
+  String receipt_amount(String amount);
+
+  /// Label for the tenant row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়া'**
+  String get receipt_tenant;
+
+  /// Label for the unit row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট'**
+  String get receipt_unit;
+
+  /// Label for the billing-period row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'সময়কাল'**
+  String get receipt_period;
+
+  /// Label for the payment-method row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'পদ্ধতি'**
+  String get receipt_method;
+
+  /// Label for the status row on the receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্ট্যাটাস'**
+  String get receipt_status;
+
+  /// Value shown for a verified/paid receipt status.
+  ///
+  /// In bn, this message translates to:
+  /// **'✓ পরিশোধিত'**
+  String get receipt_status_paid;
+
+  /// Label for the receipt-number footnote.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ নং'**
+  String get receipt_no;
+
+  /// Primary action: share the receipt with the tenant (WhatsApp/system).
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়াকে পাঠান'**
+  String get receipt_share;
+
+  /// Secondary action: download/save the receipt PDF or finish.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF · সম্পন্ন'**
+  String get receipt_done;
+
+  /// Placeholder dash shown when a receipt field value is unknown.
+  ///
+  /// In bn, this message translates to:
+  /// **'—'**
+  String get receipt_dash;
+
+  /// Fallback share text used when no receipt PDF is available.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার রসিদ\n৳{amount} · {period}'**
+  String receipt_share_text(String amount, String period);
+
+  /// Snackbar shown when share/download of the receipt fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
+  String get receipt_action_failed;
+
+  /// Shown when the rent request behind the receipt cannot be loaded.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ লোড করা যায়নি'**
+  String get receipt_load_error;
+
+  /// Retry button shown in the receipt load-error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get receipt_retry;
+
+  /// App-bar title for the maintenance & expenses list screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামত ও খরচ'**
+  String get expenses_title;
+
+  /// Chip on the totals hero card scoping the total to the current month.
+  ///
+  /// In bn, this message translates to:
+  /// **'এ মাসে'**
+  String get expenses_this_month;
+
+  /// Label above the big total-expenses figure on the hero card.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোট খরচ'**
+  String get expenses_total;
+
+  /// The total-expenses amount, prefixed with the Taka sign.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
+  String expenses_total_amount(String amount);
+
+  /// Sub-line under the total showing how many expenses are in view.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি খরচ'**
+  String expenses_count(String count);
+
+  /// Filter chip that clears the building filter (shows every expense).
+  ///
+  /// In bn, this message translates to:
+  /// **'সব'**
+  String get expenses_filter_all;
+
+  /// Section heading above the list of expense rows.
+  ///
+  /// In bn, this message translates to:
+  /// **'সাম্প্রতিক খরচ'**
+  String get expenses_section_recent;
+
+  /// Source chip for an expense logged manually by the landlord.
+  ///
+  /// In bn, this message translates to:
+  /// **'ম্যানুয়াল'**
+  String get expenses_source_manual;
+
+  /// Source chip for an expense auto-created from resolving a maintenance request.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামত'**
+  String get expenses_source_request;
+
+  /// An expense row's amount, prefixed with the Taka sign.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
+  String expenses_amount(String amount);
+
+  /// App-bar action / CTA to log a new manual expense.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ যোগ'**
+  String get expenses_add;
+
+  /// Action to export the (filtered) expenses as a shareable CSV file.
+  ///
+  /// In bn, this message translates to:
+  /// **'CSV রপ্তানি'**
+  String get expenses_export;
+
+  /// Snackbar shown when the CSV export/share fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'রপ্তানি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
+  String get expenses_export_failed;
+
+  /// Empty-state message when the landlord has logged no expenses.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনও কোনো খরচ নেই'**
+  String get expenses_empty;
+
+  /// Expense category label: plumbing.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্লাম্বিং'**
+  String get expenses_category_plumbing;
+
+  /// Expense category label: paint.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেইন্ট'**
+  String get expenses_category_paint;
+
+  /// Expense category label: electrical.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিদ্যুৎ'**
+  String get expenses_category_electrical;
+
+  /// Expense category label: structural.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্ট্রাকচার'**
+  String get expenses_category_structural;
+
+  /// Expense category label: appliance.
+  ///
+  /// In bn, this message translates to:
+  /// **'অ্যাপ্লায়েন্স'**
+  String get expenses_category_appliance;
+
+  /// Expense category label: utility.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউটিলিটি'**
+  String get expenses_category_utility;
+
+  /// Expense category label: other.
+  ///
+  /// In bn, this message translates to:
+  /// **'অন্যান্য'**
+  String get expenses_category_other;
+
+  /// Add-expense screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ যোগ'**
+  String get add_expense_title;
+
+  /// Add-expense form: amount field label (required).
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিমাণ'**
+  String get expense_amount;
+
+  /// Add-expense form: amount field placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳ ০'**
+  String get expense_amount_hint;
+
+  /// Add-expense form: category section label.
+  ///
+  /// In bn, this message translates to:
+  /// **'খাত'**
+  String get expense_category;
+
+  /// Add-expense form: unit field label (required).
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট'**
+  String get expense_unit;
+
+  /// Add-expense form: building selector label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভবন'**
+  String get expense_building;
+
+  /// Add-expense form: unit selector placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি ইউনিট বাছুন'**
+  String get expense_unit_hint;
+
+  /// Add-expense form: building selector placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি ভবন বাছুন'**
+  String get expense_building_hint;
+
+  /// Add-expense form: date field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'তারিখ'**
+  String get expense_date;
+
+  /// Add-expense form: note field label (optional).
+  ///
+  /// In bn, this message translates to:
+  /// **'নোট (ঐচ্ছিক)'**
+  String get expense_note;
+
+  /// Add-expense form: receipt photo label (optional).
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ (ঐচ্ছিক)'**
+  String get expense_receipt;
+
+  /// Add-expense form: attach-receipt button.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ যোগ করুন'**
+  String get expense_receipt_add;
+
+  /// Add-expense form: receipt attached confirmation.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ যুক্ত হয়েছে'**
+  String get expense_receipt_attached;
+
+  /// Add-expense form: remove attached receipt.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরান'**
+  String get expense_receipt_remove;
+
+  /// Add-expense form: save button.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ সেভ করুন'**
+  String get expense_save;
+
+  /// Add-expense form: amount validation error.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি বৈধ পরিমাণ দিন'**
+  String get expense_err_amount;
+
+  /// Add-expense form: missing-unit validation error.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট বাছাই করুন'**
+  String get expense_err_unit;
+
+  /// Add-expense: success snackbar.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ সেভ হয়েছে'**
+  String get expense_saved;
+
+  /// Add-expense: failure snackbar.
+  ///
+  /// In bn, this message translates to:
+  /// **'সেভ হয়নি'**
+  String get expense_save_failed;
+
+  /// App-bar title for the landlord maintenance-queue screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামতের অনুরোধ'**
+  String get maintenance_title;
+
+  /// Section heading above the list of open maintenance requests.
+  ///
+  /// In bn, this message translates to:
+  /// **'নতুন অনুরোধ'**
+  String get maintenance_section_open;
+
+  /// Sub-line showing how many open requests are in the queue.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি অপেক্ষায়'**
+  String maintenance_open_count(String count);
+
+  /// Per-request unit label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট {unit}'**
+  String maintenance_unit(String unit);
+
+  /// Primary action on a request: resolve it and record the cost (auto-creates an expense).
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান + খরচ'**
+  String get maintenance_resolve;
+
+  /// Badge shown on a request that has already been resolved.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান হয়েছে'**
+  String get maintenance_resolved_badge;
+
+  /// Resolve dialog: the cost field label (becomes the auto-expense amount).
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ'**
+  String get maintenance_cost;
+
+  /// Resolve dialog: cost field placeholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳ ০'**
+  String get maintenance_cost_hint;
+
+  /// Resolve dialog: optional resolution note label.
+  ///
+  /// In bn, this message translates to:
+  /// **'নোট (ঐচ্ছিক)'**
+  String get maintenance_resolution_note;
+
+  /// Title of the resolve-with-cost dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান + খরচ'**
+  String get maintenance_resolve_title;
+
+  /// Resolve dialog: explanation that resolving records an expense.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই খরচ একটি খরচ এন্ট্রি তৈরি করবে'**
+  String get maintenance_resolve_hint;
+
+  /// Resolve dialog: confirm button.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান করুন'**
+  String get maintenance_resolve_confirm;
+
+  /// Resolve dialog: cancel button.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল'**
+  String get maintenance_resolve_cancel;
+
+  /// Resolve dialog: cost validation error.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটি বৈধ খরচ দিন'**
+  String get maintenance_err_cost;
+
+  /// Snackbar shown after a request is resolved and an expense is created.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ সমাধান হয়েছে'**
+  String get maintenance_resolved;
+
+  /// Snackbar shown when resolving a request fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান হয়নি'**
+  String get maintenance_resolve_failed;
+
+  /// Empty-state message when there are no open maintenance requests.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো খোলা অনুরোধ নেই'**
+  String get maintenance_empty;
+
+  /// Maintenance category label: plumbing.
+  ///
+  /// In bn, this message translates to:
+  /// **'পানি'**
+  String get maintenance_category_plumbing;
+
+  /// Maintenance category label: electrical.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিদ্যুৎ'**
+  String get maintenance_category_electrical;
+
+  /// Maintenance category label: paint.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেইন্ট'**
+  String get maintenance_category_paint;
+
+  /// Maintenance category label: structural.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্ট্রাকচার'**
+  String get maintenance_category_structural;
+
+  /// Maintenance category label: appliance.
+  ///
+  /// In bn, this message translates to:
+  /// **'অ্যাপ্লায়েন্স'**
+  String get maintenance_category_appliance;
+
+  /// Maintenance category label: utility.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউটিলিটি'**
+  String get maintenance_category_utility;
+
+  /// Maintenance category label: other.
+  ///
+  /// In bn, this message translates to:
+  /// **'অন্যান্য'**
+  String get maintenance_category_other;
+
+  /// Dashboard / charts screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'ড্যাশবোর্ড'**
+  String get dashboard_title;
+
+  /// Label on the income hero card.
+  ///
+  /// In bn, this message translates to:
+  /// **'এ মাসের মোট আয়'**
+  String get dashboard_income;
+
+  /// A taka money amount rendered with localized numerals.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{value}'**
+  String dashboard_amount(String value);
+
+  /// Heading above the 6-month collection bar chart.
+  ///
+  /// In bn, this message translates to:
+  /// **'আদায় হার (৬ মাস)'**
+  String get dashboard_collection;
+
+  /// Heading above the occupancy donut.
+  ///
+  /// In bn, this message translates to:
+  /// **'অকুপেন্সি'**
+  String get dashboard_occupancy;
+
+  /// Occupied-of-total units sublabel inside the occupancy donut.
+  ///
+  /// In bn, this message translates to:
+  /// **'{occupied}/{total}'**
+  String dashboard_occupancy_units(String occupied, String total);
+
+  /// Occupancy legend: occupied units.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া হয়েছে'**
+  String get dashboard_occupied;
+
+  /// Occupancy legend: vacant units.
+  ///
+  /// In bn, this message translates to:
+  /// **'খালি'**
+  String get dashboard_vacant;
+
+  /// Heading above the income-vs-expense chart.
+  ///
+  /// In bn, this message translates to:
+  /// **'আয় ও খরচ'**
+  String get dashboard_income_expense;
+
+  /// Income-vs-expense legend: income.
+  ///
+  /// In bn, this message translates to:
+  /// **'আয়'**
+  String get dashboard_income_legend;
+
+  /// Income-vs-expense legend: expense.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ'**
+  String get dashboard_expense_legend;
+
+  /// Income-vs-expense chart: the income series label (sage).
+  ///
+  /// In bn, this message translates to:
+  /// **'আয়'**
+  String get dashboard_income_series;
+
+  /// Income-vs-expense chart: the expense series label (rose).
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ'**
+  String get dashboard_expense_series;
+
+  /// Heading above the top expense categories list.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রধান খরচ 💸'**
+  String get dashboard_expenses;
+
+  /// Heading on the late-payers card.
+  ///
+  /// In bn, this message translates to:
+  /// **'দেরিতে ভাড়া'**
+  String get dashboard_late;
+
+  /// Late-payers card when nobody is overdue.
+  ///
+  /// In bn, this message translates to:
+  /// **'কেউ দেরিতে নেই'**
+  String get dashboard_late_none;
+
+  /// Number of late payers; count is already localized to a numeral string.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} জন দেরিতে'**
+  String dashboard_late_count(String count);
+
+  /// Quick-request CTA on the late-payers card.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার অনুরোধ পাঠান'**
+  String get dashboard_late_request;
+
+  /// Empty-state label inside a chart with no data.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো তথ্য নেই'**
+  String get dashboard_chart_empty;
+
+  /// Whole-screen empty state for a brand-new landlord with no data.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো তথ্য নেই — ভাড়াটিয়া যোগ করুন ও ভাড়া লিপিবদ্ধ করুন।'**
+  String get dashboard_empty;
+
+  /// App-bar title on the plan & billing screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্ল্যান · Plan'**
+  String get plan_title;
+
+  /// Chip marking the caller's current tier.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখন'**
+  String get plan_current;
+
+  /// Top card: which tier the caller is currently on.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখন {tier}-এ আছেন'**
+  String plan_current_banner(String tier);
+
+  /// Usage line under the current-plan banner; numerals pre-localized.
+  ///
+  /// In bn, this message translates to:
+  /// **'{used}/{limit} ভাড়াটিয়া ব্যবহৃত'**
+  String plan_usage(String used, String limit);
+
+  /// Usage line for an unlimited plan; used is pre-localized.
+  ///
+  /// In bn, this message translates to:
+  /// **'{used} ভাড়াটিয়া · সীমাহীন'**
+  String plan_usage_unlimited(String used);
+
+  /// Price shown for the free tier (BDT 0).
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্রি'**
+  String get plan_free;
+
+  /// Primary upgrade button on the plan screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'bKash / Nagad দিয়ে আপগ্রেড'**
+  String get plan_upgrade;
+
+  /// Subscribe action on a non-current tier card.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই প্ল্যান নিন'**
+  String get plan_choose;
+
+  /// Badge on the recommended (best-value) tier card.
+  ///
+  /// In bn, this message translates to:
+  /// **'⭐ সেরা মূল্য'**
+  String get plan_best_value;
+
+  /// Suffix on a monthly tier price.
+  ///
+  /// In bn, this message translates to:
+  /// **'/মাস'**
+  String get plan_per_month;
+
+  /// Suffix on a per-tenant tier price.
+  ///
+  /// In bn, this message translates to:
+  /// **'/ভাড়াটিয়া/মাস'**
+  String get plan_per_tenant_month;
+
+  /// Tenant band a tier covers; numerals pre-localized.
+  ///
+  /// In bn, this message translates to:
+  /// **'{min}–{max} ভাড়াটিয়া'**
+  String plan_band(String min, String max);
+
+  /// Tenant band with no upper bound (unlimited).
+  ///
+  /// In bn, this message translates to:
+  /// **'{min}+ ভাড়াটিয়া'**
+  String plan_band_min(String min);
+
+  /// Tenant band label for the unlimited tier.
+  ///
+  /// In bn, this message translates to:
+  /// **'সীমাহীন ভাড়াটিয়া'**
+  String get plan_band_unlimited;
+
+  /// Feature note shown when a tier bundles NID verification.
+  ///
+  /// In bn, this message translates to:
+  /// **'+ NID যাচাই'**
+  String get plan_includes_verification;
+
+  /// Footer note: prices are admin-configurable and illustrative.
+  ///
+  /// In bn, this message translates to:
+  /// **'দাম অ্যাডমিন-নিয়ন্ত্রিত · নমুনা'**
+  String get plan_billing_note;
+
+  /// Snackbar after a stubbed subscribe: confirmation pending.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেমেন্ট নিশ্চিত হলে আমরা জানাব'**
+  String get plan_billing_confirm_pending;
+
+  /// Snackbar when a subscribe request fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপগ্রেড করা যায়নি · আবার চেষ্টা করুন'**
+  String get plan_billing_error;
+
+  /// Empty state when no tiers are configured.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো প্ল্যান নেই'**
+  String get plan_empty;
+
+  /// Upgrade bottom-sheet title shown when a free-tier landlord hits the tenant limit.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনি ফ্রি সীমায় পৌঁছেছেন'**
+  String get upgrade_title;
+
+  /// Upgrade bottom-sheet body explaining the free-tier tenant limit.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফ্রি প্ল্যানে প্রথম ২ জন ভাড়াটিয়া অন্তর্ভুক্ত। আরও যোগ করতে ও NID যাচাই চালু করতে আপগ্রেড করুন।'**
+  String get upgrade_body;
+
+  /// Primary button on the upgrade prompt; routes to the plan screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্ল্যান আপগ্রেড'**
+  String get upgrade_cta;
+
+  /// Dismiss action on the upgrade prompt.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখন নয়'**
+  String get upgrade_later;
+
+  /// CTA on the unit-detail active-lease summary to send a rent request.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া চান'**
+  String get unit_lease_request_rent;
+
+  /// Empty-state title on the unit-detail lease region when the unit has no active lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো লিজ নেই'**
+  String get unit_lease_none;
+
+  /// Empty-state body on the unit-detail lease region prompting lease creation.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই ইউনিটের জন্য একটি লিজ তৈরি করুন।'**
+  String get unit_lease_none_body;
+
+  /// Sub-line on the unit-detail lease summary when the tenant's NID is verified (matched).
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাইকৃত'**
+  String get unit_tenant_verified;
+
+  /// Sub-line on the unit-detail lease summary when the tenant's NID is not verified.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাই হয়নি'**
+  String get unit_tenant_unverified;
 }
 
 class _AppLocalizationsDelegate

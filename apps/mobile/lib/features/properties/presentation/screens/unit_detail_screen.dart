@@ -6,6 +6,9 @@ import 'package:khatir_tokens/khatir_tokens.dart';
 import '../../../../core/i18n/bangla_numerals.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../leases/presentation/widgets/unit_lease_section.dart';
+import '../../../maintenance/presentation/widgets/unit_maint_expense_section.dart';
+import '../../../tenants/presentation/screens/add_tenant_screen.dart';
 import '../../data/models/property_enums.dart';
 import '../../data/models/unit.dart';
 import '../../data/properties_providers.dart';
@@ -22,9 +25,10 @@ import '../../data/properties_providers.dart';
 /// * **Facts grid** — status / type / amenities, each a soft tile. Status and
 ///   type are tappable to edit inline (a quick PATCH); amenities are edited via
 ///   the edit sheet.
-/// * **Tenant & lease region** — a clean empty-state for now (no tenant), with
-///   an "Add tenant" CTA → `/tenants/add`. EPIC-06 drops the real lease/tenant
-///   summary in here without redesign (see the `// TODO(EPIC-06)` below).
+/// * **Tenant & lease region** — the live lease summary ([UnitLeaseSection],
+///   EPIC-06 T-009): an active-lease card (tenant, rent, term, next due) when
+///   the unit has a lease, or a create-lease empty state otherwise, framed by
+///   the add-tenant CTA → `/tenants/add`.
 ///
 /// States: loading (spinner), error (retry), data. There is no "empty" state —
 /// a unit always exists or the request 404s into the error branch. All
@@ -115,11 +119,13 @@ class UnitDetailScreen extends ConsumerWidget {
         );
   }
 
-  /// Add-tenant CTA. The real add-tenant flow (`/tenants/add`) is registered as
-  /// a placeholder by EPIC-04; routing there now keeps the action live.
-  // TODO(EPIC-04) lands the real add-tenant method chooser at /tenants/add.
-  static void _addTenant(BuildContext context) {
-    GoRouter.of(context).push('/tenants/add');
+  /// Add-tenant CTA → the add-tenant method chooser (EPIC-04 T-009), carrying
+  /// this unit's id as the target so the chosen intake flow onboards into it.
+  void _addTenant(BuildContext context) {
+    GoRouter.of(context).pushNamed(
+      AddTenantScreen.routeName,
+      queryParameters: {'unit': unitId},
+    );
   }
 }
 
@@ -158,7 +164,9 @@ class _UnitBody extends StatelessWidget {
         const SizedBox(height: KhatirSpacing.s3),
         _AmenitiesTile(amenities: unit.amenities, onEdit: onEdit),
         const SizedBox(height: KhatirSpacing.s5),
-        _TenantSection(onAddTenant: onAddTenant),
+        _TenantSection(unitId: unit.id, onAddTenant: onAddTenant),
+        const SizedBox(height: KhatirSpacing.s5),
+        UnitMaintExpenseSection(unitId: unit.id),
       ],
     );
   }
@@ -469,17 +477,17 @@ class _ValuePill extends StatelessWidget {
   }
 }
 
-/// The tenant/lease region — an empty-state placeholder until EPIC-06 wires in
-/// the real lease summary. Shows a heading, a friendly empty card, and the
-/// add-tenant CTA.
+/// The tenant/lease region. The heading and the add-tenant CTA frame the live
+/// lease summary ([UnitLeaseSection], EPIC-06 T-009) that fills the former
+/// placeholder card: an active-lease summary when the unit has one, or a
+/// create-lease empty state otherwise. The add-tenant CTA stays so a unit can
+/// always onboard a tenant (a lease needs a tenant first).
 class _TenantSection extends StatelessWidget {
-  const _TenantSection({required this.onAddTenant});
+  const _TenantSection({required this.unitId, required this.onAddTenant});
 
+  final String unitId;
   final VoidCallback onAddTenant;
 
-  // TODO(EPIC-06) replace the empty card below with the live tenant + lease
-  // summary (current tenant avatar, lease term, rent schedule). The heading
-  // and the add-tenant CTA stay; only the empty card swaps for real content.
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -493,39 +501,9 @@ class _TenantSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: KhatirSpacing.s3),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(KhatirSpacing.s5),
-          decoration: BoxDecoration(
-            color: KhatirColors.card,
-            borderRadius: BorderRadius.circular(KhatirRadius.card),
-          ),
-          child: Column(
-            children: [
-              const Text('🤝', style: TextStyle(fontSize: 40)),
-              const SizedBox(height: KhatirSpacing.s3),
-              Text(
-                l10n.unit_no_tenant,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.titleMedium.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              const SizedBox(height: KhatirSpacing.s1),
-              Text(
-                l10n.unit_no_tenant_body,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.bodySmall
-                    .copyWith(color: KhatirColors.mutedDk),
-              ),
-              const SizedBox(height: KhatirSpacing.s4),
-              _AddTenantButton(
-                label: l10n.unit_add_tenant,
-                onTap: onAddTenant,
-              ),
-            ],
-          ),
-        ),
+        UnitLeaseSection(unitId: unitId),
+        const SizedBox(height: KhatirSpacing.s4),
+        _AddTenantButton(label: l10n.unit_add_tenant, onTap: onAddTenant),
       ],
     );
   }

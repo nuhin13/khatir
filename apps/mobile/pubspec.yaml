@@ -31,12 +31,33 @@ dependencies:
   # Secure storage (auth tokens)
   flutter_secure_storage: ^9.2.4
 
+  # Camera / gallery NID capture (EPIC-04 OCR). The picked image is uploaded
+  # then discarded — never persisted on device beyond the upload.
+  image_picker: ^1.2.2
+
+  # Voice tenant entry (EPIC-04 T-012). Records a short Bangla clip (handles the
+  # mic permission prompt) that is uploaded then discarded — never persisted on
+  # device beyond the upload.
+  record: ^6.2.0
+
   # Models / serialization (annotations; codegen via build_runner)
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
 
   # i18n
   intl: ^0.20.2
+
+  # Charts (EPIC-09 T-005) — shared KBarChart/KDonutChart/KLineChart widgets.
+  fl_chart: ^1.2.0
+
+  # DMP PDF preview + share (EPIC-05 T-008). `printing` renders the generated
+  # A4 PDF (pdfium) and provides system print/share; `share_plus` drives the
+  # explicit WhatsApp/system share + save of the downloaded file.
+  printing: ^5.14.3
+  # share_plus pinned to ^12 (latest stable compatible with the project's
+  # flutter_secure_storage ^9 → win32 ^5; share_plus ^13 forces win32 ^6 which
+  # collides with secure-storage's transitive Windows plugin).
+  share_plus: ^12.0.2
 
   # Shared Notun Din design tokens (consumed by path)
   khatir_tokens:

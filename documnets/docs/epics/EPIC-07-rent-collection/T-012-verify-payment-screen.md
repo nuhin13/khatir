@@ -4,7 +4,7 @@ epic: EPIC-07
 title: Flutter verify-payment screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-010]
 blocks: []
@@ -56,11 +56,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] verify_payment_screen matches design
-- [ ] proof viewer (txn/screenshot)
-- [ ] verify → receipt; reject + reason
-- [ ] states; route; ARB bn + en; widget test
-- [ ] analyze + test pass
+- [x] verify_payment_screen matches design
+- [x] proof viewer (txn/screenshot)
+- [x] verify → receipt; reject + reason
+- [x] states; route; ARB bn + en; widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -69,14 +69,28 @@ None.
 1. Tenant submits proof → landlord verifies → receipt.
 
 ## 13. Acceptance criteria
-- [ ] Verify screen matches design; verify/reject work.
-- [ ] **Screen `verifyPay` built** (ledger row).
-- [ ] Test + analyze pass.
+- [x] Verify screen matches design; verify/reject work.
+- [x] **Screen `verifyPay` built** (ledger row).
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] Matches design; tokens; screenshot via signed URL
+- [x] Matches design; tokens; screenshot via signed URL
 ### Deviations from spec
+- The rent detail endpoint (T-007 `RentRequestSerializer`) does not surface the
+  tenant name or the submitted `PaymentProof`. Rather than block on a backend
+  change, the screen consumes the proof + tenant name via a typed router `extra`
+  payload (`VerifyPaymentArgs`) that the queue (T-013, which already loads the
+  list) can supply; when absent the proof viewer shows a "no proof yet"
+  placeholder. The signed-URL contract (§15) is honoured: `PaymentProof.photoRef`
+  is treated as the signed URL and loaded with `Image.network` (never raw bytes).
+- Verify reuses the committed T-010 `rentRequestControllerProvider` as the single
+  source of truth for both the load and the verify/reject transitions.
 ### Files touched (actual)
+- Add: apps/mobile/lib/features/rent/presentation/screens/verify_payment_screen.dart
+- Add: apps/mobile/test/verify_payment_test.dart
+- Update: apps/mobile/lib/core/router/app_router.dart (route `/rent/:id/verify`)
+- Update: apps/mobile/lib/l10n/app_en.arb, app_bn.arb (verify_* keys)
+- Update: documnets/docs/architecture/07_design_map.md (ledger row 17 ticked)
 
 ## 15. Notes for the implementing agent
 - Screenshot proof fetched via signed URL (not embedded raw).

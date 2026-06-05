@@ -5,6 +5,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../features/auth/presentation/screens/otp_entry_screen.dart';
 import '../../features/auth/presentation/screens/phone_entry_screen.dart';
+import '../../features/billing/presentation/screens/plan_screen.dart';
+import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
+import '../../features/dmpform/presentation/screens/dmp_pdf_screen.dart';
+import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
+import '../../features/leases/presentation/screens/lease_detail_screen.dart';
+import '../../features/leases/presentation/screens/lease_form_screen.dart';
+import '../../features/leases/presentation/screens/lease_list_screen.dart';
+import '../../features/maintenance/presentation/screens/add_expense_screen.dart';
+import '../../features/maintenance/presentation/screens/expenses_screen.dart';
+import '../../features/maintenance/presentation/screens/maintenance_queue_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/more_screen.dart';
@@ -12,12 +22,21 @@ import '../../features/properties/presentation/screens/landlord_home_screen.dart
 import '../../features/properties/presentation/screens/portfolio_screen.dart';
 import '../../features/properties/presentation/screens/unit_detail_screen.dart';
 import '../../features/properties/presentation/wizard/wizard_host.dart';
+import '../../features/rent/presentation/screens/receipt_screen.dart';
+import '../../features/rent/presentation/screens/rent_request_screen.dart';
+import '../../features/rent/presentation/screens/verify_payment_screen.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
 import '../../features/shell/tenant_shell.dart';
 import '../../features/shell/widgets/shell_placeholder.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
+import '../../features/tenants/presentation/screens/manual_tenant_screen.dart';
+import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
+import '../../features/tenants/presentation/screens/ocr_review_args.dart';
+import '../../features/tenants/presentation/screens/ocr_review_screen.dart';
+import '../../features/tenants/presentation/screens/voice_fill_screen.dart';
 import '../../l10n/app_localizations.dart';
 import '../auth/auth_controller.dart';
 import '../auth/auth_state.dart';
@@ -265,11 +284,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          _placeholderBranch(
-            // TODO(EPIC-09) replace with the landlord dashboard/charts.
-            path: '/landlord/dashboard',
-            name: 'landlordDashboard',
-            label: (l) => l.nav_charts,
+          // Landlord dashboard / charts (EPIC-09 T-006): collection bar chart,
+          // occupancy donut, income-vs-expense trend, top expenses, late payers.
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: DashboardScreen.routePath,
+                name: DashboardScreen.routeName,
+                builder: (context, state) => const DashboardScreen(),
+              ),
+            ],
           ),
           _placeholderBranch(
             // TODO(EPIC-07) replace with rent collection.
@@ -351,15 +375,251 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
 
+      // ── Add-tenant flow (EPIC-04) ───────────────────────────────────────
+      // Center "Add" action target for the landlord/manager nav, and the
+      // unit-detail "Add tenant" CTA. The method chooser (T-009) routes to the
+      // OCR / voice / manual sub-flows, carrying the optional target unit id as
+      // a `?unit=` query parameter. The three method screens themselves land in
+      // later EPIC-04 tasks (OCR T-010/T-011, voice T-012, manual T-013); they
+      // are registered as placeholders here so the chooser routes resolve.
       GoRoute(
-        // Center "Add" action target for the landlord/manager nav. EPIC-04
-        // builds the real add-tenant wizard here; for now it is a placeholder.
-        // TODO(EPIC-04) replace with the /tenants/add method chooser.
-        path: '/tenants/add',
-        name: 'tenantsAdd',
+        path: AddTenantScreen.routePath,
+        name: AddTenantScreen.routeName,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) =>
-            KShellPlaceholder(tabLabel: AppLocalizations.of(context).nav_add),
+            AddTenantScreen(unitId: state.uri.queryParameters['unit']),
+        routes: [
+          GoRoute(
+            // NID OCR capture (T-010): camera/gallery → upload → review.
+            path: OcrCaptureScreen.routePath,
+            name: AddTenantScreen.ocrRouteName,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) => OcrCaptureScreen(
+              unitId: state.uri.queryParameters['unit'],
+            ),
+            routes: [
+              GoRoute(
+                // OCR review/edit (T-011): the capture screen (T-010)
+                // navigates here with typed [OcrReviewArgs] via `extra` on a
+                // successful extraction. A direct/deep visit without args is
+                // not a valid state, so fall back to the capture screen.
+                //
+                // The screen runs the shared save+route action (T-016) on
+                // proceed: leaving `onProceed` null makes it persist the
+                // reviewed tenant and route to the DMP form. This is also the
+                // voice path's convergence point (T-012 reuses this screen).
+                path: OcrReviewArgs.routePath,
+                name: OcrReviewArgs.routeName,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) {
+                  final args = state.extra;
+                  if (args is! OcrReviewArgs) {
+                    return OcrCaptureScreen(
+                      unitId: state.uri.queryParameters['unit'],
+                    );
+                  }
+                  return OcrReviewScreen(args: args);
+                },
+              ),
+            ],
+          ),
+          GoRoute(
+            // Voice tenant entry (T-012): record → upload → reuse OCR review.
+            // Flag-gated at the chooser (T-009); the screen also defends the
+            // `voice_tenant_entry` flag against a direct deep link.
+            path: VoiceFillScreen.routePath,
+            name: AddTenantScreen.voiceRouteName,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) => VoiceFillScreen(
+              unitId: state.uri.queryParameters['unit'],
+            ),
+          ),
+          GoRoute(
+            // Manual tenant entry (T-013): the fallback hand-entry form that
+            // fills every DMP field by hand, carrying the optional unit context.
+            // Leaving `onProceed` null makes the screen run the shared save+route
+            // action (T-016): persist the tenant and route to the DMP form.
+            path: ManualTenantScreen.routePath,
+            name: AddTenantScreen.manualRouteName,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) => ManualTenantScreen(
+              unitId: state.uri.queryParameters['unit'],
+            ),
+          ),
+        ],
+      ),
+
+      // ── DMP form preview (EPIC-05 T-007) ────────────────────────────────
+      // The convergent success destination of the add-tenant flow: all three
+      // intake paths (OCR / voice / manual) save the tenant then route here at
+      // `/dmpform/{tenantId}`. This is the real preview screen (replacing the
+      // EPIC-04 placeholder): it loads the assembled, masked-NID form data and
+      // offers "Generate PDF" → the PDF screen (T-008, nested `/pdf` below) and
+      // "Edit" → back to the tenant flow. Sits on the root navigator so it
+      // covers the shell. The route name is unchanged (`dmpForm`) so the save
+      // action (T-016) keeps routing here.
+      GoRoute(
+        path: '/dmpform/:tenantId',
+        name: DmpPreviewScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => DmpPreviewScreen(
+          tenantId: state.pathParameters['tenantId'] ?? '',
+        ),
+        routes: [
+          GoRoute(
+            // DMP PDF preview + share (T-008): the "Generate PDF" action lands
+            // here at `/dmpform/{tenantId}/pdf`. Generates the police-form PDF,
+            // renders it, and offers Download + WhatsApp/system share. This is
+            // the real screen (replacing the EPIC-05 T-007 placeholder).
+            path: 'pdf',
+            name: DmpPdfScreen.routeName,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) => DmpPdfScreen(
+              tenantId: state.pathParameters['tenantId'] ?? '',
+            ),
+          ),
+        ],
+      ),
+
+      // ── Lease create / edit (EPIC-06 T-008) ─────────────────────────────
+      // Launched from unit detail in unit context: the target unit id is
+      // carried as a `?unit=` query parameter (same convention as the
+      // add-tenant flow). `/lease/new` creates a draft (optionally activating
+      // it); `/lease/:id/edit` edits an existing draft's terms. Both sit on the
+      // root navigator so they cover the shell, and pop back to the unit on
+      // save so its lease section re-renders (T-009).
+      GoRoute(
+        path: LeaseFormScreen.routePath,
+        name: LeaseFormScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeaseFormScreen(
+          unitId: state.uri.queryParameters['unit'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: LeaseFormScreen.editRoutePath,
+        name: LeaseFormScreen.editRouteName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeaseFormScreen(
+          unitId: state.uri.queryParameters['unit'] ?? '',
+          leaseId: state.pathParameters['id'],
+        ),
+      ),
+
+      // ── Rent request (EPIC-07 T-011) ────────────────────────────────────
+      // The "Ask for rent" screen, launched from unit detail (active lease) and
+      // the home late-payers list (T-014). The target lease is carried as a
+      // `?lease=` query parameter (same convention as the `?unit=` flows), with
+      // optional `?amount=`/`?period=` prefills. Sits on the root navigator so
+      // it covers the landlord shell when pushed.
+      GoRoute(
+        path: RentRequestScreen.routePath,
+        name: RentRequestScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final q = state.uri.queryParameters;
+          return RentRequestScreen(
+            leaseId: q['lease'] ?? '',
+            initialAmount: double.tryParse(q['amount'] ?? ''),
+            initialPeriod: q['period'],
+          );
+        },
+      ),
+
+      // ── Verify payment (EPIC-07 T-012) ──────────────────────────────────
+      // The proof-review screen, launched from a rent-collection queue row at
+      // `/rent/:id/verify`. The optional tenant name + submitted [PaymentProof]
+      // ride along via `extra` (the rent detail endpoint does not yet surface
+      // the proof); the screen verifies (→ receipt) or rejects with a reason.
+      // Sits on the root navigator so it covers the landlord shell when pushed.
+      GoRoute(
+        path: VerifyPaymentScreen.routePath,
+        name: VerifyPaymentScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final extra = state.extra;
+          final args = extra is VerifyPaymentArgs ? extra : null;
+          return VerifyPaymentScreen(
+            requestId: state.pathParameters['id'] ?? '',
+            tenantName: args?.tenantName,
+            proof: args?.proof,
+          );
+        },
+      ),
+
+      // ── Receipt (EPIC-07 T-013) ─────────────────────────────────────────
+      // The generated rent receipt, reached at `/rent/:id/receipt` after a
+      // verify settles the request. The contextual receipt fields (tenant /
+      // unit / method / receipt no / signed PDF url) ride along via `extra`
+      // (the detail endpoint does not surface them yet); the screen shows the
+      // receipt summary and shares/saves it. Sits on the root navigator so it
+      // covers the landlord shell when pushed.
+      GoRoute(
+        path: ReceiptScreen.routePath,
+        name: ReceiptScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final extra = state.extra;
+          final args = extra is ReceiptArgs ? extra : null;
+          return ReceiptScreen(
+            requestId: state.pathParameters['id'] ?? '',
+            args: args,
+          );
+        },
+      ),
+
+      // ── Lease list / detail (EPIC-06 T-010) ─────────────────────────────
+      // The caller's leases (`/leases`) and a single lease's detail
+      // (`/lease/:id`), reachable from More / portfolio. Both sit on the root
+      // navigator so they cover the landlord shell when pushed. The detail
+      // route is registered after the literal `/lease/new` and `/lease/:id/edit`
+      // routes above so those are not captured by the `:id` parameter.
+      GoRoute(
+        path: LeaseListScreen.routePath,
+        name: LeaseListScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const LeaseListScreen(),
+      ),
+      GoRoute(
+        path: LeaseDetailScreen.routePath,
+        name: LeaseDetailScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeaseDetailScreen(
+          leaseId: state.pathParameters['id'] ?? '',
+        ),
+      ),
+
+      // ── Maintenance & expenses (EPIC-08 T-008) ──────────────────────────
+      // The maintenance & expenses list (`/expenses`): the butter total hero, a
+      // building filter, and the manual + maintenance-sourced expense rows. The
+      // app-bar Add action pushes `/expenses/add` (EPIC-08 T-009) and Export
+      // shares the scoped + filtered CSV. Sits on the root navigator so it
+      // covers the landlord shell when pushed from home / portfolio / More.
+      GoRoute(
+        path: ExpensesScreen.routePath,
+        name: ExpensesScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ExpensesScreen(),
+      ),
+      // The add-expense form (`/expenses/add`, EPIC-08 T-009): amount, category
+      // chips, building→unit, date, optional note + receipt, Save. Pushed from
+      // the expenses list Add action; saves and routes back to the list.
+      GoRoute(
+        path: AddExpenseScreen.routePath,
+        name: AddExpenseScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const AddExpenseScreen(),
+      ),
+      // The landlord maintenance queue (`/maintenance`, EPIC-08 T-010): the open
+      // maintenance requests, each with a Resolve + cost action that records the
+      // cost (auto-creating one expense server-side) and flips the request to
+      // resolved. Sits on the root navigator so it covers the landlord shell when
+      // pushed from home / portfolio / More.
+      GoRoute(
+        path: MaintenanceQueueScreen.routePath,
+        name: MaintenanceQueueScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const MaintenanceQueueScreen(),
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────
@@ -373,6 +633,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: WizardHost.routeName,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const WizardHost(),
+      ),
+      // ── Plan & billing (EPIC-10 T-007) ──────────────────────────────────
+      // The plan screen (`/settings/plan`): current tier + tenant usage and the
+      // active tier catalogue as upgrade cards, reading the plan slice of
+      // `/config/public`. Pushed from the More menu's Plan & billing row; sits
+      // on the root navigator so it covers the shell.
+      GoRoute(
+        path: PlanScreen.routePath,
+        name: PlanScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const PlanScreen(),
       ),
       GoRoute(
         path: PortfolioScreen.routePath,

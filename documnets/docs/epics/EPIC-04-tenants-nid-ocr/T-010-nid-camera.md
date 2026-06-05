@@ -4,15 +4,15 @@ epic: EPIC-04
 title: Flutter NID camera capture + upload
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-005, T-009]
 blocks: [T-011]
 external_services: [ocr]
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -56,13 +56,13 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] camera/gallery capture (image_picker)
-- [ ] upload to /tenants/ocr (multipart)
-- [ ] progress + error/retry states
-- [ ] navigate to review with fields + photo_ref
-- [ ] route /tenants/add/ocr
-- [ ] ARB bn + en; widget test (mocked)
-- [ ] analyze + test pass
+- [x] camera/gallery capture (image_picker)
+- [x] upload to /tenants/ocr (multipart)
+- [x] progress + error/retry states
+- [x] navigate to review with fields + photo_ref
+- [x] route /tenants/add/ocr
+- [x] ARB bn + en; widget test (mocked)
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -71,13 +71,33 @@ None.
 1. Snap NID → processing → review opens with fields.
 
 ## 13. Acceptance criteria
-- [ ] Capture + upload + OCR + navigate works; all states.
-- [ ] Test + analyze pass.
+- [x] Capture + upload + OCR + navigate works; all states.
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] Image not stored locally beyond upload; tokens used
+- [x] Image not stored locally beyond upload; tokens used
 ### Deviations from spec
+- T-014 (full tenants data layer) is not yet committed in this worktree and is
+  not a `depends_on` of T-010, so this task adds the minimal OCR slice it needs:
+  `ExtractedTenant`/`ExtractedField` freezed models, a `TenantRepository` with
+  `ocrExtract(bytes)`, and `tenants_providers.dart`. T-014 can fold these in.
+- Capture stage only (per §1/§8): the extracted-fields review is T-011. On
+  success the screen `pushReplacement`s to a `review` sub-route carrying a typed
+  `OcrReviewArgs` via go_router `extra`; that route is a placeholder until T-011.
+- `image_picker` is wrapped behind an `ImagePickerService` interface so widget
+  tests inject a fake (no platform channel); the picked image is read to memory
+  for upload and never copied to app storage.
 ### Files touched (actual)
+- apps/mobile/lib/features/tenants/presentation/screens/ocr_capture_screen.dart (new)
+- apps/mobile/lib/features/tenants/presentation/screens/ocr_review_args.dart (new)
+- apps/mobile/lib/features/tenants/data/models/extracted_tenant.dart (+ .freezed.dart) (new)
+- apps/mobile/lib/features/tenants/data/tenant_repository.dart (new)
+- apps/mobile/lib/features/tenants/data/tenants_providers.dart (new)
+- apps/mobile/lib/core/network/api_endpoints.dart (tenantOcr path)
+- apps/mobile/lib/core/router/app_router.dart (real OCR route + review sub-route)
+- apps/mobile/lib/l10n/app_en.arb, app_bn.arb (ocr_* keys)
+- apps/mobile/pubspec.yaml (image_picker ^1.2.2)
+- apps/mobile/test/ocr_capture_test.dart (new)
 
 ## 15. Notes for the implementing agent
 - Request camera permission gracefully; gallery fallback. Don't persist the raw image on device after upload.
