@@ -123,6 +123,16 @@ export const NAV_ITEMS: readonly NavItem[] = [
     roles: ["compliance"],
   },
   {
+    // Data-request queue tab for the Compliance module (Admin Portal spec
+    // §4.5.1). PDPA export/erasure queue with SLA badges + approve/reject, same
+    // compliance+super gate (compliance/data_request_views.py, EPIC-16.T-004).
+    // Built in EPIC-16.T-008.
+    label: "Data requests",
+    href: "/compliance/requests",
+    icon: FileText,
+    roles: ["compliance"],
+  },
+  {
     // Compliance module root forwards to the audit log (its first tab). Same
     // compliance+super gate. Built in EPIC-16.T-006.
     label: "Compliance",
