@@ -1570,4 +1570,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get maintenance_category_other => 'অন্যান্য · Other';
+
+  @override
+  String get dashboard_title => 'ড্যাশবোর্ড · Dashboard';
+
+  @override
+  String get dashboard_income => 'এ মাসের মোট আয় · Income this month';
+
+  @override
+  String dashboard_amount(String value) {
+    return '৳$value';
+  }
+
+  @override
+  String get dashboard_collection => 'আদায় হার · Collection rate (6 mo)';
+
+  @override
+  String get dashboard_occupancy => 'অকুপেন্সি · Occupancy';
+
+  @override
+  String dashboard_occupancy_units(String occupied, String total) {
+    return '$occupied/$total';
+  }
+
+  @override
+  String get dashboard_occupied => 'ভাড়া হয়েছে · Occupied';
+
+  @override
+  String get dashboard_vacant => 'খালি · Vacant';
+
+  @override
+  String get dashboard_income_expense => 'আয় ও খরচ · Income vs expense';
+
+  @override
+  String get dashboard_income_legend => 'আয় · Income';
+
+  @override
+  String get dashboard_expense_legend => 'খরচ · Expense';
+
+  @override
+  String get dashboard_expenses => 'প্রধান খরচ · Top expenses 💸';
+
+  @override
+  String get dashboard_late => 'দেরিতে ভাড়া · Late payers';
+
+  @override
+  String get dashboard_late_none => 'কেউ দেরিতে নেই · No late payers';
+
+  @override
+  String dashboard_late_count(String count) {
+    return '$count জন দেরিতে · $count late payer(s)';
+  }
+
+  @override
+  String get dashboard_late_request =>
+      'ভাড়ার অনুরোধ পাঠান · Send rent request';
+
+  @override
+  String get dashboard_chart_empty => 'কোনো তথ্য নেই · No data yet';
+
+  @override
+  String get dashboard_empty =>
+      'এখনো কোনো তথ্য নেই · Nothing to show yet — add tenants & log rent to see your charts.';
 }

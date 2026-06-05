@@ -1540,4 +1540,65 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get maintenance_category_other => 'অন্যান্য';
+
+  @override
+  String get dashboard_title => 'ড্যাশবোর্ড';
+
+  @override
+  String get dashboard_income => 'এ মাসের মোট আয়';
+
+  @override
+  String dashboard_amount(String value) {
+    return '৳$value';
+  }
+
+  @override
+  String get dashboard_collection => 'আদায় হার (৬ মাস)';
+
+  @override
+  String get dashboard_occupancy => 'অকুপেন্সি';
+
+  @override
+  String dashboard_occupancy_units(String occupied, String total) {
+    return '$occupied/$total';
+  }
+
+  @override
+  String get dashboard_occupied => 'ভাড়া হয়েছে';
+
+  @override
+  String get dashboard_vacant => 'খালি';
+
+  @override
+  String get dashboard_income_expense => 'আয় ও খরচ';
+
+  @override
+  String get dashboard_income_legend => 'আয়';
+
+  @override
+  String get dashboard_expense_legend => 'খরচ';
+
+  @override
+  String get dashboard_expenses => 'প্রধান খরচ 💸';
+
+  @override
+  String get dashboard_late => 'দেরিতে ভাড়া';
+
+  @override
+  String get dashboard_late_none => 'কেউ দেরিতে নেই';
+
+  @override
+  String dashboard_late_count(String count) {
+    return '$count জন দেরিতে';
+  }
+
+  @override
+  String get dashboard_late_request => 'ভাড়ার অনুরোধ পাঠান';
+
+  @override
+  String get dashboard_chart_empty => 'কোনো তথ্য নেই';
+
+  @override
+  String get dashboard_empty =>
+      'এখনো কোনো তথ্য নেই — ভাড়াটিয়া যোগ করুন ও ভাড়া লিপিবদ্ধ করুন।';
 }

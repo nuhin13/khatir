@@ -1578,5 +1578,53 @@
   "maintenance_category_utility": "ইউটিলিটি · Utility",
   "@maintenance_category_utility": { "description": "Maintenance category label: utility." },
   "maintenance_category_other": "অন্যান্য · Other",
-  "@maintenance_category_other": { "description": "Maintenance category label: other." }
+  "@maintenance_category_other": { "description": "Maintenance category label: other." },
+  "dashboard_title": "ড্যাশবোর্ড · Dashboard",
+  "@dashboard_title": { "description": "Dashboard / charts screen app-bar title." },
+  "dashboard_income": "এ মাসের মোট আয় · Income this month",
+  "@dashboard_income": { "description": "Label on the income hero card." },
+  "dashboard_amount": "৳{value}",
+  "@dashboard_amount": {
+    "description": "A taka money amount rendered with localized numerals.",
+    "placeholders": { "value": { "type": "String" } }
+  },
+  "dashboard_collection": "আদায় হার · Collection rate (6 mo)",
+  "@dashboard_collection": { "description": "Heading above the 6-month collection bar chart." },
+  "dashboard_occupancy": "অকুপেন্সি · Occupancy",
+  "@dashboard_occupancy": { "description": "Heading above the occupancy donut." },
+  "dashboard_occupancy_units": "{occupied}/{total}",
+  "@dashboard_occupancy_units": {
+    "description": "Occupied-of-total units sublabel inside the occupancy donut.",
+    "placeholders": {
+      "occupied": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "dashboard_occupied": "ভাড়া হয়েছে · Occupied",
+  "@dashboard_occupied": { "description": "Occupancy legend: occupied units." },
+  "dashboard_vacant": "খালি · Vacant",
+  "@dashboard_vacant": { "description": "Occupancy legend: vacant units." },
+  "dashboard_income_expense": "আয় ও খরচ · Income vs expense",
+  "@dashboard_income_expense": { "description": "Heading above the income-vs-expense chart." },
+  "dashboard_income_legend": "আয় · Income",
+  "@dashboard_income_legend": { "description": "Income-vs-expense legend: income." },
+  "dashboard_expense_legend": "খরচ · Expense",
+  "@dashboard_expense_legend": { "description": "Income-vs-expense legend: expense." },
+  "dashboard_expenses": "প্রধান খরচ · Top expenses 💸",
+  "@dashboard_expenses": { "description": "Heading above the top expense categories list." },
+  "dashboard_late": "দেরিতে ভাড়া · Late payers",
+  "@dashboard_late": { "description": "Heading on the late-payers card." },
+  "dashboard_late_none": "কেউ দেরিতে নেই · No late payers",
+  "@dashboard_late_none": { "description": "Late-payers card when nobody is overdue." },
+  "dashboard_late_count": "{count} জন দেরিতে · {count} late payer(s)",
+  "@dashboard_late_count": {
+    "description": "Number of late payers; count is already localized to a numeral string.",
+    "placeholders": { "count": { "type": "String" } }
+  },
+  "dashboard_late_request": "ভাড়ার অনুরোধ পাঠান · Send rent request",
+  "@dashboard_late_request": { "description": "Quick-request CTA on the late-payers card → /rent/request." },
+  "dashboard_chart_empty": "কোনো তথ্য নেই · No data yet",
+  "@dashboard_chart_empty": { "description": "Empty-state label inside a chart with no data." },
+  "dashboard_empty": "এখনো কোনো তথ্য নেই · Nothing to show yet — add tenants & log rent to see your charts.",
+  "@dashboard_empty": { "description": "Whole-screen empty state for a brand-new landlord with no data." }
 }

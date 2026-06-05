@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../features/auth/presentation/screens/otp_entry_screen.dart';
 import '../../features/auth/presentation/screens/phone_entry_screen.dart';
+import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_pdf_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
 import '../../features/leases/presentation/screens/lease_detail_screen.dart';
@@ -282,11 +283,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          _placeholderBranch(
-            // TODO(EPIC-09) replace with the landlord dashboard/charts.
-            path: '/landlord/dashboard',
-            name: 'landlordDashboard',
-            label: (l) => l.nav_charts,
+          // Landlord dashboard / charts (EPIC-09 T-006): collection bar chart,
+          // occupancy donut, income-vs-expense trend, top expenses, late payers.
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: DashboardScreen.routePath,
+                name: DashboardScreen.routeName,
+                builder: (context, state) => const DashboardScreen(),
+              ),
+            ],
           ),
           _placeholderBranch(
             // TODO(EPIC-07) replace with rent collection.

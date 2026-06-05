@@ -2989,6 +2989,114 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'অন্যান্য'**
   String get maintenance_category_other;
+
+  /// Dashboard / charts screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'ড্যাশবোর্ড'**
+  String get dashboard_title;
+
+  /// Label on the income hero card.
+  ///
+  /// In bn, this message translates to:
+  /// **'এ মাসের মোট আয়'**
+  String get dashboard_income;
+
+  /// A taka money amount rendered with localized numerals.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{value}'**
+  String dashboard_amount(String value);
+
+  /// Heading above the 6-month collection bar chart.
+  ///
+  /// In bn, this message translates to:
+  /// **'আদায় হার (৬ মাস)'**
+  String get dashboard_collection;
+
+  /// Heading above the occupancy donut.
+  ///
+  /// In bn, this message translates to:
+  /// **'অকুপেন্সি'**
+  String get dashboard_occupancy;
+
+  /// Occupied-of-total units sublabel inside the occupancy donut.
+  ///
+  /// In bn, this message translates to:
+  /// **'{occupied}/{total}'**
+  String dashboard_occupancy_units(String occupied, String total);
+
+  /// Occupancy legend: occupied units.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া হয়েছে'**
+  String get dashboard_occupied;
+
+  /// Occupancy legend: vacant units.
+  ///
+  /// In bn, this message translates to:
+  /// **'খালি'**
+  String get dashboard_vacant;
+
+  /// Heading above the income-vs-expense chart.
+  ///
+  /// In bn, this message translates to:
+  /// **'আয় ও খরচ'**
+  String get dashboard_income_expense;
+
+  /// Income-vs-expense legend: income.
+  ///
+  /// In bn, this message translates to:
+  /// **'আয়'**
+  String get dashboard_income_legend;
+
+  /// Income-vs-expense legend: expense.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ'**
+  String get dashboard_expense_legend;
+
+  /// Heading above the top expense categories list.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রধান খরচ 💸'**
+  String get dashboard_expenses;
+
+  /// Heading on the late-payers card.
+  ///
+  /// In bn, this message translates to:
+  /// **'দেরিতে ভাড়া'**
+  String get dashboard_late;
+
+  /// Late-payers card when nobody is overdue.
+  ///
+  /// In bn, this message translates to:
+  /// **'কেউ দেরিতে নেই'**
+  String get dashboard_late_none;
+
+  /// Number of late payers; count is already localized to a numeral string.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} জন দেরিতে'**
+  String dashboard_late_count(String count);
+
+  /// Quick-request CTA on the late-payers card.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার অনুরোধ পাঠান'**
+  String get dashboard_late_request;
+
+  /// Empty-state label inside a chart with no data.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো তথ্য নেই'**
+  String get dashboard_chart_empty;
+
+  /// Whole-screen empty state for a brand-new landlord with no data.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো তথ্য নেই — ভাড়াটিয়া যোগ করুন ও ভাড়া লিপিবদ্ধ করুন।'**
+  String get dashboard_empty;
 }
 
 class _AppLocalizationsDelegate
