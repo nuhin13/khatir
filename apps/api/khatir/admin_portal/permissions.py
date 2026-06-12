@@ -142,9 +142,13 @@ def _decode_admin_principal(request: Request) -> AdminPrincipal | None:
 
     header = request.META.get("HTTP_AUTHORIZATION", "")
     parts = header.split()
-    if len(parts) != 2 or parts[0].lower() != "bearer":
+    if len(parts) == 2 and parts[0].lower() == "bearer":
+        token = parts[1]
+    else:
+        # Fall back to the HTTP-only session cookie set by the Next.js frontend.
+        token = request.COOKIES.get("khatir_admin_session", "")
+    if not token:
         return None
-    token = parts[1]
 
     try:
         claims = jwt.decode(
@@ -155,7 +159,7 @@ def _decode_admin_principal(request: Request) -> AdminPrincipal | None:
     except jwt.PyJWTError:
         return None
 
-    admin_user_id = claims.get("admin_user_id")
+    admin_user_id = claims.get("admin_user_id") or claims.get("sub")
     role = claims.get("role")
     if admin_user_id is None or role not in ALL_ROLES:
         return None

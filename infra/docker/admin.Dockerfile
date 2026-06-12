@@ -10,7 +10,7 @@ WORKDIR /app
 COPY apps/admin/package.json apps/admin/package-lock.json ./apps/admin/
 COPY packages/design-tokens/ ./packages/design-tokens/
 WORKDIR /app/apps/admin
-RUN npm ci
+RUN npm install
 
 # ── build ─────────────────────────────────────────────────────────────
 FROM node:22-bookworm-slim AS build
