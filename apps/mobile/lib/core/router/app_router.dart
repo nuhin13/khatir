@@ -35,6 +35,12 @@ import '../../features/shell/manager_shell.dart';
 import '../../features/shell/tenant_shell.dart';
 import '../../features/shell/widgets/shell_placeholder.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/tenant/presentation/screens/ten_home_screen.dart';
+import '../../features/tenant/presentation/screens/ten_lease_screen.dart';
+import '../../features/tenant/presentation/screens/ten_maint_screen.dart';
+import '../../features/tenant/presentation/screens/ten_pay_screen.dart';
+import '../../features/tenant/presentation/screens/ten_receipts_screen.dart';
+import '../../features/tenant/presentation/screens/ten_record_screen.dart';
 import '../../features/tenants/presentation/screens/add_tenant_screen.dart';
 import '../../features/tenants/presentation/screens/manual_tenant_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
@@ -346,28 +352,64 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
 
-      // ── Tenant shell (T-004) — stubbed, filled by EPIC-19 ───────────────
+      // ── Tenant shell (EPIC-19 T-012) — real screens wired ───────────────
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             TenantShell(navigationShell: navigationShell),
         branches: [
-          _placeholderBranch(
-            // TODO(EPIC-19) replace with tenant home (rent due, lease).
-            path: '/tenant/home',
-            name: 'tenantHome',
-            label: (l) => l.nav_home,
+          // Tenant home (T-005): rent status, quick actions, lease summary,
+          // recent receipts, star record promo.
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: TenHomeScreen.routePath,
+                name: TenHomeScreen.routeName,
+                builder: (context, state) => const TenHomeScreen(),
+                routes: [
+                  // Lease view (T-006): read-only lease details + optional
+                  // AI lease PDF link. Nested under home so back returns home.
+                  GoRoute(
+                    path: 'lease',
+                    name: TenLeaseScreen.routeName,
+                    builder: (context, state) => const TenLeaseScreen(),
+                  ),
+                  // Pay screen (T-007): amount due, bKash/Nagad instructions,
+                  // submit proof (screenshot / txn id / note).
+                  GoRoute(
+                    path: 'pay',
+                    name: TenPayScreen.routeName,
+                    builder: (context, state) => const TenPayScreen(),
+                  ),
+                  // Record / rating (T-010): private star rating + notes +
+                  // consent toggle. STRICTLY PRIVATE.
+                  GoRoute(
+                    path: 'record',
+                    name: TenRecordScreen.routeName,
+                    builder: (context, state) => const TenRecordScreen(),
+                  ),
+                ],
+              ),
+            ],
           ),
-          _placeholderBranch(
-            // TODO(EPIC-19) replace with request maintenance.
-            path: '/tenant/maintenance',
-            name: 'tenantMaintenance',
-            label: (l) => l.nav_maintenance,
+          // Maintenance report (T-008): category, description, optional photo.
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: TenMaintScreen.routePath,
+                name: TenMaintScreen.routeName,
+                builder: (context, state) => const TenMaintScreen(),
+              ),
+            ],
           ),
-          _placeholderBranch(
-            // TODO(EPIC-19) replace with receipt history.
-            path: '/tenant/receipts',
-            name: 'tenantReceipts',
-            label: (l) => l.nav_receipts,
+          // Receipts list (T-009): paginated paid-period receipts.
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: TenReceiptsScreen.routePath,
+                name: TenReceiptsScreen.routeName,
+                builder: (context, state) => const TenReceiptsScreen(),
+              ),
+            ],
           ),
           _moreBranch(
             // More menu (T-007) — tenant gets the simpler list (no lease /

@@ -4,7 +4,7 @@ epic: EPIC-19
 title: Tenant in-app pay screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003]
 blocks: []

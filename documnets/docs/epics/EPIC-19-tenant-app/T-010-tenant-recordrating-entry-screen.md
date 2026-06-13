@@ -4,7 +4,7 @@ epic: EPIC-19
 title: Tenant record/rating entry screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002]
 blocks: []

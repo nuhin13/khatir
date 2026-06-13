@@ -3433,6 +3433,74 @@ abstract class AppLocalizations {
 
   /// Snackbar when a lease PDF share/download action fails.
   String get lease_pdf_action_failed;
+
+  // ── EPIC-19 Tenant app i18n keys ─────────────────────────────────────────
+
+  String get ten_home_greeting;
+  String get ten_home_rent_status;
+  String get ten_home_rent_paid;
+  String get ten_home_rent_overdue;
+  String get ten_home_pay;
+  String get ten_home_lease;
+  String get ten_home_lease_view;
+  String get ten_home_quick_actions;
+  String get ten_home_action_maint;
+  String get ten_home_action_receipts;
+  String get ten_home_action_pay;
+  String get ten_home_action_record;
+  String get ten_home_recent_receipts;
+  String get ten_home_no_lease;
+  String get ten_home_star_record;
+  String get ten_home_star_body;
+
+  String get ten_lease_rent;
+  String get ten_lease_dates;
+  String get ten_lease_landlord;
+  String get ten_lease_document;
+  String get ten_lease_advance;
+  String get ten_lease_notice;
+  String get ten_lease_active;
+  String get ten_lease_no_lease;
+
+  String get ten_pay_amount;
+  String get ten_pay_instructions;
+  String get ten_pay_screenshot;
+  String get ten_pay_txn_id;
+  String get ten_pay_note;
+  String get ten_pay_submit;
+  String get ten_pay_pending;
+  String get ten_pay_no_rent;
+
+  String get ten_maint_category;
+  String get ten_maint_describe;
+  String get ten_maint_photo;
+  String get ten_maint_submit;
+  String get ten_maint_cat_plumbing;
+  String get ten_maint_cat_electrical;
+  String get ten_maint_cat_paint;
+  String get ten_maint_cat_other;
+  String get ten_maint_description_hint;
+  String get ten_maint_photo_optional;
+
+  String get ten_receipts_title;
+  String get ten_receipts_period;
+  String get ten_receipts_download;
+  String get ten_receipts_empty;
+  String get ten_receipts_paid;
+  String get ten_receipts_pending;
+  String ten_receipts_summary(String count);
+
+  String get ten_record_rating;
+  String get ten_record_notes;
+  String get ten_record_consent;
+  String get ten_record_save;
+  String get ten_record_private_note;
+  String get ten_record_on_time;
+  String get ten_record_leases;
+  String get ten_record_avg_rating;
+  String get ten_record_disputes;
+  String get ten_record_trusted;
+  String get ten_record_notes_hint;
 }
 
 class _AppLocalizationsDelegate

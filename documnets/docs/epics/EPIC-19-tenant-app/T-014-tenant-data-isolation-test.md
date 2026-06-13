@@ -4,7 +4,7 @@ epic: EPIC-19
 title: Tenant data isolation test
 layer: cross-cutting
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-002]
 blocks: []

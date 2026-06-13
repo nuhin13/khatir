@@ -168,6 +168,22 @@ class ApiEndpoints {
   // not a separate fetch.
   static const String billingSubscribe = '$apiPrefix/billing/subscribe';
 
+  // Tenant self-service (EPIC-19 T-002): /me/ endpoints scoped to the
+  // authenticated tenant. A different user's id never appears in any of these
+  // paths — the server derives the caller from the JWT.
+  static const String myLease = '$apiPrefix/me/lease';
+  static const String myRent = '$apiPrefix/me/rent';
+  static const String myReceipts = '$apiPrefix/me/receipts';
+  static const String myRecord = '$apiPrefix/me/record';
+  static const String myMaintenanceReports =
+      '$apiPrefix/maintenance/reports';
+
+  /// `/api/v1/me/receipts/{id}` — single verified receipt.
+  static String myReceipt(String id) => '$myReceipts/$id';
+
+  /// `/api/v1/me/rent/{id}/pay` — submit proof of payment for a rent period.
+  static String myRentPay(String id) => '$myRent/$id/pay';
+
   // Health check (no auth).
   static const String healthz = '/healthz';
 }

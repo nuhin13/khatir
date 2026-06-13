@@ -1856,4 +1856,132 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get lease_pdf_action_failed => 'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
+
+  // ── EPIC-19 Tenant app ───────────────────────────────────────────────────
+
+  @override
+  String get ten_home_greeting => 'আসসালামু আলাইকুম,';
+  @override
+  String get ten_home_rent_status => 'এ মাসের ভাড়া';
+  @override
+  String get ten_home_rent_paid => 'পরিশোধিত';
+  @override
+  String get ten_home_rent_overdue => 'বাকি';
+  @override
+  String get ten_home_pay => 'পেমেন্ট প্রমাণ আপলোড';
+  @override
+  String get ten_home_lease => 'আমার লিজ';
+  @override
+  String get ten_home_lease_view => 'দেখুন';
+  @override
+  String get ten_home_quick_actions => 'দ্রুত কাজ';
+  @override
+  String get ten_home_action_maint => 'মেরামত চাই';
+  @override
+  String get ten_home_action_receipts => 'রসিদ দেখুন';
+  @override
+  String get ten_home_action_pay => 'ভাড়া দিন';
+  @override
+  String get ten_home_action_record => 'রেকর্ড দেখুন';
+  @override
+  String get ten_home_recent_receipts => 'সাম্প্রতিক রসিদ';
+  @override
+  String get ten_home_no_lease => 'কোনো সক্রিয় লিজ নেই';
+  @override
+  String get ten_home_star_record => "You're a star!";
+  @override
+  String get ten_home_star_body => 'পরের বাসায় ভালো রেকর্ড পাবেন';
+
+  @override
+  String get ten_lease_rent => 'ভাড়া/মাস';
+  @override
+  String get ten_lease_dates => 'মেয়াদ';
+  @override
+  String get ten_lease_landlord => 'মালিক';
+  @override
+  String get ten_lease_document => 'চুক্তি PDF';
+  @override
+  String get ten_lease_advance => 'অগ্রিম';
+  @override
+  String get ten_lease_notice => 'নোটিশ';
+  @override
+  String get ten_lease_active => 'চলমান';
+  @override
+  String get ten_lease_no_lease => 'কোনো সক্রিয় লিজ নেই';
+
+  @override
+  String get ten_pay_amount => 'ভাড়ার পরিমাণ';
+  @override
+  String get ten_pay_instructions => 'প্রমাণ দিন';
+  @override
+  String get ten_pay_screenshot => 'স্ক্রিনশট আপলোড';
+  @override
+  String get ten_pay_txn_id => 'Txn ID লিখুন';
+  @override
+  String get ten_pay_note => 'নোট লিখুন';
+  @override
+  String get ten_pay_submit => 'প্রমাণ জমা দিন';
+  @override
+  String get ten_pay_pending => 'মালিক যাচাই করলে রসিদ পাবেন';
+  @override
+  String get ten_pay_no_rent => 'কোনো বকেয়া ভাড়া নেই';
+
+  @override
+  String get ten_maint_category => 'ধরন';
+  @override
+  String get ten_maint_describe => 'বিবরণ';
+  @override
+  String get ten_maint_photo => 'ছবি যোগ করুন';
+  @override
+  String get ten_maint_submit => 'অনুরোধ পাঠান';
+  @override
+  String get ten_maint_cat_plumbing => '🚿 পানি';
+  @override
+  String get ten_maint_cat_electrical => '💡 বিদ্যুৎ';
+  @override
+  String get ten_maint_cat_paint => '🎨 রং';
+  @override
+  String get ten_maint_cat_other => '🔧 অন্যান্য';
+  @override
+  String get ten_maint_description_hint => 'কী সমস্যা হচ্ছে লিখুন';
+  @override
+  String get ten_maint_photo_optional => 'ঐচ্ছিক';
+
+  @override
+  String get ten_receipts_title => 'রসিদ';
+  @override
+  String get ten_receipts_period => 'মাস';
+  @override
+  String get ten_receipts_download => 'ডাউনলোড';
+  @override
+  String get ten_receipts_empty => 'কোনো রসিদ নেই';
+  @override
+  String get ten_receipts_paid => '✓ পরিশোধিত';
+  @override
+  String get ten_receipts_pending => '⏳ অপেক্ষায়';
+  @override
+  String ten_receipts_summary(String count) => '$count মাস পরিশোধিত';
+
+  @override
+  String get ten_record_rating => 'রেটিং';
+  @override
+  String get ten_record_notes => 'ব্যক্তিগত নোট';
+  @override
+  String get ten_record_consent => 'পরবর্তী মালিককে দেখাতে সম্মত';
+  @override
+  String get ten_record_save => 'সংরক্ষণ';
+  @override
+  String get ten_record_private_note => 'শুধু আপনার সম্মতিতে পরবর্তী মালিক দেখতে পাবেন';
+  @override
+  String get ten_record_on_time => 'মাস সময়মতো';
+  @override
+  String get ten_record_leases => 'সম্পন্ন লিজ';
+  @override
+  String get ten_record_avg_rating => 'গড় রেটিং';
+  @override
+  String get ten_record_disputes => 'বিরোধ';
+  @override
+  String get ten_record_trusted => 'Trusted tenant';
+  @override
+  String get ten_record_notes_hint => 'ব্যক্তিগত অভিজ্ঞতা লিখুন';
 }
