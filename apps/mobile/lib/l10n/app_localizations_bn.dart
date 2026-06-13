@@ -1708,4 +1708,90 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get unit_tenant_unverified => 'NID যাচাই হয়নি';
+
+  // ── EPIC-18: AI lease ──────────────────────────────────────────────────────
+
+  @override
+  String get lease_doc_title => 'স্মার্ট লিজ · AI চুক্তি';
+
+  @override
+  String get lease_doc_subtitle => 'DNCC-সম্মত চুক্তি — AI দিয়ে তৈরি';
+
+  @override
+  String get lease_generate => 'AI দিয়ে চুক্তি তৈরি করুন';
+
+  @override
+  String get lease_disclaimer =>
+      'এটি AI-তৈরি খসড়া এবং আইনি পরামর্শ নয়। '
+      'স্বাক্ষরের আগে একজন যোগ্য আইনজীবীর সাথে সব ক্লজ পর্যালোচনা করুন।';
+
+  @override
+  String get lease_draft_generating => 'AI আপনার লিজের খসড়া তৈরি করছে…';
+
+  @override
+  String lease_draft_clauses(int count) => '$count টি ক্লজ পর্যালোচনার জন্য প্রস্তুত';
+
+  @override
+  String get lease_clause_required => 'আবশ্যিক';
+
+  @override
+  String get lease_edit_clauses => 'ক্লজ দেখুন ও সম্পাদনা করুন';
+
+  @override
+  String get lease_view_pdf => 'PDF দেখুন';
+
+  @override
+  String get lease_tier_gated_title => 'AI লিজ ব্যবহার করতে আপগ্রেড করুন';
+
+  @override
+  String get lease_tier_gated_body =>
+      'AI লিজ তৈরি করতে পেইড প্ল্যান প্রয়োজন। আনলক করতে আপগ্রেড করুন।';
+
+  @override
+  String get lease_unavailable => 'AI লিজ এখন উপলব্ধ নয়।';
+
+  @override
+  String get lease_doc_error => 'চুক্তি তৈরি করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get lease_doc_retry => 'আবার চেষ্টা করুন';
+
+  @override
+  String get lease_clause_title => 'ক্লজ পর্যালোচনা ও সম্পাদনা';
+
+  @override
+  String get lease_clause_save => 'ক্লজ সংরক্ষণ';
+
+  @override
+  String get lease_clause_save_error => 'ক্লজ সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get lease_clause_saved => 'ক্লজ সংরক্ষিত হয়েছে';
+
+  @override
+  String get lease_clause_edit_hint => 'ক্লজের টেক্সট সম্পাদনা করুন…';
+
+  @override
+  String get lease_clause_required_lock => 'আবশ্যিক ক্লজ — মুছতে পারবেন না';
+
+  @override
+  String get lease_pdf_title => 'লিজ PDF';
+
+  @override
+  String get lease_pdf_generating => 'আপনার লিজের PDF তৈরি হচ্ছে…';
+
+  @override
+  String get lease_pdf_error => 'PDF তৈরি করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get lease_pdf_retry => 'আবার চেষ্টা করুন';
+
+  @override
+  String get lease_pdf_download => 'নামান';
+
+  @override
+  String get lease_pdf_share => 'শেয়ার করুন';
+
+  @override
+  String get lease_pdf_action_failed => 'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
 }

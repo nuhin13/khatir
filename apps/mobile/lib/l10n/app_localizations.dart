@@ -3289,6 +3289,89 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'NID যাচাই হয়নি'**
   String get unit_tenant_unverified;
+
+  // ── EPIC-18: AI lease ──────────────────────────────────────────────────────
+
+  /// App-bar title of the AI lease document screen.
+  String get lease_doc_title;
+
+  /// Subtitle under the hero on the lease document intro state.
+  String get lease_doc_subtitle;
+
+  /// Primary CTA on the lease document intro: trigger AI generation.
+  String get lease_generate;
+
+  /// Non-dismissible disclaimer banner shown on the draft and PDF preview.
+  String get lease_disclaimer;
+
+  /// Loading label shown while the AI generation POST is in-flight.
+  String get lease_draft_generating;
+
+  /// Sub-line under the disclaimer showing how many clauses were generated.
+  String lease_draft_clauses(int count);
+
+  /// Pill badge on a required clause that cannot be deleted.
+  String get lease_clause_required;
+
+  /// Footer CTA on the draft state: open the clause review/edit screen.
+  String get lease_edit_clauses;
+
+  /// Footer CTA on the draft state: open the PDF preview screen.
+  String get lease_view_pdf;
+
+  /// Heading shown when a free-tier landlord tries to generate an AI lease.
+  String get lease_tier_gated_title;
+
+  /// Body of the tier-gated state on the lease document screen.
+  String get lease_tier_gated_body;
+
+  /// Shown when the ai_lease_enabled feature flag is off.
+  String get lease_unavailable;
+
+  /// Error message on the lease document screen.
+  String get lease_doc_error;
+
+  /// Retry button on the lease document error state.
+  String get lease_doc_retry;
+
+  /// App-bar title of the clause review/edit screen.
+  String get lease_clause_title;
+
+  /// Primary action on the clause edit screen: PATCH clauses and return.
+  String get lease_clause_save;
+
+  /// Snackbar when the PATCH clauses call fails.
+  String get lease_clause_save_error;
+
+  /// Snackbar shown after clauses are saved successfully.
+  String get lease_clause_saved;
+
+  /// Placeholder inside a clause text field on the edit screen.
+  String get lease_clause_edit_hint;
+
+  /// Tooltip on the lock icon for a required clause.
+  String get lease_clause_required_lock;
+
+  /// App-bar title of the lease PDF preview + share screen.
+  String get lease_pdf_title;
+
+  /// Loading label while the PDF is rendered and downloaded.
+  String get lease_pdf_generating;
+
+  /// Error state on the lease PDF screen.
+  String get lease_pdf_error;
+
+  /// Retry button on the lease PDF error state.
+  String get lease_pdf_retry;
+
+  /// Primary footer action: download/save the lease PDF.
+  String get lease_pdf_download;
+
+  /// Secondary footer action: share the lease PDF via the OS sheet.
+  String get lease_pdf_share;
+
+  /// Snackbar when a lease PDF share/download action fails.
+  String get lease_pdf_action_failed;
 }
 
 class _AppLocalizationsDelegate
