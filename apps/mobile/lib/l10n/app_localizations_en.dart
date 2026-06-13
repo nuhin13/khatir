@@ -1741,4 +1741,71 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unit_tenant_unverified => 'NID যাচাই হয়নি · NID not verified';
+
+  // ── NID Verify screen (EPIC-17 T-006) ──────────────────────────────────────
+
+  @override
+  String get nid_verify_title => 'NID যাচাই · Verify';
+
+  @override
+  String get nid_verify_hero => "Let's verify";
+
+  @override
+  String get nid_verify_desc =>
+      'EC verification service · Matched / Not Matched';
+
+  @override
+  String get nid_verify_consent =>
+      'ভাড়াটিয়ার সম্মতি নেওয়া হয়েছে · Tenant has given consent';
+
+  @override
+  String get nid_verify_run => 'যাচাই করুন · Verify';
+
+  @override
+  String get nid_verify_loading => 'যাচাই হচ্ছে… · Verifying…';
+
+  @override
+  String get nid_verify_matched => 'NID Matched with EC records';
+
+  @override
+  String get nid_verify_matched_sub => 'পরিচয় নিশ্চিত · Identity confirmed';
+
+  @override
+  String get nid_verify_not_matched => 'Not Matched';
+
+  @override
+  String get nid_verify_not_matched_sub =>
+      'EC-এ তথ্য মেলেনি · Records did not match';
+
+  @override
+  String get nid_verify_error =>
+      'যাচাই সম্পন্ন হয়নি · Verification could not complete';
+
+  @override
+  String get nid_verify_error_sub => 'আবার চেষ্টা করুন · Please try again';
+
+  @override
+  String get nid_verify_retry => 'আবার চেষ্টা · Try again';
+
+  @override
+  String get nid_verify_done => 'সম্পন্ন · Done';
+
+  @override
+  String get nid_verify_flag_off =>
+      'NID যাচাই এখন বন্ধ আছে · NID verification is currently unavailable.';
+
+  @override
+  String get nid_verify_upgrade =>
+      'NID যাচাই একটি paid ফিচার · Upgrade to verify';
+
+  // ── Verification badge (EPIC-17 T-007) ─────────────────────────────────────
+
+  @override
+  String get nid_badge_verified => 'যাচাইকৃত · Verified';
+
+  @override
+  String get nid_badge_unverified => 'যাচাই হয়নি · Unverified';
+
+  @override
+  String get nid_badge_failed => 'মেলেনি · Failed';
 }

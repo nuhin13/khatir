@@ -1740,5 +1740,81 @@
   "unit_tenant_unverified": "NID যাচাই হয়নি · NID not verified",
   "@unit_tenant_unverified": {
     "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified."
+  },
+  "nid_verify_title": "NID যাচাই · Verify",
+  "@nid_verify_title": {
+    "description": "App-bar title of the NID verify screen (EPIC-17 T-006). Neutral EC wording."
+  },
+  "nid_verify_hero": "Let's verify",
+  "@nid_verify_hero": {
+    "description": "Handwritten accent hero on the verify screen."
+  },
+  "nid_verify_desc": "EC verification service · Matched / Not Matched",
+  "@nid_verify_desc": {
+    "description": "Explanation of the EC verification on the verify screen. Never mentions Porichoy."
+  },
+  "nid_verify_consent": "ভাড়াটিয়ার সম্মতি নেওয়া হয়েছে · Tenant has given consent",
+  "@nid_verify_consent": {
+    "description": "Consent checkbox label on the verify screen. Must be checked before Verify can run."
+  },
+  "nid_verify_run": "যাচাই করুন · Verify",
+  "@nid_verify_run": {
+    "description": "Primary action button that triggers the EC verification."
+  },
+  "nid_verify_loading": "যাচাই হচ্ছে… · Verifying…",
+  "@nid_verify_loading": {
+    "description": "Loading message shown while the EC verify call is in flight."
+  },
+  "nid_verify_matched": "NID Matched with EC records",
+  "@nid_verify_matched": {
+    "description": "Success result shown when EC returns matched. Never exposes any EC field values."
+  },
+  "nid_verify_matched_sub": "পরিচয় নিশ্চিত · Identity confirmed",
+  "@nid_verify_matched_sub": {
+    "description": "Sub-line under the matched result."
+  },
+  "nid_verify_not_matched": "Not Matched",
+  "@nid_verify_not_matched": {
+    "description": "Result shown when EC returns not_matched. Never exposes any EC field values."
+  },
+  "nid_verify_not_matched_sub": "EC-এ তথ্য মেলেনি · Records did not match",
+  "@nid_verify_not_matched_sub": {
+    "description": "Sub-line under the not-matched result."
+  },
+  "nid_verify_error": "যাচাই সম্পন্ন হয়নি · Verification could not complete",
+  "@nid_verify_error": {
+    "description": "Error result shown when the EC call failed or errored."
+  },
+  "nid_verify_error_sub": "আবার চেষ্টা করুন · Please try again",
+  "@nid_verify_error_sub": {
+    "description": "Sub-line under the error result."
+  },
+  "nid_verify_retry": "আবার চেষ্টা · Try again",
+  "@nid_verify_retry": {
+    "description": "Retry button on the verify error state."
+  },
+  "nid_verify_done": "সম্পন্ন · Done",
+  "@nid_verify_done": {
+    "description": "Done button shown after a verification result (any outcome)."
+  },
+  "nid_verify_flag_off": "NID যাচাই এখন বন্ধ আছে · NID verification is currently unavailable.",
+  "@nid_verify_flag_off": {
+    "description": "Shown on the verify screen when the nid_verification_enabled flag is off."
+  },
+  "nid_verify_upgrade": "NID যাচাই একটি paid ফিচার · Upgrade to verify",
+  "@nid_verify_upgrade": {
+    "description": "Shown on the verify screen for free-tier users who cannot access verification."
+  },
+  "nid_badge_verified": "যাচাইকৃত · Verified",
+  "@nid_badge_verified": {
+    "description": "Verification badge label for a tenant whose NID matched."
+  },
+  "nid_badge_unverified": "যাচাই হয়নি · Unverified",
+  "@nid_badge_unverified": {
+    "description": "Verification badge label for a tenant not yet verified."
+  },
+  "nid_badge_failed": "মেলেনি · Failed",
+  "@nid_badge_failed": {
+    "description": "Verification badge label for a tenant whose NID did not match."
   }
 }

@@ -68,6 +68,10 @@ class ApiEndpoints {
   static String dmpRecord(String recordId) =>
       '$apiPrefix/dmpforms/$recordId';
 
+  /// `/api/v1/tenants/{id}/verify` — trigger NID EC verification for a tenant.
+  /// Returns only verification_status + provider_ref (no raw EC payload).
+  static String tenantVerify(String tenantId) => '$tenants/$tenantId/verify';
+
   /// `/api/v1/units/{id}/tenants` — tenants holding a lease on a unit.
   static String unitTenants(String unitId) => '$units/$unitId/tenants';
 

@@ -1708,4 +1708,66 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get unit_tenant_unverified => 'NID যাচাই হয়নি';
+
+  // ── NID Verify screen (EPIC-17 T-006) ──────────────────────────────────────
+
+  @override
+  String get nid_verify_title => 'NID যাচাই';
+
+  @override
+  String get nid_verify_hero => 'যাচাই করা যাক';
+
+  @override
+  String get nid_verify_desc => 'EC যাচাই সেবা · Matched / Not Matched';
+
+  @override
+  String get nid_verify_consent => 'ভাড়াটিয়ার সম্মতি নেওয়া হয়েছে';
+
+  @override
+  String get nid_verify_run => 'যাচাই করুন';
+
+  @override
+  String get nid_verify_loading => 'যাচাই হচ্ছে…';
+
+  @override
+  String get nid_verify_matched => 'NID Matched with EC records';
+
+  @override
+  String get nid_verify_matched_sub => 'পরিচয় নিশ্চিত হয়েছে';
+
+  @override
+  String get nid_verify_not_matched => 'Not Matched';
+
+  @override
+  String get nid_verify_not_matched_sub => 'EC-এ তথ্য মেলেনি';
+
+  @override
+  String get nid_verify_error => 'যাচাই সম্পন্ন হয়নি';
+
+  @override
+  String get nid_verify_error_sub => 'আবার চেষ্টা করুন';
+
+  @override
+  String get nid_verify_retry => 'আবার চেষ্টা';
+
+  @override
+  String get nid_verify_done => 'সম্পন্ন';
+
+  @override
+  String get nid_verify_flag_off => 'NID যাচাই এখন বন্ধ আছে।';
+
+  @override
+  String get nid_verify_upgrade =>
+      'NID যাচাই একটি পেইড ফিচার — আপগ্রেড করুন';
+
+  // ── Verification badge (EPIC-17 T-007) ─────────────────────────────────────
+
+  @override
+  String get nid_badge_verified => 'যাচাইকৃত';
+
+  @override
+  String get nid_badge_unverified => 'যাচাই হয়নি';
+
+  @override
+  String get nid_badge_failed => 'মেলেনি';
 }

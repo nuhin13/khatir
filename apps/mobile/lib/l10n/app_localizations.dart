@@ -3289,6 +3289,67 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'NID যাচাই হয়নি'**
   String get unit_tenant_unverified;
+
+  // ── NID Verify screen (EPIC-17 T-006) ──────────────────────────────────────
+
+  /// App-bar title of the NID verify screen.
+  String get nid_verify_title;
+
+  /// Handwritten accent hero on the verify screen.
+  String get nid_verify_hero;
+
+  /// Explanation of the EC verification shown in the info card.
+  String get nid_verify_desc;
+
+  /// Consent checkbox label. Must be checked before Verify can run.
+  String get nid_verify_consent;
+
+  /// Primary action button that triggers the EC verification.
+  String get nid_verify_run;
+
+  /// Loading message while the EC verify call is in flight.
+  String get nid_verify_loading;
+
+  /// Success result shown when EC returns matched.
+  String get nid_verify_matched;
+
+  /// Sub-line under the matched result.
+  String get nid_verify_matched_sub;
+
+  /// Result shown when EC returns not_matched.
+  String get nid_verify_not_matched;
+
+  /// Sub-line under the not-matched result.
+  String get nid_verify_not_matched_sub;
+
+  /// Error result shown when the EC call failed or errored.
+  String get nid_verify_error;
+
+  /// Sub-line under the error result.
+  String get nid_verify_error_sub;
+
+  /// Retry button on the verify error / not-matched state.
+  String get nid_verify_retry;
+
+  /// Done button shown after a successful (matched) verification result.
+  String get nid_verify_done;
+
+  /// Shown on the verify screen when the nid_verification_enabled flag is off.
+  String get nid_verify_flag_off;
+
+  /// Shown on the verify screen for free-tier users who cannot access verification.
+  String get nid_verify_upgrade;
+
+  // ── Verification badge (EPIC-17 T-007) ─────────────────────────────────────
+
+  /// Verification badge label for a tenant whose NID matched (green chip).
+  String get nid_badge_verified;
+
+  /// Verification badge label for a tenant not yet verified (grey chip).
+  String get nid_badge_unverified;
+
+  /// Verification badge label for a tenant whose NID did not match (amber chip).
+  String get nid_badge_failed;
 }
 
 class _AppLocalizationsDelegate
