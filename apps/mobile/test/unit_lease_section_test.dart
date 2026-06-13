@@ -151,7 +151,7 @@ void main() {
     // Heading + tenant.
     expect(find.text(l10n.unit_lease_active), findsOneWidget);
     expect(find.text('Karim Hossain'), findsOneWidget);
-    expect(find.text(l10n.unit_tenant_verified), findsOneWidget);
+    expect(find.text(l10n.nid_badge_verified), findsOneWidget);
 
     // The active status chip and the request-rent CTA.
     expect(find.text(l10n.lease_status_active), findsOneWidget);

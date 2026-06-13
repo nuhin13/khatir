@@ -8,6 +8,8 @@ import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../rent/presentation/screens/rent_request_screen.dart';
 import '../../../tenants/data/models/tenant_enums.dart';
+import '../../../verification/presentation/screens/verify_screen.dart';
+import '../../../verification/presentation/widgets/verification_badge.dart';
 import '../../data/models/lease_enums.dart';
 import '../../data/models/models.dart';
 import '../../data/providers.dart';
@@ -167,12 +169,17 @@ class _ActiveLeaseCard extends ConsumerWidget {
                           ),
                         ),
                         if (tenant != null) ...[
-                          const SizedBox(height: 1),
-                          Text(
-                            _verificationLabel(l10n, tenant.verificationStatus),
-                            style: AppTextStyles.bodySmall.copyWith(
-                              color: KhatirColors.mutedDk,
-                            ),
+                          const SizedBox(height: KhatirSpacing.s1),
+                          VerificationBadge(
+                            key: ValueKey('verificationBadge_${tenant.id}'),
+                            status: tenant.verificationStatus,
+                            onTap: tenant.verificationStatus !=
+                                    VerificationStatus.matched
+                                ? () => context.pushNamed(
+                                      VerifyScreen.routeName,
+                                      pathParameters: {'id': tenant.id},
+                                    )
+                                : null,
                           ),
                         ],
                       ],
@@ -470,9 +477,4 @@ class _LeaseLoadingCard extends StatelessWidget {
   }
 }
 
-/// The localised NID-verification sub-line for a tenant summary: "verified"
-/// only when the NID matched, otherwise "not verified".
-String _verificationLabel(AppLocalizations l10n, VerificationStatus status) =>
-    status == VerificationStatus.matched
-        ? l10n.unit_tenant_verified
-        : l10n.unit_tenant_unverified;
+// _verificationLabel removed — replaced by VerificationBadge (T-007).
