@@ -197,6 +197,13 @@ class ApiEndpoints {
   static String warningNotice(String warningId) =>
       '$apiPrefix/warnings/$warningId/notice';
 
+  // Chat / in-app chatbot (EPIC-23): send a message + fetch conversation
+  // history. All requests are scoped server-side to the authenticated user —
+  // there is no user-id parameter so cross-user reads are structurally
+  // impossible.
+  static const String chat = '$apiPrefix/chat';
+  static const String chatHistory = '$apiPrefix/chat/history';
+
   // Health check (no auth).
   static const String healthz = '/healthz';
 

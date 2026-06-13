@@ -2307,4 +2307,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String mgr_report_currency(String amount) => '৳$amount';
+
+  @override
+  String get chat_title => 'AI সহকারী · AI Assistant';
+
+  @override
+  String get chat_input_hint => 'জিজ্ঞাসা করুন · Ask a question…';
+
+  @override
+  String get chat_send => 'পাঠান · Send';
+
+  @override
+  String get chat_disclaimer =>
+      'AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না · AI does not give legal or financial advice';
+
+  @override
+  String get chat_disabled_title => 'AI চ্যাট পাওয়া যাচ্ছে না · AI Chat Unavailable';
+
+  @override
+  String get chat_disabled_body =>
+      'এই ফিচারটি এখন বন্ধ আছে। · This feature is currently disabled.';
+
+  @override
+  String get chat_empty => 'কথোপকথন শুরু করুন · Start the conversation';
+
+  @override
+  String get chat_loading_error =>
+      'বার্তা লোড করা যায়নি · Couldn\'t load messages';
+
+  @override
+  String get chat_send_error =>
+      'বার্তা পাঠানো যায়নি · Couldn\'t send message. Please try again.';
+
+  @override
+  String get chat_guardrail_disclaimer =>
+      '⚠️ AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না। এই তথ্য সাধারণ তথ্যের জন্য মাত্র। · AI does not provide legal or financial advice. This information is for general purposes only.';
 }

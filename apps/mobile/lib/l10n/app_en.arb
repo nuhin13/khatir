@@ -2174,6 +2174,47 @@
   "@mgr_report_currency": {
     "description": "Taka-prefixed amount on the report screen.",
     "placeholders": { "amount": { "type": "String" } }
+  },
+
+  "chat_title": "AI সহকারী · AI Assistant",
+  "@chat_title": {
+    "description": "Title shown in the chat bottom-sheet header."
+  },
+  "chat_input_hint": "জিজ্ঞাসা করুন · Ask a question…",
+  "@chat_input_hint": {
+    "description": "Placeholder text in the chat message input field."
+  },
+  "chat_send": "পাঠান · Send",
+  "@chat_send": {
+    "description": "Tooltip / accessibility label for the send button."
+  },
+  "chat_disclaimer": "AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না · AI does not give legal or financial advice",
+  "@chat_disclaimer": {
+    "description": "Bilingual disclaimer shown at the bottom of the chat sheet."
+  },
+  "chat_disabled_title": "AI চ্যাট পাওয়া যাচ্ছে না · AI Chat Unavailable",
+  "@chat_disabled_title": {
+    "description": "Title shown in the chat sheet when the chatbot_enabled flag is off."
+  },
+  "chat_disabled_body": "এই ফিচারটি এখন বন্ধ আছে। · This feature is currently disabled.",
+  "@chat_disabled_body": {
+    "description": "Body text shown in the chat sheet when the chatbot_enabled flag is off."
+  },
+  "chat_empty": "কথোপকথন শুরু করুন · Start the conversation",
+  "@chat_empty": {
+    "description": "Empty-state label when there are no messages yet."
+  },
+  "chat_loading_error": "বার্তা লোড করা যায়নি · Couldn't load messages",
+  "@chat_loading_error": {
+    "description": "Error state label when history fails to load."
+  },
+  "chat_send_error": "বার্তা পাঠানো যায়নি · Couldn't send message. Please try again.",
+  "@chat_send_error": {
+    "description": "Snackbar shown when sending a message fails."
+  },
+  "chat_guardrail_disclaimer": "⚠️ AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না। এই তথ্য সাধারণ তথ্যের জন্য মাত্র। · AI does not provide legal or financial advice. This information is for general purposes only.",
+  "@chat_guardrail_disclaimer": {
+    "description": "Extended disclaimer shown when the assistant response contains legal or financial advice keywords."
   }
   },
   "ten_home_greeting": "আসসালামু আলাইকুম,",
