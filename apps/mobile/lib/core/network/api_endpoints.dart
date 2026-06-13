@@ -157,4 +157,28 @@ class ApiEndpoints {
 
   // Health check (no auth).
   static const String healthz = '/healthz';
+
+  // Manager (EPIC-22): owner linking, dashboard, team, reports.
+  static const String managerOwners = '$apiPrefix/manager/owners';
+
+  /// `/api/v1/manager/owners/request` — send a link request to an owner.
+  static const String managerOwnersRequest =
+      '$managerOwners/request';
+
+  /// `/api/v1/manager/dashboard` — portfolio-wide aggregates.
+  static const String managerDashboard = '$apiPrefix/manager/dashboard';
+
+  /// `/api/v1/manager/team` — list / add team members.
+  static const String managerTeam = '$apiPrefix/manager/team';
+
+  /// `/api/v1/manager/team/{id}` — remove a team member.
+  static String managerTeamMember(String id) => '$managerTeam/$id';
+
+  /// `/api/v1/manager/report/{ownerId}` — read the cached report for an owner.
+  static String managerReport(String ownerId) =>
+      '$apiPrefix/manager/report/$ownerId';
+
+  /// `/api/v1/manager/report/{ownerId}/generate` — trigger PDF generation.
+  static String managerReportGenerate(String ownerId) =>
+      '${managerReport(ownerId)}/generate';
 }

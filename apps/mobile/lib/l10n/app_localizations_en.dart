@@ -1741,4 +1741,196 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unit_tenant_unverified => 'NID যাচাই হয়নি · NID not verified';
+
+  // ── EPIC-22 Manager strings ────────────────────────────────────────────────
+
+  @override
+  String get mgr_home_title => 'Manager Home · ম্যানেজার হোম';
+
+  @override
+  String get mgr_home_total => 'Total portfolio · মোট পোর্টফোলিও';
+
+  @override
+  String mgr_home_owners(String count) => '$count owners · $count মালিক';
+
+  @override
+  String get mgr_home_add_owner => 'Add owner · মালিক যোগ';
+
+  @override
+  String get mgr_home_team => 'Team · টিম';
+
+  @override
+  String get mgr_home_reports => 'Reports · রিপোর্ট';
+
+  @override
+  String get mgr_home_empty => 'No active owners yet · এখনো কোনো সক্রিয় মালিক নেই';
+
+  @override
+  String get mgr_home_empty_sub => 'Link an owner to see their portfolio here.';
+
+  @override
+  String get mgr_home_stat_units => 'Units · ইউনিট';
+
+  @override
+  String get mgr_home_stat_occupied => 'Occupied · ভাড়া হয়েছে';
+
+  @override
+  String get mgr_home_stat_rent => 'Monthly · মাসিক';
+
+  @override
+  String mgr_home_currency(String amount) => '৳$amount';
+
+  @override
+  String get mgr_add_owner_title => 'Link owner · মালিক যোগ';
+
+  @override
+  String get mgr_add_owner_hero => 'Link an owner';
+
+  @override
+  String get mgr_add_owner_hero_sub => 'মালিকের তথ্য দিন';
+
+  @override
+  String get mgr_add_owner_phone => 'Owner phone · মালিকের নম্বর';
+
+  @override
+  String get mgr_add_owner_phone_hint => '01XXXXXXXXX';
+
+  @override
+  String get mgr_add_owner_name => 'Owner name · মালিকের নাম';
+
+  @override
+  String get mgr_add_owner_name_hint => 'Full name';
+
+  @override
+  String get mgr_add_owner_request => 'Send request · অনুরোধ পাঠান';
+
+  @override
+  String get mgr_add_owner_pending => 'Pending requests · অপেক্ষমাণ অনুরোধ';
+
+  @override
+  String get mgr_add_owner_active => 'Active owners · সক্রিয় মালিক';
+
+  @override
+  String get mgr_add_owner_none_pending => 'No pending requests · কোনো অপেক্ষমাণ অনুরোধ নেই';
+
+  @override
+  String get mgr_add_owner_status_pending => 'Pending · অপেক্ষমাণ';
+
+  @override
+  String get mgr_add_owner_status_active => 'Active · সক্রিয়';
+
+  @override
+  String get mgr_add_owner_sent => 'Request sent · অনুরোধ পাঠানো হয়েছে';
+
+  @override
+  String get mgr_add_owner_error => 'Could not send request · অনুরোধ পাঠানো যায়নি';
+
+  @override
+  String get mgr_add_owner_err_phone => 'Enter a valid phone number · সঠিক নম্বর দিন';
+
+  @override
+  String get mgr_add_owner_err_name => 'Enter the owner\'s name · নাম দিন';
+
+  @override
+  String get mgr_team_title => 'Team · টিম';
+
+  @override
+  String get mgr_team_add => 'Add member · সদস্য যোগ';
+
+  @override
+  String get mgr_team_role => 'Role · ভূমিকা';
+
+  @override
+  String get mgr_team_scope => 'Scope · পরিসর';
+
+  @override
+  String get mgr_team_scope_all => 'All owners · সব মালিক';
+
+  @override
+  String get mgr_team_remove => 'Remove · সরান';
+
+  @override
+  String get mgr_team_remove_confirm_title => 'Remove member? · সদস্য সরাবেন?';
+
+  @override
+  String get mgr_team_remove_confirm_body =>
+      'This person will lose access to all owner portfolios.';
+
+  @override
+  String get mgr_team_cancel => 'Cancel · বাতিল';
+
+  @override
+  String get mgr_team_confirm => 'Remove · সরান';
+
+  @override
+  String get mgr_team_empty => 'No team members yet · এখনো কোনো সদস্য নেই';
+
+  @override
+  String get mgr_team_add_title => 'Add team member · সদস্য যোগ';
+
+  @override
+  String get mgr_team_phone => 'Phone · নম্বর';
+
+  @override
+  String get mgr_team_name => 'Name · নাম';
+
+  @override
+  String get mgr_team_role_label => 'Role · ভূমিকা';
+
+  @override
+  String get mgr_team_added => 'Member added · সদস্য যোগ হয়েছে';
+
+  @override
+  String get mgr_team_add_error => 'Could not add member · সদস্য যোগ করা যায়নি';
+
+  @override
+  String get mgr_team_removed => 'Member removed · সদস্য সরানো হয়েছে';
+
+  @override
+  String get mgr_team_remove_error => 'Could not remove · সরানো যায়নি';
+
+  @override
+  String get mgr_report_title => 'Reports · রিপোর্ট';
+
+  @override
+  String get mgr_report_owner => 'Select owner · মালিক বাছুন';
+
+  @override
+  String get mgr_report_generate => 'Generate report · রিপোর্ট তৈরি করুন';
+
+  @override
+  String get mgr_report_share => 'Share PDF · PDF শেয়ার';
+
+  @override
+  String get mgr_report_no_owners => 'No active owners linked · কোনো সক্রিয় মালিক নেই';
+
+  @override
+  String get mgr_report_income => 'Income · আয়';
+
+  @override
+  String get mgr_report_expense => 'Expense · খরচ';
+
+  @override
+  String get mgr_report_net => 'Net · নেট';
+
+  @override
+  String get mgr_report_occupancy => 'Occupancy · অকুপেন্সি';
+
+  @override
+  String get mgr_report_collection => 'Collection · আদায়';
+
+  @override
+  String get mgr_report_generating => 'Generating PDF…';
+
+  @override
+  String get mgr_report_pdf_ready => 'PDF ready · PDF তৈরি হয়েছে';
+
+  @override
+  String get mgr_report_generate_error => 'Could not generate report · রিপোর্ট তৈরি হয়নি';
+
+  @override
+  String get mgr_report_share_error => 'Could not share · শেয়ার করা যায়নি';
+
+  @override
+  String mgr_report_currency(String amount) => '৳$amount';
 }
