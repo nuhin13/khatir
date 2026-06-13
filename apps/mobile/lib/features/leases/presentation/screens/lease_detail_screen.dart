@@ -3,9 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:khatir_tokens/khatir_tokens.dart';
 
 import '../../../../core/i18n/bangla_numerals.dart';
+import '../../../../core/config/flags_provider.dart';
 import '../../../../core/network/api_exception.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../warnings/presentation/widgets/lease_warnings_section.dart';
 import '../../data/models/lease_enums.dart';
 import '../../data/models/models.dart';
 import '../../data/providers.dart';
@@ -84,6 +86,8 @@ class _LeaseDetail extends ConsumerWidget {
     final localeCode = Localizations.localeOf(context).languageCode;
     final scheduleAsync = ref.watch(leaseScheduleProvider(leaseId));
     final isActive = lease.status == LeaseStatus.active;
+    final warningsEnabled =
+        ref.watch(flagsProvider).isEnabled('warnings_feature', orElse: true);
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(
@@ -174,6 +178,14 @@ class _LeaseDetail extends ConsumerWidget {
                   )
                 : _ScheduleSummary(rows: rows),
           ),
+        ),
+
+        // ── Warnings (EPIC-20 T-008) ─────────────────────────────────────
+        const SizedBox(height: KhatirSpacing.s4),
+        LeaseWarningsSection(
+          key: const ValueKey('leaseWarningsSection'),
+          leaseId: leaseId,
+          warningsEnabled: warningsEnabled,
         ),
 
         // ── Terminate (only for an active lease) ──────────────────────────

@@ -9,7 +9,16 @@ import 'package:khatir_mobile/features/leases/data/models/lease_enums.dart';
 import 'package:khatir_mobile/features/leases/data/models/models.dart';
 import 'package:khatir_mobile/features/leases/data/providers.dart';
 import 'package:khatir_mobile/features/leases/presentation/screens/lease_detail_screen.dart';
+import 'package:khatir_mobile/features/warnings/data/models/models.dart' as wm;
+import 'package:khatir_mobile/features/warnings/data/providers.dart';
 import 'package:khatir_mobile/l10n/app_localizations.dart';
+
+/// A no-op warnings controller so the lease-detail test never needs HTTP
+/// for warnings (EPIC-20 T-008 adds LeaseWarningsSection to the screen).
+class _EmptyWarningsController extends LeaseWarningsController {
+  @override
+  Future<List<wm.Warning>> build(String leaseId) async => [];
+}
 
 /// A lease repository that serves a fixed lease + schedule without a network,
 /// and records terminate calls so the action can be asserted.
@@ -59,6 +68,8 @@ void main() {
     return ProviderScope(
       overrides: [
         leaseRepositoryProvider.overrideWithValue(repo),
+        // Override warnings so the new warnings section never makes HTTP calls.
+        leaseWarningsProvider.overrideWith(() => _EmptyWarningsController()),
       ],
       child: MaterialApp(
         locale: kLocaleEn,
