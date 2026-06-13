@@ -4,15 +4,15 @@ epic: EPIC-19
 title: Tenant data layer (mobile)
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002, T-003, T-004]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-13
+completed_at: 2026-06-13
+executed_by: claude-sonnet-4-6
 reviewed_at:
 reviewed_by:
 review_outcome:
