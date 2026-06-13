@@ -4,7 +4,7 @@ epic: EPIC-17
 title: Verification result privacy test (no raw data)
 layer: cross-cutting
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-004]
 blocks: []
