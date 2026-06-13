@@ -539,19 +539,8 @@ void main() {
   group('T-010 — free-tier users see tier-gated state on generate', () {
     testWidgets('tier-gated key visible when generate throws 402',
         (tester) async {
-      // Repo: getDocument → 404 (no existing doc, stay in intro).
-      //       generateDocument → 402 (free-tier blocked).
-      final tierRepo = _FakeRepo(
-        getDocResult: null, // will throw 404 override below
-        docResult: const ApiException(
-          message: 'feature_requires_upgrade',
-          statusCode: 402,
-          errorCode: 'feature_requires_upgrade',
-        ),
-      );
-
-      // We need getDocument to throw 404 so screen starts in intro.
-      // _FakeRepo returns _kDoc by default; use a subclass to override.
+      // Use _NotFoundGetRepo so getDocument throws 404 (→ intro state),
+      // and generateDocument throws 402 (→ tier-gated state).
       final notFoundIntroRepo = _NotFoundGetRepo(
         generateError: const ApiException(
           message: 'feature_requires_upgrade',
