@@ -37,6 +37,8 @@ import '../../features/tenants/presentation/screens/ocr_capture_screen.dart';
 import '../../features/tenants/presentation/screens/ocr_review_args.dart';
 import '../../features/tenants/presentation/screens/ocr_review_screen.dart';
 import '../../features/tenants/presentation/screens/voice_fill_screen.dart';
+import '../../features/warnings/presentation/screens/warning_notice_screen.dart';
+import '../../features/warnings/presentation/screens/warning_screen.dart';
 import '../../l10n/app_localizations.dart';
 import '../auth/auth_controller.dart';
 import '../auth/auth_state.dart';
@@ -620,6 +622,32 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: MaintenanceQueueScreen.routeName,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const MaintenanceQueueScreen(),
+      ),
+
+      // ── Warnings (EPIC-20 T-005 / T-006) ────────────────────────────────
+      // Issue-warning screen (`/lease/:id/warning`, T-005): type picker +
+      // reason form + disclaimer; kill-switch (`warnings_feature`) is read at
+      // call-site and passed as [warningsEnabled] so the route compiles cleanly
+      // without a config dependency inside the router. The route sits on the
+      // root navigator so it covers the landlord shell.
+      GoRoute(
+        path: WarningScreen.routePath,
+        name: WarningScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => WarningScreen(
+          leaseId: state.pathParameters['id'] ?? '',
+        ),
+      ),
+      // Warning notice PDF preview + share (`/warning/:warningId/notice`,
+      // T-006): generates the server-side notice PDF and offers Download +
+      // Share. Sits on the root navigator so it covers the shell.
+      GoRoute(
+        path: WarningNoticeScreen.routePath,
+        name: WarningNoticeScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => WarningNoticeScreen(
+          warningId: state.pathParameters['warningId'] ?? '',
+        ),
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────
