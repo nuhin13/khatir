@@ -98,6 +98,15 @@ class ApiEndpoints {
   /// `/api/v1/leases/{id}/terminate` — end/terminate an active lease.
   static String leaseTerminate(String id) => '${lease(id)}/terminate';
 
+  /// `/api/v1/leases/{id}/document` — generate (POST) or retrieve (GET) the
+  /// lease document, and update its clauses (PATCH).
+  static String leaseDocument(String leaseId) => '${lease(leaseId)}/document';
+
+  /// `/api/v1/leases/{id}/document/pdf` — render and return the lease PDF
+  /// (POST returns `{pdf_url: '...'}` with a signed download URL).
+  static String leaseDocumentPdf(String leaseId) =>
+      '${lease(leaseId)}/document/pdf';
+
   // Rent collection (EPIC-07): top-level resource at `/api/v1/rent-requests`
   // (no trailing slash). Create + queue list/detail; lifecycle transitions
   // (send / verify / reject / mark-received) are `@action` subpaths on a single

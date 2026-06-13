@@ -9,9 +9,12 @@ import '../../features/billing/presentation/screens/plan_screen.dart';
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_pdf_screen.dart';
 import '../../features/dmpform/presentation/screens/dmp_preview_screen.dart';
+import '../../features/leases/presentation/screens/lease_clause_screen.dart';
 import '../../features/leases/presentation/screens/lease_detail_screen.dart';
+import '../../features/leases/presentation/screens/lease_document_screen.dart';
 import '../../features/leases/presentation/screens/lease_form_screen.dart';
 import '../../features/leases/presentation/screens/lease_list_screen.dart';
+import '../../features/leases/presentation/screens/lease_pdf_screen.dart';
 import '../../features/maintenance/presentation/screens/add_expense_screen.dart';
 import '../../features/maintenance/presentation/screens/expenses_screen.dart';
 import '../../features/maintenance/presentation/screens/maintenance_queue_screen.dart';
@@ -586,6 +589,42 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: LeaseDetailScreen.routeName,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => LeaseDetailScreen(
+          leaseId: state.pathParameters['id'] ?? '',
+        ),
+      ),
+
+      // ── AI lease document (EPIC-18 T-006/T-007/T-008) ──────────────────
+      // The AI lease document screen (`/lease/:id/document`): generates and
+      // displays the AI-generated DNCC-compliant draft with a disclaimer banner,
+      // clause preview, and CTAs to review/edit clauses or view the PDF.
+      // Sits on the root navigator so it covers the shell when pushed.
+      GoRoute(
+        path: LeaseDocumentScreen.pathFor(':id'),
+        name: LeaseDocumentScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeaseDocumentScreen(
+          leaseId: state.pathParameters['id'] ?? '',
+        ),
+      ),
+      // Clause review/edit screen (`/lease/:id/clauses`, EPIC-18 T-007):
+      // displays all AI-generated clauses as editable text fields; required
+      // clauses show a lock icon and cannot be deleted. Pushes a PATCH on save.
+      GoRoute(
+        path: LeaseClauseScreen.pathFor(':id'),
+        name: LeaseClauseScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeaseClauseScreen(
+          leaseId: state.pathParameters['id'] ?? '',
+        ),
+      ),
+      // Lease PDF preview + share (`/lease/:id/pdf`, EPIC-18 T-008): renders
+      // the finalized lease PDF and offers Download + Share. Displays a
+      // non-dismissible disclaimer banner. Reuses the DMP PDF screen pattern.
+      GoRoute(
+        path: LeasePdfScreen.pathFor(':id'),
+        name: LeasePdfScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => LeasePdfScreen(
           leaseId: state.pathParameters['id'] ?? '',
         ),
       ),
