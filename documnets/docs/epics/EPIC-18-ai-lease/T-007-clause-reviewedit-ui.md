@@ -4,15 +4,15 @@ epic: EPIC-18
 title: Clause review/edit UI
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-006]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-13
+completed_at: 2026-06-13
+executed_by: claude-sonnet-4-6
 reviewed_at:
 reviewed_by:
 review_outcome:
