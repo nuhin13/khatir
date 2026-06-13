@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Django core app (base models, envelope, exceptions, config accessor)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-004]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -70,17 +70,17 @@ None. Uses `FIELD_ENCRYPTION_KEY` env for encryption.
 None.
 
 ## 11. Implementation checklist
-- [ ] TimeStampedModel + SoftDeleteModel (+ manager)
-- [ ] Error envelope exception handler wired in DRF settings
-- [ ] Success/paginated response helpers
-- [ ] Page-number + cursor pagination classes
-- [ ] Cross-app enums from enums.md (TextChoices)
-- [ ] Fernet encryption + masking helper
-- [ ] AuditEntry model + audit() writer
-- [ ] SystemConfig model + cached get_config()
-- [ ] Base permission classes + for_user pattern documented
-- [ ] Migration (reversible)
-- [ ] Tests for each utility pass
+- [x] TimeStampedModel + SoftDeleteModel (+ manager)
+- [x] Error envelope exception handler wired in DRF settings
+- [x] Success/paginated response helpers
+- [x] Page-number + cursor pagination classes
+- [x] Cross-app enums from enums.md (TextChoices)
+- [x] Fernet encryption + masking helper
+- [x] AuditEntry model + audit() writer
+- [x] SystemConfig model + cached get_config()
+- [x] Base permission classes + for_user pattern documented
+- [x] Migration (reversible)
+- [x] Tests for each utility pass
 
 ## 12. Test plan
 ### Automated
@@ -93,17 +93,29 @@ None.
 1. Trigger a validation error on /api/v1/config/public path and confirm the envelope shape.
 
 ## 13. Acceptance criteria
-- [ ] All base classes importable + used by a trivial example.
-- [ ] Error envelope matches `04_coding_conventions.md` §1.
-- [ ] Encryption round-trips; mask hides all but last 4.
-- [ ] Tests + ruff + mypy pass.
+- [x] All base classes importable + used by a trivial example.
+- [x] Error envelope matches `04_coding_conventions.md` §1.
+- [x] Encryption round-trips; mask hides all but last 4.
+- [x] Tests + ruff + mypy pass.
 
 ## 14. Self-review
-- [ ] Enum values match enums.md exactly
-- [ ] No domain logic leaked into core
-- [ ] Audit + config tested
+- [x] Enum values match enums.md exactly
+- [x] No domain logic leaked into core
+- [x] Audit + config tested
 ### Deviations from spec
+- Added `cryptography` to `apps/api` dependencies (required for Fernet; not yet present from T-004).
+- Added a deterministic `FIELD_ENCRYPTION_KEY` to `config/settings/test.py` so the encryption suite runs without env setup (mirrors T-004's sqlite test-only override rationale).
+- Only the genuinely cross-app enums (Role, AdminRole, Language, Channel, SystemConfigType, ErrorCode) live in `core/enums.py`; domain-specific enums stay with their owning apps per `enums.md`'s "core/enums.py if cross-app" rule.
+- Error-envelope `details` key is omitted entirely when there are no details (rather than emitted as `null`), keeping the success/error shapes minimal; `code`+`message` always present.
+- HTTP-level envelope test exercises 405 on the GET-only `/api/v1/config/public` DRF view (a bare unknown URL is resolved by Django's URLconf, not DRF, so it never reaches the custom handler).
 ### Files touched (actual)
+- Add: `apps/api/khatir/core/{__init__,apps,models,enums,exceptions,responses,pagination,encryption,audit,config,permissions}.py`
+- Add: `apps/api/khatir/core/migrations/{__init__,0001_initial}.py`
+- Add: `apps/api/khatir/core/tests/{__init__,conftest,test_models,test_encryption,test_exceptions,test_config,test_audit}.py`
+- Update: `apps/api/config/settings/base.py` (register `khatir.core`, DRF `EXCEPTION_HANDLER` + default pagination, `FIELD_ENCRYPTION_KEY`)
+- Update: `apps/api/config/settings/test.py` (test Fernet key)
+- Update: `apps/api/khatir/core/apps.py` (signal registration in `ready()`)
+- Update: `apps/api/pyproject.toml` + `uv.lock` (add `cryptography`)
 
 ## 15. Notes for the implementing agent
 - Error `code` values must come from the `ErrorCode` enum in `enums.md`.

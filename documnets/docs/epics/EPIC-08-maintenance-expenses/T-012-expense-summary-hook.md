@@ -4,15 +4,15 @@ epic: EPIC-08
 title: Expense summary hook for dashboard
 layer: backend
 size: XS
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-003]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-04
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:

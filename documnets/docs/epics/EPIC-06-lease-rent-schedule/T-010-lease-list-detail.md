@@ -4,7 +4,7 @@ epic: EPIC-06
 title: Lease list/detail screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-007]
 blocks: []
@@ -54,11 +54,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] lease list (scoped)
-- [ ] lease detail + schedule summary
-- [ ] terminate action
-- [ ] states; routes; ARB bn + en; widget test
-- [ ] analyze + test pass
+- [x] lease list (scoped)
+- [x] lease detail + schedule summary
+- [x] terminate action
+- [x] states; routes; ARB bn + en; widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -67,12 +67,27 @@ None.
 1. View leases; open one; terminate.
 
 ## 13. Acceptance criteria
-- [ ] Lease list + detail + terminate; states; tests + analyze pass.
+- [x] Lease list + detail + terminate; states; tests + analyze pass.
 
 ## 14. Self-review
-- [ ] Tokens; scoped data
+- [x] Tokens; scoped data
 ### Deviations from spec
+- Added an optional `grouped` parameter to `BanglaNumerals.format` (default
+  `true`, preserving existing behaviour) so date parts (year/month/day) can be
+  formatted without a thousands separator. The lease list screen (added in a
+  prior partial run of this task) already called `format(..., grouped: false)`;
+  this makes that call compile and keeps date rendering correct.
+- Detail screen reuses the list screen's `leaseStatusLabel` / `termRange`
+  helpers (shared, not duplicated). The terminate confirm button reuses the
+  `lease_terminate` string (no separate confirm-label key exists in the ARB).
 ### Files touched (actual)
+- apps/mobile/lib/features/leases/presentation/screens/lease_detail_screen.dart (add)
+- apps/mobile/lib/features/leases/presentation/screens/lease_list_screen.dart (string-interpolation cleanup; part of T-010)
+- apps/mobile/lib/core/i18n/bangla_numerals.dart (add optional `grouped` param)
+- apps/mobile/lib/core/router/app_router.dart (add `/leases` + `/lease/:id` routes)
+- apps/mobile/test/lease_list_test.dart (add)
+- apps/mobile/test/lease_detail_test.dart (add)
+- l10n ARB keys + generated localizations (already present from prior partial run)
 
 ## 15. Notes for the implementing agent
 - If the design folds leases into portfolio/unit rather than a separate list, follow the design; this screen can be lightweight.

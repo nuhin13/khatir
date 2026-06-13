@@ -4,15 +4,15 @@ epic: EPIC-04
 title: OCR endpoint (image → fields)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, T-004]
 blocks: [T-010]
 external_services: [ocr]
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -53,13 +53,13 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] multipart image intake
-- [ ] store encrypted (T-003) → photo_ref
-- [ ] extract via provider → fields
-- [ ] return fields + photo_ref (no raw payload)
-- [ ] permission + rate-limit
-- [ ] Tests (mocked provider)
-- [ ] ruff + mypy clean
+- [x] multipart image intake
+- [x] store encrypted (T-003) → photo_ref
+- [x] extract via provider → fields
+- [x] return fields + photo_ref (no raw payload)
+- [x] permission + rate-limit
+- [x] Tests (mocked provider)
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -68,12 +68,28 @@ None.
 1. POST an NID image → fields + photo_ref returned.
 
 ## 13. Acceptance criteria
-- [ ] OCR endpoint returns editable fields + encrypted photo_ref; tests + lint pass.
+- [x] OCR endpoint returns editable fields + encrypted photo_ref; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Image encrypted; no raw payload returned/logged
+- [x] Image encrypted; no raw payload returned/logged
 ### Deviations from spec
+- Intake uses a DRF `FileField` (not `ImageField`) so no Pillow dependency is
+  pulled in just to gate uploads; the OCR provider owns byte interpretation.
+- `config/urls.py` already includes `tenants.urls`, so only `tenants/urls.py`
+  needed a route (`tenants/ocr`, declared before the router so it does not
+  collide with the viewset's `tenants/<pk>` detail route).
+- Rate-limit is a per-user DRF `ScopedRateThrottle`-style class
+  (`tenant_ocr` scope, default `30/hour`, env-tunable via `THROTTLE_TENANT_OCR`),
+  matching the existing auth-throttle pattern; 429 → standard `rate_limited`
+  envelope via the core exception handler.
+- Sync (not Celery) extraction, accepted for MVP per §15.
 ### Files touched (actual)
+- apps/api/khatir/tenants/views.py — `TenantOcrView`
+- apps/api/khatir/tenants/serializers.py — `OcrRequestSerializer`/`OcrResponseSerializer`
+- apps/api/khatir/tenants/throttling.py — `OcrUserThrottle` (new)
+- apps/api/khatir/tenants/urls.py — `tenants/ocr` route
+- apps/api/config/settings/base.py — `tenant_ocr` throttle rate
+- apps/api/khatir/tenants/tests/test_ocr_endpoint.py — tests (new)
 
 ## 15. Notes for the implementing agent
 - Keep extraction provider-agnostic (T-004). Consider Celery if provider latency is high; sync is acceptable for MVP with a reasonable timeout.

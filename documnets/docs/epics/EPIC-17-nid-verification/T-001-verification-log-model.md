@@ -4,7 +4,7 @@ epic: EPIC-17
 title: VerificationLog model + Tenant status update
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-04.T-001, EPIC-16.T-001]
 blocks: [T-004, T-009]

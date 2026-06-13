@@ -4,15 +4,15 @@ epic: EPIC-19
 title: In-app pay endpoint (reuse EPIC-07 proof)
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002, EPIC-07.T-006]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -38,20 +38,38 @@ DB: reads/writes via existing models. Tenant-scoped. No external. No flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] Core endpoint per goal
-- [ ] tenant_for_user scoping (own only)
-- [ ] reuse existing pipeline (no duplication)
-- [ ] Tests: works + scoped + others' blocked
-- [ ] ruff + mypy clean
+- [x] Core endpoint per goal — `POST /api/v1/me/rent/{id}/pay`
+- [x] tenant_for_user scoping (own only) — `leases_for_tenant_user` filter, foreign id → 404
+- [x] reuse existing pipeline (no duplication) — extracted `submit_payment_proof`; web view now calls it too
+- [x] Tests: works + scoped + others' blocked
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
 - Core tests + scoping
 ## 13. Acceptance criteria
-- [ ] Endpoint works, tenant-scoped, reuses pipeline; tests + lint pass.
+- [x] Endpoint works, tenant-scoped, reuses pipeline; tests + lint pass.
 ## 14. Self-review
-- [ ] No duplicated proof/maintenance logic; strict scope
+- [x] No duplicated proof/maintenance logic; strict scope
 ### Deviations from spec
+- The proof-submit core (create `PaymentProof` + advance `sent → proof_submitted`)
+  previously lived only inside `rent/web_views.submit_proof`. To honour §3 (reuse,
+  no duplication), it was extracted into `rent.services.submit_payment_proof`; the
+  web view now calls that same function, so the web link and the in-app endpoint
+  share one pipeline.
+- The screenshot field uses DRF `FileField` (not `ImageField`) — Pillow is not a
+  project dependency, and the web flow likewise stores raw bytes without image
+  validation. Same 8 MiB cap as the web page.
+- Endpoint returns `201` with the updated `RentRequestSerializer` body (the
+  request now in `proof_submitted`), so the app can refresh its rent view in one
+  round-trip. A re-submit against an already verified/rejected request creates the
+  proof but never regresses status (covered by the shared service + a test).
 ### Files touched (actual)
+- Update: `apps/api/khatir/rent/services.py` (new `submit_payment_proof`)
+- Update: `apps/api/khatir/rent/web_views.py` (reuse the service; drop inlined create)
+- Update: `apps/api/khatir/tenants/me_serializers.py` (`InAppProofSerializer`)
+- Update: `apps/api/khatir/tenants/me_views.py` (`MeRentPayView`)
+- Update: `apps/api/khatir/tenants/urls.py` (`me/rent/<int:pk>/pay`)
+- Add: `apps/api/khatir/tenants/tests/test_me_pay_endpoint.py`
 ## 15. Notes
 POST /api/v1/me/rent/{id}/pay — submit payment proof in-app, feeding the SAME PaymentProof pipeline as the web-link (EPIC-07 T-006). Tenant-scoped. No new proof logic — reuse.

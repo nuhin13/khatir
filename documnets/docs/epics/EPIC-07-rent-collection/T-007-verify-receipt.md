@@ -4,15 +4,15 @@ epic: EPIC-07
 title: Verify / reject / mark-received + receipt PDF
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-05.T-003]
 blocks: [T-010]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:

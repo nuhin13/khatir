@@ -4,15 +4,15 @@ epic: EPIC-01
 title: Auth endpoints — request-otp / verify-otp
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, T-004]
 blocks: [T-006, T-007]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -75,14 +75,14 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] Serializers (request, verify) with E.164 BD phone validation
-- [ ] request_otp service: cooldown + generate + dispatch
-- [ ] verify_otp_and_get_user service: verify + get_or_create user
-- [ ] Two thin APIViews + urls under /api/v1/auth
-- [ ] Dev-only OTP logging (guarded)
-- [ ] Error envelope codes correct (validation/rate_limited/auth_invalid)
-- [ ] Tests: request happy/invalid-phone/cooldown; verify happy/wrong/expired
-- [ ] ruff + mypy clean
+- [x] Serializers (request, verify) with E.164 BD phone validation
+- [x] request_otp service: cooldown + generate + dispatch
+- [x] verify_otp_and_get_user service: verify + get_or_create user
+- [x] Two thin APIViews + urls under /api/v1/auth
+- [x] Dev-only OTP logging (guarded)
+- [x] Error envelope codes correct (validation/rate_limited/auth_invalid)
+- [x] Tests: request happy/invalid-phone/cooldown; verify happy/wrong/expired
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -93,17 +93,27 @@ None.
 2. POST verify-otp with that code → user created/returned.
 
 ## 13. Acceptance criteria
-- [ ] Both endpoints work end-to-end in dev (console OTP).
-- [ ] New phone creates a User; existing phone reuses it.
-- [ ] Error envelope correct for each failure.
-- [ ] Tests + lint pass.
+- [x] Both endpoints work end-to-end in dev (console OTP).
+- [x] New phone creates a User; existing phone reuses it.
+- [x] Error envelope correct for each failure.
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] Views thin; logic in services
-- [ ] Plaintext OTP only logged in dev, never stored
-- [ ] Phone validated E.164
+- [x] Views thin; logic in services
+- [x] Plaintext OTP only logged in dev, never stored
+- [x] Phone validated E.164
 ### Deviations from spec
+- Split from T-006: this task stops at returning the (created-or-fetched) `User`
+  on verify (no JWTs), per the §4 / §15 boundary. verify-otp response is
+  `{user: {...}}`; T-006 will wrap the same `verify_otp_and_get_user` service to
+  add `access`/`refresh`.
+- Wrong / expired / too-many-attempts all surface as a single `auth_invalid`
+  (401) and do not reveal which, to avoid leaking whether a code was issued.
 ### Files touched (actual)
+- Add: `khatir/accounts/serializers.py`, `khatir/accounts/views.py`,
+  `khatir/accounts/urls.py`, `khatir/accounts/tests/test_auth_endpoints.py`
+- Update: `config/urls.py` (mount `accounts.urls` at `/api/v1/auth/`),
+  `khatir/accounts/services.py` (add `request_otp`, `verify_otp_and_get_user`)
 
 ## 15. Notes for the implementing agent
 - Recommended: implement T-005 and T-006 in the same branch/PR since verify-otp's response needs the JWTs. If splitting, return the user object from verify and add tokens in T-006.

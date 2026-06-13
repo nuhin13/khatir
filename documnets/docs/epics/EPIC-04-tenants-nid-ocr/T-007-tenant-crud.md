@@ -4,14 +4,14 @@ epic: EPIC-04
 title: Tenant CRUD + family members + for_user
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002, EPIC-03.T-002]
 blocks: [T-008, T-014]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
+completed_at: 2026-06-04
 executed_by:
 reviewed_at:
 reviewed_by:

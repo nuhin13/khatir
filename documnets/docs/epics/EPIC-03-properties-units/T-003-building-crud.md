@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Building CRUD endpoints
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002]
 blocks: [T-005, T-007]
@@ -64,13 +64,13 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] BuildingSerializer (+ create/update)
-- [ ] services create/update/delete with audit
-- [ ] viewset scoped via for_user
-- [ ] permissions attached
-- [ ] urls under /api/v1/buildings
-- [ ] Tests: CRUD happy, auth-fail, validation, cross-user 404
-- [ ] ruff + mypy clean
+- [x] BuildingSerializer (+ create/update)
+- [x] services create/update/delete with audit
+- [x] viewset scoped via for_user
+- [x] permissions attached
+- [x] urls under /api/v1/buildings
+- [x] Tests: CRUD happy, auth-fail, validation, cross-user 404
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -79,12 +79,20 @@ None.
 1. Create + list buildings as a landlord.
 
 ## 13. Acceptance criteria
-- [ ] CRUD works, scoped, audited; tests + lint pass.
+- [x] CRUD works, scoped, audited; tests + lint pass.
 
 ## 14. Self-review
-- [ ] for_user on all reads; owner set server-side; audited
+- [x] for_user on all reads; owner set server-side; audited
 ### Deviations from spec
+- None. Buildings are mounted at `/api/v1/buildings` via a `DefaultRouter`
+  (`trailing_slash=False`) to honour the project's no-trailing-slash path
+  convention. Tenants reaching the endpoint get 403 (role gate, `IsLandlordOrManager`);
+  a landlord/manager addressing another user's building gets 404 (the `for_user`
+  scope hides it before the object check), per §15.
 ### Files touched (actual)
+- Add: `apps/api/khatir/properties/serializers.py`, `services.py`, `views.py`, `urls.py`
+- Add: `apps/api/khatir/properties/tests/test_building_api.py`
+- Update: `apps/api/config/urls.py` (include properties urls)
 
 ## 15. Notes for the implementing agent
 - Never trust client-sent owner; always request.user. Return 404 (not 403) for other users' buildings.

@@ -4,15 +4,15 @@ epic: EPIC-18
 title: Flutter lease document screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-06.T-007, T-004]
 blocks: [T-007, T-008]
 external_services: []
 feature_flags: [ai_lease_enabled]
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-13
+completed_at: 2026-06-13
+executed_by: claude-sonnet-4-6
 reviewed_at:
 reviewed_by:
 review_outcome:

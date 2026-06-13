@@ -4,15 +4,15 @@ epic: EPIC-01
 title: Rate limiting on auth endpoints
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-005]
 blocks: []
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -65,12 +65,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] Throttle classes keyed by phone + IP
-- [ ] Attached to request-otp + verify-otp
-- [ ] 429 maps to `rate_limited` envelope
-- [ ] Rates configurable (settings or SystemConfig)
-- [ ] Tests: exceed limit → 429 + code
-- [ ] ruff + mypy clean
+- [x] Throttle classes keyed by phone + IP
+- [x] Attached to request-otp + verify-otp
+- [x] 429 maps to `rate_limited` envelope
+- [x] Rates configurable (settings or SystemConfig)
+- [x] Tests: exceed limit → 429 + code
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -80,15 +80,29 @@ None.
 1. Hammer request-otp → eventually 429 with envelope.
 
 ## 13. Acceptance criteria
-- [ ] Both endpoints rate-limited per phone + IP.
-- [ ] 429 uses the standard envelope code.
-- [ ] Tests + lint pass.
+- [x] Both endpoints rate-limited per phone + IP.
+- [x] 429 uses the standard envelope code.
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] Limits sensible + configurable
-- [ ] Works with cache/Redis backend
+- [x] Limits sensible + configurable
+- [x] Works with cache/Redis backend
 ### Deviations from spec
+- Rates are sourced from DRF `DEFAULT_THROTTLE_RATES` in `settings.base` (env-overridable),
+  not from `SystemConfig` — §2/§5 explicitly allow either; DRF settings keep the throttle
+  on the standard DRF path so the existing `Throttled`→`rate_limited` envelope mapping in
+  `core/exceptions.py` is reused as-is (no `core/exceptions.py` change needed).
+- DRF's `parse_rate` cannot express the §15 default `10/10min`, so the base throttle adds a
+  small `parse_rate`/`get_rate` override supporting a period multiplier (`10/10min` → 600s)
+  and reading rates from live `api_settings` (so they stay tunable / overridable in tests).
+- Added per-IP throttle for verify-otp too (`verify_otp_ip`, 30/10min) for symmetry; §15 only
+  named a per-phone verify default.
+- The per-phone resend cooldown (T-003) is left intact; this throttle layer sits above it.
 ### Files touched (actual)
+- Add: `apps/api/khatir/accounts/throttling.py`
+- Add: `apps/api/khatir/accounts/tests/test_throttling.py`
+- Update: `apps/api/khatir/accounts/views.py` (attach throttle_classes)
+- Update: `apps/api/config/settings/base.py` (DEFAULT_THROTTLE_RATES)
 
 ## 15. Notes for the implementing agent
 - This complements (does not replace) the per-code attempt cap in T-003 and the resend cooldown in T-001/T-003.

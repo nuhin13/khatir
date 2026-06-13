@@ -4,15 +4,15 @@ epic: EPIC-09
 title: Dashboard API endpoint
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-001]
 blocks: [T-004]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:

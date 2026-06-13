@@ -4,7 +4,7 @@ epic: EPIC-19
 title: Tenant maintenance report endpoint (reuse EPIC-08)
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002, EPIC-08.T-002]
 blocks: []
@@ -38,20 +38,36 @@ DB: reads/writes via existing models. Tenant-scoped. No external. No flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] Core endpoint per goal
-- [ ] tenant_for_user scoping (own only)
-- [ ] reuse existing pipeline (no duplication)
-- [ ] Tests: works + scoped + others' blocked
-- [ ] ruff + mypy clean
+- [x] Core endpoint per goal
+- [x] tenant_for_user scoping (own only)
+- [x] reuse existing pipeline (no duplication)
+- [x] Tests: works + scoped + others' blocked
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
 - Core tests + scoping
 ## 13. Acceptance criteria
-- [ ] Endpoint works, tenant-scoped, reuses pipeline; tests + lint pass.
+- [x] Endpoint works, tenant-scoped, reuses pipeline; tests + lint pass.
 ## 14. Self-review
-- [ ] No duplicated proof/maintenance logic; strict scope
+- [x] No duplicated proof/maintenance logic; strict scope
 ### Deviations from spec
+- `POST /api/v1/me/maintenance` is a plain `APIView` (`MeMaintenanceView`) gated by
+  `IsLinkedTenant`, mounted alongside the other `/me/*` endpoints in
+  `tenants/urls.py`. The unit and active lease are resolved server-side via the
+  T-001 `active_lease_for_user` helper and never trusted from the client, so the
+  request body carries no `unit_id`: a tenant can only ever report against their
+  own unit, and a tenant with no active lease gets a 404 (P0 scope contract).
+- It feeds the **same** `khatir.maintenance.services.create_maintenance_request`
+  pipeline as the landlord create surface (audit + `open` status) — no
+  maintenance logic is duplicated. A small write serializer
+  (`MeMaintenanceCreateSerializer`: `description`, optional `category` defaulting
+  to `OTHER`, optional `photo_ref`) was added since the maintenance app's
+  serializers did not expose a tenant-facing create body.
 ### Files touched (actual)
+- Update: `apps/api/khatir/tenants/me_views.py` (`MeMaintenanceView`)
+- Update: `apps/api/khatir/tenants/me_serializers.py` (`MeMaintenanceCreateSerializer`)
+- Update: `apps/api/khatir/tenants/urls.py` (`me/maintenance` route)
+- Update: `apps/api/khatir/tenants/tests/test_me_endpoints.py` (maintenance tests)
 ## 15. Notes
 POST /api/v1/me/maintenance — report maintenance in-app, creating a MaintenanceRequest (reuse EPIC-08 logic). Tenant-scoped to their unit.

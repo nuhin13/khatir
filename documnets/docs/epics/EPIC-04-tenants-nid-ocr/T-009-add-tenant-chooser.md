@@ -4,7 +4,7 @@ epic: EPIC-04
 title: Flutter add-tenant method chooser
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-03.T-007]
 blocks: [T-010, T-012, T-013]
@@ -58,12 +58,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] add_tenant_screen matches design (3 method cards)
-- [ ] routes carry unit id
-- [ ] voice card flag-gated
-- [ ] route /tenants/add; FAB wired
-- [ ] ARB bn + en; widget test
-- [ ] analyze + test pass
+- [x] add_tenant_screen matches design (3 method cards)
+- [x] routes carry unit id
+- [x] voice card flag-gated
+- [x] route /tenants/add; FAB wired
+- [x] ARB bn + en; widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -72,14 +72,29 @@ None.
 1. From unit/home → add tenant → see 3 methods → pick OCR.
 
 ## 13. Acceptance criteria
-- [ ] Chooser matches design; routes correctly; flag respected.
-- [ ] **Screen `addTenant` built** (ledger row).
-- [ ] Test + analyze pass.
+- [x] Chooser matches design; routes correctly; flag respected.
+- [x] **Screen `addTenant` built** (ledger row).
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] Matches design; tokens; unit context passed
+- [x] Matches design; tokens; unit context passed
 ### Deviations from spec
+- The `voice_tenant_entry` flag is read from the `flags` block of `/config/public`
+  (added `voiceTenantEntry` to `PublicConfig`, default **on** to match the
+  backend's task-declared default and avoid hiding voice in an unseeded env).
+- The three method screens (OCR/voice/manual) land in later EPIC-04 tasks; they
+  are registered as `KShellPlaceholder` sub-routes under `/tenants/add` so the
+  chooser's routes resolve. The chooser routes to them by name, carrying the
+  optional target unit id as a `?unit=` query parameter.
+- Unit context: the home/manager FAB launches without a unit (chosen later in
+  the flow, per §15); the unit-detail "Add tenant" CTA passes `?unit=<id>`.
 ### Files touched (actual)
+- Add: `lib/features/tenants/presentation/screens/add_tenant_screen.dart`
+- Add: `test/add_tenant_test.dart`
+- Update: `lib/core/config/public_config_provider.dart` (voiceTenantEntry flag)
+- Update: `lib/core/router/app_router.dart` (real /tenants/add + ocr/voice/manual sub-routes)
+- Update: `lib/features/properties/presentation/screens/unit_detail_screen.dart` (CTA carries unit id)
+- Update: `lib/l10n/app_bn.arb`, `lib/l10n/app_en.arb` (add_tenant_* keys)
 
 ## 15. Notes for the implementing agent
 - The "no unit selected" case: if launched from home FAB without a unit, prompt to pick a unit/building first or allow selecting during save. Follow design; keep it simple.

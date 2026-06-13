@@ -4,15 +4,15 @@ epic: EPIC-08
 title: Maintenance web-link token (reuse pattern)
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-07.T-002]
 blocks: [T-005]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -45,10 +45,10 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] make/resolve unit-scoped maintenance token (reuse EPIC-07 pattern)
-- [ ] expiring + signed
-- [ ] Tests: valid/expired/tampered
-- [ ] ruff + mypy clean
+- [x] make/resolve unit-scoped maintenance token (reuse EPIC-07 pattern)
+- [x] expiring + signed
+- [x] Tests: valid/expired/tampered
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -57,12 +57,24 @@ None.
 1. Generate + resolve a maintenance token.
 
 ## 13. Acceptance criteria
-- [ ] Unit-scoped maintenance token; tests + lint pass.
+- [x] Unit-scoped maintenance token; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Reuses EPIC-07 signing; scoped to unit
+- [x] Reuses EPIC-07 signing; scoped to unit
 ### Deviations from spec
+None. Mirrors the EPIC-07 T-002 `TimestampSigner` pattern under a dedicated
+salt `khatir.maintenance.link_token` (distinct from rent's salt, verified by a
+cross-resolver rejection test). The token is **unit-scoped and stateless** —
+it signs the `Unit` pk only, so there is nothing per-token to persist and **no
+DB change** (the schema explicitly allows "None"). TTL is read from
+`maintenance_link_token_ttl_hours` config (72h fallback until seeded).
+`resolve_token` raises typed `ExpiredMaintenanceToken` / `InvalidMaintenanceToken`
+(both subclass `NotFoundError`) so the T-005 web form can map 410 vs 404 while
+JSON callers still see an opaque 404. A soft-deleted unit resolves to invalid
+(default manager excludes it).
 ### Files touched (actual)
+- apps/api/khatir/maintenance/tokens.py
+- apps/api/khatir/maintenance/tests/test_tokens.py
 
 ## 15. Notes for the implementing agent
 - Factor the EPIC-07 signing into a shared helper if cleaner; don't duplicate crypto.

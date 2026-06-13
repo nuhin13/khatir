@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Flutter theme tokens + i18n (bn/en)
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-007, T-010]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-02
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -97,7 +97,26 @@ None.
 - [ ] All strings via ARB
 - [ ] Fonts bundled + licensed (Google Fonts OFL)
 ### Deviations from spec
+- Fonts: font families (Plus Jakarta Sans / Hind Siliguri / Caveat) are wired via
+  `fontFamily` from the tokens (`KhatirFonts`), but the OFL `.ttf` binaries are NOT
+  bundled because they are not present in the repo and cannot be fetched offline.
+  The `fonts:` asset block in `pubspec.yaml` is committed as a ready-to-use template
+  (commented out); drop the `.ttf` files under `assets/fonts/` and uncomment to bundle.
+  Flutter falls back to the platform default for these families until then.
+- gen-l10n output path: Flutter 3.44 no longer emits to the synthetic
+  `package:flutter_gen`; generated `AppLocalizations` lands in `lib/l10n/`. Imports use
+  the relative `l10n/app_localizations.dart` path accordingly.
+- Added `lib/core/i18n/bangla_numerals.dart` (helper file) and `lib/core/theme/colors.dart`
+  is a thin `typedef AppColors = KhatirColors;` re-export (single source of truth stays the
+  tokens package).
 ### Files touched (actual)
+- Add: lib/core/theme/colors.dart, text_styles.dart, app_theme.dart
+- Add: lib/core/widgets/k_button.dart, k_card.dart, k_chip.dart, k_bottom_nav.dart
+- Add: lib/core/i18n/locale_provider.dart, bangla_numerals.dart
+- Add: l10n.yaml, lib/l10n/app_bn.arb, app_en.arb (+ generated app_localizations*.dart)
+- Add: test/theme_i18n_test.dart
+- Update: lib/app.dart, lib/features/placeholder/.../placeholder_screen.dart, pubspec.yaml
+- Delete: test/placeholder_screen_test.dart (superseded by theme_i18n_test.dart)
 
 ## 15. Notes for the implementing agent
 - Fonts: bundle Plus Jakarta Sans, Hind Siliguri, Caveat as assets (OFL licensed) rather than runtime-fetching, so the app works offline.

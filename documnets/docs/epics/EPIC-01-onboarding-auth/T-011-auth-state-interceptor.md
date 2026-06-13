@@ -4,15 +4,15 @@ epic: EPIC-01
 title: Flutter auth state + token storage + dio refresh interceptor
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-006, T-010]
 blocks: [T-012]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -67,14 +67,14 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] token_storage secure wrapper (read/write/clear)
-- [ ] auth_state (freezed) + auth_controller (setSession/logout/bootstrap)
-- [ ] dio request interceptor attaches access token
-- [ ] dio error interceptor: 401 → refresh once → retry; fail → logout
-- [ ] verify-success calls setSession (T-010 temp hook removed)
-- [ ] bootstrap: load tokens + /auth/me → Authenticated/Unauthenticated
-- [ ] Tests: persist, bootstrap, refresh-on-401, refresh-fail logout
-- [ ] analyze + test pass
+- [x] token_storage secure wrapper (read/write/clear)
+- [x] auth_state (freezed) + auth_controller (setSession/logout/bootstrap)
+- [x] dio request interceptor attaches access token
+- [x] dio error interceptor: 401 → refresh once → retry; fail → logout
+- [x] verify-success calls setSession (T-010 temp hook removed)
+- [x] bootstrap: load tokens + /auth/me → Authenticated/Unauthenticated
+- [x] Tests: persist, bootstrap, refresh-on-401, refresh-fail logout
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -88,17 +88,35 @@ None.
 3. Invalidate refresh → app logs out to phone screen.
 
 ## 13. Acceptance criteria
-- [ ] Session persists across restarts.
-- [ ] 401 auto-refreshes + retries once.
-- [ ] Refresh failure clears session → Unauthenticated.
-- [ ] Tests + analyze pass.
+- [x] Session persists across restarts.
+- [x] 401 auto-refreshes + retries once.
+- [x] Refresh failure clears session → Unauthenticated.
+- [x] Tests + analyze pass.
 
 ## 14. Self-review
-- [ ] Single source of truth for auth state
-- [ ] Refresh attempted once (no infinite loop)
-- [ ] Tokens only in secure storage; never logged
+- [x] Single source of truth for auth state
+- [x] Refresh attempted once (no infinite loop)
+- [x] Tokens only in secure storage; never logged
 ### Deviations from spec
+- `token_storage.dart` was placed at `lib/core/auth/token_storage.dart` (per §5
+  Add list) as a `TokenStorage` wrapper over the existing EPIC-00 `SecureStorage`
+  rather than rewriting `secure_storage.dart` itself; existing wiring/tests keep
+  working and tokens still live only in secure storage.
+- `auth_controller.dart` was placed at `lib/core/auth/` (alongside auth_state),
+  matching the §5 "Add" core/auth path; the §5 "Update" reference to it under
+  `lib/features/auth/.../` is the verify_otp_controller call site, which now uses
+  `setSession`.
+- `SessionUser.fromJson` is a static method (not a freezed `fromJson` factory) to
+  avoid json_serializable codegen for the enum-typed `role` field.
+- `setSession` seeds the user directly from the verify-otp payload (no extra
+  `/auth/me` round-trip); `/auth/me` is used by bootstrap on app restart only.
 ### Files touched (actual)
+- Add: `lib/core/auth/auth_state.dart` (+ `.freezed.dart`), `auth_controller.dart`,
+  `token_storage.dart`; `test/auth_controller_test.dart`, `test/dio_refresh_test.dart`.
+- Update: `lib/core/network/dio_client.dart` (attach + refresh interceptor),
+  `lib/core/network/api_endpoints.dart` (added `me`, `logout`),
+  `lib/features/auth/presentation/controllers/verify_otp_controller.dart`
+  (T-010 temp hook removed → `authController.setSession`).
 
 ## 15. Notes for the implementing agent
 - Guard against refresh loops: if the refresh call itself 401s, do not recurse — clear + logout.

@@ -4,7 +4,7 @@ epic: EPIC-20
 title: Privacy test (never cross-landlord/public)
 layer: cross-cutting
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-002]
 blocks: []

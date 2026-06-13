@@ -4,15 +4,15 @@ epic: EPIC-04
 title: Tenant + TenantFamilyMember models, enums, migration
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-00.T-005, EPIC-03.T-001]
 blocks: [T-002, T-004, T-007]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-04
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -54,14 +54,14 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] Tenant model (enc + masked NID, photo_ref, verification_status, linked_user nullable)
-- [ ] TenantFamilyMember (CASCADE)
-- [ ] VerificationStatus enum matches enums.md
-- [ ] Index on nid_number_masked
-- [ ] Admin masked display
-- [ ] Migration reversible
-- [ ] factories + model tests
-- [ ] ruff + mypy clean
+- [x] Tenant model (enc + masked NID, photo_ref, verification_status, linked_user nullable)
+- [x] TenantFamilyMember (CASCADE)
+- [x] VerificationStatus enum matches enums.md
+- [x] Index on nid_number_masked
+- [x] Admin masked display
+- [x] Migration reversible
+- [x] factories + model tests
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -70,12 +70,18 @@ None.
 1. Create tenant in admin; confirm masked display.
 
 ## 13. Acceptance criteria
-- [ ] Models per schema; migration clean; tests + lint pass.
+- [x] Models per schema; migration clean; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Enc + masked columns both present; never plaintext column for NID
+- [x] Enc + masked columns both present; never plaintext column for NID
 ### Deviations from spec
+- None. `nid_number_enc` is a nullable `BinaryField` (encryption helper lands in
+  T-002); `TenantFamilyMember` is `TimeStampedModel` (the schema family table has
+  no `deleted_at`), CASCADE from `Tenant`.
 ### Files touched (actual)
+- Add: `khatir/tenants/{__init__,apps,enums,models,admin}.py`,
+  `migrations/0001_initial.py`, `tests/{__init__,factories,test_models}.py`
+- Update: `config/settings/base.py` (register `khatir.tenants`)
 
 ## 15. Notes for the implementing agent
 - Do NOT add a plaintext nid_number column. Only enc (bytea) + masked (varchar). Encryption helper wired in T-002.

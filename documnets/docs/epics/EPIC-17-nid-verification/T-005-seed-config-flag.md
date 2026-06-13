@@ -4,7 +4,7 @@ epic: EPIC-17
 title: Seed verification config + flag
 layer: backend
 size: XS
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [EPIC-00.T-005, EPIC-13.T-001]
 blocks: []
@@ -38,19 +38,19 @@ SystemConfig + FeatureFlag rows.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] seed nid_verification_enabled flag (on)
-- [ ] seed ec provider config keys
-- [ ] idempotent + reversible
-- [ ] test
-- [ ] ruff clean
+- [x] seed nid_verification_enabled flag (on) — featureflags/0003_seed_nid_verification_flag
+- [x] seed ec provider config keys — core/0014_seed_verification_config
+- [x] idempotent + reversible
+- [x] test — verification/tests/test_seed_verification_config.py
+- [x] ruff clean
 
 ## 12. Test plan
 ### Automated
 - test_verification_config_seeded
 ## 13. Acceptance criteria
-- [ ] Flag + config seeded; reversible; test passes.
+- [x] Flag + config seeded; reversible; test passes.
 ## 14. Self-review
-- [ ] DPA reference key present (required before live)
+- [x] DPA reference key present (required before live)
 ### Deviations from spec
 ### Files touched (actual)
 ## 15. Notes

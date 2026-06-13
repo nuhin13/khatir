@@ -4,7 +4,7 @@ epic: EPIC-20
 title: Warning data layer (mobile)
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002]
 blocks: []

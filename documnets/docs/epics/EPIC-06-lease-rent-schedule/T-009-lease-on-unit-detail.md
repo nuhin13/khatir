@@ -4,15 +4,15 @@ epic: EPIC-06
 title: Lease section on unit detail (fill EPIC-03 placeholder)
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-007, EPIC-03.T-013]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -55,11 +55,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] unit_lease_section (active lease + tenant + next due)
-- [ ] empty → create-lease CTA
-- [ ] replaces EPIC-03 placeholder (remove TODO marker)
-- [ ] states; widget test
-- [ ] analyze + test pass
+- [x] unit_lease_section (active lease + tenant + next due)
+- [x] empty → create-lease CTA
+- [x] replaces EPIC-03 placeholder (remove TODO marker)
+- [x] states; widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -68,13 +68,25 @@ None.
 1. Unit with active lease shows tenant + next due; without → create CTA.
 
 ## 13. Acceptance criteria
-- [ ] Unit detail shows real lease/tenant; EPIC-03 placeholder removed.
-- [ ] Test + analyze pass.
+- [x] Unit detail shows real lease/tenant; EPIC-03 placeholder removed.
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] EPIC-03 TODO(EPIC-06) marker removed; tokens
+- [x] EPIC-03 TODO(EPIC-06) marker removed; tokens
 ### Deviations from spec
+- §8 said the rent-request CTA was a placeholder until EPIC-07; EPIC-07
+  T-011 (`RentRequestScreen`, `rentRequest` route) is already committed on this
+  branch, so the "Request rent" CTA routes to it directly (`?lease=<id>`)
+  rather than to a stub.
+- The lease region keeps the EPIC-03 "Tenant & lease" heading and the
+  add-tenant CTA (a lease needs a tenant first); only the former empty card was
+  swapped for the live `UnitLeaseSection`, per the TODO's "heading + CTA stay".
 ### Files touched (actual)
+- apps/mobile/lib/features/leases/presentation/widgets/unit_lease_section.dart (add)
+- apps/mobile/lib/features/properties/presentation/screens/unit_detail_screen.dart (replace placeholder)
+- apps/mobile/lib/l10n/app_en.arb, app_bn.arb (+ regenerated app_localizations*) (unit_lease_* keys)
+- apps/mobile/test/unit_lease_section_test.dart (add)
+- apps/mobile/test/unit_detail_test.dart (override lease repo; assert lease empty state)
 
 ## 15. Notes for the implementing agent
 - This closes the EPIC-03→06 seam. Rent-request CTA targets EPIC-07 (placeholder until then).

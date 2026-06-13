@@ -2,7 +2,7 @@
 
 > The live dashboard. Agents update this on every status change. `make status` regenerates the counts from task-file frontmatter.
 
-**Last updated:** (init)
+**Last updated:** 2026-06-02
 
 ---
 
@@ -29,10 +29,10 @@
 | Metric | Count |
 |--------|-------|
 | Epics total | 26 |
-| Epics done | 0 |
+| Epics done | 1 |
 | Epics in-progress | 0 |
 | Tasks total | 302 (all epics fully specced) |
-| Tasks done | 0 |
+| Tasks done | 16 |
 | Tasks in-progress | 0 |
 | Tasks blocked | 0 |
 
@@ -45,7 +45,7 @@ Legend: ⬜ todo · 🟡 in-progress · ✅ done · ⛔ blocked
 ### Foundation
 | ID | Epic | Phase | Tasks | Status | Progress |
 |----|------|-------|-------|--------|----------|
-| EPIC-00 | Foundation & Scaffold | — | 16 | ⬜ | 0/16 |
+| EPIC-00 | Foundation & Scaffold | — | 16 | ✅ | 16/16 |
 
 ### MVP
 | ID | Epic | Phase | Tasks | Status | Progress |
@@ -95,7 +95,7 @@ Legend: ⬜ todo · 🟡 in-progress · ✅ done · ⛔ blocked
 (empty)
 
 ## Recently completed
-(none yet)
+- 2026-06-02 · EPIC-00 Foundation & Scaffold — 16/16 done (see `EPIC-00-foundation/_completion_report.md`)
 
 ## Currently blocked
 (none)

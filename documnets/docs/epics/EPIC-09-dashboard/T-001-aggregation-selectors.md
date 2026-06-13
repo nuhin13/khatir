@@ -4,15 +4,15 @@ epic: EPIC-09
 title: Dashboard aggregation selectors
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-07.T-001, EPIC-08.T-003]
 blocks: [T-002, T-010]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -47,15 +47,15 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] collection metrics (collected/pending/overdue/rate)
-- [ ] occupancy (occupied units / total)
-- [ ] monthly_series (N months)
-- [ ] income_vs_expense totals
-- [ ] top 5 expense categories
-- [ ] scoped to owner (for_user chain)
-- [ ] no N+1 (annotation-based)
-- [ ] tests: each metric correct with fixture data
-- [ ] ruff + mypy clean
+- [x] collection metrics (collected/pending/overdue/rate)
+- [x] occupancy (occupied units / total)
+- [x] monthly_series (N months)
+- [x] income_vs_expense totals
+- [x] top 5 expense categories
+- [x] scoped to owner (for_user chain)
+- [x] no N+1 (annotation-based)
+- [x] tests: each metric correct with fixture data
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -64,12 +64,24 @@ None.
 1. Call selectors with real data; verify numbers match raw records.
 
 ## 13. Acceptance criteria
-- [ ] All metrics correct + scoped + no N+1; tests + lint pass.
+- [x] All metrics correct + scoped + no N+1; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Each metric tested; ORM aggregations used
+- [x] Each metric tested; ORM aggregations used
 ### Deviations from spec
+- Created a minimal `khatir.dashboard` app (registered in INSTALLED_APPS, no
+  models, no migration) rather than a shared module — keeps the selectors and
+  their tests under a clear namespace as the spec permits.
+- Returns a typed frozen dataclass `DashboardMetrics` (with nested `MonthPoint`
+  / `CategoryTotal`) rather than a plain dict; richer + immutable for T-002.
+- `monthly_series` is anchored to `timezone.localdate()` (last N calendar months
+  ending this month); rent collected is keyed off `RentSchedule.period`
+  (`YYYY-MM`) and expense off `TruncMonth(Expense.date)`.
+- `late_payer_count` = distinct leases with ≥1 overdue schedule.
 ### Files touched (actual)
+- khatir/dashboard/{__init__,apps,selectors}.py
+- khatir/dashboard/tests/{__init__,test_selectors}.py
+- config/settings/base.py (added `khatir.dashboard` to INSTALLED_APPS)
 
 ## 15. Notes for the implementing agent
 - collection_rate = collected / (collected + pending + overdue) × 100. Empty denominator → 0. monthly_series: last N calendar months, filling 0 for missing months.

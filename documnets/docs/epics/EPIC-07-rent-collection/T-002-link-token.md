@@ -4,15 +4,15 @@ epic: EPIC-07
 title: Signed link-token service
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001]
 blocks: [T-003, T-005]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -46,12 +46,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] make_token signs request id + expiry
-- [ ] resolve_token validates (invalid/expired/tampered)
-- [ ] TTL from config
-- [ ] one token = one request
-- [ ] Tests: valid, expired, tampered
-- [ ] ruff + mypy clean
+- [x] make_token signs request id + expiry
+- [x] resolve_token validates (invalid/expired/tampered)
+- [x] TTL from config
+- [x] one token = one request
+- [x] Tests: valid, expired, tampered
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -60,12 +60,20 @@ None.
 1. Generate + resolve a token.
 
 ## 13. Acceptance criteria
-- [ ] Secure single-purpose expiring tokens; tests + lint pass.
+- [x] Secure single-purpose expiring tokens; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Signed; not guessable; TTL from config
+- [x] Signed; not guessable; TTL from config
 ### Deviations from spec
+None. Token signed with Django `TimestampSigner` under a dedicated salt
+(`khatir.rent.link_token`); TTL read from `rent_link_token_ttl_hours` config
+(72h fallback until T-009 seeds it). `make_token` persists the token on
+`RentRequest.link_token`. `resolve_token` raises typed `ExpiredLinkToken` /
+`InvalidLinkToken` (both subclass `NotFoundError`) so the T-005 web page can
+distinguish 410 from 404 while JSON callers still see an opaque 404.
 ### Files touched (actual)
+- khatir/rent/tokens.py
+- khatir/rent/tests/test_tokens.py
 
 ## 15. Notes for the implementing agent
 - Use Django signing / itsdangerous; sign with a dedicated secret. Store the issued token on the RentRequest for lookup.

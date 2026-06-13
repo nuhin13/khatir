@@ -4,14 +4,14 @@ epic: EPIC-05
 title: DMP form data endpoint (preview)
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-002]
 blocks: [T-007, T-009]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
+completed_at: 2026-06-04
 executed_by:
 reviewed_at:
 reviewed_by:

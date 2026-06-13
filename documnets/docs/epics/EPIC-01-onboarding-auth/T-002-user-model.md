@@ -4,15 +4,15 @@ epic: EPIC-01
 title: accounts app + custom User model
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-00.T-005]
 blocks: [T-003]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-02
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -68,15 +68,15 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] accounts app created + registered
-- [ ] Custom User (phone = USERNAME_FIELD), manager with create_user/create_superuser
-- [ ] Role + Language enums match enums.md
-- [ ] AUTH_USER_MODEL set in base settings
-- [ ] Django admin registration (masked phone)
-- [ ] Initial migration (reversible, first domain migration)
-- [ ] factory-boy UserFactory
-- [ ] Tests: create user/superuser, phone uniqueness, defaults
-- [ ] ruff + mypy clean
+- [x] accounts app created + registered
+- [x] Custom User (phone = USERNAME_FIELD), manager with create_user/create_superuser
+- [x] Role + Language enums match enums.md (re-exported from core/enums.py)
+- [x] AUTH_USER_MODEL set in base settings
+- [x] Django admin registration (masked phone)
+- [x] Initial migration (reversible, first domain migration)
+- [x] factory-boy UserFactory
+- [x] Tests: create user/superuser, phone uniqueness, defaults
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -89,16 +89,36 @@ None.
 2. Django admin lists users with masked phone.
 
 ## 13. Acceptance criteria
-- [ ] Custom User with phone identity works; AUTH_USER_MODEL set.
-- [ ] Migration applies cleanly on a fresh DB.
-- [ ] Tests + lint pass.
+- [x] Custom User with phone identity works; AUTH_USER_MODEL set.
+- [x] Migration applies cleanly on a fresh DB.
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] AUTH_USER_MODEL set before any user-referencing migration
-- [ ] Enums match enums.md
-- [ ] Phone stored E.164
+- [x] AUTH_USER_MODEL set before any user-referencing migration
+- [x] Enums match enums.md
+- [x] Phone stored E.164
 ### Deviations from spec
+- `Role`/`Language` are cross-app enums already canonically defined in
+  `khatir/core/enums.py`; `accounts/enums.py` re-exports them rather than
+  re-declaring (avoids a second source of truth, still satisfies §3/§5 and
+  enums.md).
+- Added `factory-boy` to the dev dependency group (was not yet present) to
+  build the required `UserFactory`.
+- Updated `core/tests/test_audit.py` to construct the actor via
+  `get_user_model().objects.create_user(phone=...)` instead of the now-swapped
+  built-in `auth.User`; required because `AUTH_USER_MODEL` is now custom.
+- `admin.ModelAdmin` is used un-parameterised (`# type: ignore[type-arg]`)
+  because it is not subscriptable at runtime.
+- Added a mypy per-module override (`khatir.*.tests.*`,
+  `disallow_untyped_calls = false`) plus `factory.*`/`faker.*` to
+  `ignore_missing_imports` — factory-boy ships no type stubs.
 ### Files touched (actual)
+- Add: `apps/api/khatir/accounts/{__init__,apps,enums,managers,models,admin}.py`
+- Add: `apps/api/khatir/accounts/migrations/{__init__,0001_initial}.py`
+- Add: `apps/api/khatir/accounts/tests/{__init__,factories,test_models}.py`
+- Update: `apps/api/config/settings/base.py` (register app + `AUTH_USER_MODEL`)
+- Update: `apps/api/pyproject.toml` (factory-boy dev dep + mypy overrides)
+- Update: `apps/api/khatir/core/tests/test_audit.py` (use custom user)
 
 ## 15. Notes for the implementing agent
 - This is the one irreversible-if-done-late decision — confirm no other migrations exist yet (only EPIC-00 core's AuditEntry/SystemConfig, which don't FK to User). If core models FK to settings.AUTH_USER_MODEL, they'll pick this up fine since it's set now.

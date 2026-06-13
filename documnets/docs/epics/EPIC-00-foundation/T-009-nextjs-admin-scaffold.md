@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Next.js admin scaffold (App Router, Tailwind, shells)
 layer: admin
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, T-010]
 blocks: [T-011, T-013, T-014, T-015]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-02
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -102,7 +102,20 @@ None.
 - [ ] Server Components default; "use client" only where needed
 - [ ] enums match enums.md
 ### Deviations from spec
+- ESLint pinned to `^9.39.4` instead of latest (10.x): hard incompatibility with `eslint-config-next@16.2.7`'s bundled `eslint-plugin-react`. Documented in `DECISIONS.md`.
+- Non-fatal Turbopack "Module not found" warning when it side-parses the `@config`-referenced Tailwind config (symlinked workspace package subpath). Build succeeds; tokens compile to exact hex values. Documented in `DECISIONS.md`.
+
 ### Files touched (actual)
+- `apps/admin/` — full Next.js 16 / React 19 project: `package.json`, `package-lock.json`, `tsconfig.json`, `next.config.ts`, `tailwind.config.ts`, `postcss.config.mjs`, `eslint.config.mjs`, `.prettierrc.json`, `.prettierignore`, `.gitignore`, `vitest.config.ts`
+- `src/app/layout.tsx`, `src/app/page.tsx` (→ /dashboard redirect), `src/app/globals.css`, `src/app/login/page.tsx`
+- `src/app/(dashboard)/layout.tsx` (sidebar+topbar+auth-guard stub), `src/app/(dashboard)/dashboard/page.tsx`, `src/app/(dashboard)/_nav.ts`, plus 12 "Coming soon" stub pages (users, pricing, features, kill-switch, notifications, ai-providers, compliance, system, support, admins, analytics, security)
+- `src/components/providers.tsx` (TanStack Query), `src/components/features/{sidebar,topbar,coming-soon}.tsx`
+- `src/components/ui/{button,card,table,toggle,chip}.tsx`
+- `src/lib/api/client.ts` (zod-validated client), `src/lib/auth/guard.ts` (session stub), `src/lib/utils/cn.ts`
+- `src/types/enums.ts` (TS unions from enums.md), `src/hooks/.gitkeep`, `public/.gitkeep`
+- `src/test/setup.ts`, `src/test/sidebar.test.tsx`
+- `infra/docker/admin.Dockerfile` (multi-stage standalone), `docker-compose.yml` (admin service enabled)
+- `DECISIONS.md` (two entries)
 
 ## 15. Notes for the implementing agent
 - Sidebar items (from admin spec §3.1): Dashboard, Users, Pricing, Features, Kill-switch, Notifications, AI providers, Compliance, System, Support, Admin users, Analytics, Security. Stub the not-yet-built ones as "Coming soon" pages.

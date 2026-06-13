@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Building + Unit models, enums, migrations
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-00.T-005]
 blocks: [T-002, T-003, T-004]
@@ -61,14 +61,14 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] Building model (owner PROTECT, fields, soft-delete, timestamps)
-- [ ] Unit model (building CASCADE, rent Decimal, status enum)
-- [ ] Area/UnitType/UnitStatus enums match enums.md
-- [ ] Indexes added
-- [ ] Admin registration
-- [ ] Migration (reversible)
-- [ ] Factories + model tests
-- [ ] ruff + mypy clean
+- [x] Building model (owner PROTECT, fields, soft-delete, timestamps)
+- [x] Unit model (building CASCADE, rent Decimal, status enum)
+- [x] Area/UnitType/UnitStatus enums match enums.md
+- [x] Indexes added
+- [x] Admin registration
+- [x] Migration (reversible)
+- [x] Factories + model tests
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -78,12 +78,17 @@ None.
 1. Create building+unit in Django admin.
 
 ## 13. Acceptance criteria
-- [ ] Models per schema; migration applies clean; tests + lint pass.
+- [x] Models per schema; migration applies clean; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Enums match enums.md; money Decimal; soft-delete present
+- [x] Enums match enums.md; money Decimal; soft-delete present
 ### Deviations from spec
+None.
 ### Files touched (actual)
+- `apps/api/khatir/properties/{__init__,apps,models,enums,admin}.py`
+- `apps/api/khatir/properties/migrations/{__init__,0001_initial}.py`
+- `apps/api/khatir/properties/tests/{__init__,test_models,factories}.py`
+- `apps/api/config/settings/base.py` (registered `khatir.properties`)
 
 ## 15. Notes for the implementing agent
 - `amenities` is jsonb (list). `available_from` nullable. Don't add `for_user` here — that's T-002.

@@ -4,7 +4,7 @@ epic: EPIC-20
 title: Warning notice share
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, EPIC-05.T-008]
 blocks: []

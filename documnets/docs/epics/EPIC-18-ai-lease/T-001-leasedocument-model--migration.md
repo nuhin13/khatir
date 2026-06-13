@@ -4,7 +4,7 @@ epic: EPIC-18
 title: LeaseDocument model + migration
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-06.T-001]
 blocks: []

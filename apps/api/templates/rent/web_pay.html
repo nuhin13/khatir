@@ -1,0 +1,57 @@
+{% extends "rent/_web_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Pay rent" %} · {{ amount_en }}{% endblock %}
+
+{% block content %}
+  <div class="center">
+    <div class="icon" aria-hidden="true">💰</div>
+    <div class="title" style="font-size:17px;margin-top:8px;">
+      {% blocktranslate with name=landlord_name %}{{ name }} requests rent{% endblocktranslate %}
+    </div>
+    {% if landlord_name %}<div class="muted" style="font-size:12px;">{{ landlord_name }}</div>{% endif %}
+  </div>
+
+  <div class="card center" style="margin-top:14px;">
+    <div class="muted" style="font-size:12px;">
+      {{ period_bn }} · {% translate "Flat" %} {{ unit_label }}
+      <div lang="en" style="font-size:11px;">{{ period_en }}</div>
+    </div>
+    <div class="amount">৳{{ amount_bn }}</div>
+    <div class="muted" lang="en" style="font-size:12px;font-family:var(--f-mono);">BDT {{ amount_en }}</div>
+  </div>
+
+  <div class="card soft-sage row" style="margin-top:12px;">
+    <span aria-hidden="true">💸</span>
+    <div style="font-size:12px;color:var(--sage-dk);font-weight:600;">
+      {% translate "Pay from your own bKash / Nagad" %}
+      {% if pay_number %}<div style="font-family:var(--f-mono);">→ {{ pay_number }}</div>{% endif %}
+    </div>
+  </div>
+
+  <div class="sectit">{% translate "Submit proof" %} · প্রমাণ দিন</div>
+  <form method="post" action="{% url 'rent_web:web-proof' token=token %}"
+        enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="field">
+      <div class="lab">{% translate "Screenshot" %} · স্ক্রিনশট</div>
+      <input class="input" type="file" name="screenshot" accept="image/*"
+             capture="environment">
+    </div>
+    <div class="field">
+      <div class="lab">{% translate "Transaction ID" %} · Txn ID</div>
+      <input class="input" type="text" name="txn_id" inputmode="latin"
+             placeholder="{% translate 'e.g. 8GH4K2L9PQ' %}">
+    </div>
+    <div class="field">
+      <div class="lab">{% translate "Note" %} · নোট</div>
+      <input class="input" type="text" name="note"
+             placeholder="{% translate 'Optional note for the landlord' %}">
+    </div>
+    <button class="btn rose lg" type="submit" style="margin-top:14px;">
+      ✉ {% translate "Submit" %} · জমা দিন
+    </button>
+  </form>
+
+  <div class="footnote">{% translate "Loads in <2s on 3G · no account, no install" %}</div>
+{% endblock %}

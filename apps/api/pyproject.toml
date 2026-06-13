@@ -1,0 +1,74 @@
+[project]
+name = "khatir-api"
+version = "0.1.0"
+description = "Khatir Django + DRF backend (the monolith)."
+requires-python = ">=3.13"
+dependencies = [
+    "django>=6.0.5",
+    "djangorestframework>=3.17.1",
+    "psycopg[binary]>=3.3.4",
+    "dj-database-url>=3.1.2",
+    "django-environ>=0.13.0",
+    "redis>=6.4.0",
+    "gunicorn>=23.0.0",
+    "cryptography>=44.0.0",
+    "celery>=5.5.3",
+    "django-celery-beat>=2.8.1",
+    "sentry-sdk[django]>=2.61.1",
+    "python-json-logger>=4.1.0",
+    "djangorestframework-simplejwt>=5.5.1",
+    "drf-spectacular>=0.29.0",
+    "boto3>=1.35.0",
+    "pyotp>=2.9.0",
+    "requests>=2.32.0",
+    "django-cors-headers>=4.7.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-django>=4.12.0",
+    "moto[s3]>=5.0.0",
+    "ruff>=0.15.15",
+    "mypy>=1.18.2",
+    "django-stubs[compatible-mypy]>=5.2.2",
+    "djangorestframework-stubs[compatible-mypy]>=3.17.0",
+    "factory-boy>=3.3.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["**/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "DJ", "C4"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["config", "khatir"]
+
+[tool.mypy]
+python_version = "3.13"
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+strict = true
+warn_unused_ignores = false
+exclude = ['migrations/']
+
+[[tool.mypy.overrides]]
+module = ["environ.*", "celery.*", "factory.*", "faker.*"]
+ignore_missing_imports = true
+
+# factory-boy ships no type stubs; its dynamic API trips strict untyped-call
+# checks where factories are instantiated in tests.
+[[tool.mypy.overrides]]
+module = ["khatir.*.tests.*"]
+disallow_untyped_calls = false
+
+[tool.django-stubs]
+django_settings_module = "config.settings.dev"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py", "*_test.py"]
+testpaths = ["tests", "khatir"]
+addopts = "-q"

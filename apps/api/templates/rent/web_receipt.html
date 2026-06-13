@@ -1,0 +1,68 @@
+{% extends "rent/_web_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Receipt" %} · Khatir{% endblock %}
+
+{% block content %}
+  {% if verified %}
+    <div class="center">
+      <div class="icon" aria-hidden="true">✅</div>
+      <div class="title" style="font-size:18px;margin-top:10px;">পেমেন্ট নিশ্চিত হয়েছে</div>
+      <div class="muted" lang="en" style="font-size:12px;">Payment verified</div>
+    </div>
+  {% else %}
+    <div class="center">
+      <div class="icon" aria-hidden="true">🎉</div>
+      <div class="title" style="font-size:18px;margin-top:10px;">জমা হয়েছে!</div>
+      <div class="muted" lang="en" style="font-size:12px;">Submitted — landlord is verifying</div>
+    </div>
+    <div class="card center" style="margin-top:8px;">
+      <div class="title" style="font-size:14px;color:var(--rose-dk);">
+        ⏳ {% translate "Pending verification" %} · অপেক্ষায়
+      </div>
+      <div class="muted" style="font-size:12px;margin-top:6px;line-height:1.5;">
+        মালিক "টাকা পেয়েছি" চাপলে আপনি রসিদ পাবেন।
+        <div lang="en">{% translate "You'll get a receipt once it is verified." %}</div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="card" style="margin-top:12px;">
+    <div class="title" style="font-size:13px;margin-bottom:10px;">
+      {% if verified %}{% translate "Receipt" %} · রসিদ{% else %}{% translate "Your submission" %} · জমা প্রমাণ{% endif %}
+    </div>
+
+    <div class="row" style="justify-content:space-between;padding:7px 0;border-bottom:1px dotted var(--line);font-size:13px;">
+      <span class="muted">{% translate "Amount" %} · পরিমাণ</span>
+      <b style="font-family:var(--f-title);">৳{{ amount_bn }}</b>
+    </div>
+    <div class="row" style="justify-content:space-between;padding:7px 0;border-bottom:1px dotted var(--line);font-size:13px;">
+      <span class="muted">{% translate "Period" %} · মাস</span>
+      <b style="font-family:var(--f-title);">{{ period_bn }}</b>
+    </div>
+    <div class="row" style="justify-content:space-between;padding:7px 0;border-bottom:1px dotted var(--line);font-size:13px;">
+      <span class="muted">{% translate "Flat" %} · ফ্ল্যাট</span>
+      <b style="font-family:var(--f-title);">{{ unit_label }}</b>
+    </div>
+    {% if method_en %}
+      <div class="row" style="justify-content:space-between;padding:7px 0;border-bottom:1px dotted var(--line);font-size:13px;">
+        <span class="muted">{% translate "Via" %} · পদ্ধতি</span>
+        <b style="font-family:var(--f-mono);font-size:12px;">{{ method_en }}</b>
+      </div>
+    {% endif %}
+    {% if submitted_at %}
+      <div class="row" style="justify-content:space-between;padding:7px 0;font-size:13px;">
+        <span class="muted">{% translate "At" %} · সময়</span>
+        <b style="font-family:var(--f-title);">{{ submitted_at }}</b>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if verified and receipt_url %}
+    <a class="btn rose lg" style="margin-top:14px;" href="{{ receipt_url }}" target="_blank" rel="noopener">
+      ⬇ {% translate "Download receipt" %} · রসিদ ডাউনলোড
+    </a>
+  {% endif %}
+
+  <div class="footnote">Khatir · খতির</div>
+{% endblock %}

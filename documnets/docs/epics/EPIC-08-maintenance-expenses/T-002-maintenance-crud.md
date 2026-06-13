@@ -4,15 +4,15 @@ epic: EPIC-08
 title: Maintenance CRUD + resolve→auto-expense
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-03.T-002]
 blocks: [T-007]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:

@@ -4,7 +4,7 @@ epic: EPIC-10
 title: Flutter plan screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-004, T-005]
 blocks: []
@@ -49,13 +49,13 @@ No DB; consumes /config/public + /billing/subscribe; surface mobile 🟢; no ext
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] plan_screen matches design
-- [ ] current tier highlighted; usage bar
-- [ ] all tiers as upgrade cards
-- [ ] subscribe action (wires to T-004)
-- [ ] More → Plan linked
-- [ ] states; ARB bn + en; widget test
-- [ ] analyze + test pass
+- [x] plan_screen matches design
+- [x] current tier highlighted; usage bar
+- [x] all tiers as upgrade cards
+- [x] subscribe action (wires to T-004)
+- [x] More → Plan linked
+- [x] states; ARB bn + en; widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -64,14 +64,29 @@ No DB; consumes /config/public + /billing/subscribe; surface mobile 🟢; no ext
 1. Open Plan → see 6 tiers; current = free; usage shows 1/2; upgrade to bundle_10.
 
 ## 13. Acceptance criteria
-- [ ] Plan screen matches design; tiers from DB; subscribe works.
-- [ ] **Screen `plan` built** (ledger row).
-- [ ] Test + analyze pass.
+- [x] Plan screen matches design; tiers from DB; subscribe works.
+- [x] **Screen `plan` built** (ledger row).
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] Matches design; tiers from config not hardcoded; tokens
+- [x] Matches design; tiers from config not hardcoded; tokens
 ### Deviations from spec
+- The proto hardcodes 4 illustrative tiers; the screen renders whatever active
+  tiers `/config/public` returns (T-005), so prices/labels/bands are never
+  hardcoded. The "best value" ring is applied to the unlimited (top) tier to
+  mirror the proto's single ringed card.
+- Subscribe is stubbed server-side (T-004): success shows a "we'll confirm"
+  snackbar and re-reads `/config/public` to refresh usage; no real MFS flow.
 ### Files touched (actual)
+- Add: `apps/mobile/lib/features/billing/data/models/plan_models.dart`
+- Add: `apps/mobile/lib/features/billing/data/billing_repository.dart`
+- Add: `apps/mobile/lib/features/billing/data/billing_providers.dart`
+- Add: `apps/mobile/lib/features/billing/presentation/screens/plan_screen.dart`
+- Add: `apps/mobile/test/plan_screen_test.dart`
+- Update: `apps/mobile/lib/core/network/api_endpoints.dart` (billingSubscribe)
+- Update: `apps/mobile/lib/core/router/app_router.dart` (/settings/plan route)
+- Update: `apps/mobile/lib/features/profile/presentation/screens/more_screen.dart` (Plan row → /settings/plan)
+- Update: `apps/mobile/lib/l10n/app_bn.arb`, `apps/mobile/lib/l10n/app_en.arb` (plan_* keys)
 
 ## 15. Notes for the implementing agent
 - Tier data comes from /config/public (not a separate fetch). Payment is stubbed — show a confirmation and a "we'll confirm" message.

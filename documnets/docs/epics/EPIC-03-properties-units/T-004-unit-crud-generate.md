@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Unit CRUD + bulk-generate endpoint
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002]
 blocks: [T-005, T-007, T-014]
@@ -64,12 +64,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] unit_generation pure function (letter + number schemes)
-- [ ] generate endpoint (floors×perFloor + customs − removals)
-- [ ] unit CRUD endpoints scoped
-- [ ] audit
-- [ ] Tests: generation vectors, CRUD, cross-user 404
-- [ ] ruff + mypy clean
+- [x] unit_generation pure function (letter + number schemes)
+- [x] generate endpoint (floors×perFloor + customs − removals)
+- [x] unit CRUD endpoints scoped
+- [x] audit
+- [x] Tests: generation vectors, CRUD, cross-user 404
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -79,12 +79,26 @@ None.
 1. Generate 3 floors × 2 = 6 units; verify labels.
 
 ## 13. Acceptance criteria
-- [ ] Generation matches design schemes; CRUD scoped; tests + lint pass.
+- [x] Generation matches design schemes; CRUD scoped; tests + lint pass.
 
 ## 14. Self-review
-- [ ] Generation pure + deterministic (parity-testable in T-014)
+- [x] Generation pure + deterministic (parity-testable in T-014)
 ### Deviations from spec
+- Test files still carry the pre-existing factory-boy mypy false positives
+  (`Factory(...).pk` / `.owner_id`), matching the T-003 baseline. All **source**
+  files are mypy-clean; the `khatir.*.tests.*` override already relaxes untyped
+  calls for the same reason.
+- `generate_units` skips labels already present on the building (so a re-run
+  only inserts the missing ones) — not explicitly specified, but keeps the bulk
+  insert from creating duplicate labels.
 ### Files touched (actual)
+- Add: `apps/api/khatir/properties/unit_generation.py`
+- Add: `apps/api/khatir/properties/tests/test_unit_generation.py`, `test_unit_api.py`
+- Update: `apps/api/khatir/properties/enums.py` (add `UnitScheme`)
+- Update: `apps/api/khatir/properties/serializers.py` (Unit serializers)
+- Update: `apps/api/khatir/properties/services.py` (create/generate/update/delete unit)
+- Update: `apps/api/khatir/properties/views.py` (nested units action + `UnitViewSet`)
+- Update: `apps/api/khatir/properties/urls.py` (register `units` route)
 
 ## 15. Notes for the implementing agent
 - Letter scheme: floor number + A,B,C… per perFloor (1A,1B,2A,2B). Number scheme: floor×100 + index (101,102,201,202). Keep this function pure so T-014 can test UI parity against the same vectors.

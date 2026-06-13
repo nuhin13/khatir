@@ -4,15 +4,15 @@ epic: EPIC-11
 title: Authenticated shell + session guard (Next.js)
 layer: admin
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-007]
 blocks: [T-009, T-010, T-011]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -48,13 +48,13 @@ No DB; consumes /admin/auth/me; surface admin 🟣; no external; no flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] real session guard (no session → /login)
-- [ ] role-aware sidebar (items by role)
-- [ ] topbar (name, role, logout)
-- [ ] session timeout warning + auto-extend or prompt
-- [ ] logout clears session + /login
-- [ ] tests: guard redirect, role-aware nav
-- [ ] eslint + tsc pass
+- [x] real session guard (no session → /login)
+- [x] role-aware sidebar (items by role)
+- [x] topbar (name, role, logout)
+- [x] session timeout warning + auto-extend or prompt
+- [x] logout clears session + /login
+- [x] tests: guard redirect, role-aware nav
+- [x] eslint + tsc pass
 
 ## 12. Test plan
 ### Automated
@@ -63,11 +63,37 @@ No DB; consumes /admin/auth/me; surface admin 🟣; no external; no flags.
 1. Unauthenticated → /login. Compliance role → no pricing link.
 
 ## 13. Acceptance criteria
-- [ ] Real session guard; role-aware sidebar; topbar; tests pass.
+- [x] Real session guard; role-aware sidebar; topbar; tests pass.
 ## 14. Self-review
-- [ ] EPIC-00 stub replaced; role logic correct
+- [x] EPIC-00 stub replaced; role logic correct
 ### Deviations from spec
+- Real guard resolves the admin server-side: `lib/auth/admin-session.ts`
+  `getAuthenticatedAdmin()` reads the T-007 HTTP-only session cookie, then calls
+  the backend `GET /admin/api/auth/me` with the bearer token (token never
+  reaches the browser) and zod-validates the response. A missing cookie, a
+  401/403 (revoked/disabled), an unreachable backend (fail-closed), or a
+  disabled account all resolve to null → layout redirects to /login. The layout
+  now uses this instead of the bare `getSession`.
+- Role → nav matrix in `_nav.ts` (`navForRole`) mirrors the backend
+  `admin_portal/permissions.py` SECTION_ROLES and spec §2.1: super sees all;
+  ops+support → Users/Support; finance → Pricing; compliance → Features/
+  Kill-switch/Compliance; Dashboard+Analytics → every role; Notifications/AI
+  providers/System/Admin users/Security stay super-only (no scoped role owns
+  them in §2.1).
+- Session expiry is read from the JWT `exp` claim (decoded unverified — the
+  backend owns the signing key; we only need the timestamp) and surfaced to a
+  client `SessionTimeoutWarning` banner that counts down within 5 min, offers
+  "Stay signed in" (server refresh re-validates against /me), and routes to
+  /login once expired. Backend tokens don't silently auto-extend, so the prompt
+  path is used (task allowed "auto-renew OR prompt").
 ### Files touched (actual)
+- Update: app/(dashboard)/layout.tsx (real guard, pass role/name/expiry),
+  app/(dashboard)/_nav.ts (roles + navForRole), components/features/sidebar.tsx
+  (role prop), components/features/topbar.tsx (name/role badge + logout),
+  test/sidebar.test.tsx (role-aware nav tests)
+- Add: lib/auth/admin-session.ts (getAuthenticatedAdmin guard);
+  components/features/session-timeout-warning.tsx;
+  test/admin-session.test.ts; test/topbar.test.tsx
 
 ## 15. Notes for the implementing agent
 - Replaces EPIC-00 T-009's stub session guard. Match sidebar items to admin spec §3.1.

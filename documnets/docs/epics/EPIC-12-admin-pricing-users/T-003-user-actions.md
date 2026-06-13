@@ -4,15 +4,15 @@ epic: EPIC-12
 title: User search + detail + actions endpoints
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-11.T-001]
 blocks: [T-007, T-008]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-04
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:

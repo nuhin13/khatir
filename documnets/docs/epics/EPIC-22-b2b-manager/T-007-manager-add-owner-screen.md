@@ -4,7 +4,7 @@ epic: EPIC-22
 title: Manager add-owner screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003]
 blocks: []

@@ -4,7 +4,7 @@ epic: EPIC-17
 title: Verification logs → EPIC-16 compliance viewer
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-001, EPIC-16.T-002]
 blocks: []
@@ -38,18 +38,25 @@ DB reads as needed; backend. No external (beyond verify). No new flags.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] Core implementation per goal
-- [ ] Tests
-- [ ] ruff + mypy clean
+- [x] Core implementation per goal
+- [x] Tests
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
 - Core tests per goal
 ## 13. Acceptance criteria
-- [ ] Feature works per goal; tests pass.
+- [x] Feature works per goal; tests pass.
 ## 14. Self-review
-- [ ] No raw EC data anywhere; follows conventions
+- [x] No raw EC data anywhere; follows conventions
 ### Deviations from spec
+None. Surfaced VerificationLog read-only in the EPIC-16 compliance app (same
+pattern/role-gate as consent-records and audit-log), exposing only
+result + date + who.
 ### Files touched (actual)
+- apps/api/khatir/compliance/serializers.py (VerificationLogSerializer)
+- apps/api/khatir/compliance/views.py (VerificationLogListView + filters)
+- apps/api/khatir/compliance/urls.py (verification-logs route)
+- apps/api/khatir/compliance/tests/test_verification_log_endpoint.py (new)
 ## 15. Notes
 Surface VerificationLog entries in the EPIC-16 compliance views (read-only, result + date + who, no raw data). Add a filter for verification events.

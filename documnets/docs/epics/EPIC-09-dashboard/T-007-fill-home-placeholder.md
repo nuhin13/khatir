@@ -4,7 +4,7 @@ epic: EPIC-09
 title: Fill home screen chart placeholder (EPIC-03)
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-006, EPIC-03.T-009]
 blocks: []
@@ -38,11 +38,11 @@ No DB; consumes /dashboard (or /portfolio); surface mobile 🟢; no external; no
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] collection summary card (current month collected/pending)
-- [ ] tap → dashboard tab
-- [ ] replaces EPIC-03 TODO(EPIC-09)
-- [ ] widget test
-- [ ] analyze + test pass
+- [x] collection summary card (current month collected/pending)
+- [x] tap → dashboard tab
+- [x] replaces EPIC-03 TODO(EPIC-09)
+- [x] widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -51,12 +51,21 @@ No DB; consumes /dashboard (or /portfolio); surface mobile 🟢; no external; no
 1. Home shows collection summary; tap → charts tab.
 
 ## 13. Acceptance criteria
-- [ ] Home chart placeholder replaced; EPIC-03 TODO removed; test passes.
+- [x] Home chart placeholder replaced; EPIC-03 TODO removed; test passes.
 
 ## 14. Self-review
-- [ ] EPIC-03 marker removed; tokens
+- [x] EPIC-03 marker removed; tokens
 ### Deviations from spec
+- The dashboard payload (T-004) exposes no per-tenant breakdown, so the home
+  card shows the current-month collected total, the pending total, and a
+  collection-rate progress bar (driven by `collection_rate`), then taps through
+  to the Charts tab for the full chart breakdown. On a `/dashboard` read error
+  the card degrades to the original coming-soon copy (`home_collected_todo`) so
+  it never collapses.
 ### Files touched (actual)
+- lib/features/properties/presentation/screens/landlord_home_screen.dart
+- lib/l10n/app_en.arb, lib/l10n/app_bn.arb
+- test/landlord_home_test.dart
 
 ## 15. Notes
 - Keep the home card lightweight (just current-month totals). Full charts are on the dedicated dashboard tab.

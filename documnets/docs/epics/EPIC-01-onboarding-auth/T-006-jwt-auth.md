@@ -4,15 +4,15 @@ epic: EPIC-01
 title: JWT issue/refresh/logout + me endpoint
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-005]
 blocks: [T-011]
 external_services: []
 feature_flags: []
 started_at:
-completed_at:
-executed_by:
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -75,15 +75,15 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] simplejwt configured (lifetimes from env, separate signing key, rotation)
-- [ ] token blacklist app + migration
-- [ ] verify-otp returns access+refresh+user
-- [ ] /auth/refresh
-- [ ] /auth/logout blacklists refresh
-- [ ] /auth/me (auth required) + UserSerializer
-- [ ] last_login_at updated on verify
-- [ ] Tests: claims (user_id, role), refresh, logout invalidation, me auth-required
-- [ ] ruff + mypy clean
+- [x] simplejwt configured (lifetimes from env, separate signing key, rotation)
+- [x] token blacklist app + migration
+- [x] verify-otp returns access+refresh+user
+- [x] /auth/refresh
+- [x] /auth/logout blacklists refresh
+- [x] /auth/me (auth required) + UserSerializer
+- [x] last_login_at updated on verify
+- [x] Tests: claims (user_id, role), refresh, logout invalidation, me auth-required
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -95,17 +95,33 @@ None.
 1. Full loop: request → verify → use access on /me → refresh → logout → refresh fails.
 
 ## 13. Acceptance criteria
-- [ ] JWT pair issued with correct claims + lifetimes.
-- [ ] Refresh + logout (blacklist) work.
-- [ ] /me returns the user.
-- [ ] Tests + lint pass.
+- [x] JWT pair issued with correct claims + lifetimes.
+- [x] Refresh + logout (blacklist) work.
+- [x] /me returns the user.
+- [x] Tests + lint pass.
 
 ## 14. Self-review
-- [ ] Signing key separate from Django secret, from env
-- [ ] Refresh rotation + blacklist on logout
-- [ ] No token/secret logged
+- [x] Signing key separate from Django secret, from env (`JWT_SIGNING_KEY`)
+- [x] Refresh rotation + blacklist on logout
+- [x] No token/secret logged
 ### Deviations from spec
+- `verify-otp` token wiring uses a new `verify_otp_and_issue_tokens` service that
+  composes the existing T-005 `verify_otp_and_get_user` (kept intact) rather than
+  modifying it — keeps the user-only path available and the view thin.
+- Token blacklist tables come from simplejwt's own packaged migrations (applied by
+  `migrate`); no hand-written migration is added (none is needed). `last_login_at`
+  is stamped in the issuance service so every successful verify records it.
+- `refresh` also returns a rotated `refresh` token (rotation is on) in addition to
+  the spec's `{access}`; the old refresh is blacklisted after rotation.
 ### Files touched (actual)
+- Add: `khatir/accounts/auth_tokens.py`, `khatir/accounts/tests/test_jwt.py`
+- Update: `config/settings/base.py` (simplejwt config + blacklist app + DRF default
+  auth), `config/settings/test.py` (deterministic >=32B signing key), `pyproject.toml`
+  + `uv.lock` (add `djangorestframework-simplejwt`), `khatir/accounts/serializers.py`
+  (`UserSerializer`, `RefreshSerializer`), `khatir/accounts/views.py` (refresh/logout/me
+  + token-issuing verify), `khatir/accounts/urls.py` (3 routes),
+  `khatir/accounts/services.py` (`verify_otp_and_issue_tokens` + `last_login_at`),
+  `khatir/accounts/tests/test_auth_endpoints.py` (assert verify returns tokens)
 
 ## 15. Notes for the implementing agent
 - Put `role` in the access token so clients/permissions can read it without an extra call, but treat the DB as source of truth on role change.

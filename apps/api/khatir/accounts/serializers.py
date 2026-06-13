@@ -1,0 +1,102 @@
+"""DRF serializers for the auth endpoints (T-005 §3).
+
+Input validation only — the zod-equivalent boundary. Bangladeshi phone numbers
+must arrive in E.164 form (``+8801`` + 9 digits, 11 national digits total, see
+``06_database_schema.md`` line 70). ``ValidationError`` raised here is mapped to
+the ``validation_error`` envelope by ``core.exceptions.exception_handler``.
+"""
+
+from __future__ import annotations
+
+import re
+
+from rest_framework import serializers
+
+from .enums import Language, Role
+from .models import User
+
+# Roles a user may select for themselves (T-001 §2). caretaker/admin are
+# assigned, never self-chosen, so they are excluded from the profile update set.
+SELF_SELECTABLE_ROLES = (Role.LANDLORD, Role.MANAGER, Role.TENANT)
+
+# E.164 Bangladesh mobile: +880, leading 1, then 9 digits (e.g. +8801712345678).
+_BD_PHONE_RE = re.compile(r"^\+8801\d{9}$")
+
+
+def _validate_bd_phone(value: str) -> None:
+    if not _BD_PHONE_RE.match(value):
+        raise serializers.ValidationError(
+            "Enter a valid Bangladeshi phone number in E.164 format (+8801XXXXXXXXX)."
+        )
+
+
+class RequestOtpSerializer(serializers.Serializer[dict[str, str]]):
+    """Validates the ``request-otp`` body: a single E.164 BD phone."""
+
+    phone = serializers.CharField(max_length=20, validators=[_validate_bd_phone])
+
+
+class VerifyOtpSerializer(serializers.Serializer[dict[str, str]]):
+    """Validates the ``verify-otp`` body: phone + the numeric code."""
+
+    phone = serializers.CharField(max_length=20, validators=[_validate_bd_phone])
+    code = serializers.CharField(max_length=12, min_length=1, trim_whitespace=True)
+
+
+class RefreshSerializer(serializers.Serializer[dict[str, str]]):
+    """Validates the ``refresh``/``logout`` body: a single refresh token."""
+
+    refresh = serializers.CharField()
+
+
+class UserSerializer(serializers.ModelSerializer[User]):
+    """The current-user payload returned by ``GET /auth/me`` (T-006 §2, §7).
+
+    The owner sees their full phone (not masked — masking is for logs only).
+    ``id`` is serialized as a string for stable JSON handling on the client.
+    """
+
+    id = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ("id", "phone", "role", "name", "language")
+        read_only_fields = fields
+
+
+class ProfileSerializer(serializers.ModelSerializer[User]):
+    """Read view of the current user's profile (T-001 §7).
+
+    Same shape as ``UserSerializer``; named for the profile endpoints so the
+    resource's intent is explicit at the call site.
+    """
+
+    id = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ("id", "phone", "name", "role", "language")
+        read_only_fields = fields
+
+
+class ProfileUpdateSerializer(serializers.Serializer[dict[str, str]]):
+    """Validates a partial profile update: ``name`` / ``language`` / ``role``.
+
+    All fields are optional (PATCH semantics). ``role`` is restricted to the
+    self-selectable set (landlord/manager/tenant — never caretaker/admin) and
+    ``language`` to the ``bn|en`` enum. Returns only the fields that were sent.
+    """
+
+    name = serializers.CharField(max_length=120, required=False, allow_blank=True)
+    language = serializers.ChoiceField(choices=Language.choices, required=False)
+    role = serializers.ChoiceField(
+        choices=[(r.value, r.label) for r in SELF_SELECTABLE_ROLES],
+        required=False,
+    )
+
+    def validate(self, attrs: dict[str, str]) -> dict[str, str]:
+        if not attrs:
+            raise serializers.ValidationError(
+                "Provide at least one of name, language, role to update."
+            )
+        return attrs

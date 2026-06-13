@@ -4,7 +4,7 @@ epic: EPIC-23
 title: Chat endpoint (gateway + scoped context)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-001, EPIC-14.T-007]
 blocks: []

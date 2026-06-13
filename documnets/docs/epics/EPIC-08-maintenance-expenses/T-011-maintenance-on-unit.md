@@ -4,15 +4,15 @@ epic: EPIC-08
 title: Maintenance entry on unit detail
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: codex
 depends_on: [T-007, EPIC-03.T-013]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -52,11 +52,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] unit maintenance/expense summary section
-- [ ] links to queue + expenses
-- [ ] integrate into unit detail
-- [ ] states; widget test
-- [ ] analyze + test pass
+- [x] unit maintenance/expense summary section
+- [x] links to queue + expenses
+- [x] integrate into unit detail
+- [x] states; widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -65,12 +65,24 @@ None.
 1. Unit detail shows recent maintenance + expenses.
 
 ## 13. Acceptance criteria
-- [ ] Unit detail shows maintenance/expense summary; tests + analyze pass.
+- [x] Unit detail shows maintenance/expense summary; tests + analyze pass.
 
 ## 14. Self-review
-- [ ] Tokens; links correct
+- [x] Tokens; links correct
 ### Deviations from spec
+- The `unit` prototype has no maintenance/expense block, so the section is a new
+  composition built from the existing soft-card + chip token vocabulary (matching
+  the queue/expenses screens), placed below the tenant region.
+- Added two unit-scoped reads to T-007 `providers.dart`
+  (`unitMaintenanceProvider` / `unitExpensesProvider`) using the existing
+  `listQueue(unitId:)` / `ExpenseFilter(unitId:)` slices — no repo changes.
 ### Files touched (actual)
+- apps/mobile/lib/features/maintenance/presentation/widgets/unit_maint_expense_section.dart (add)
+- apps/mobile/lib/features/maintenance/data/providers.dart (update: unit-scoped providers)
+- apps/mobile/lib/features/properties/presentation/screens/unit_detail_screen.dart (update: render section)
+- apps/mobile/lib/l10n/app_en.arb, app_bn.arb (update: unit_maintenance/unit_expenses/unit_view_all + count/empty/error keys)
+- apps/mobile/test/unit_maint_section_test.dart (add)
+- apps/mobile/test/unit_detail_test.dart (update: override maintenance/expense repos)
 
 ## 15. Notes for the implementing agent
 - Keep it a lightweight summary; full lists live in their own screens.

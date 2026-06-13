@@ -71,3 +71,23 @@ temp/
 *.tmp
 *.bak
 *.orig
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+*.iml
+
+# Docker
+*.local
+docker-compose.override.yml
+
+# Keep lockfiles (do NOT ignore them) — committed on purpose:
+# uv.lock, pubspec.lock, package-lock.json, pnpm-lock.yaml, yarn.lock
+
+# Local encrypted object storage (test/dev fallback)
+apps/api/**/private_media/
+apps/api/private_media/

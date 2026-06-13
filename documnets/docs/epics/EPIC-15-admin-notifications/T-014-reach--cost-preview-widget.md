@@ -4,15 +4,15 @@ epic: EPIC-15
 title: Reach + cost preview widget
 layer: admin
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-007]
 blocks: []
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-05
+completed_at: 2026-06-05
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:

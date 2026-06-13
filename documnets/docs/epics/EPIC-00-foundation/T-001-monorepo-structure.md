@@ -4,15 +4,15 @@ epic: EPIC-00
 title: Initialize mono-repo structure & root files
 layer: infra
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: []
 blocks: [T-002, T-003, T-007, T-009, T-010, T-012]
 external_services: []
 feature_flags: []
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-02
+completed_at: 2026-06-02
+executed_by: claude-code
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -69,15 +69,15 @@ None.
 None.
 
 ## 11. Implementation checklist
-- [ ] Top-level folders created per architecture 02
-- [ ] `.gitkeep` in empty dirs
-- [ ] `docs/` present at root with architecture/product/logos/epics
-- [ ] `.gitignore` covers Python/Node/Flutter/Docker/env/IDE/OS
-- [ ] `README.md` stub created
-- [ ] `DECISIONS.md` created with first entry
-- [ ] `.editorconfig` created
-- [ ] `LICENSE` placeholder created
-- [ ] git initialized, `main` branch
+- [x] Top-level folders created per architecture 02 (apps/, services/, infra/{docker,scripts,ci,deploy}/, packages/)
+- [x] `.gitkeep` in empty dirs
+- [x] `docs/` present at root with architecture/product/logos/epics (pre-existing under `documnets/` — see DECISIONS.md)
+- [x] `.gitignore` covers Python/Node/Flutter/Docker/env/IDE/OS
+- [x] `README.md` stub created
+- [x] `DECISIONS.md` created with first entry
+- [x] `.editorconfig` created
+- [x] `LICENSE` placeholder created
+- [x] git initialized (pre-existing clone), branch `bench/claude` (benchmark branch, not `main`)
 
 ## 12. Test plan
 ### Automated
@@ -87,15 +87,20 @@ None.
 2. `git status` is clean after an initial commit.
 
 ## 13. Acceptance criteria
-- [ ] Folder tree matches `02_project_structure.md` top level exactly.
-- [ ] Root files present.
-- [ ] Repo is a valid git repo on `main`.
+- [x] Folder tree matches `02_project_structure.md` top level exactly.
+- [x] Root files present.
+- [x] Repo is a valid git repo (on benchmark branch `bench/claude`, not `main` — see deviations).
 
 ## 14. Self-review
-- [ ] Structure matches architecture doc
-- [ ] No extra top-level folders invented
+- [x] Structure matches architecture doc
+- [x] No extra top-level folders invented
 ### Deviations from spec
+- Docs were NOT moved into a new root `docs/` folder. The architecture/product/logos/epics tree pre-exists under `documnets/` (misspelled dir). Per task instruction this existing tree was left untouched; `apps/`, `services/`, `infra/`, `packages/` were created alongside it. Recorded in DECISIONS.md.
+- `git init` was NOT run — repo is a pre-existing clone. Active branch is `bench/claude` (benchmark branch), not `main`.
+- `.gitignore` already existed and was extended (Flutter/Dart, Docker, lockfile-keep note) rather than recreated.
 ### Files touched (actual)
+- Created: `apps/.gitkeep`, `services/.gitkeep`, `infra/docker/.gitkeep`, `infra/scripts/.gitkeep`, `infra/ci/.gitkeep`, `infra/deploy/.gitkeep`, `packages/.gitkeep`, `README.md`, `DECISIONS.md`, `.editorconfig`, `LICENSE`
+- Updated: `.gitignore`, this task file, `BOARD.md`
 
 ## 15. Notes for the implementing agent
 - The `.gitignore` must include: `.env`, `*.pyc`, `__pycache__/`, `.venv/`, `node_modules/`, `.dart_tool/`, `build/`, `*.iml`, `.idea/`, `.vscode/`, `.DS_Store`, `uv.lock` keep (do NOT ignore lockfiles), `*.local`.

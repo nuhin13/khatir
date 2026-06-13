@@ -4,7 +4,7 @@ epic: EPIC-19
 title: Tenant shell wiring (fill EPIC-02 placeholders)
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-005, EPIC-02.T-004]
 blocks: []

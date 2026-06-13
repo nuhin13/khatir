@@ -1,0 +1,27 @@
+{% extends "rent/_web_base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Link unavailable" %} · Khatir{% endblock %}
+
+{% block content %}
+  <div class="center" style="padding-top:48px;">
+    <div class="icon" aria-hidden="true">⏳</div>
+    {% if reason == "expired" %}
+      <div class="title" style="font-size:18px;margin-top:14px;">এই লিংকের মেয়াদ শেষ</div>
+      <div class="muted" lang="en" style="margin-top:6px;">This maintenance link has expired.</div>
+    {% elif reason == "rate_limited" %}
+      <div class="title" style="font-size:18px;margin-top:14px;">একটু পরে আবার চেষ্টা করুন</div>
+      <div class="muted" lang="en" style="margin-top:6px;">Too many attempts. Please try again in a few minutes.</div>
+    {% else %}
+      <div class="title" style="font-size:18px;margin-top:14px;">লিংকটি খুঁজে পাওয়া যায়নি</div>
+      <div class="muted" lang="en" style="margin-top:6px;">This link is invalid or no longer exists.</div>
+    {% endif %}
+    <div class="card soft-sage" style="margin-top:18px;text-align:left;">
+      <div style="font-size:13px;color:var(--sage-dk);font-weight:600;line-height:1.6;">
+        মালিকের কাছে নতুন লিংক চান।<br>
+        <span lang="en">Please ask the landlord to send a new link.</span>
+      </div>
+    </div>
+  </div>
+  <div class="footnote">Khatir · খতির</div>
+{% endblock %}

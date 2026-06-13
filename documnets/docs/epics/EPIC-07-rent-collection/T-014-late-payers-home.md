@@ -4,7 +4,7 @@ epic: EPIC-07
 title: Late-payers + rent status on home (fill EPIC-03)
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-010, EPIC-03.T-009]
 blocks: []
@@ -55,11 +55,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] late-payers section (overdue list + quick request)
-- [ ] replaces EPIC-03 home placeholder (remove TODO)
-- [ ] empty state (all paid)
-- [ ] widget test
-- [ ] analyze + test pass
+- [x] late-payers section (overdue list + quick request)
+- [x] replaces EPIC-03 home placeholder (remove TODO)
+- [x] empty state (all paid)
+- [x] widget test
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
@@ -68,13 +68,27 @@ None.
 1. Overdue tenant shows on home → quick request → link sent.
 
 ## 13. Acceptance criteria
-- [ ] Home shows real late-payers; EPIC-03 placeholder removed.
-- [ ] Test + analyze pass.
+- [x] Home shows real late-payers; EPIC-03 placeholder removed.
+- [x] Test + analyze pass.
 
 ## 14. Self-review
-- [ ] EPIC-03 TODO removed; tokens
+- [x] EPIC-03 TODO removed; tokens
 ### Deviations from spec
+- "Late payers" are derived from the committed T-010 rent-request queue
+  (unpaid = `sent` / `proof_submitted`); there is no dedicated overdue endpoint
+  yet, so the section reads `rentQueueProvider`. Rows show amount · period (the
+  rent-request payload does not carry tenant name / unit labels — those are not
+  on `RentRequestSerializer`), with a per-row "Ask" pill routing to
+  `/rent/request?lease=…&amount=…&period=…`.
+- Only the late-payer portion of the EPIC-03 `_CollectionCard` placeholder is
+  replaced; the collected/expected amount + progress chart stay deferred to
+  EPIC-09 (per §15).
 ### Files touched (actual)
+- Add: apps/mobile/lib/features/rent/presentation/widgets/late_payers_section.dart
+- Update: apps/mobile/lib/features/properties/presentation/screens/landlord_home_screen.dart
+- Update: apps/mobile/lib/l10n/app_en.arb, app_bn.arb (home_late_payers,
+  home_late_payers_one, home_all_paid, home_quick_request)
+- Test: apps/mobile/test/landlord_home_test.dart (3 new late-payers cases)
 
 ## 15. Notes for the implementing agent
 - Closes the EPIC-03→07 home seam. Charts region still belongs to EPIC-09.

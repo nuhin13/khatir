@@ -4,7 +4,7 @@ epic: EPIC-20
 title: Warning issue + list endpoints (scoped + kill-switch)
 layer: backend
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-13.T-002]
 blocks: [T-003, T-005, T-007, T-009, T-010]
@@ -50,12 +50,12 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] warnings_feature kill-switch gate (off → feature_disabled)
-- [ ] issue (landlord's own lease/tenant only) + audit
-- [ ] list (own only — never cross-landlord)
-- [ ] for_user scope via lease→landlord
-- [ ] Tests: issue, list scoped, kill-switch off blocks, cross-landlord 404
-- [ ] ruff + mypy clean
+- [x] warnings_feature kill-switch gate (off → feature_disabled)
+- [x] issue (landlord's own lease/tenant only) + audit
+- [x] list (own only — never cross-landlord)
+- [x] for_user scope via lease→landlord
+- [x] Tests: issue, list scoped, kill-switch off blocks, cross-landlord 404
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -64,10 +64,16 @@ None.
 1. Issue a warning → appears in own list. Toggle kill-switch off → feature gone.
 
 ## 13. Acceptance criteria
-- [ ] Issue + list, kill-switch gated, strictly scoped, audited; tests + lint pass.
+- [x] Issue + list, kill-switch gated, strictly scoped, audited; tests + lint pass.
 ## 14. Self-review
-- [ ] Kill-switch enforced; no cross-landlord path; audited
+- [x] Kill-switch enforced; no cross-landlord path; audited
 ### Deviations from spec
+- Added `warnings/flags.py` (thin kill-switch reader) — not in §5 file list — so
+  the view never imports the featureflags storage directly, mirroring the
+  established `tenants/flags.py` pattern.
 ### Files touched (actual)
+- khatir/warnings/{flags,serializers,services,views,urls}.py
+- khatir/warnings/tests/test_warning_api.py
+- config/urls.py (mount khatir.warnings.urls under /api/v1/)
 ## 15. Notes
 - The kill-switch check should be the very first thing the endpoint does. This feature ships OFF-able by design.

@@ -4,7 +4,7 @@ epic: EPIC-17
 title: Verification badge on tenant detail
 layer: mobile
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-006]
 blocks: []

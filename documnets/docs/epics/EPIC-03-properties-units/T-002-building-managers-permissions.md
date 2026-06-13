@@ -4,7 +4,7 @@ epic: EPIC-03
 title: Building managers (for_user) + permissions
 layer: backend
 size: S
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-001, EPIC-02.T-002]
 blocks: [T-003, T-004]
@@ -58,11 +58,11 @@ None.
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash; multiple items may share a commit. See `_handoff_protocol.md` §3b.
-- [ ] BuildingQuerySet.for_user (landlord=own, manager=linked owners, else none)
-- [ ] Unit scoping via building.for_user
-- [ ] IsOwnerOfBuilding / IsOwnerOfUnit object permissions
-- [ ] Tests: own-only, cross-user empty, manager-linked
-- [ ] ruff + mypy clean
+- [x] BuildingQuerySet.for_user (landlord=own, manager=linked owners, else none)
+- [x] Unit scoping via building.for_user
+- [x] IsOwnerOfBuilding / IsOwnerOfUnit object permissions
+- [x] Tests: own-only, cross-user empty, manager-linked
+- [x] ruff + mypy clean
 
 ## 12. Test plan
 ### Automated
@@ -71,12 +71,27 @@ None.
 1. Two landlords; confirm isolation.
 
 ## 13. Acceptance criteria
-- [ ] for_user enforced; object perms work; tests + lint pass.
+- [x] for_user enforced; object perms work; tests + lint pass.
 
 ## 14. Self-review
-- [ ] No queryset bypasses for_user
+- [x] No queryset bypasses for_user
 ### Deviations from spec
+- `ManagerOwnerLink` / `user.managed_owner_ids()` are not yet wired in the repo
+  (the schema marks them "wired now, used in EPIC-22"; EPIC-01 T-002 shipped only
+  the `User` model). To honour the documented contract without creating an
+  out-of-scope model, both `managers.for_user` and the object permissions read
+  the manager's linked owner ids through `user.managed_owner_ids()` *if present*,
+  falling back to an empty set otherwise. An unlinked manager therefore safely
+  sees nothing. When EPIC-22 adds the helper, manager scoping works with no code
+  change here.
+- `SoftDeleteManager.get_queryset()` hardcodes `SoftDeleteQuerySet`, so
+  `from_queryset` cannot inject `for_user`. `BuildingManager`/`UnitManager`
+  override `get_queryset` to return the domain queryset while preserving the
+  soft-delete (`deleted_at__isnull=True`) filter.
 ### Files touched (actual)
+- Add: `apps/api/khatir/properties/managers.py`, `permissions.py`
+- Add: `apps/api/khatir/properties/tests/test_scoping.py`
+- Update: `apps/api/khatir/properties/models.py` (attach `BuildingManager`/`UnitManager`)
 
 ## 15. Notes for the implementing agent
 - Manager→owner links come from `ManagerOwnerLink` (EPIC-01 T-002 created the model; fully used in EPIC-22). Use `user.managed_owner_ids()` helper or query the link table.

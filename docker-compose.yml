@@ -1,0 +1,172 @@
+# Khatir local development stack (Compose v2 — no `version:` key).
+#
+# Active services: db (PostgreSQL 17), redis (Redis 8).
+#   docker compose up -d db redis
+#
+# The `api` and `admin` services are stubbed below. They are completed and
+# enabled by T-004 (Django API) and T-009 (Next.js admin) respectively.
+#
+# All connection settings are read from `.env` (see `.env.example`).
+
+name: khatir
+
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      # Host port from .env (DB_PORT), container always listens on 5432.
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    image: redis:8
+    restart: unless-stopped
+    ports:
+      # Redis always listens on 6379 in-container; expose on host 6379.
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # ── api ──────────────────────────────────────────────────────────────
+  # Enabled by T-004. Django + DRF backend served by gunicorn.
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Inside the compose network the API reaches Postgres/Redis by service
+      # name, not localhost. These override the host-oriented .env values.
+      DJANGO_ENV: ${DJANGO_ENV:-prod}
+      DB_HOST: db
+      DB_PORT: "5432"
+      REDIS_URL: redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ── worker ───────────────────────────────────────────────────────────
+  # Celery worker. Reuses the api image; only the command differs. Broker +
+  # result backend come from .env (CELERY_BROKER_URL / CELERY_RESULT_BACKEND),
+  # overridden here to reach Redis by compose service name.
+  worker:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    restart: unless-stopped
+    command: ["celery", "-A", "config", "worker", "--loglevel=info"]
+    env_file:
+      - .env
+    environment:
+      DJANGO_ENV: ${DJANGO_ENV:-prod}
+      DB_HOST: db
+      DB_PORT: "5432"
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ── beat ─────────────────────────────────────────────────────────────
+  # Celery Beat scheduler (DB-backed via django-celery-beat). Emits periodic
+  # tasks registered by later epics onto the broker.
+  beat:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    restart: unless-stopped
+    command:
+      [
+        "celery",
+        "-A",
+        "config",
+        "beat",
+        "--loglevel=info",
+        "--scheduler",
+        "django_celery_beat.schedulers:DatabaseScheduler",
+      ]
+    env_file:
+      - .env
+    environment:
+      DJANGO_ENV: ${DJANGO_ENV:-prod}
+      DB_HOST: db
+      DB_PORT: "5432"
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ── ai-gateway ───────────────────────────────────────────────────────
+  # FastAPI AI provider abstraction (EPIC-14). Thin, stateless router — no DB.
+  # Reaches Django over the compose network; the shared internal token comes
+  # from .env (AI_GATEWAY_INTERNAL_TOKEN). Serves /healthz on port 8100.
+  ai-gateway:
+    build:
+      context: ./services/ai-gateway
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8100:8100"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8100/healthz').status==200 else 1)",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # ── admin ────────────────────────────────────────────────────────────
+  # Next.js admin portal (enabled by T-009).
+  admin:
+    build:
+      context: .
+      dockerfile: infra/docker/admin.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  redisdata:
