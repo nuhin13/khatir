@@ -4,15 +4,15 @@ epic: EPIC-23
 title: Flutter chat sheet UI
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-002]
 blocks: []
 external_services: []
 feature_flags: [chatbot_enabled]
-started_at:
-completed_at:
-executed_by:
+started_at: 2026-06-13
+completed_at: 2026-06-13
+executed_by: claude
 reviewed_at:
 reviewed_by:
 review_outcome:
@@ -38,19 +38,24 @@ No DB; consumes chat endpoints; mobile 🟢. No external (beyond gateway). Flag:
 
 ## 11. Implementation checklist
 > Live log — check off as you go, append short commit hash. See `_handoff_protocol.md` §3b.
-- [ ] Core implementation per goal
-- [ ] Scoping/guardrails as applicable
-- [ ] Tests
-- [ ] analyze + test pass
+- [x] Core implementation per goal
+- [x] Scoping/guardrails as applicable
+- [x] Tests
+- [x] analyze + test pass
 
 ## 12. Test plan
 ### Automated
 - Core tests per goal
 ## 13. Acceptance criteria
-- [ ] Feature works per goal; scoped + safe; tests pass.
+- [x] Feature works per goal; scoped + safe; tests pass.
 ## 14. Self-review
-- [ ] Own-data only; disclaimers present
+- [x] Own-data only; disclaimers present
 ### Deviations from spec
+None.
 ### Files touched (actual)
+- `apps/mobile/lib/features/chat/presentation/widgets/chat_sheet.dart` — ChatSheet, showChatSheet, all sub-widgets
+- `apps/mobile/lib/l10n/app_en.arb` + `app_bn.arb` — 10 new bilingual keys
+- `apps/mobile/lib/l10n/app_localizations.dart` + `_en.dart` + `_bn.dart` — generated getters
+- `apps/mobile/test/chat_sheet_test.dart` — widget tests
 ## 15. Notes
-A reusable chat bottom-sheet/overlay reachable from the shells: message list, input, streaming reply, disclaimers. Hidden if chatbot_enabled off. Bilingual. Widget test.
+A reusable chat bottom-sheet/overlay reachable from any screen via `showChatSheet(context)`. Message list, streaming dots, bilingual disclaimers, guardrail overlay, chatbot_enabled flag gate. All values from design tokens.

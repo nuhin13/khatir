@@ -3289,6 +3289,66 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'NID যাচাই হয়নি'**
   String get unit_tenant_unverified;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'AI সহকারী · AI Assistant'**
+  String get chat_title;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'জিজ্ঞাসা করুন · Ask a question…'**
+  String get chat_input_hint;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'পাঠান · Send'**
+  String get chat_send;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না · AI does not give legal or financial advice'**
+  String get chat_disclaimer;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'AI চ্যাট পাওয়া যাচ্ছে না · AI Chat Unavailable'**
+  String get chat_disabled_title;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'এই ফিচারটি এখন বন্ধ আছে। · This feature is currently disabled.'**
+  String get chat_disabled_body;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'কথোপকথন শুরু করুন · Start the conversation'**
+  String get chat_empty;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'বার্তা লোড করা যায়নি · Couldn\'t load messages'**
+  String get chat_loading_error;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'বার্তা পাঠানো যায়নি · Couldn\'t send message. Please try again.'**
+  String get chat_send_error;
+
+  /// No documentation comment provided in ARB.
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না। এই তথ্য সাধারণ তথ্যের জন্য মাত্র। · AI does not provide legal or financial advice. This information is for general purposes only.'**
+  String get chat_guardrail_disclaimer;
 }
 
 class _AppLocalizationsDelegate

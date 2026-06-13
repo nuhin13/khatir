@@ -1821,5 +1821,26 @@
   "unit_tenant_verified": "NID যাচাইকৃত",
   "@unit_tenant_verified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is verified (matched)." },
   "unit_tenant_unverified": "NID যাচাই হয়নি",
-  "@unit_tenant_unverified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified." }
+  "@unit_tenant_unverified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified." },
+
+  "chat_title": "AI সহকারী",
+  "@chat_title": { "description": "Title shown in the chat bottom-sheet header." },
+  "chat_input_hint": "জিজ্ঞাসা করুন…",
+  "@chat_input_hint": { "description": "Placeholder text in the chat message input field." },
+  "chat_send": "পাঠান",
+  "@chat_send": { "description": "Tooltip / accessibility label for the send button." },
+  "chat_disclaimer": "AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না",
+  "@chat_disclaimer": { "description": "Bilingual disclaimer shown at the bottom of the chat sheet." },
+  "chat_disabled_title": "AI চ্যাট পাওয়া যাচ্ছে না",
+  "@chat_disabled_title": { "description": "Title shown in the chat sheet when the chatbot_enabled flag is off." },
+  "chat_disabled_body": "এই ফিচারটি এখন বন্ধ আছে।",
+  "@chat_disabled_body": { "description": "Body text shown in the chat sheet when the chatbot_enabled flag is off." },
+  "chat_empty": "কথোপকথন শুরু করুন",
+  "@chat_empty": { "description": "Empty-state label when there are no messages yet." },
+  "chat_loading_error": "বার্তা লোড করা যায়নি",
+  "@chat_loading_error": { "description": "Error state label when history fails to load." },
+  "chat_send_error": "বার্তা পাঠানো যায়নি। আবার চেষ্টা করুন।",
+  "@chat_send_error": { "description": "Snackbar shown when sending a message fails." },
+  "chat_guardrail_disclaimer": "⚠️ AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না। এই তথ্য সাধারণ তথ্যের জন্য মাত্র।",
+  "@chat_guardrail_disclaimer": { "description": "Extended disclaimer shown when the assistant response contains legal or financial advice keywords." }
 }

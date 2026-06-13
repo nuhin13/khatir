@@ -1708,4 +1708,35 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get unit_tenant_unverified => 'NID যাচাই হয়নি';
+
+  @override
+  String get chat_title => 'AI সহকারী';
+
+  @override
+  String get chat_input_hint => 'জিজ্ঞাসা করুন…';
+
+  @override
+  String get chat_send => 'পাঠান';
+
+  @override
+  String get chat_disclaimer => 'AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না';
+
+  @override
+  String get chat_disabled_title => 'AI চ্যাট পাওয়া যাচ্ছে না';
+
+  @override
+  String get chat_disabled_body => 'এই ফিচারটি এখন বন্ধ আছে।';
+
+  @override
+  String get chat_empty => 'কথোপকথন শুরু করুন';
+
+  @override
+  String get chat_loading_error => 'বার্তা লোড করা যায়নি';
+
+  @override
+  String get chat_send_error => 'বার্তা পাঠানো যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get chat_guardrail_disclaimer =>
+      '⚠️ AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না। এই তথ্য সাধারণ তথ্যের জন্য মাত্র।';
 }
