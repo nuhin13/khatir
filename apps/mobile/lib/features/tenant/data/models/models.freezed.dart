@@ -33,59 +33,6 @@ mixin _$TenantLease {
   DateTime? get createdAt;
   DateTime? get updatedAt;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TenantLeaseImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.unitId, unitId) || other.unitId == unitId) &&
-            (identical(other.unitLabel, unitLabel) ||
-                other.unitLabel == unitLabel) &&
-            (identical(other.buildingLabel, buildingLabel) ||
-                other.buildingLabel == buildingLabel) &&
-            (identical(other.landlordName, landlordName) ||
-                other.landlordName == landlordName) &&
-            (identical(other.landlordPhone, landlordPhone) ||
-                other.landlordPhone == landlordPhone) &&
-            (identical(other.monthlyRent, monthlyRent) ||
-                other.monthlyRent == monthlyRent) &&
-            (identical(other.advanceAmount, advanceAmount) ||
-                other.advanceAmount == advanceAmount) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate) &&
-            (identical(other.noticePeriod, noticePeriod) ||
-                other.noticePeriod == noticePeriod) &&
-            (identical(other.terms, terms) || other.terms == terms) &&
-            (identical(other.leaseDocumentRef, leaseDocumentRef) ||
-                other.leaseDocumentRef == leaseDocumentRef) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        unitId,
-        unitLabel,
-        buildingLabel,
-        landlordName,
-        landlordPhone,
-        monthlyRent,
-        advanceAmount,
-        startDate,
-        endDate,
-        noticePeriod,
-        terms,
-        leaseDocumentRef,
-        createdAt,
-        updatedAt,
-      );
-
   TenantLease copyWith({
     String? id,
     String? unitId,
@@ -103,11 +50,38 @@ mixin _$TenantLease {
     DateTime? createdAt,
     DateTime? updatedAt,
   });
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TenantLease &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.unitId, unitId) || other.unitId == unitId) &&
+            (identical(other.unitLabel, unitLabel) || other.unitLabel == unitLabel) &&
+            (identical(other.buildingLabel, buildingLabel) || other.buildingLabel == buildingLabel) &&
+            (identical(other.landlordName, landlordName) || other.landlordName == landlordName) &&
+            (identical(other.landlordPhone, landlordPhone) || other.landlordPhone == landlordPhone) &&
+            (identical(other.monthlyRent, monthlyRent) || other.monthlyRent == monthlyRent) &&
+            (identical(other.advanceAmount, advanceAmount) || other.advanceAmount == advanceAmount) &&
+            (identical(other.startDate, startDate) || other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.noticePeriod, noticePeriod) || other.noticePeriod == noticePeriod) &&
+            (identical(other.terms, terms) || other.terms == terms) &&
+            (identical(other.leaseDocumentRef, leaseDocumentRef) || other.leaseDocumentRef == leaseDocumentRef) &&
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        runtimeType, id, unitId, unitLabel, buildingLabel, landlordName,
+        landlordPhone, monthlyRent, advanceAmount, startDate, endDate,
+        noticePeriod, terms, leaseDocumentRef, createdAt, updatedAt);
 }
 
-/// @nodoc
-class _$TenantLeaseImpl implements TenantLease {
-  const _$TenantLeaseImpl({
+class _TenantLease implements TenantLease {
+  const _TenantLease({
     required this.id,
     this.unitId = '',
     this.unitLabel = '',
@@ -160,54 +134,29 @@ class _$TenantLeaseImpl implements TenantLease {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TenantLeaseImpl &&
+            other is _TenantLease &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.unitId, unitId) || other.unitId == unitId) &&
-            (identical(other.unitLabel, unitLabel) ||
-                other.unitLabel == unitLabel) &&
-            (identical(other.buildingLabel, buildingLabel) ||
-                other.buildingLabel == buildingLabel) &&
-            (identical(other.landlordName, landlordName) ||
-                other.landlordName == landlordName) &&
-            (identical(other.landlordPhone, landlordPhone) ||
-                other.landlordPhone == landlordPhone) &&
-            (identical(other.monthlyRent, monthlyRent) ||
-                other.monthlyRent == monthlyRent) &&
-            (identical(other.advanceAmount, advanceAmount) ||
-                other.advanceAmount == advanceAmount) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
+            (identical(other.unitLabel, unitLabel) || other.unitLabel == unitLabel) &&
+            (identical(other.buildingLabel, buildingLabel) || other.buildingLabel == buildingLabel) &&
+            (identical(other.landlordName, landlordName) || other.landlordName == landlordName) &&
+            (identical(other.landlordPhone, landlordPhone) || other.landlordPhone == landlordPhone) &&
+            (identical(other.monthlyRent, monthlyRent) || other.monthlyRent == monthlyRent) &&
+            (identical(other.advanceAmount, advanceAmount) || other.advanceAmount == advanceAmount) &&
+            (identical(other.startDate, startDate) || other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
-            (identical(other.noticePeriod, noticePeriod) ||
-                other.noticePeriod == noticePeriod) &&
+            (identical(other.noticePeriod, noticePeriod) || other.noticePeriod == noticePeriod) &&
             (identical(other.terms, terms) || other.terms == terms) &&
-            (identical(other.leaseDocumentRef, leaseDocumentRef) ||
-                other.leaseDocumentRef == leaseDocumentRef) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.leaseDocumentRef, leaseDocumentRef) || other.leaseDocumentRef == leaseDocumentRef) &&
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
   }
 
   @override
   int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        unitId,
-        unitLabel,
-        buildingLabel,
-        landlordName,
-        landlordPhone,
-        monthlyRent,
-        advanceAmount,
-        startDate,
-        endDate,
-        noticePeriod,
-        terms,
-        leaseDocumentRef,
-        createdAt,
-        updatedAt,
-      );
+        runtimeType, id, unitId, unitLabel, buildingLabel, landlordName,
+        landlordPhone, monthlyRent, advanceAmount, startDate, endDate,
+        noticePeriod, terms, leaseDocumentRef, createdAt, updatedAt);
 
   @override
   TenantLease copyWith({
@@ -227,45 +176,25 @@ class _$TenantLeaseImpl implements TenantLease {
     Object? createdAt = _$sentinel,
     Object? updatedAt = _$sentinel,
   }) {
-    return _$TenantLeaseImpl(
+    return _TenantLease(
       id: id == _$sentinel ? this.id : id as String,
       unitId: unitId == _$sentinel ? this.unitId : unitId as String,
       unitLabel: unitLabel == _$sentinel ? this.unitLabel : unitLabel as String,
-      buildingLabel: buildingLabel == _$sentinel
-          ? this.buildingLabel
-          : buildingLabel as String,
-      landlordName: landlordName == _$sentinel
-          ? this.landlordName
-          : landlordName as String,
-      landlordPhone: landlordPhone == _$sentinel
-          ? this.landlordPhone
-          : landlordPhone as String,
-      monthlyRent:
-          monthlyRent == _$sentinel ? this.monthlyRent : monthlyRent as double,
-      advanceAmount: advanceAmount == _$sentinel
-          ? this.advanceAmount
-          : advanceAmount as double,
-      startDate:
-          startDate == _$sentinel ? this.startDate : startDate as DateTime?,
+      buildingLabel: buildingLabel == _$sentinel ? this.buildingLabel : buildingLabel as String,
+      landlordName: landlordName == _$sentinel ? this.landlordName : landlordName as String,
+      landlordPhone: landlordPhone == _$sentinel ? this.landlordPhone : landlordPhone as String,
+      monthlyRent: monthlyRent == _$sentinel ? this.monthlyRent : monthlyRent as double,
+      advanceAmount: advanceAmount == _$sentinel ? this.advanceAmount : advanceAmount as double,
+      startDate: startDate == _$sentinel ? this.startDate : startDate as DateTime?,
       endDate: endDate == _$sentinel ? this.endDate : endDate as DateTime?,
-      noticePeriod: noticePeriod == _$sentinel
-          ? this.noticePeriod
-          : noticePeriod as String,
+      noticePeriod: noticePeriod == _$sentinel ? this.noticePeriod : noticePeriod as String,
       terms: terms == _$sentinel ? this.terms : terms as String,
-      leaseDocumentRef: leaseDocumentRef == _$sentinel
-          ? this.leaseDocumentRef
-          : leaseDocumentRef as String?,
-      createdAt:
-          createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
-      updatedAt:
-          updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
+      leaseDocumentRef: leaseDocumentRef == _$sentinel ? this.leaseDocumentRef : leaseDocumentRef as String?,
+      createdAt: createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
+      updatedAt: updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
     );
   }
 }
-
-// ignore: non_constant_identifier_names
-TenantLease _$TenantLeaseFromJson(Map<String, dynamic> json) =>
-    TenantLease.fromJson(json);
 
 // ── TenantRent ─────────────────────────────────────────────────────────────
 
@@ -281,40 +210,6 @@ mixin _$TenantRent {
   DateTime? get createdAt;
   DateTime? get updatedAt;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TenantRentImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.period, period) || other.period == period) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.amountDue, amountDue) ||
-                other.amountDue == amountDue) &&
-            (identical(other.amountPaid, amountPaid) ||
-                other.amountPaid == amountPaid) &&
-            (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
-            (identical(other.paidAt, paidAt) || other.paidAt == paidAt) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        period,
-        status,
-        amountDue,
-        amountPaid,
-        dueDate,
-        paidAt,
-        createdAt,
-        updatedAt,
-      );
-
   TenantRent copyWith({
     String? id,
     String? period,
@@ -326,11 +221,31 @@ mixin _$TenantRent {
     DateTime? createdAt,
     DateTime? updatedAt,
   });
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TenantRent &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.period, period) || other.period == period) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.amountDue, amountDue) || other.amountDue == amountDue) &&
+            (identical(other.amountPaid, amountPaid) || other.amountPaid == amountPaid) &&
+            (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
+            (identical(other.paidAt, paidAt) || other.paidAt == paidAt) &&
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        runtimeType, id, period, status, amountDue, amountPaid,
+        dueDate, paidAt, createdAt, updatedAt);
 }
 
-/// @nodoc
-class _$TenantRentImpl implements TenantRent {
-  const _$TenantRentImpl({
+class _TenantRent implements TenantRent {
+  const _TenantRent({
     required this.id,
     this.period = '',
     this.status = RentStatus.due,
@@ -365,35 +280,22 @@ class _$TenantRentImpl implements TenantRent {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TenantRentImpl &&
+            other is _TenantRent &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.period, period) || other.period == period) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.amountDue, amountDue) ||
-                other.amountDue == amountDue) &&
-            (identical(other.amountPaid, amountPaid) ||
-                other.amountPaid == amountPaid) &&
+            (identical(other.amountDue, amountDue) || other.amountDue == amountDue) &&
+            (identical(other.amountPaid, amountPaid) || other.amountPaid == amountPaid) &&
             (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
             (identical(other.paidAt, paidAt) || other.paidAt == paidAt) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
   }
 
   @override
   int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        period,
-        status,
-        amountDue,
-        amountPaid,
-        dueDate,
-        paidAt,
-        createdAt,
-        updatedAt,
-      );
+        runtimeType, id, period, status, amountDue, amountPaid,
+        dueDate, paidAt, createdAt, updatedAt);
 
   @override
   TenantRent copyWith({
@@ -407,20 +309,16 @@ class _$TenantRentImpl implements TenantRent {
     Object? createdAt = _$sentinel,
     Object? updatedAt = _$sentinel,
   }) {
-    return _$TenantRentImpl(
+    return _TenantRent(
       id: id == _$sentinel ? this.id : id as String,
       period: period == _$sentinel ? this.period : period as String,
       status: status == _$sentinel ? this.status : status as RentStatus,
-      amountDue:
-          amountDue == _$sentinel ? this.amountDue : amountDue as double,
-      amountPaid:
-          amountPaid == _$sentinel ? this.amountPaid : amountPaid as double,
+      amountDue: amountDue == _$sentinel ? this.amountDue : amountDue as double,
+      amountPaid: amountPaid == _$sentinel ? this.amountPaid : amountPaid as double,
       dueDate: dueDate == _$sentinel ? this.dueDate : dueDate as DateTime?,
       paidAt: paidAt == _$sentinel ? this.paidAt : paidAt as DateTime?,
-      createdAt:
-          createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
-      updatedAt:
-          updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
+      createdAt: createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
+      updatedAt: updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
     );
   }
 }
@@ -437,36 +335,6 @@ mixin _$TenantReceipt {
   DateTime? get createdAt;
   DateTime? get updatedAt;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TenantReceiptImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.period, period) || other.period == period) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.receiptRef, receiptRef) ||
-                other.receiptRef == receiptRef) &&
-            (identical(other.verifiedAt, verifiedAt) ||
-                other.verifiedAt == verifiedAt) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        period,
-        amount,
-        receiptRef,
-        verifiedAt,
-        createdAt,
-        updatedAt,
-      );
-
   TenantReceipt copyWith({
     String? id,
     String? period,
@@ -476,11 +344,28 @@ mixin _$TenantReceipt {
     DateTime? createdAt,
     DateTime? updatedAt,
   });
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TenantReceipt &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.period, period) || other.period == period) &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.receiptRef, receiptRef) || other.receiptRef == receiptRef) &&
+            (identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt) &&
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        runtimeType, id, period, amount, receiptRef, verifiedAt, createdAt, updatedAt);
 }
 
-/// @nodoc
-class _$TenantReceiptImpl implements TenantReceipt {
-  const _$TenantReceiptImpl({
+class _TenantReceipt implements TenantReceipt {
+  const _TenantReceipt({
     required this.id,
     this.period = '',
     this.amount = 0,
@@ -509,31 +394,19 @@ class _$TenantReceiptImpl implements TenantReceipt {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TenantReceiptImpl &&
+            other is _TenantReceipt &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.period, period) || other.period == period) &&
             (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.receiptRef, receiptRef) ||
-                other.receiptRef == receiptRef) &&
-            (identical(other.verifiedAt, verifiedAt) ||
-                other.verifiedAt == verifiedAt) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.receiptRef, receiptRef) || other.receiptRef == receiptRef) &&
+            (identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt) &&
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
   }
 
   @override
   int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        period,
-        amount,
-        receiptRef,
-        verifiedAt,
-        createdAt,
-        updatedAt,
-      );
+        runtimeType, id, period, amount, receiptRef, verifiedAt, createdAt, updatedAt);
 
   @override
   TenantReceipt copyWith({
@@ -545,18 +418,14 @@ class _$TenantReceiptImpl implements TenantReceipt {
     Object? createdAt = _$sentinel,
     Object? updatedAt = _$sentinel,
   }) {
-    return _$TenantReceiptImpl(
+    return _TenantReceipt(
       id: id == _$sentinel ? this.id : id as String,
       period: period == _$sentinel ? this.period : period as String,
       amount: amount == _$sentinel ? this.amount : amount as double,
-      receiptRef:
-          receiptRef == _$sentinel ? this.receiptRef : receiptRef as String,
-      verifiedAt:
-          verifiedAt == _$sentinel ? this.verifiedAt : verifiedAt as DateTime?,
-      createdAt:
-          createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
-      updatedAt:
-          updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
+      receiptRef: receiptRef == _$sentinel ? this.receiptRef : receiptRef as String,
+      verifiedAt: verifiedAt == _$sentinel ? this.verifiedAt : verifiedAt as DateTime?,
+      createdAt: createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
+      updatedAt: updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
     );
   }
 }
@@ -576,44 +445,6 @@ mixin _$TenantRecord {
   DateTime? get createdAt;
   DateTime? get updatedAt;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TenantRecordImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.rating, rating) || other.rating == rating) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
-            (identical(other.consent, consent) || other.consent == consent) &&
-            (identical(other.onTimeMonths, onTimeMonths) ||
-                other.onTimeMonths == onTimeMonths) &&
-            (identical(other.completedLeases, completedLeases) ||
-                other.completedLeases == completedLeases) &&
-            (identical(other.averageRating, averageRating) ||
-                other.averageRating == averageRating) &&
-            (identical(other.disputes, disputes) ||
-                other.disputes == disputes) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        rating,
-        notes,
-        consent,
-        onTimeMonths,
-        completedLeases,
-        averageRating,
-        disputes,
-        createdAt,
-        updatedAt,
-      );
-
   TenantRecord copyWith({
     String? id,
     int? rating,
@@ -626,11 +457,32 @@ mixin _$TenantRecord {
     DateTime? createdAt,
     DateTime? updatedAt,
   });
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TenantRecord &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.consent, consent) || other.consent == consent) &&
+            (identical(other.onTimeMonths, onTimeMonths) || other.onTimeMonths == onTimeMonths) &&
+            (identical(other.completedLeases, completedLeases) || other.completedLeases == completedLeases) &&
+            (identical(other.averageRating, averageRating) || other.averageRating == averageRating) &&
+            (identical(other.disputes, disputes) || other.disputes == disputes) &&
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        runtimeType, id, rating, notes, consent, onTimeMonths,
+        completedLeases, averageRating, disputes, createdAt, updatedAt);
 }
 
-/// @nodoc
-class _$TenantRecordImpl implements TenantRecord {
-  const _$TenantRecordImpl({
+class _TenantRecord implements TenantRecord {
+  const _TenantRecord({
     required this.id,
     this.rating = 0,
     this.notes = '',
@@ -668,39 +520,23 @@ class _$TenantRecordImpl implements TenantRecord {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TenantRecordImpl &&
+            other is _TenantRecord &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.consent, consent) || other.consent == consent) &&
-            (identical(other.onTimeMonths, onTimeMonths) ||
-                other.onTimeMonths == onTimeMonths) &&
-            (identical(other.completedLeases, completedLeases) ||
-                other.completedLeases == completedLeases) &&
-            (identical(other.averageRating, averageRating) ||
-                other.averageRating == averageRating) &&
-            (identical(other.disputes, disputes) ||
-                other.disputes == disputes) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.onTimeMonths, onTimeMonths) || other.onTimeMonths == onTimeMonths) &&
+            (identical(other.completedLeases, completedLeases) || other.completedLeases == completedLeases) &&
+            (identical(other.averageRating, averageRating) || other.averageRating == averageRating) &&
+            (identical(other.disputes, disputes) || other.disputes == disputes) &&
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
   }
 
   @override
   int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        rating,
-        notes,
-        consent,
-        onTimeMonths,
-        completedLeases,
-        averageRating,
-        disputes,
-        createdAt,
-        updatedAt,
-      );
+        runtimeType, id, rating, notes, consent, onTimeMonths,
+        completedLeases, averageRating, disputes, createdAt, updatedAt);
 
   @override
   TenantRecord copyWith({
@@ -715,25 +551,17 @@ class _$TenantRecordImpl implements TenantRecord {
     Object? createdAt = _$sentinel,
     Object? updatedAt = _$sentinel,
   }) {
-    return _$TenantRecordImpl(
+    return _TenantRecord(
       id: id == _$sentinel ? this.id : id as String,
       rating: rating == _$sentinel ? this.rating : rating as int,
       notes: notes == _$sentinel ? this.notes : notes as String,
       consent: consent == _$sentinel ? this.consent : consent as RecordConsent,
-      onTimeMonths: onTimeMonths == _$sentinel
-          ? this.onTimeMonths
-          : onTimeMonths as int,
-      completedLeases: completedLeases == _$sentinel
-          ? this.completedLeases
-          : completedLeases as int,
-      averageRating: averageRating == _$sentinel
-          ? this.averageRating
-          : averageRating as double,
+      onTimeMonths: onTimeMonths == _$sentinel ? this.onTimeMonths : onTimeMonths as int,
+      completedLeases: completedLeases == _$sentinel ? this.completedLeases : completedLeases as int,
+      averageRating: averageRating == _$sentinel ? this.averageRating : averageRating as double,
       disputes: disputes == _$sentinel ? this.disputes : disputes as int,
-      createdAt:
-          createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
-      updatedAt:
-          updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
+      createdAt: createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
+      updatedAt: updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
     );
   }
 }
@@ -750,37 +578,6 @@ mixin _$TenantMaintenanceReport {
   DateTime? get createdAt;
   DateTime? get updatedAt;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TenantMaintenanceReportImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
-            (identical(other.photoRef, photoRef) ||
-                other.photoRef == photoRef) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        description,
-        category,
-        photoRef,
-        status,
-        createdAt,
-        updatedAt,
-      );
-
   TenantMaintenanceReport copyWith({
     String? id,
     String? description,
@@ -790,11 +587,29 @@ mixin _$TenantMaintenanceReport {
     DateTime? createdAt,
     DateTime? updatedAt,
   });
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TenantMaintenanceReport &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.description, description) || other.description == description) &&
+            (identical(other.category, category) || other.category == category) &&
+            (identical(other.photoRef, photoRef) || other.photoRef == photoRef) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        runtimeType, id, description, category, photoRef,
+        status, createdAt, updatedAt);
 }
 
-/// @nodoc
-class _$TenantMaintenanceReportImpl implements TenantMaintenanceReport {
-  const _$TenantMaintenanceReportImpl({
+class _TenantMaintenanceReport implements TenantMaintenanceReport {
+  const _TenantMaintenanceReport({
     required this.id,
     this.description = '',
     this.category = TenantMaintenanceCategory.other,
@@ -823,32 +638,20 @@ class _$TenantMaintenanceReportImpl implements TenantMaintenanceReport {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TenantMaintenanceReportImpl &&
+            other is _TenantMaintenanceReport &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
-            (identical(other.photoRef, photoRef) ||
-                other.photoRef == photoRef) &&
+            (identical(other.description, description) || other.description == description) &&
+            (identical(other.category, category) || other.category == category) &&
+            (identical(other.photoRef, photoRef) || other.photoRef == photoRef) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
   }
 
   @override
   int get hashCode => Object.hash(
-        runtimeType,
-        id,
-        description,
-        category,
-        photoRef,
-        status,
-        createdAt,
-        updatedAt,
-      );
+        runtimeType, id, description, category, photoRef,
+        status, createdAt, updatedAt);
 
   @override
   TenantMaintenanceReport copyWith({
@@ -860,23 +663,14 @@ class _$TenantMaintenanceReportImpl implements TenantMaintenanceReport {
     Object? createdAt = _$sentinel,
     Object? updatedAt = _$sentinel,
   }) {
-    return _$TenantMaintenanceReportImpl(
+    return _TenantMaintenanceReport(
       id: id == _$sentinel ? this.id : id as String,
-      description: description == _$sentinel
-          ? this.description
-          : description as String,
-      category: category == _$sentinel
-          ? this.category
-          : category as TenantMaintenanceCategory,
-      photoRef:
-          photoRef == _$sentinel ? this.photoRef : photoRef as String,
-      status: status == _$sentinel
-          ? this.status
-          : status as TenantMaintenanceStatus,
-      createdAt:
-          createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
-      updatedAt:
-          updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
+      description: description == _$sentinel ? this.description : description as String,
+      category: category == _$sentinel ? this.category : category as TenantMaintenanceCategory,
+      photoRef: photoRef == _$sentinel ? this.photoRef : photoRef as String,
+      status: status == _$sentinel ? this.status : status as TenantMaintenanceStatus,
+      createdAt: createdAt == _$sentinel ? this.createdAt : createdAt as DateTime?,
+      updatedAt: updatedAt == _$sentinel ? this.updatedAt : updatedAt as DateTime?,
     );
   }
 }
