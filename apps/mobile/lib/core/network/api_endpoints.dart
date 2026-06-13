@@ -184,6 +184,19 @@ class ApiEndpoints {
   /// `/api/v1/me/rent/{id}/pay` — submit proof of payment for a rent period.
   static String myRentPay(String id) => '$myRent/$id/pay';
 
+  // Warnings (EPIC-20): private landlord–tenant warnings, kill-switch gated
+  // by `warnings_feature`. Scoped server-side so a foreign lease → 404 (never
+  // 403). Notice PDF generation is a sub-action on a single warning.
+
+  /// `/api/v1/leases/{id}/warnings` — issue (POST) or list (GET) warnings for
+  /// a lease. Both endpoints are scoped to the caller's own leases.
+  static String leaseWarnings(String leaseId) =>
+      '$leases/$leaseId/warnings';
+
+  /// `/api/v1/warnings/{id}/notice` — generate the warning notice PDF (POST).
+  static String warningNotice(String warningId) =>
+      '$apiPrefix/warnings/$warningId/notice';
+
   // Health check (no auth).
   static const String healthz = '/healthz';
 }

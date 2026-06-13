@@ -2022,4 +2022,97 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ten_record_trusted => 'Trusted tenant';
   @override
   String get ten_record_notes_hint => 'ব্যক্তিগত অভিজ্ঞতা লিখুন';
+
+  // ── EPIC-20 warnings ──────────────────────────────────────────────────
+
+  @override
+  String get warning_screen_title => 'সতর্কবার্তা · Issue Warning';
+
+  @override
+  String get warning_private_notice =>
+      '🔒 এটি শুধু আপনার ও আপনার ভাড়াটিয়ার মধ্যে — পাবলিক নয়';
+
+  @override
+  String get warning_disclaimer =>
+      'এই সতর্কবার্তাটি একটি ব্যক্তিগত নোটিশ। এটি কোনো সরকারি নথি নয় এবং অন্য কারো সাথে শেয়ার করা হবে না। · This warning is a private notice between you and your tenant only. It is not a public record and will never be shared with other landlords.';
+
+  @override
+  String get warning_type_label => 'সতর্কতার ধরন · Warning type';
+
+  @override
+  String get warning_type_late_rent => 'দেরিতে ভাড়া · Late rent';
+
+  @override
+  String get warning_type_lease_violation => 'লিজ লঙ্ঘন · Lease violation';
+
+  @override
+  String get warning_type_noise => 'শব্দদূষণ · Noise';
+
+  @override
+  String get warning_type_property_damage => 'সম্পত্তির ক্ষতি · Property damage';
+
+  @override
+  String get warning_type_other => 'অন্যান্য · Other';
+
+  @override
+  String get warning_reason_label => 'কারণ · Reason';
+
+  @override
+  String get warning_reason_hint =>
+      'সতর্কতার কারণ লিখুন · Describe the reason for the warning';
+
+  @override
+  String get warning_reason_required => 'কারণ লিখুন · Reason is required';
+
+  @override
+  String get warning_issue => 'সতর্কবার্তা জারি করুন · Issue warning';
+
+  @override
+  String get warning_issued_ok => 'সতর্কবার্তা জারি হয়েছে · Warning issued';
+
+  @override
+  String get warning_issue_error =>
+      "জারি করা যায়নি · Couldn't issue warning. Please try again.";
+
+  @override
+  String get warning_feature_disabled =>
+      'সতর্কবার্তা সুবিধা এখন বন্ধ আছে · Warning feature is currently unavailable.';
+
+  @override
+  String get warning_notice_title => 'সতর্কবার্তার নোটিশ · Warning Notice PDF';
+
+  @override
+  String get warning_notice_generating => 'নোটিশ তৈরি হচ্ছে · Generating notice…';
+
+  @override
+  String get warning_notice_download => 'নামান · Download';
+
+  @override
+  String get warning_notice_share => 'শেয়ার · Share';
+
+  @override
+  String get warning_notice_error =>
+      'নোটিশ তৈরি করা যায়নি · Could not generate the notice. Please try again.';
+
+  @override
+  String get warning_notice_action_failed =>
+      'কাজটি সম্পন্ন হয়নি · Could not complete that. Please try again.';
+
+  @override
+  String get warning_notice_retry => 'আবার চেষ্টা · Retry';
+
+  @override
+  String get unit_warnings_section => 'সতর্কবার্তা · Warnings';
+
+  @override
+  String get unit_issue_warning => 'সতর্কবার্তা জারি করুন · Issue warning';
+
+  @override
+  String get unit_warnings_empty => 'কোনো সতর্কবার্তা নেই · No warnings yet';
+
+  @override
+  String warning_type_chip(String type, String date) => '$type · $date';
+
+  @override
+  String get warning_view_notice => 'নোটিশ দেখুন · View notice';
 }
