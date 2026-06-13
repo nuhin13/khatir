@@ -3289,6 +3289,92 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'NID যাচাই হয়নি'**
   String get unit_tenant_unverified;
+
+  // ── EPIC-20 warnings ────────────────────────────────────────────────────
+
+  /// **'সতর্কবার্তা · Issue Warning'**
+  String get warning_screen_title;
+
+  /// **'🔒 এটি শুধু আপনার ও আপনার ভাড়াটিয়ার মধ্যে — পাবলিক নয়'**
+  String get warning_private_notice;
+
+  /// **'এই সতর্কবার্তাটি একটি ব্যক্তিগত নোটিশ...'**
+  String get warning_disclaimer;
+
+  /// **'সতর্কতার ধরন · Warning type'**
+  String get warning_type_label;
+
+  /// **'দেরিতে ভাড়া · Late rent'**
+  String get warning_type_late_rent;
+
+  /// **'লিজ লঙ্ঘন · Lease violation'**
+  String get warning_type_lease_violation;
+
+  /// **'শব্দদূষণ · Noise'**
+  String get warning_type_noise;
+
+  /// **'সম্পত্তির ক্ষতি · Property damage'**
+  String get warning_type_property_damage;
+
+  /// **'অন্যান্য · Other'**
+  String get warning_type_other;
+
+  /// **'কারণ · Reason'**
+  String get warning_reason_label;
+
+  /// **'সতর্কতার কারণ লিখুন · Describe the reason for the warning'**
+  String get warning_reason_hint;
+
+  /// **'কারণ লিখুন · Reason is required'**
+  String get warning_reason_required;
+
+  /// **'সতর্কবার্তা জারি করুন · Issue warning'**
+  String get warning_issue;
+
+  /// **'সতর্কবার্তা জারি হয়েছে · Warning issued'**
+  String get warning_issued_ok;
+
+  /// **'জারি করা যায়নি · Couldn't issue warning. Please try again.'**
+  String get warning_issue_error;
+
+  /// **'সতর্কবার্তা সুবিধা এখন বন্ধ আছে · Warning feature is currently unavailable.'**
+  String get warning_feature_disabled;
+
+  /// **'সতর্কবার্তার নোটিশ · Warning Notice PDF'**
+  String get warning_notice_title;
+
+  /// **'নোটিশ তৈরি হচ্ছে · Generating notice…'**
+  String get warning_notice_generating;
+
+  /// **'নামান · Download'**
+  String get warning_notice_download;
+
+  /// **'শেয়ার · Share'**
+  String get warning_notice_share;
+
+  /// **'নোটিশ তৈরি করা যায়নি · Could not generate the notice.'**
+  String get warning_notice_error;
+
+  /// **'কাজটি সম্পন্ন হয়নি · Could not complete that. Please try again.'**
+  String get warning_notice_action_failed;
+
+  /// **'আবার চেষ্টা · Retry'**
+  String get warning_notice_retry;
+
+  /// **'সতর্কবার্তা · Warnings'**
+  String get unit_warnings_section;
+
+  /// **'সতর্কবার্তা জারি করুন · Issue warning'**
+  String get unit_issue_warning;
+
+  /// **'কোনো সতর্কবার্তা নেই · No warnings yet'**
+  String get unit_warnings_empty;
+
+  /// **'{type} · {date}'**
+  String warning_type_chip(String type, String date);
+
+  /// **'নোটিশ দেখুন · View notice'**
+  String get warning_view_notice;
 }
 
 class _AppLocalizationsDelegate

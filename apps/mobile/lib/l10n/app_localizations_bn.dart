@@ -1708,4 +1708,92 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get unit_tenant_unverified => 'NID যাচাই হয়নি';
+
+  // ── EPIC-20 warnings ──────────────────────────────────────────────────
+
+  @override
+  String get warning_screen_title => 'সতর্কবার্তা জারি';
+
+  @override
+  String get warning_private_notice =>
+      '🔒 এটি শুধু আপনার ও আপনার ভাড়াটিয়ার মধ্যে — পাবলিক নয়';
+
+  @override
+  String get warning_disclaimer =>
+      'এই সতর্কবার্তাটি একটি ব্যক্তিগত নোটিশ। এটি কোনো সরকারি নথি নয় এবং অন্য কারো সাথে শেয়ার করা হবে না।';
+
+  @override
+  String get warning_type_label => 'সতর্কতার ধরন';
+
+  @override
+  String get warning_type_late_rent => 'দেরিতে ভাড়া';
+
+  @override
+  String get warning_type_lease_violation => 'লিজ লঙ্ঘন';
+
+  @override
+  String get warning_type_noise => 'শব্দদূষণ';
+
+  @override
+  String get warning_type_property_damage => 'সম্পত্তির ক্ষতি';
+
+  @override
+  String get warning_type_other => 'অন্যান্য';
+
+  @override
+  String get warning_reason_label => 'কারণ';
+
+  @override
+  String get warning_reason_hint => 'সতর্কতার কারণ লিখুন';
+
+  @override
+  String get warning_reason_required => 'কারণ লিখুন';
+
+  @override
+  String get warning_issue => 'সতর্কবার্তা জারি করুন';
+
+  @override
+  String get warning_issued_ok => 'সতর্কবার্তা জারি হয়েছে';
+
+  @override
+  String get warning_issue_error => 'জারি করা যায়নি';
+
+  @override
+  String get warning_feature_disabled => 'সতর্কবার্তা সুবিধা এখন বন্ধ আছে';
+
+  @override
+  String get warning_notice_title => 'সতর্কবার্তার নোটিশ';
+
+  @override
+  String get warning_notice_generating => 'নোটিশ তৈরি হচ্ছে…';
+
+  @override
+  String get warning_notice_download => 'নামান';
+
+  @override
+  String get warning_notice_share => 'শেয়ার';
+
+  @override
+  String get warning_notice_error => 'নোটিশ তৈরি করা যায়নি';
+
+  @override
+  String get warning_notice_action_failed => 'কাজটি সম্পন্ন হয়নি';
+
+  @override
+  String get warning_notice_retry => 'আবার চেষ্টা';
+
+  @override
+  String get unit_warnings_section => 'সতর্কবার্তা';
+
+  @override
+  String get unit_issue_warning => 'সতর্কবার্তা জারি করুন';
+
+  @override
+  String get unit_warnings_empty => 'কোনো সতর্কবার্তা নেই';
+
+  @override
+  String warning_type_chip(String type, String date) => '$type · $date';
+
+  @override
+  String get warning_view_notice => 'নোটিশ দেখুন';
 }

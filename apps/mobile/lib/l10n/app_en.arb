@@ -1740,5 +1740,112 @@
   "unit_tenant_unverified": "NID যাচাই হয়নি · NID not verified",
   "@unit_tenant_unverified": {
     "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified."
+  },
+
+  "warning_screen_title": "সতর্কবার্তা · Issue Warning",
+  "@warning_screen_title": {
+    "description": "App-bar title of the issue-warning screen."
+  },
+  "warning_private_notice": "🔒 এটি শুধু আপনার ও আপনার ভাড়াটিয়ার মধ্যে — পাবলিক নয়",
+  "@warning_private_notice": {
+    "description": "Privacy banner on the warning screen: this is private between landlord and tenant, not public."
+  },
+  "warning_disclaimer": "এই সতর্কবার্তাটি একটি ব্যক্তিগত নোটিশ। এটি কোনো সরকারি নথি নয় এবং অন্য কারো সাথে শেয়ার করা হবে না। · This warning is a private notice between you and your tenant only. It is not a public record and will never be shared with other landlords.",
+  "@warning_disclaimer": {
+    "description": "Legal disclaimer on the warning screen: private notice, not public, not shared."
+  },
+  "warning_type_label": "সতর্কতার ধরন · Warning type",
+  "@warning_type_label": {
+    "description": "Label for the warning-type picker on the issue-warning form."
+  },
+  "warning_type_late_rent": "দেরিতে ভাড়া · Late rent",
+  "@warning_type_late_rent": { "description": "Warning type: late rent." },
+  "warning_type_lease_violation": "লিজ লঙ্ঘন · Lease violation",
+  "@warning_type_lease_violation": { "description": "Warning type: lease violation." },
+  "warning_type_noise": "শব্দদূষণ · Noise",
+  "@warning_type_noise": { "description": "Warning type: noise." },
+  "warning_type_property_damage": "সম্পত্তির ক্ষতি · Property damage",
+  "@warning_type_property_damage": { "description": "Warning type: property damage." },
+  "warning_type_other": "অন্যান্য · Other",
+  "@warning_type_other": { "description": "Warning type: other." },
+  "warning_reason_label": "কারণ · Reason",
+  "@warning_reason_label": {
+    "description": "Label for the reason text field on the issue-warning form."
+  },
+  "warning_reason_hint": "সতর্কতার কারণ লিখুন · Describe the reason for the warning",
+  "@warning_reason_hint": {
+    "description": "Placeholder text for the reason field on the issue-warning form."
+  },
+  "warning_reason_required": "কারণ লিখুন · Reason is required",
+  "@warning_reason_required": {
+    "description": "Validation error when the reason field is empty."
+  },
+  "warning_issue": "সতর্কবার্তা জারি করুন · Issue warning",
+  "@warning_issue": {
+    "description": "Primary submit button on the issue-warning form."
+  },
+  "warning_issued_ok": "সতর্কবার্তা জারি হয়েছে · Warning issued",
+  "@warning_issued_ok": {
+    "description": "Snackbar shown after a warning is successfully issued."
+  },
+  "warning_issue_error": "জারি করা যায়নি · Couldn't issue warning. Please try again.",
+  "@warning_issue_error": {
+    "description": "Snackbar shown when issuing a warning fails."
+  },
+  "warning_feature_disabled": "সতর্কবার্তা সুবিধা এখন বন্ধ আছে · Warning feature is currently unavailable.",
+  "@warning_feature_disabled": {
+    "description": "Message shown when the warnings_feature kill-switch is off."
+  },
+  "warning_notice_title": "সতর্কবার্তার নোটিশ · Warning Notice PDF",
+  "@warning_notice_title": {
+    "description": "App-bar title of the warning notice PDF preview screen."
+  },
+  "warning_notice_generating": "নোটিশ তৈরি হচ্ছে · Generating notice…",
+  "@warning_notice_generating": {
+    "description": "Loading message while the warning notice PDF is generated."
+  },
+  "warning_notice_download": "নামান · Download",
+  "@warning_notice_download": {
+    "description": "Primary action: download/save the warning notice PDF."
+  },
+  "warning_notice_share": "শেয়ার · Share",
+  "@warning_notice_share": {
+    "description": "Secondary action: share the warning notice PDF."
+  },
+  "warning_notice_error": "নোটিশ তৈরি করা যায়নি · Could not generate the notice. Please try again.",
+  "@warning_notice_error": {
+    "description": "Error state message when warning notice PDF generation fails."
+  },
+  "warning_notice_action_failed": "কাজটি সম্পন্ন হয়নি · Could not complete that. Please try again.",
+  "@warning_notice_action_failed": {
+    "description": "Snackbar shown when a share/download action fails on the notice screen."
+  },
+  "warning_notice_retry": "আবার চেষ্টা · Retry",
+  "@warning_notice_retry": {
+    "description": "Retry button on the warning notice PDF error state."
+  },
+  "unit_warnings_section": "সতর্কবার্তা · Warnings",
+  "@unit_warnings_section": {
+    "description": "Section heading for the warnings region on the unit/lease detail screen."
+  },
+  "unit_issue_warning": "সতর্কবার্তা জারি করুন · Issue warning",
+  "@unit_issue_warning": {
+    "description": "CTA to issue a warning from the unit/lease detail screen."
+  },
+  "unit_warnings_empty": "কোনো সতর্কবার্তা নেই · No warnings yet",
+  "@unit_warnings_empty": {
+    "description": "Empty-state message in the warnings section when no warnings have been issued."
+  },
+  "warning_type_chip": "{type} · {date}",
+  "@warning_type_chip": {
+    "description": "A warning row label: type and date.",
+    "placeholders": {
+      "type": { "type": "String" },
+      "date": { "type": "String" }
+    }
+  },
+  "warning_view_notice": "নোটিশ দেখুন · View notice",
+  "@warning_view_notice": {
+    "description": "Action to view the generated notice PDF for an issued warning."
   }
 }
