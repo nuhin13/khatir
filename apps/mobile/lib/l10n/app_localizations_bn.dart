@@ -512,35 +512,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get unit_section_error => 'লোড করা যায়নি';
 
   @override
-  String get unit_lease_active => 'সক্রিয় লিজ';
-
-  @override
-  String get unit_lease_term => 'মেয়াদ';
-
-  @override
-  String get unit_lease_no_dates => 'মেয়াদ নির্ধারিত নয়';
-
-  @override
-  String get unit_next_due => 'পরবর্তী কিস্তি';
-
-  @override
-  String unit_next_due_value(String amount, String period) {
-    return '৳$amount · $period';
-  }
-
-  @override
-  String get unit_next_due_none => 'কোনো বকেয়া কিস্তি নেই';
-
-  @override
-  String get unit_create_lease => 'লিজ তৈরি করুন';
-
-  @override
-  String get unit_lease_verified => 'NID যাচাইকৃত';
-
-  @override
-  String get unit_lease_unverified => 'যাচাই হয়নি';
-
-  @override
   String get unit_edit => 'সম্পাদনা';
 
   @override
@@ -1695,6 +1666,23 @@ class AppLocalizationsBn extends AppLocalizations {
   String get upgrade_later => 'এখন নয়';
 
   @override
+  String get unit_lease_active => 'সক্রিয় লিজ';
+
+  @override
+  String get unit_next_due => 'পরবর্তী কিস্তি';
+
+  @override
+  String unit_next_due_value(String amount, String period) {
+    return '৳$amount · $period';
+  }
+
+  @override
+  String get unit_next_due_none => 'কোনো বকেয়া কিস্তি নেই';
+
+  @override
+  String get unit_create_lease => 'লিজ তৈরি করুন';
+
+  @override
   String get unit_lease_request_rent => 'ভাড়া চান';
 
   @override
@@ -1704,12 +1692,109 @@ class AppLocalizationsBn extends AppLocalizations {
   String get unit_lease_none_body => 'এই ইউনিটের জন্য একটি লিজ তৈরি করুন।';
 
   @override
+  String get unit_lease_term => 'মেয়াদ';
+
+  @override
+  String get unit_lease_no_dates => 'মেয়াদ নির্ধারিত নয়';
+
+  @override
+  String get unit_lease_verified => 'NID যাচাইকৃত';
+
+  @override
+  String get unit_lease_unverified => 'যাচাই হয়নি';
+
+  @override
   String get unit_tenant_verified => 'NID যাচাইকৃত';
 
   @override
   String get unit_tenant_unverified => 'NID যাচাই হয়নি';
 
-  // ── NID Verify screen (EPIC-17 T-006) ──────────────────────────────────────
+  @override
+  String get lease_doc_title => 'স্মার্ট লিজ · AI চুক্তি';
+
+  @override
+  String get lease_doc_subtitle => 'DNCC-সম্মত চুক্তি — AI দিয়ে তৈরি';
+
+  @override
+  String get lease_generate => 'AI দিয়ে চুক্তি তৈরি করুন';
+
+  @override
+  String get lease_disclaimer =>
+      'এটি AI-তৈরি খসড়া এবং আইনি পরামর্শ নয়। স্বাক্ষরের আগে একজন যোগ্য আইনজীবীর সাথে সব ক্লজ পর্যালোচনা করুন।';
+
+  @override
+  String get lease_draft_generating => 'AI আপনার লিজের খসড়া তৈরি করছে…';
+
+  @override
+  String lease_draft_clauses(int count) {
+    return '$count টি ক্লজ পর্যালোচনার জন্য প্রস্তুত';
+  }
+
+  @override
+  String get lease_clause_required => 'আবশ্যিক';
+
+  @override
+  String get lease_edit_clauses => 'ক্লজ দেখুন ও সম্পাদনা করুন';
+
+  @override
+  String get lease_view_pdf => 'PDF দেখুন';
+
+  @override
+  String get lease_tier_gated_title => 'AI লিজ ব্যবহার করতে আপগ্রেড করুন';
+
+  @override
+  String get lease_tier_gated_body =>
+      'AI লিজ তৈরি করতে পেইড প্ল্যান প্রয়োজন। আনলক করতে আপগ্রেড করুন।';
+
+  @override
+  String get lease_unavailable => 'AI লিজ এখন উপলব্ধ নয়।';
+
+  @override
+  String get lease_doc_error => 'চুক্তি তৈরি করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get lease_doc_retry => 'আবার চেষ্টা করুন';
+
+  @override
+  String get lease_clause_title => 'ক্লজ পর্যালোচনা ও সম্পাদনা';
+
+  @override
+  String get lease_clause_save => 'ক্লজ সংরক্ষণ';
+
+  @override
+  String get lease_clause_save_error =>
+      'ক্লজ সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get lease_clause_saved => 'ক্লজ সংরক্ষিত হয়েছে';
+
+  @override
+  String get lease_clause_edit_hint => 'ক্লজের টেক্সট সম্পাদনা করুন…';
+
+  @override
+  String get lease_clause_required_lock => 'আবশ্যিক ক্লজ — মুছতে পারবেন না';
+
+  @override
+  String get lease_pdf_title => 'লিজ PDF';
+
+  @override
+  String get lease_pdf_generating => 'আপনার লিজের PDF তৈরি হচ্ছে…';
+
+  @override
+  String get lease_pdf_error => 'PDF তৈরি করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get lease_pdf_retry => 'আবার চেষ্টা করুন';
+
+  @override
+  String get lease_pdf_download => 'নামান';
+
+  @override
+  String get lease_pdf_share => 'শেয়ার করুন';
+
+  @override
+  String get lease_pdf_action_failed =>
+      'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
 
   @override
   String get nid_verify_title => 'NID যাচাই';
@@ -1757,10 +1842,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get nid_verify_flag_off => 'NID যাচাই এখন বন্ধ আছে।';
 
   @override
-  String get nid_verify_upgrade =>
-      'NID যাচাই একটি পেইড ফিচার — আপগ্রেড করুন';
-
-  // ── Verification badge (EPIC-17 T-007) ─────────────────────────────────────
+  String get nid_verify_upgrade => 'NID যাচাই একটি পেইড ফিচার — আপগ্রেড করুন';
 
   @override
   String get nid_badge_verified => 'যাচাইকৃত';
@@ -1771,221 +1853,188 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get nid_badge_failed => 'মেলেনি';
 
-  // ── EPIC-18: AI lease ──────────────────────────────────────────────────────
-
-  @override
-  String get lease_doc_title => 'স্মার্ট লিজ · AI চুক্তি';
-
-  @override
-  String get lease_doc_subtitle => 'DNCC-সম্মত চুক্তি — AI দিয়ে তৈরি';
-
-  @override
-  String get lease_generate => 'AI দিয়ে চুক্তি তৈরি করুন';
-
-  @override
-  String get lease_disclaimer =>
-      'এটি AI-তৈরি খসড়া এবং আইনি পরামর্শ নয়। '
-      'স্বাক্ষরের আগে একজন যোগ্য আইনজীবীর সাথে সব ক্লজ পর্যালোচনা করুন।';
-
-  @override
-  String get lease_draft_generating => 'AI আপনার লিজের খসড়া তৈরি করছে…';
-
-  @override
-  String lease_draft_clauses(int count) => '$count টি ক্লজ পর্যালোচনার জন্য প্রস্তুত';
-
-  @override
-  String get lease_clause_required => 'আবশ্যিক';
-
-  @override
-  String get lease_edit_clauses => 'ক্লজ দেখুন ও সম্পাদনা করুন';
-
-  @override
-  String get lease_view_pdf => 'PDF দেখুন';
-
-  @override
-  String get lease_tier_gated_title => 'AI লিজ ব্যবহার করতে আপগ্রেড করুন';
-
-  @override
-  String get lease_tier_gated_body =>
-      'AI লিজ তৈরি করতে পেইড প্ল্যান প্রয়োজন। আনলক করতে আপগ্রেড করুন।';
-
-  @override
-  String get lease_unavailable => 'AI লিজ এখন উপলব্ধ নয়।';
-
-  @override
-  String get lease_doc_error => 'চুক্তি তৈরি করা যায়নি। আবার চেষ্টা করুন।';
-
-  @override
-  String get lease_doc_retry => 'আবার চেষ্টা করুন';
-
-  @override
-  String get lease_clause_title => 'ক্লজ পর্যালোচনা ও সম্পাদনা';
-
-  @override
-  String get lease_clause_save => 'ক্লজ সংরক্ষণ';
-
-  @override
-  String get lease_clause_save_error => 'ক্লজ সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
-
-  @override
-  String get lease_clause_saved => 'ক্লজ সংরক্ষিত হয়েছে';
-
-  @override
-  String get lease_clause_edit_hint => 'ক্লজের টেক্সট সম্পাদনা করুন…';
-
-  @override
-  String get lease_clause_required_lock => 'আবশ্যিক ক্লজ — মুছতে পারবেন না';
-
-  @override
-  String get lease_pdf_title => 'লিজ PDF';
-
-  @override
-  String get lease_pdf_generating => 'আপনার লিজের PDF তৈরি হচ্ছে…';
-
-  @override
-  String get lease_pdf_error => 'PDF তৈরি করা যায়নি। আবার চেষ্টা করুন।';
-
-  @override
-  String get lease_pdf_retry => 'আবার চেষ্টা করুন';
-
-  @override
-  String get lease_pdf_download => 'নামান';
-
-  @override
-  String get lease_pdf_share => 'শেয়ার করুন';
-
-  @override
-  String get lease_pdf_action_failed => 'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।';
-
-  // ── EPIC-19 Tenant app ───────────────────────────────────────────────────
-
   @override
   String get ten_home_greeting => 'আসসালামু আলাইকুম,';
+
   @override
   String get ten_home_rent_status => 'এ মাসের ভাড়া';
+
   @override
   String get ten_home_rent_paid => 'পরিশোধিত';
+
   @override
   String get ten_home_rent_overdue => 'বাকি';
+
   @override
   String get ten_home_pay => 'পেমেন্ট প্রমাণ আপলোড';
+
   @override
   String get ten_home_lease => 'আমার লিজ';
+
   @override
   String get ten_home_lease_view => 'দেখুন';
+
   @override
   String get ten_home_quick_actions => 'দ্রুত কাজ';
+
   @override
   String get ten_home_action_maint => 'মেরামত চাই';
+
   @override
   String get ten_home_action_receipts => 'রসিদ দেখুন';
+
   @override
   String get ten_home_action_pay => 'ভাড়া দিন';
+
   @override
   String get ten_home_action_record => 'রেকর্ড দেখুন';
+
   @override
   String get ten_home_recent_receipts => 'সাম্প্রতিক রসিদ';
+
   @override
   String get ten_home_no_lease => 'কোনো সক্রিয় লিজ নেই';
+
   @override
-  String get ten_home_star_record => "You're a star!";
+  String get ten_home_star_record => 'You\'re a star!';
+
   @override
   String get ten_home_star_body => 'পরের বাসায় ভালো রেকর্ড পাবেন';
 
   @override
   String get ten_lease_rent => 'ভাড়া/মাস';
+
   @override
   String get ten_lease_dates => 'মেয়াদ';
+
   @override
   String get ten_lease_landlord => 'মালিক';
+
   @override
   String get ten_lease_document => 'চুক্তি PDF';
+
   @override
   String get ten_lease_advance => 'অগ্রিম';
+
   @override
   String get ten_lease_notice => 'নোটিশ';
+
   @override
   String get ten_lease_active => 'চলমান';
+
   @override
   String get ten_lease_no_lease => 'কোনো সক্রিয় লিজ নেই';
 
   @override
   String get ten_pay_amount => 'ভাড়ার পরিমাণ';
+
   @override
   String get ten_pay_instructions => 'প্রমাণ দিন';
+
   @override
   String get ten_pay_screenshot => 'স্ক্রিনশট আপলোড';
+
   @override
   String get ten_pay_txn_id => 'Txn ID লিখুন';
+
   @override
   String get ten_pay_note => 'নোট লিখুন';
+
   @override
   String get ten_pay_submit => 'প্রমাণ জমা দিন';
+
   @override
   String get ten_pay_pending => 'মালিক যাচাই করলে রসিদ পাবেন';
+
   @override
   String get ten_pay_no_rent => 'কোনো বকেয়া ভাড়া নেই';
 
   @override
   String get ten_maint_category => 'ধরন';
+
   @override
   String get ten_maint_describe => 'বিবরণ';
+
   @override
   String get ten_maint_photo => 'ছবি যোগ করুন';
+
   @override
   String get ten_maint_submit => 'অনুরোধ পাঠান';
+
   @override
   String get ten_maint_cat_plumbing => '🚿 পানি';
+
   @override
   String get ten_maint_cat_electrical => '💡 বিদ্যুৎ';
+
   @override
   String get ten_maint_cat_paint => '🎨 রং';
+
   @override
   String get ten_maint_cat_other => '🔧 অন্যান্য';
+
   @override
   String get ten_maint_description_hint => 'কী সমস্যা হচ্ছে লিখুন';
+
   @override
   String get ten_maint_photo_optional => 'ঐচ্ছিক';
 
   @override
   String get ten_receipts_title => 'রসিদ';
+
   @override
   String get ten_receipts_period => 'মাস';
+
   @override
   String get ten_receipts_download => 'ডাউনলোড';
+
   @override
   String get ten_receipts_empty => 'কোনো রসিদ নেই';
+
   @override
   String get ten_receipts_paid => '✓ পরিশোধিত';
+
   @override
   String get ten_receipts_pending => '⏳ অপেক্ষায়';
+
   @override
-  String ten_receipts_summary(String count) => '$count মাস পরিশোধিত';
+  String ten_receipts_summary(String count) {
+    return '$count মাস পরিশোধিত';
+  }
 
   @override
   String get ten_record_rating => 'রেটিং';
+
   @override
   String get ten_record_notes => 'ব্যক্তিগত নোট';
+
   @override
   String get ten_record_consent => 'পরবর্তী মালিককে দেখাতে সম্মত';
+
   @override
   String get ten_record_save => 'সংরক্ষণ';
+
   @override
-  String get ten_record_private_note => 'শুধু আপনার সম্মতিতে পরবর্তী মালিক দেখতে পাবেন';
+  String get ten_record_private_note =>
+      'শুধু আপনার সম্মতিতে পরবর্তী মালিক দেখতে পাবেন';
+
   @override
   String get ten_record_on_time => 'মাস সময়মতো';
+
   @override
   String get ten_record_leases => 'সম্পন্ন লিজ';
+
   @override
   String get ten_record_avg_rating => 'গড় রেটিং';
+
   @override
   String get ten_record_disputes => 'বিরোধ';
+
   @override
   String get ten_record_trusted => 'Trusted tenant';
+
   @override
   String get ten_record_notes_hint => 'ব্যক্তিগত অভিজ্ঞতা লিখুন';
-
-  // ── EPIC-20 warnings ──────────────────────────────────────────────────
 
   @override
   String get warning_screen_title => 'সতর্কবার্তা জারি';
@@ -2068,12 +2117,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get unit_warnings_empty => 'কোনো সতর্কবার্তা নেই';
 
   @override
-  String warning_type_chip(String type, String date) => '$type · $date';
+  String warning_type_chip(String type, String date) {
+    return '$type · $date';
+  }
 
   @override
   String get warning_view_notice => 'নোটিশ দেখুন';
-
-  // ── EPIC-22 Manager strings ────────────────────────────────────────────────
 
   @override
   String get mgr_home_title => 'ম্যানেজার হোম · Manager Home';
@@ -2082,7 +2131,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mgr_home_total => 'মোট পোর্টফোলিও · Total portfolio';
 
   @override
-  String mgr_home_owners(String count) => '$count জন মালিক';
+  String mgr_home_owners(String count) {
+    return '$count জন মালিক';
+  }
 
   @override
   String get mgr_home_add_owner => 'মালিক যোগ · Add owner';
@@ -2094,10 +2145,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mgr_home_reports => 'রিপোর্ট · Reports';
 
   @override
-  String get mgr_home_empty => 'এখনো কোনো সক্রিয় মালিক নেই · No active owners yet';
+  String get mgr_home_empty =>
+      'এখনো কোনো সক্রিয় মালিক নেই · No active owners yet';
 
   @override
-  String get mgr_home_empty_sub => 'মালিক যোগ করুন — তাদের পোর্টফোলিও এখানে দেখাবে।';
+  String get mgr_home_empty_sub =>
+      'মালিক যোগ করুন — তাদের পোর্টফোলিও এখানে দেখাবে।';
 
   @override
   String get mgr_home_stat_units => 'ইউনিট · Units';
@@ -2109,7 +2162,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mgr_home_stat_rent => 'মাসিক · Monthly';
 
   @override
-  String mgr_home_currency(String amount) => '৳$amount';
+  String mgr_home_currency(String amount) {
+    return '৳$amount';
+  }
 
   @override
   String get mgr_add_owner_title => 'মালিক যোগ · Link owner';
@@ -2154,10 +2209,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mgr_add_owner_sent => 'অনুরোধ পাঠানো হয়েছে · Request sent';
 
   @override
-  String get mgr_add_owner_error => 'অনুরোধ পাঠানো যায়নি · Could not send request';
+  String get mgr_add_owner_error =>
+      'অনুরোধ পাঠানো যায়নি · Could not send request';
 
   @override
-  String get mgr_add_owner_err_phone => 'সঠিক নম্বর দিন · Enter a valid phone number';
+  String get mgr_add_owner_err_phone =>
+      'সঠিক নম্বর দিন · Enter a valid phone number';
 
   @override
   String get mgr_add_owner_err_name => 'নাম দিন · Enter the owner\'s name';
@@ -2212,7 +2269,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mgr_team_added => 'সদস্য যোগ হয়েছে · Member added';
 
   @override
-  String get mgr_team_add_error => 'সদস্য যোগ করা যায়নি · Could not add member';
+  String get mgr_team_add_error =>
+      'সদস্য যোগ করা যায়নি · Could not add member';
 
   @override
   String get mgr_team_removed => 'সদস্য সরানো হয়েছে · Member removed';
@@ -2233,7 +2291,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mgr_report_share => 'PDF শেয়ার · Share PDF';
 
   @override
-  String get mgr_report_no_owners => 'কোনো সক্রিয় মালিক নেই · No active owners linked';
+  String get mgr_report_no_owners =>
+      'কোনো সক্রিয় মালিক নেই · No active owners linked';
 
   @override
   String get mgr_report_income => 'আয় · Income';
@@ -2257,13 +2316,16 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mgr_report_pdf_ready => 'PDF তৈরি হয়েছে · PDF ready';
 
   @override
-  String get mgr_report_generate_error => 'রিপোর্ট তৈরি হয়নি · Could not generate report';
+  String get mgr_report_generate_error =>
+      'রিপোর্ট তৈরি হয়নি · Could not generate report';
 
   @override
   String get mgr_report_share_error => 'শেয়ার করা যায়নি · Could not share';
 
   @override
-  String mgr_report_currency(String amount) => '৳$amount';
+  String mgr_report_currency(String amount) {
+    return '৳$amount';
+  }
 
   @override
   String get chat_title => 'AI সহকারী';

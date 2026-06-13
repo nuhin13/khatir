@@ -394,8 +394,14 @@
   "@home_summary_line": {
     "description": "Portfolio one-liner under the greeting: building + unit counts.",
     "placeholders": {
-      "buildings": { "type": "String", "example": "২" },
-      "units": { "type": "String", "example": "১৪" }
+      "buildings": {
+        "type": "String",
+        "example": "২"
+      },
+      "units": {
+        "type": "String",
+        "example": "১৪"
+      }
     }
   },
   "home_dmp_cta_badge": "⭐ সুপারিশ · FLAGSHIP",
@@ -438,7 +444,10 @@
   "@home_collected_pending": {
     "description": "Sub-label under the collected amount showing the still-pending total.",
     "placeholders": {
-      "amount": { "type": "String", "example": "৳১২,০০০" }
+      "amount": {
+        "type": "String",
+        "example": "৳১২,০০০"
+      }
     }
   },
   "home_view_dashboard": "চার্ট দেখুন · View charts",
@@ -449,7 +458,10 @@
   "@home_late_payers": {
     "description": "Home late-payers heading with the overdue count.",
     "placeholders": {
-      "count": { "type": "String", "example": "১" }
+      "count": {
+        "type": "String",
+        "example": "১"
+      }
     }
   },
   "home_late_payers_one": "ভাড়া বাকি · Rent overdue",
@@ -480,7 +492,10 @@
   "@home_currency_amount": {
     "description": "Taka-prefixed amount used for rent totals on the home screen.",
     "placeholders": {
-      "amount": { "type": "String", "example": "৯৭,০০০" }
+      "amount": {
+        "type": "String",
+        "example": "৯৭,০০০"
+      }
     }
   },
   "portfolio_title": "পোর্টফোলিও · Portfolio",
@@ -499,8 +514,14 @@
   "@portfolio_occupancy": {
     "description": "Occupied-over-total units, e.g. ১১/১৪.",
     "placeholders": {
-      "occupied": { "type": "String", "example": "১১" },
-      "total": { "type": "String", "example": "১৪" }
+      "occupied": {
+        "type": "String",
+        "example": "১১"
+      },
+      "total": {
+        "type": "String",
+        "example": "১৪"
+      }
     }
   },
   "portfolio_units": "ইউনিট",
@@ -541,7 +562,10 @@
   "@unit_title": {
     "description": "Unit detail top-bar title (unit label appended).",
     "placeholders": {
-      "label": { "type": "String", "example": "2C" }
+      "label": {
+        "type": "String",
+        "example": "2C"
+      }
     }
   },
   "unit_rent": "ভাড়া",
@@ -549,7 +573,10 @@
   "@unit_rent_per_month": {
     "description": "Monthly rent amount on the unit hero (currency prefixed).",
     "placeholders": {
-      "amount": { "type": "String", "example": "22,000" }
+      "amount": {
+        "type": "String",
+        "example": "22,000"
+      }
     }
   },
   "unit_per_month_suffix": "/মাস",
@@ -567,7 +594,9 @@
   "unit_maint_open_count": "{count} টি খোলা",
   "@unit_maint_open_count": {
     "placeholders": {
-      "count": { "type": "String" }
+      "count": {
+        "type": "String"
+      }
     }
   },
   "unit_maint_empty": "কোনো অনুরোধ নেই",
@@ -575,26 +604,21 @@
   "unit_expenses_total": "৳{amount}",
   "@unit_expenses_total": {
     "placeholders": {
-      "amount": { "type": "String" }
+      "amount": {
+        "type": "String"
+      }
     }
   },
   "unit_expenses_count": "{count} টি খরচ",
   "@unit_expenses_count": {
     "placeholders": {
-      "count": { "type": "String" }
+      "count": {
+        "type": "String"
+      }
     }
   },
   "unit_expenses_empty": "কোনো খরচ নেই",
   "unit_section_error": "লোড করা যায়নি",
-  "unit_lease_active": "চলমান লিজ",
-  "unit_lease_term": "{start} – {end}",
-  "unit_lease_no_dates": "মেয়াদ নির্ধারিত নয়",
-  "unit_next_due": "পরবর্তী কিস্তি",
-  "unit_next_due_value": "{period} · ৳{amount}",
-  "unit_next_due_none": "কোনো বকেয়া কিস্তি নেই",
-  "unit_create_lease": "লিজ তৈরি করুন",
-  "unit_lease_verified": "NID যাচাইকৃত",
-  "unit_lease_unverified": "যাচাই হয়নি",
   "unit_edit": "সম্পাদনা",
   "unit_edit_rent_label": "মাসিক ভাড়া (৳)",
   "unit_save": "সংরক্ষণ",
@@ -610,7 +634,10 @@
   "@wizard_step_x_of_4": {
     "description": "Add-building wizard progress caption (step N of 4).",
     "placeholders": {
-      "step": { "type": "String", "example": "1" }
+      "step": {
+        "type": "String",
+        "example": "1"
+      }
     }
   },
   "wizard_title_name": "নতুন বিল্ডিং",
@@ -650,7 +677,9 @@
   "@wizard_units_count": {
     "description": "Header for the generated unit list with a count.",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "wizard_units_empty": "ফ্লোর ও ফ্ল্যাট বাড়ান, অথবা কাস্টম যোগ করুন",
@@ -671,9 +700,15 @@
   "@wizard_review_units_value": {
     "description": "Review row value summarising the unit count and grid.",
     "placeholders": {
-      "count": { "type": "int" },
-      "floors": { "type": "int" },
-      "perFloor": { "type": "int" }
+      "count": {
+        "type": "int"
+      },
+      "floors": {
+        "type": "int"
+      },
+      "perFloor": {
+        "type": "int"
+      }
     }
   },
   "wizard_save": "বিল্ডিং সেভ করুন",
@@ -935,8 +970,12 @@
   "@tenant_free_tier_status": {
     "description": "Free-tier usage toast after saving a tenant (e.g. 1/2 used).",
     "placeholders": {
-      "used": { "type": "int" },
-      "limit": { "type": "int" }
+      "used": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
     }
   },
   "dmp_placeholder_title": "DMP ফর্ম",
@@ -1111,7 +1150,9 @@
   "@lease_due_day_value": {
     "description": "Formatted due-day value (e.g. the 5th of each month).",
     "placeholders": {
-      "day": { "type": "int" }
+      "day": {
+        "type": "int"
+      }
     }
   },
   "lease_due_day_note": "ভাড়ার সময়সূচি তৈরিতে এই দিনটি ব্যবহৃত হয়।",
@@ -1198,15 +1239,21 @@
   "@lease_schedule_summary": {
     "description": "Count summary of the rent-schedule periods.",
     "placeholders": {
-      "count": { "type": "String" }
+      "count": {
+        "type": "String"
+      }
     }
   },
   "lease_term_range": "{start} – {end}",
   "@lease_term_range": {
     "description": "Lease term shown as start – end on the detail screen.",
     "placeholders": {
-      "start": { "type": "String" },
-      "end": { "type": "String" }
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
     }
   },
   "lease_rent_amount": "মাসিক ভাড়া",
@@ -1313,15 +1360,21 @@
   "@verify_claim": {
     "description": "Header line: the tenant claims to have paid.",
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "verify_amount_period": "৳{amount} · {period}",
   "@verify_amount_period": {
     "description": "Subline under the claim: the requested amount and billing period.",
     "placeholders": {
-      "amount": { "type": "String" },
-      "period": { "type": "String" }
+      "amount": {
+        "type": "String"
+      },
+      "period": {
+        "type": "String"
+      }
     }
   },
   "verify_proof": "জমা প্রমাণ",
@@ -1412,7 +1465,9 @@
   "@receipt_amount": {
     "description": "The large paid amount shown on the receipt card.",
     "placeholders": {
-      "amount": { "type": "String" }
+      "amount": {
+        "type": "String"
+      }
     }
   },
   "receipt_tenant": "ভাড়াটিয়া",
@@ -1459,8 +1514,12 @@
   "@receipt_share_text": {
     "description": "Fallback share text used when no receipt PDF is available.",
     "placeholders": {
-      "amount": { "type": "String" },
-      "period": { "type": "String" }
+      "amount": {
+        "type": "String"
+      },
+      "period": {
+        "type": "String"
+      }
     }
   },
   "receipt_action_failed": "কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।",
@@ -1491,14 +1550,18 @@
   "@expenses_total_amount": {
     "description": "The total-expenses amount, prefixed with the Taka sign.",
     "placeholders": {
-      "amount": { "type": "String" }
+      "amount": {
+        "type": "String"
+      }
     }
   },
   "expenses_count": "{count} টি খরচ",
   "@expenses_count": {
     "description": "Sub-line under the total showing how many expenses are in view.",
     "placeholders": {
-      "count": { "type": "String" }
+      "count": {
+        "type": "String"
+      }
     }
   },
   "expenses_filter_all": "সব",
@@ -1521,7 +1584,9 @@
   "@expenses_amount": {
     "description": "An expense row's amount, prefixed with the Taka sign.",
     "placeholders": {
-      "amount": { "type": "String" }
+      "amount": {
+        "type": "String"
+      }
     }
   },
   "expenses_add": "খরচ যোগ",
@@ -1541,57 +1606,109 @@
     "description": "Empty-state message when the landlord has logged no expenses."
   },
   "expenses_category_plumbing": "প্লাম্বিং",
-  "@expenses_category_plumbing": { "description": "Expense category label: plumbing." },
+  "@expenses_category_plumbing": {
+    "description": "Expense category label: plumbing."
+  },
   "expenses_category_paint": "পেইন্ট",
-  "@expenses_category_paint": { "description": "Expense category label: paint." },
+  "@expenses_category_paint": {
+    "description": "Expense category label: paint."
+  },
   "expenses_category_electrical": "বিদ্যুৎ",
-  "@expenses_category_electrical": { "description": "Expense category label: electrical." },
+  "@expenses_category_electrical": {
+    "description": "Expense category label: electrical."
+  },
   "expenses_category_structural": "স্ট্রাকচার",
-  "@expenses_category_structural": { "description": "Expense category label: structural." },
+  "@expenses_category_structural": {
+    "description": "Expense category label: structural."
+  },
   "expenses_category_appliance": "অ্যাপ্লায়েন্স",
-  "@expenses_category_appliance": { "description": "Expense category label: appliance." },
+  "@expenses_category_appliance": {
+    "description": "Expense category label: appliance."
+  },
   "expenses_category_utility": "ইউটিলিটি",
-  "@expenses_category_utility": { "description": "Expense category label: utility." },
+  "@expenses_category_utility": {
+    "description": "Expense category label: utility."
+  },
   "expenses_category_other": "অন্যান্য",
-  "@expenses_category_other": { "description": "Expense category label: other." },
+  "@expenses_category_other": {
+    "description": "Expense category label: other."
+  },
   "add_expense_title": "খরচ যোগ",
-  "@add_expense_title": { "description": "Add-expense screen app-bar title." },
+  "@add_expense_title": {
+    "description": "Add-expense screen app-bar title."
+  },
   "expense_amount": "পরিমাণ",
-  "@expense_amount": { "description": "Add-expense form: amount field label (required)." },
+  "@expense_amount": {
+    "description": "Add-expense form: amount field label (required)."
+  },
   "expense_amount_hint": "৳ ০",
-  "@expense_amount_hint": { "description": "Add-expense form: amount field placeholder." },
+  "@expense_amount_hint": {
+    "description": "Add-expense form: amount field placeholder."
+  },
   "expense_category": "খাত",
-  "@expense_category": { "description": "Add-expense form: category section label." },
+  "@expense_category": {
+    "description": "Add-expense form: category section label."
+  },
   "expense_unit": "ইউনিট",
-  "@expense_unit": { "description": "Add-expense form: unit field label (required)." },
+  "@expense_unit": {
+    "description": "Add-expense form: unit field label (required)."
+  },
   "expense_building": "ভবন",
-  "@expense_building": { "description": "Add-expense form: building selector label." },
+  "@expense_building": {
+    "description": "Add-expense form: building selector label."
+  },
   "expense_unit_hint": "একটি ইউনিট বাছুন",
-  "@expense_unit_hint": { "description": "Add-expense form: unit selector placeholder." },
+  "@expense_unit_hint": {
+    "description": "Add-expense form: unit selector placeholder."
+  },
   "expense_building_hint": "একটি ভবন বাছুন",
-  "@expense_building_hint": { "description": "Add-expense form: building selector placeholder." },
+  "@expense_building_hint": {
+    "description": "Add-expense form: building selector placeholder."
+  },
   "expense_date": "তারিখ",
-  "@expense_date": { "description": "Add-expense form: date field label." },
+  "@expense_date": {
+    "description": "Add-expense form: date field label."
+  },
   "expense_note": "নোট (ঐচ্ছিক)",
-  "@expense_note": { "description": "Add-expense form: note field label (optional)." },
+  "@expense_note": {
+    "description": "Add-expense form: note field label (optional)."
+  },
   "expense_receipt": "রসিদ (ঐচ্ছিক)",
-  "@expense_receipt": { "description": "Add-expense form: receipt photo label (optional)." },
+  "@expense_receipt": {
+    "description": "Add-expense form: receipt photo label (optional)."
+  },
   "expense_receipt_add": "রসিদ যোগ করুন",
-  "@expense_receipt_add": { "description": "Add-expense form: attach-receipt button." },
+  "@expense_receipt_add": {
+    "description": "Add-expense form: attach-receipt button."
+  },
   "expense_receipt_attached": "রসিদ যুক্ত হয়েছে",
-  "@expense_receipt_attached": { "description": "Add-expense form: receipt attached confirmation." },
+  "@expense_receipt_attached": {
+    "description": "Add-expense form: receipt attached confirmation."
+  },
   "expense_receipt_remove": "সরান",
-  "@expense_receipt_remove": { "description": "Add-expense form: remove attached receipt." },
+  "@expense_receipt_remove": {
+    "description": "Add-expense form: remove attached receipt."
+  },
   "expense_save": "খরচ সেভ করুন",
-  "@expense_save": { "description": "Add-expense form: save button." },
+  "@expense_save": {
+    "description": "Add-expense form: save button."
+  },
   "expense_err_amount": "একটি বৈধ পরিমাণ দিন",
-  "@expense_err_amount": { "description": "Add-expense form: amount validation error." },
+  "@expense_err_amount": {
+    "description": "Add-expense form: amount validation error."
+  },
   "expense_err_unit": "ইউনিট বাছাই করুন",
-  "@expense_err_unit": { "description": "Add-expense form: missing-unit validation error." },
+  "@expense_err_unit": {
+    "description": "Add-expense form: missing-unit validation error."
+  },
   "expense_saved": "খরচ সেভ হয়েছে",
-  "@expense_saved": { "description": "Add-expense: success snackbar." },
+  "@expense_saved": {
+    "description": "Add-expense: success snackbar."
+  },
   "expense_save_failed": "সেভ হয়নি",
-  "@expense_save_failed": { "description": "Add-expense: failure snackbar." },
+  "@expense_save_failed": {
+    "description": "Add-expense: failure snackbar."
+  },
   "maintenance_title": "মেরামতের অনুরোধ",
   "@maintenance_title": {
     "description": "App-bar title for the landlord maintenance-queue screen."
@@ -1604,14 +1721,18 @@
   "@maintenance_open_count": {
     "description": "Sub-line showing how many open requests are in the queue.",
     "placeholders": {
-      "count": { "type": "String" }
+      "count": {
+        "type": "String"
+      }
     }
   },
   "maintenance_unit": "ইউনিট {unit}",
   "@maintenance_unit": {
     "description": "Per-request unit label.",
     "placeholders": {
-      "unit": { "type": "String" }
+      "unit": {
+        "type": "String"
+      }
     }
   },
   "maintenance_resolve": "সমাধান + খরচ",
@@ -1667,261 +1788,507 @@
     "description": "Empty-state message when there are no open maintenance requests."
   },
   "maintenance_category_plumbing": "পানি",
-  "@maintenance_category_plumbing": { "description": "Maintenance category label: plumbing." },
+  "@maintenance_category_plumbing": {
+    "description": "Maintenance category label: plumbing."
+  },
   "maintenance_category_electrical": "বিদ্যুৎ",
-  "@maintenance_category_electrical": { "description": "Maintenance category label: electrical." },
+  "@maintenance_category_electrical": {
+    "description": "Maintenance category label: electrical."
+  },
   "maintenance_category_paint": "পেইন্ট",
-  "@maintenance_category_paint": { "description": "Maintenance category label: paint." },
+  "@maintenance_category_paint": {
+    "description": "Maintenance category label: paint."
+  },
   "maintenance_category_structural": "স্ট্রাকচার",
-  "@maintenance_category_structural": { "description": "Maintenance category label: structural." },
+  "@maintenance_category_structural": {
+    "description": "Maintenance category label: structural."
+  },
   "maintenance_category_appliance": "অ্যাপ্লায়েন্স",
-  "@maintenance_category_appliance": { "description": "Maintenance category label: appliance." },
+  "@maintenance_category_appliance": {
+    "description": "Maintenance category label: appliance."
+  },
   "maintenance_category_utility": "ইউটিলিটি",
-  "@maintenance_category_utility": { "description": "Maintenance category label: utility." },
+  "@maintenance_category_utility": {
+    "description": "Maintenance category label: utility."
+  },
   "maintenance_category_other": "অন্যান্য",
-  "@maintenance_category_other": { "description": "Maintenance category label: other." },
+  "@maintenance_category_other": {
+    "description": "Maintenance category label: other."
+  },
   "dashboard_title": "ড্যাশবোর্ড",
-  "@dashboard_title": { "description": "Dashboard / charts screen app-bar title." },
+  "@dashboard_title": {
+    "description": "Dashboard / charts screen app-bar title."
+  },
   "dashboard_income": "এ মাসের মোট আয়",
-  "@dashboard_income": { "description": "Label on the income hero card." },
+  "@dashboard_income": {
+    "description": "Label on the income hero card."
+  },
   "dashboard_amount": "৳{value}",
   "@dashboard_amount": {
     "description": "A taka money amount rendered with localized numerals.",
-    "placeholders": { "value": { "type": "String" } }
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
   },
   "dashboard_collection": "আদায় হার (৬ মাস)",
-  "@dashboard_collection": { "description": "Heading above the 6-month collection bar chart." },
+  "@dashboard_collection": {
+    "description": "Heading above the 6-month collection bar chart."
+  },
   "dashboard_occupancy": "অকুপেন্সি",
-  "@dashboard_occupancy": { "description": "Heading above the occupancy donut." },
+  "@dashboard_occupancy": {
+    "description": "Heading above the occupancy donut."
+  },
   "dashboard_occupancy_units": "{occupied}/{total}",
   "@dashboard_occupancy_units": {
     "description": "Occupied-of-total units sublabel inside the occupancy donut.",
     "placeholders": {
-      "occupied": { "type": "String" },
-      "total": { "type": "String" }
+      "occupied": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
     }
   },
   "dashboard_occupied": "ভাড়া হয়েছে",
-  "@dashboard_occupied": { "description": "Occupancy legend: occupied units." },
+  "@dashboard_occupied": {
+    "description": "Occupancy legend: occupied units."
+  },
   "dashboard_vacant": "খালি",
-  "@dashboard_vacant": { "description": "Occupancy legend: vacant units." },
+  "@dashboard_vacant": {
+    "description": "Occupancy legend: vacant units."
+  },
   "dashboard_income_expense": "আয় ও খরচ",
-  "@dashboard_income_expense": { "description": "Heading above the income-vs-expense chart." },
+  "@dashboard_income_expense": {
+    "description": "Heading above the income-vs-expense chart."
+  },
   "dashboard_income_legend": "আয়",
-  "@dashboard_income_legend": { "description": "Income-vs-expense legend: income." },
+  "@dashboard_income_legend": {
+    "description": "Income-vs-expense legend: income."
+  },
   "dashboard_expense_legend": "খরচ",
-  "@dashboard_expense_legend": { "description": "Income-vs-expense legend: expense." },
+  "@dashboard_expense_legend": {
+    "description": "Income-vs-expense legend: expense."
+  },
   "dashboard_income_series": "আয়",
-  "@dashboard_income_series": { "description": "Income-vs-expense chart: the income series label (sage)." },
+  "@dashboard_income_series": {
+    "description": "Income-vs-expense chart: the income series label (sage)."
+  },
   "dashboard_expense_series": "খরচ",
-  "@dashboard_expense_series": { "description": "Income-vs-expense chart: the expense series label (rose)." },
+  "@dashboard_expense_series": {
+    "description": "Income-vs-expense chart: the expense series label (rose)."
+  },
   "dashboard_expenses": "প্রধান খরচ 💸",
-  "@dashboard_expenses": { "description": "Heading above the top expense categories list." },
+  "@dashboard_expenses": {
+    "description": "Heading above the top expense categories list."
+  },
   "dashboard_late": "দেরিতে ভাড়া",
-  "@dashboard_late": { "description": "Heading on the late-payers card." },
+  "@dashboard_late": {
+    "description": "Heading on the late-payers card."
+  },
   "dashboard_late_none": "কেউ দেরিতে নেই",
-  "@dashboard_late_none": { "description": "Late-payers card when nobody is overdue." },
+  "@dashboard_late_none": {
+    "description": "Late-payers card when nobody is overdue."
+  },
   "dashboard_late_count": "{count} জন দেরিতে",
   "@dashboard_late_count": {
     "description": "Number of late payers; count is already localized to a numeral string.",
-    "placeholders": { "count": { "type": "String" } }
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   },
   "dashboard_late_request": "ভাড়ার অনুরোধ পাঠান",
-  "@dashboard_late_request": { "description": "Quick-request CTA on the late-payers card." },
+  "@dashboard_late_request": {
+    "description": "Quick-request CTA on the late-payers card."
+  },
   "dashboard_chart_empty": "কোনো তথ্য নেই",
-  "@dashboard_chart_empty": { "description": "Empty-state label inside a chart with no data." },
+  "@dashboard_chart_empty": {
+    "description": "Empty-state label inside a chart with no data."
+  },
   "dashboard_empty": "এখনো কোনো তথ্য নেই — ভাড়াটিয়া যোগ করুন ও ভাড়া লিপিবদ্ধ করুন।",
-  "@dashboard_empty": { "description": "Whole-screen empty state for a brand-new landlord with no data." },
-
+  "@dashboard_empty": {
+    "description": "Whole-screen empty state for a brand-new landlord with no data."
+  },
   "plan_title": "প্ল্যান · Plan",
-  "@plan_title": { "description": "App-bar title on the plan & billing screen." },
+  "@plan_title": {
+    "description": "App-bar title on the plan & billing screen."
+  },
   "plan_current": "এখন",
-  "@plan_current": { "description": "Chip marking the caller's current tier." },
+  "@plan_current": {
+    "description": "Chip marking the caller's current tier."
+  },
   "plan_current_banner": "এখন {tier}-এ আছেন",
   "@plan_current_banner": {
     "description": "Top card: which tier the caller is currently on.",
-    "placeholders": { "tier": { "type": "String" } }
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      }
+    }
   },
   "plan_usage": "{used}/{limit} ভাড়াটিয়া ব্যবহৃত",
   "@plan_usage": {
     "description": "Usage line under the current-plan banner; numerals pre-localized.",
-    "placeholders": { "used": { "type": "String" }, "limit": { "type": "String" } }
+    "placeholders": {
+      "used": {
+        "type": "String"
+      },
+      "limit": {
+        "type": "String"
+      }
+    }
   },
   "plan_usage_unlimited": "{used} ভাড়াটিয়া · সীমাহীন",
   "@plan_usage_unlimited": {
     "description": "Usage line for an unlimited plan; used is pre-localized.",
-    "placeholders": { "used": { "type": "String" } }
+    "placeholders": {
+      "used": {
+        "type": "String"
+      }
+    }
   },
   "plan_free": "ফ্রি",
-  "@plan_free": { "description": "Price shown for the free tier (BDT 0)." },
+  "@plan_free": {
+    "description": "Price shown for the free tier (BDT 0)."
+  },
   "plan_upgrade": "bKash / Nagad দিয়ে আপগ্রেড",
-  "@plan_upgrade": { "description": "Primary upgrade button on the plan screen." },
+  "@plan_upgrade": {
+    "description": "Primary upgrade button on the plan screen."
+  },
   "plan_choose": "এই প্ল্যান নিন",
-  "@plan_choose": { "description": "Subscribe action on a non-current tier card." },
+  "@plan_choose": {
+    "description": "Subscribe action on a non-current tier card."
+  },
   "plan_best_value": "⭐ সেরা মূল্য",
-  "@plan_best_value": { "description": "Badge on the recommended (best-value) tier card." },
+  "@plan_best_value": {
+    "description": "Badge on the recommended (best-value) tier card."
+  },
   "plan_per_month": "/মাস",
-  "@plan_per_month": { "description": "Suffix on a monthly tier price." },
+  "@plan_per_month": {
+    "description": "Suffix on a monthly tier price."
+  },
   "plan_per_tenant_month": "/ভাড়াটিয়া/মাস",
-  "@plan_per_tenant_month": { "description": "Suffix on a per-tenant tier price." },
+  "@plan_per_tenant_month": {
+    "description": "Suffix on a per-tenant tier price."
+  },
   "plan_band": "{min}–{max} ভাড়াটিয়া",
   "@plan_band": {
     "description": "Tenant band a tier covers; numerals pre-localized.",
-    "placeholders": { "min": { "type": "String" }, "max": { "type": "String" } }
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
   },
   "plan_band_min": "{min}+ ভাড়াটিয়া",
   "@plan_band_min": {
     "description": "Tenant band with no upper bound (unlimited).",
-    "placeholders": { "min": { "type": "String" } }
+    "placeholders": {
+      "min": {
+        "type": "String"
+      }
+    }
   },
   "plan_band_unlimited": "সীমাহীন ভাড়াটিয়া",
-  "@plan_band_unlimited": { "description": "Tenant band label for the unlimited tier." },
+  "@plan_band_unlimited": {
+    "description": "Tenant band label for the unlimited tier."
+  },
   "plan_includes_verification": "+ NID যাচাই",
-  "@plan_includes_verification": { "description": "Feature note shown when a tier bundles NID verification." },
+  "@plan_includes_verification": {
+    "description": "Feature note shown when a tier bundles NID verification."
+  },
   "plan_billing_note": "দাম অ্যাডমিন-নিয়ন্ত্রিত · নমুনা",
-  "@plan_billing_note": { "description": "Footer note: prices are admin-configurable and illustrative." },
+  "@plan_billing_note": {
+    "description": "Footer note: prices are admin-configurable and illustrative."
+  },
   "plan_billing_confirm_pending": "পেমেন্ট নিশ্চিত হলে আমরা জানাব",
-  "@plan_billing_confirm_pending": { "description": "Snackbar after a stubbed subscribe: confirmation pending." },
+  "@plan_billing_confirm_pending": {
+    "description": "Snackbar after a stubbed subscribe: confirmation pending."
+  },
   "plan_billing_error": "আপগ্রেড করা যায়নি · আবার চেষ্টা করুন",
-  "@plan_billing_error": { "description": "Snackbar when a subscribe request fails." },
+  "@plan_billing_error": {
+    "description": "Snackbar when a subscribe request fails."
+  },
   "plan_empty": "কোনো প্ল্যান নেই",
-  "@plan_empty": { "description": "Empty state when no tiers are configured." },
+  "@plan_empty": {
+    "description": "Empty state when no tiers are configured."
+  },
   "upgrade_title": "আপনি ফ্রি সীমায় পৌঁছেছেন",
-  "@upgrade_title": { "description": "Upgrade bottom-sheet title shown when a free-tier landlord hits the tenant limit." },
+  "@upgrade_title": {
+    "description": "Upgrade bottom-sheet title shown when a free-tier landlord hits the tenant limit."
+  },
   "upgrade_body": "ফ্রি প্ল্যানে প্রথম ২ জন ভাড়াটিয়া অন্তর্ভুক্ত। আরও যোগ করতে ও NID যাচাই চালু করতে আপগ্রেড করুন।",
-  "@upgrade_body": { "description": "Upgrade bottom-sheet body explaining the free-tier tenant limit." },
+  "@upgrade_body": {
+    "description": "Upgrade bottom-sheet body explaining the free-tier tenant limit."
+  },
   "upgrade_cta": "প্ল্যান আপগ্রেড",
-  "@upgrade_cta": { "description": "Primary button on the upgrade prompt; routes to the plan screen." },
+  "@upgrade_cta": {
+    "description": "Primary button on the upgrade prompt; routes to the plan screen."
+  },
   "upgrade_later": "এখন নয়",
-  "@upgrade_later": { "description": "Dismiss action on the upgrade prompt." },
+  "@upgrade_later": {
+    "description": "Dismiss action on the upgrade prompt."
+  },
   "unit_lease_active": "সক্রিয় লিজ",
-  "@unit_lease_active": { "description": "Heading for the active-lease summary card on the unit-detail screen." },
+  "@unit_lease_active": {
+    "description": "Heading for the active-lease summary card on the unit-detail screen."
+  },
   "unit_next_due": "পরবর্তী কিস্তি",
-  "@unit_next_due": { "description": "Label preceding the next upcoming rent period on the unit-detail lease summary." },
+  "@unit_next_due": {
+    "description": "Label preceding the next upcoming rent period on the unit-detail lease summary."
+  },
   "unit_next_due_value": "৳{amount} · {period}",
   "@unit_next_due_value": {
     "description": "The next upcoming rent period: amount and period.",
     "placeholders": {
-      "amount": { "type": "String" },
-      "period": { "type": "String" }
+      "amount": {
+        "type": "String"
+      },
+      "period": {
+        "type": "String"
+      }
     }
   },
   "unit_next_due_none": "কোনো বকেয়া কিস্তি নেই",
-  "@unit_next_due_none": { "description": "Shown on the unit-detail lease summary when the active lease has no upcoming (unpaid) period." },
+  "@unit_next_due_none": {
+    "description": "Shown on the unit-detail lease summary when the active lease has no upcoming (unpaid) period."
+  },
   "unit_create_lease": "লিজ তৈরি করুন",
-  "@unit_create_lease": { "description": "CTA on the unit-detail screen to create a new lease when the unit has none." },
+  "@unit_create_lease": {
+    "description": "CTA on the unit-detail screen to create a new lease when the unit has none."
+  },
   "unit_lease_request_rent": "ভাড়া চান",
-  "@unit_lease_request_rent": { "description": "CTA on the unit-detail active-lease summary to send a rent request." },
+  "@unit_lease_request_rent": {
+    "description": "CTA on the unit-detail active-lease summary to send a rent request."
+  },
   "unit_lease_none": "এখনো কোনো লিজ নেই",
-  "@unit_lease_none": { "description": "Empty-state title on the unit-detail lease region when the unit has no active lease." },
+  "@unit_lease_none": {
+    "description": "Empty-state title on the unit-detail lease region when the unit has no active lease."
+  },
   "unit_lease_none_body": "এই ইউনিটের জন্য একটি লিজ তৈরি করুন।",
-  "@unit_lease_none_body": { "description": "Empty-state body on the unit-detail lease region prompting lease creation." },
+  "@unit_lease_none_body": {
+    "description": "Empty-state body on the unit-detail lease region prompting lease creation."
+  },
   "unit_lease_term": "মেয়াদ",
-  "@unit_lease_term": { "description": "Label for the lease term (start – end) on the unit-detail lease summary." },
+  "@unit_lease_term": {
+    "description": "Label for the lease term (start – end) on the unit-detail lease summary."
+  },
+  "unit_lease_no_dates": "মেয়াদ নির্ধারিত নয়",
+  "@unit_lease_no_dates": {
+    "description": "Fallback shown when a lease has no start or end dates."
+  },
+  "unit_lease_verified": "NID যাচাইকৃত",
+  "@unit_lease_verified": {
+    "description": "Lease-detail label for a tenant whose NID is verified."
+  },
+  "unit_lease_unverified": "যাচাই হয়নি",
+  "@unit_lease_unverified": {
+    "description": "Lease-detail label for a tenant whose NID is not verified."
+  },
   "unit_tenant_verified": "NID যাচাইকৃত",
-  "@unit_tenant_verified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is verified (matched)." },
+  "@unit_tenant_verified": {
+    "description": "Sub-line on the unit-detail lease summary when the tenant's NID is verified (matched)."
+  },
   "unit_tenant_unverified": "NID যাচাই হয়নি",
-  "@unit_tenant_unverified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified." },
-
+  "@unit_tenant_unverified": {
+    "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified."
+  },
   "lease_doc_title": "স্মার্ট লিজ · AI চুক্তি",
-  "@lease_doc_title": { "description": "App-bar title of the AI lease document screen." },
+  "@lease_doc_title": {
+    "description": "App-bar title of the AI lease document screen."
+  },
   "lease_doc_subtitle": "DNCC-সম্মত চুক্তি — AI দিয়ে তৈরি",
-  "@lease_doc_subtitle": { "description": "Subtitle under the hero on the lease document intro state." },
+  "@lease_doc_subtitle": {
+    "description": "Subtitle under the hero on the lease document intro state."
+  },
   "lease_generate": "AI দিয়ে চুক্তি তৈরি করুন",
-  "@lease_generate": { "description": "Primary CTA on the lease document intro: trigger AI generation." },
+  "@lease_generate": {
+    "description": "Primary CTA on the lease document intro: trigger AI generation."
+  },
   "lease_disclaimer": "এটি AI-তৈরি খসড়া এবং আইনি পরামর্শ নয়। স্বাক্ষরের আগে একজন যোগ্য আইনজীবীর সাথে সব ক্লজ পর্যালোচনা করুন।",
-  "@lease_disclaimer": { "description": "Non-dismissible disclaimer banner shown on the draft and PDF preview." },
+  "@lease_disclaimer": {
+    "description": "Non-dismissible disclaimer banner shown on the draft and PDF preview."
+  },
   "lease_draft_generating": "AI আপনার লিজের খসড়া তৈরি করছে…",
-  "@lease_draft_generating": { "description": "Loading label shown while the AI generation POST is in-flight." },
+  "@lease_draft_generating": {
+    "description": "Loading label shown while the AI generation POST is in-flight."
+  },
   "lease_draft_clauses": "{count} টি ক্লজ পর্যালোচনার জন্য প্রস্তুত",
   "@lease_draft_clauses": {
     "description": "Sub-line under the disclaimer showing how many clauses were generated.",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "lease_clause_required": "আবশ্যিক",
-  "@lease_clause_required": { "description": "Pill badge on a required clause that cannot be deleted." },
+  "@lease_clause_required": {
+    "description": "Pill badge on a required clause that cannot be deleted."
+  },
   "lease_edit_clauses": "ক্লজ দেখুন ও সম্পাদনা করুন",
-  "@lease_edit_clauses": { "description": "Footer CTA on the draft state: open the clause review/edit screen." },
+  "@lease_edit_clauses": {
+    "description": "Footer CTA on the draft state: open the clause review/edit screen."
+  },
   "lease_view_pdf": "PDF দেখুন",
-  "@lease_view_pdf": { "description": "Footer CTA on the draft state: open the PDF preview screen." },
+  "@lease_view_pdf": {
+    "description": "Footer CTA on the draft state: open the PDF preview screen."
+  },
   "lease_tier_gated_title": "AI লিজ ব্যবহার করতে আপগ্রেড করুন",
-  "@lease_tier_gated_title": { "description": "Heading shown when a free-tier landlord tries to generate an AI lease." },
+  "@lease_tier_gated_title": {
+    "description": "Heading shown when a free-tier landlord tries to generate an AI lease."
+  },
   "lease_tier_gated_body": "AI লিজ তৈরি করতে পেইড প্ল্যান প্রয়োজন। আনলক করতে আপগ্রেড করুন।",
-  "@lease_tier_gated_body": { "description": "Body of the tier-gated state on the lease document screen." },
+  "@lease_tier_gated_body": {
+    "description": "Body of the tier-gated state on the lease document screen."
+  },
   "lease_unavailable": "AI লিজ এখন উপলব্ধ নয়।",
-  "@lease_unavailable": { "description": "Shown when the ai_lease_enabled feature flag is off." },
+  "@lease_unavailable": {
+    "description": "Shown when the ai_lease_enabled feature flag is off."
+  },
   "lease_doc_error": "চুক্তি তৈরি করা যায়নি। আবার চেষ্টা করুন।",
-  "@lease_doc_error": { "description": "Error message on the lease document screen." },
+  "@lease_doc_error": {
+    "description": "Error message on the lease document screen."
+  },
   "lease_doc_retry": "আবার চেষ্টা করুন",
-  "@lease_doc_retry": { "description": "Retry button on the lease document error state." },
+  "@lease_doc_retry": {
+    "description": "Retry button on the lease document error state."
+  },
   "lease_clause_title": "ক্লজ পর্যালোচনা ও সম্পাদনা",
-  "@lease_clause_title": { "description": "App-bar title of the clause review/edit screen." },
+  "@lease_clause_title": {
+    "description": "App-bar title of the clause review/edit screen."
+  },
   "lease_clause_save": "ক্লজ সংরক্ষণ",
-  "@lease_clause_save": { "description": "Primary action on the clause edit screen: PATCH clauses and return." },
+  "@lease_clause_save": {
+    "description": "Primary action on the clause edit screen: PATCH clauses and return."
+  },
   "lease_clause_save_error": "ক্লজ সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
-  "@lease_clause_save_error": { "description": "Snackbar when the PATCH clauses call fails." },
+  "@lease_clause_save_error": {
+    "description": "Snackbar when the PATCH clauses call fails."
+  },
   "lease_clause_saved": "ক্লজ সংরক্ষিত হয়েছে",
-  "@lease_clause_saved": { "description": "Snackbar shown after clauses are saved successfully." },
+  "@lease_clause_saved": {
+    "description": "Snackbar shown after clauses are saved successfully."
+  },
   "lease_clause_edit_hint": "ক্লজের টেক্সট সম্পাদনা করুন…",
-  "@lease_clause_edit_hint": { "description": "Placeholder inside a clause text field on the edit screen." },
+  "@lease_clause_edit_hint": {
+    "description": "Placeholder inside a clause text field on the edit screen."
+  },
   "lease_clause_required_lock": "আবশ্যিক ক্লজ — মুছতে পারবেন না",
-  "@lease_clause_required_lock": { "description": "Tooltip on the lock icon for a required clause." },
+  "@lease_clause_required_lock": {
+    "description": "Tooltip on the lock icon for a required clause."
+  },
   "lease_pdf_title": "লিজ PDF",
-  "@lease_pdf_title": { "description": "App-bar title of the lease PDF preview + share screen." },
+  "@lease_pdf_title": {
+    "description": "App-bar title of the lease PDF preview + share screen."
+  },
   "lease_pdf_generating": "আপনার লিজের PDF তৈরি হচ্ছে…",
-  "@lease_pdf_generating": { "description": "Loading label while the PDF is rendered and downloaded." },
+  "@lease_pdf_generating": {
+    "description": "Loading label while the PDF is rendered and downloaded."
+  },
   "lease_pdf_error": "PDF তৈরি করা যায়নি। আবার চেষ্টা করুন।",
-  "@lease_pdf_error": { "description": "Error state on the lease PDF screen." },
+  "@lease_pdf_error": {
+    "description": "Error state on the lease PDF screen."
+  },
   "lease_pdf_retry": "আবার চেষ্টা করুন",
-  "@lease_pdf_retry": { "description": "Retry button on the lease PDF error state." },
+  "@lease_pdf_retry": {
+    "description": "Retry button on the lease PDF error state."
+  },
   "lease_pdf_download": "নামান",
-  "@lease_pdf_download": { "description": "Primary footer action: download/save the lease PDF." },
+  "@lease_pdf_download": {
+    "description": "Primary footer action: download/save the lease PDF."
+  },
   "lease_pdf_share": "শেয়ার করুন",
-  "@lease_pdf_share": { "description": "Secondary footer action: share the lease PDF via the OS sheet." },
+  "@lease_pdf_share": {
+    "description": "Secondary footer action: share the lease PDF via the OS sheet."
+  },
   "lease_pdf_action_failed": "কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।",
-  "@lease_pdf_action_failed": { "description": "Snackbar when a lease PDF share/download action fails." }
-  "@unit_tenant_unverified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified." },
+  "@lease_pdf_action_failed": {
+    "description": "Snackbar when a lease PDF share/download action fails."
+  },
   "nid_verify_title": "NID যাচাই",
-  "@nid_verify_title": { "description": "App-bar title of the NID verify screen." },
+  "@nid_verify_title": {
+    "description": "App-bar title of the NID verify screen."
+  },
   "nid_verify_hero": "যাচাই করা যাক",
-  "@nid_verify_hero": { "description": "Handwritten accent hero on the verify screen." },
+  "@nid_verify_hero": {
+    "description": "Handwritten accent hero on the verify screen."
+  },
   "nid_verify_desc": "EC যাচাই সেবা · Matched / Not Matched",
-  "@nid_verify_desc": { "description": "Explanation of the EC verification." },
+  "@nid_verify_desc": {
+    "description": "Explanation of the EC verification."
+  },
   "nid_verify_consent": "ভাড়াটিয়ার সম্মতি নেওয়া হয়েছে",
-  "@nid_verify_consent": { "description": "Consent checkbox label. Must be checked before Verify can run." },
+  "@nid_verify_consent": {
+    "description": "Consent checkbox label. Must be checked before Verify can run."
+  },
   "nid_verify_run": "যাচাই করুন",
-  "@nid_verify_run": { "description": "Primary action button that triggers the EC verification." },
+  "@nid_verify_run": {
+    "description": "Primary action button that triggers the EC verification."
+  },
   "nid_verify_loading": "যাচাই হচ্ছে…",
-  "@nid_verify_loading": { "description": "Loading message while the EC verify call is in flight." },
+  "@nid_verify_loading": {
+    "description": "Loading message while the EC verify call is in flight."
+  },
   "nid_verify_matched": "NID Matched with EC records",
-  "@nid_verify_matched": { "description": "Success result shown when EC returns matched." },
+  "@nid_verify_matched": {
+    "description": "Success result shown when EC returns matched."
+  },
   "nid_verify_matched_sub": "পরিচয় নিশ্চিত হয়েছে",
-  "@nid_verify_matched_sub": { "description": "Sub-line under the matched result." },
+  "@nid_verify_matched_sub": {
+    "description": "Sub-line under the matched result."
+  },
   "nid_verify_not_matched": "Not Matched",
-  "@nid_verify_not_matched": { "description": "Result shown when EC returns not_matched." },
+  "@nid_verify_not_matched": {
+    "description": "Result shown when EC returns not_matched."
+  },
   "nid_verify_not_matched_sub": "EC-এ তথ্য মেলেনি",
-  "@nid_verify_not_matched_sub": { "description": "Sub-line under the not-matched result." },
+  "@nid_verify_not_matched_sub": {
+    "description": "Sub-line under the not-matched result."
+  },
   "nid_verify_error": "যাচাই সম্পন্ন হয়নি",
-  "@nid_verify_error": { "description": "Error result shown when the EC call failed or errored." },
+  "@nid_verify_error": {
+    "description": "Error result shown when the EC call failed or errored."
+  },
   "nid_verify_error_sub": "আবার চেষ্টা করুন",
-  "@nid_verify_error_sub": { "description": "Sub-line under the error result." },
+  "@nid_verify_error_sub": {
+    "description": "Sub-line under the error result."
+  },
   "nid_verify_retry": "আবার চেষ্টা",
-  "@nid_verify_retry": { "description": "Retry button on the verify error state." },
+  "@nid_verify_retry": {
+    "description": "Retry button on the verify error state."
+  },
   "nid_verify_done": "সম্পন্ন",
-  "@nid_verify_done": { "description": "Done button shown after a verification result." },
+  "@nid_verify_done": {
+    "description": "Done button shown after a verification result."
+  },
   "nid_verify_flag_off": "NID যাচাই এখন বন্ধ আছে।",
-  "@nid_verify_flag_off": { "description": "Shown when the nid_verification_enabled flag is off." },
+  "@nid_verify_flag_off": {
+    "description": "Shown when the nid_verification_enabled flag is off."
+  },
   "nid_verify_upgrade": "NID যাচাই একটি পেইড ফিচার — আপগ্রেড করুন",
-  "@nid_verify_upgrade": { "description": "Shown for free-tier users who cannot access verification." },
+  "@nid_verify_upgrade": {
+    "description": "Shown for free-tier users who cannot access verification."
+  },
   "nid_badge_verified": "যাচাইকৃত",
-  "@nid_badge_verified": { "description": "Verification badge label for a verified tenant." },
+  "@nid_badge_verified": {
+    "description": "Verification badge label for a verified tenant."
+  },
   "nid_badge_unverified": "যাচাই হয়নি",
-  "@nid_badge_unverified": { "description": "Verification badge label for an unverified tenant." },
+  "@nid_badge_unverified": {
+    "description": "Verification badge label for an unverified tenant."
+  },
   "nid_badge_failed": "মেলেনি",
-  "@nid_badge_failed": { "description": "Verification badge label for a failed verification." }
-  "@unit_tenant_unverified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified." },
+  "@nid_badge_failed": {
+    "description": "Verification badge label for a failed verification."
+  },
   "ten_home_greeting": "আসসালামু আলাইকুম,",
   "ten_home_rent_status": "এ মাসের ভাড়া",
   "ten_home_rent_paid": "পরিশোধিত",
@@ -1972,7 +2339,11 @@
   "ten_receipts_pending": "⏳ অপেক্ষায়",
   "ten_receipts_summary": "{count} মাস পরিশোধিত",
   "@ten_receipts_summary": {
-    "placeholders": { "count": { "type": "String" } }
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   },
   "ten_record_rating": "রেটিং",
   "ten_record_notes": "ব্যক্তিগত নোট",
@@ -1984,231 +2355,432 @@
   "ten_record_avg_rating": "গড় রেটিং",
   "ten_record_disputes": "বিরোধ",
   "ten_record_trusted": "Trusted tenant",
-  "ten_record_notes_hint": "ব্যক্তিগত অভিজ্ঞতা লিখুন"
-  "@unit_tenant_unverified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified." },
-
+  "ten_record_notes_hint": "ব্যক্তিগত অভিজ্ঞতা লিখুন",
   "warning_screen_title": "সতর্কবার্তা জারি",
-  "@warning_screen_title": { "description": "App-bar title of the issue-warning screen." },
+  "@warning_screen_title": {
+    "description": "App-bar title of the issue-warning screen."
+  },
   "warning_private_notice": "🔒 এটি শুধু আপনার ও আপনার ভাড়াটিয়ার মধ্যে — পাবলিক নয়",
-  "@warning_private_notice": { "description": "Privacy banner on the warning screen." },
+  "@warning_private_notice": {
+    "description": "Privacy banner on the warning screen."
+  },
   "warning_disclaimer": "এই সতর্কবার্তাটি একটি ব্যক্তিগত নোটিশ। এটি কোনো সরকারি নথি নয় এবং অন্য কারো সাথে শেয়ার করা হবে না।",
-  "@warning_disclaimer": { "description": "Legal disclaimer on the warning screen." },
+  "@warning_disclaimer": {
+    "description": "Legal disclaimer on the warning screen."
+  },
   "warning_type_label": "সতর্কতার ধরন",
-  "@warning_type_label": { "description": "Label for the warning-type picker." },
+  "@warning_type_label": {
+    "description": "Label for the warning-type picker."
+  },
   "warning_type_late_rent": "দেরিতে ভাড়া",
-  "@warning_type_late_rent": { "description": "Warning type: late rent." },
+  "@warning_type_late_rent": {
+    "description": "Warning type: late rent."
+  },
   "warning_type_lease_violation": "লিজ লঙ্ঘন",
-  "@warning_type_lease_violation": { "description": "Warning type: lease violation." },
+  "@warning_type_lease_violation": {
+    "description": "Warning type: lease violation."
+  },
   "warning_type_noise": "শব্দদূষণ",
-  "@warning_type_noise": { "description": "Warning type: noise." },
+  "@warning_type_noise": {
+    "description": "Warning type: noise."
+  },
   "warning_type_property_damage": "সম্পত্তির ক্ষতি",
-  "@warning_type_property_damage": { "description": "Warning type: property damage." },
+  "@warning_type_property_damage": {
+    "description": "Warning type: property damage."
+  },
   "warning_type_other": "অন্যান্য",
-  "@warning_type_other": { "description": "Warning type: other." },
+  "@warning_type_other": {
+    "description": "Warning type: other."
+  },
   "warning_reason_label": "কারণ",
-  "@warning_reason_label": { "description": "Label for the reason text field." },
+  "@warning_reason_label": {
+    "description": "Label for the reason text field."
+  },
   "warning_reason_hint": "সতর্কতার কারণ লিখুন",
-  "@warning_reason_hint": { "description": "Placeholder text for the reason field." },
+  "@warning_reason_hint": {
+    "description": "Placeholder text for the reason field."
+  },
   "warning_reason_required": "কারণ লিখুন",
-  "@warning_reason_required": { "description": "Validation error when the reason field is empty." },
+  "@warning_reason_required": {
+    "description": "Validation error when the reason field is empty."
+  },
   "warning_issue": "সতর্কবার্তা জারি করুন",
-  "@warning_issue": { "description": "Primary submit button on the issue-warning form." },
+  "@warning_issue": {
+    "description": "Primary submit button on the issue-warning form."
+  },
   "warning_issued_ok": "সতর্কবার্তা জারি হয়েছে",
-  "@warning_issued_ok": { "description": "Snackbar shown after a warning is successfully issued." },
+  "@warning_issued_ok": {
+    "description": "Snackbar shown after a warning is successfully issued."
+  },
   "warning_issue_error": "জারি করা যায়নি",
-  "@warning_issue_error": { "description": "Snackbar shown when issuing a warning fails." },
+  "@warning_issue_error": {
+    "description": "Snackbar shown when issuing a warning fails."
+  },
   "warning_feature_disabled": "সতর্কবার্তা সুবিধা এখন বন্ধ আছে",
-  "@warning_feature_disabled": { "description": "Message shown when the warnings_feature kill-switch is off." },
+  "@warning_feature_disabled": {
+    "description": "Message shown when the warnings_feature kill-switch is off."
+  },
   "warning_notice_title": "সতর্কবার্তার নোটিশ",
-  "@warning_notice_title": { "description": "App-bar title of the warning notice PDF preview screen." },
+  "@warning_notice_title": {
+    "description": "App-bar title of the warning notice PDF preview screen."
+  },
   "warning_notice_generating": "নোটিশ তৈরি হচ্ছে…",
-  "@warning_notice_generating": { "description": "Loading message while the warning notice PDF is generated." },
+  "@warning_notice_generating": {
+    "description": "Loading message while the warning notice PDF is generated."
+  },
   "warning_notice_download": "নামান",
-  "@warning_notice_download": { "description": "Primary action: download the warning notice PDF." },
+  "@warning_notice_download": {
+    "description": "Primary action: download the warning notice PDF."
+  },
   "warning_notice_share": "শেয়ার",
-  "@warning_notice_share": { "description": "Secondary action: share the warning notice PDF." },
+  "@warning_notice_share": {
+    "description": "Secondary action: share the warning notice PDF."
+  },
   "warning_notice_error": "নোটিশ তৈরি করা যায়নি",
-  "@warning_notice_error": { "description": "Error state message when warning notice PDF generation fails." },
+  "@warning_notice_error": {
+    "description": "Error state message when warning notice PDF generation fails."
+  },
   "warning_notice_action_failed": "কাজটি সম্পন্ন হয়নি",
-  "@warning_notice_action_failed": { "description": "Snackbar shown when share/download fails." },
+  "@warning_notice_action_failed": {
+    "description": "Snackbar shown when share/download fails."
+  },
   "warning_notice_retry": "আবার চেষ্টা",
-  "@warning_notice_retry": { "description": "Retry button on the warning notice PDF error state." },
+  "@warning_notice_retry": {
+    "description": "Retry button on the warning notice PDF error state."
+  },
   "unit_warnings_section": "সতর্কবার্তা",
-  "@unit_warnings_section": { "description": "Section heading for the warnings region on the unit/lease detail screen." },
+  "@unit_warnings_section": {
+    "description": "Section heading for the warnings region on the unit/lease detail screen."
+  },
   "unit_issue_warning": "সতর্কবার্তা জারি করুন",
-  "@unit_issue_warning": { "description": "CTA to issue a warning from the unit/lease detail screen." },
+  "@unit_issue_warning": {
+    "description": "CTA to issue a warning from the unit/lease detail screen."
+  },
   "unit_warnings_empty": "কোনো সতর্কবার্তা নেই",
-  "@unit_warnings_empty": { "description": "Empty-state message in the warnings section when no warnings have been issued." },
+  "@unit_warnings_empty": {
+    "description": "Empty-state message in the warnings section when no warnings have been issued."
+  },
   "warning_type_chip": "{type} · {date}",
   "@warning_type_chip": {
     "description": "A warning row label: type and date.",
     "placeholders": {
-      "type": { "type": "String" },
-      "date": { "type": "String" }
+      "type": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
     }
   },
   "warning_view_notice": "নোটিশ দেখুন",
-  "@warning_view_notice": { "description": "Action to view the generated notice PDF for an issued warning." }
-  "@unit_tenant_unverified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified." },
-
+  "@warning_view_notice": {
+    "description": "Action to view the generated notice PDF for an issued warning."
+  },
   "mgr_home_title": "ম্যানেজার হোম · Manager Home",
-  "@mgr_home_title": { "description": "Manager home screen app-bar title." },
+  "@mgr_home_title": {
+    "description": "Manager home screen app-bar title."
+  },
   "mgr_home_total": "মোট পোর্টফোলিও · Total portfolio",
-  "@mgr_home_total": { "description": "Manager home: portfolio total stat label." },
+  "@mgr_home_total": {
+    "description": "Manager home: portfolio total stat label."
+  },
   "mgr_home_owners": "{count} জন মালিক",
   "@mgr_home_owners": {
     "description": "Manager home: linked active owners count.",
-    "placeholders": { "count": { "type": "String" } }
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   },
   "mgr_home_add_owner": "মালিক যোগ · Add owner",
-  "@mgr_home_add_owner": { "description": "Manager home: CTA to link a new owner." },
+  "@mgr_home_add_owner": {
+    "description": "Manager home: CTA to link a new owner."
+  },
   "mgr_home_team": "টিম · Team",
-  "@mgr_home_team": { "description": "Manager home: navigate to team screen." },
+  "@mgr_home_team": {
+    "description": "Manager home: navigate to team screen."
+  },
   "mgr_home_reports": "রিপোর্ট · Reports",
-  "@mgr_home_reports": { "description": "Manager home: navigate to reports screen." },
+  "@mgr_home_reports": {
+    "description": "Manager home: navigate to reports screen."
+  },
   "mgr_home_empty": "এখনো কোনো সক্রিয় মালিক নেই · No active owners yet",
-  "@mgr_home_empty": { "description": "Manager home: empty state when no active owners are linked." },
+  "@mgr_home_empty": {
+    "description": "Manager home: empty state when no active owners are linked."
+  },
   "mgr_home_empty_sub": "মালিক যোগ করুন — তাদের পোর্টফোলিও এখানে দেখাবে।",
-  "@mgr_home_empty_sub": { "description": "Manager home: empty state body." },
+  "@mgr_home_empty_sub": {
+    "description": "Manager home: empty state body."
+  },
   "mgr_home_stat_units": "ইউনিট · Units",
-  "@mgr_home_stat_units": { "description": "Manager home: owner card stat — total units." },
+  "@mgr_home_stat_units": {
+    "description": "Manager home: owner card stat — total units."
+  },
   "mgr_home_stat_occupied": "ভাড়া হয়েছে · Occupied",
-  "@mgr_home_stat_occupied": { "description": "Manager home: owner card stat — occupied units." },
+  "@mgr_home_stat_occupied": {
+    "description": "Manager home: owner card stat — occupied units."
+  },
   "mgr_home_stat_rent": "মাসিক · Monthly",
-  "@mgr_home_stat_rent": { "description": "Manager home: owner card stat — monthly rent." },
+  "@mgr_home_stat_rent": {
+    "description": "Manager home: owner card stat — monthly rent."
+  },
   "mgr_home_currency": "৳{amount}",
   "@mgr_home_currency": {
     "description": "Taka-prefixed amount on manager home owner cards.",
-    "placeholders": { "amount": { "type": "String" } }
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
   },
-
   "mgr_add_owner_title": "মালিক যোগ · Link owner",
-  "@mgr_add_owner_title": { "description": "Add-owner screen app-bar title." },
+  "@mgr_add_owner_title": {
+    "description": "Add-owner screen app-bar title."
+  },
   "mgr_add_owner_hero": "Link an owner",
-  "@mgr_add_owner_hero": { "description": "Add-owner hero heading (English)." },
+  "@mgr_add_owner_hero": {
+    "description": "Add-owner hero heading (English)."
+  },
   "mgr_add_owner_hero_sub": "মালিকের তথ্য দিন",
-  "@mgr_add_owner_hero_sub": { "description": "Add-owner hero sub (Bangla)." },
+  "@mgr_add_owner_hero_sub": {
+    "description": "Add-owner hero sub (Bangla)."
+  },
   "mgr_add_owner_phone": "মালিকের নম্বর · Owner phone",
-  "@mgr_add_owner_phone": { "description": "Add-owner form: phone field label." },
+  "@mgr_add_owner_phone": {
+    "description": "Add-owner form: phone field label."
+  },
   "mgr_add_owner_phone_hint": "01XXXXXXXXX",
-  "@mgr_add_owner_phone_hint": { "description": "Add-owner form: phone field hint." },
+  "@mgr_add_owner_phone_hint": {
+    "description": "Add-owner form: phone field hint."
+  },
   "mgr_add_owner_name": "মালিকের নাম · Owner name",
-  "@mgr_add_owner_name": { "description": "Add-owner form: name field label." },
+  "@mgr_add_owner_name": {
+    "description": "Add-owner form: name field label."
+  },
   "mgr_add_owner_name_hint": "পূর্ণ নাম",
-  "@mgr_add_owner_name_hint": { "description": "Add-owner form: name field hint." },
+  "@mgr_add_owner_name_hint": {
+    "description": "Add-owner form: name field hint."
+  },
   "mgr_add_owner_request": "অনুরোধ পাঠান · Send request",
-  "@mgr_add_owner_request": { "description": "Add-owner form: send link request button." },
+  "@mgr_add_owner_request": {
+    "description": "Add-owner form: send link request button."
+  },
   "mgr_add_owner_pending": "অপেক্ষমাণ অনুরোধ · Pending requests",
-  "@mgr_add_owner_pending": { "description": "Add-owner: section heading for pending requests." },
+  "@mgr_add_owner_pending": {
+    "description": "Add-owner: section heading for pending requests."
+  },
   "mgr_add_owner_active": "সক্রিয় মালিক · Active owners",
-  "@mgr_add_owner_active": { "description": "Add-owner: section heading for active linked owners." },
+  "@mgr_add_owner_active": {
+    "description": "Add-owner: section heading for active linked owners."
+  },
   "mgr_add_owner_none_pending": "কোনো অপেক্ষমাণ অনুরোধ নেই",
-  "@mgr_add_owner_none_pending": { "description": "Add-owner: empty state for pending section." },
+  "@mgr_add_owner_none_pending": {
+    "description": "Add-owner: empty state for pending section."
+  },
   "mgr_add_owner_status_pending": "অপেক্ষমাণ · Pending",
-  "@mgr_add_owner_status_pending": { "description": "Status chip for a pending owner link request." },
+  "@mgr_add_owner_status_pending": {
+    "description": "Status chip for a pending owner link request."
+  },
   "mgr_add_owner_status_active": "সক্রিয় · Active",
-  "@mgr_add_owner_status_active": { "description": "Status chip for an active linked owner." },
+  "@mgr_add_owner_status_active": {
+    "description": "Status chip for an active linked owner."
+  },
   "mgr_add_owner_sent": "অনুরোধ পাঠানো হয়েছে · Request sent",
-  "@mgr_add_owner_sent": { "description": "Snackbar after sending an owner link request." },
+  "@mgr_add_owner_sent": {
+    "description": "Snackbar after sending an owner link request."
+  },
   "mgr_add_owner_error": "অনুরোধ পাঠানো যায়নি · Could not send request",
-  "@mgr_add_owner_error": { "description": "Snackbar when sending an owner link request fails." },
+  "@mgr_add_owner_error": {
+    "description": "Snackbar when sending an owner link request fails."
+  },
   "mgr_add_owner_err_phone": "সঠিক নম্বর দিন · Enter a valid phone number",
-  "@mgr_add_owner_err_phone": { "description": "Validation error for the phone field." },
+  "@mgr_add_owner_err_phone": {
+    "description": "Validation error for the phone field."
+  },
   "mgr_add_owner_err_name": "নাম দিন · Enter the owner's name",
-  "@mgr_add_owner_err_name": { "description": "Validation error for the name field." },
-
+  "@mgr_add_owner_err_name": {
+    "description": "Validation error for the name field."
+  },
   "mgr_team_title": "টিম · Team",
-  "@mgr_team_title": { "description": "Team screen app-bar title." },
+  "@mgr_team_title": {
+    "description": "Team screen app-bar title."
+  },
   "mgr_team_add": "সদস্য যোগ · Add member",
-  "@mgr_team_add": { "description": "Team screen: add team member button." },
+  "@mgr_team_add": {
+    "description": "Team screen: add team member button."
+  },
   "mgr_team_role": "ভূমিকা · Role",
-  "@mgr_team_role": { "description": "Team screen: role label on a member card." },
+  "@mgr_team_role": {
+    "description": "Team screen: role label on a member card."
+  },
   "mgr_team_scope": "পরিসর · Scope",
-  "@mgr_team_scope": { "description": "Team screen: scope label on a member card." },
+  "@mgr_team_scope": {
+    "description": "Team screen: scope label on a member card."
+  },
   "mgr_team_scope_all": "সব মালিক · All owners",
-  "@mgr_team_scope_all": { "description": "Team member scope: unrestricted (all owners)." },
+  "@mgr_team_scope_all": {
+    "description": "Team member scope: unrestricted (all owners)."
+  },
   "mgr_team_remove": "সরান · Remove",
-  "@mgr_team_remove": { "description": "Team screen: remove member button." },
+  "@mgr_team_remove": {
+    "description": "Team screen: remove member button."
+  },
   "mgr_team_remove_confirm_title": "সদস্য সরাবেন? · Remove member?",
-  "@mgr_team_remove_confirm_title": { "description": "Remove confirmation dialog title." },
+  "@mgr_team_remove_confirm_title": {
+    "description": "Remove confirmation dialog title."
+  },
   "mgr_team_remove_confirm_body": "এই সদস্য সব মালিকের পোর্টফোলিওতে প্রবেশাধিকার হারাবেন।",
-  "@mgr_team_remove_confirm_body": { "description": "Remove confirmation dialog body." },
+  "@mgr_team_remove_confirm_body": {
+    "description": "Remove confirmation dialog body."
+  },
   "mgr_team_cancel": "বাতিল · Cancel",
-  "@mgr_team_cancel": { "description": "Cancel button in dialogs." },
+  "@mgr_team_cancel": {
+    "description": "Cancel button in dialogs."
+  },
   "mgr_team_confirm": "সরান · Remove",
-  "@mgr_team_confirm": { "description": "Confirm remove button in dialog." },
+  "@mgr_team_confirm": {
+    "description": "Confirm remove button in dialog."
+  },
   "mgr_team_empty": "এখনো কোনো সদস্য নেই · No team members yet",
-  "@mgr_team_empty": { "description": "Team screen: empty state." },
+  "@mgr_team_empty": {
+    "description": "Team screen: empty state."
+  },
   "mgr_team_add_title": "সদস্য যোগ · Add team member",
-  "@mgr_team_add_title": { "description": "Add team member bottom-sheet title." },
+  "@mgr_team_add_title": {
+    "description": "Add team member bottom-sheet title."
+  },
   "mgr_team_phone": "নম্বর · Phone",
-  "@mgr_team_phone": { "description": "Add member form: phone field label." },
+  "@mgr_team_phone": {
+    "description": "Add member form: phone field label."
+  },
   "mgr_team_name": "নাম · Name",
-  "@mgr_team_name": { "description": "Add member form: name field label." },
+  "@mgr_team_name": {
+    "description": "Add member form: name field label."
+  },
   "mgr_team_role_label": "ভূমিকা · Role",
-  "@mgr_team_role_label": { "description": "Add member form: role dropdown label." },
+  "@mgr_team_role_label": {
+    "description": "Add member form: role dropdown label."
+  },
   "mgr_team_added": "সদস্য যোগ হয়েছে · Member added",
-  "@mgr_team_added": { "description": "Snackbar after successfully adding a team member." },
+  "@mgr_team_added": {
+    "description": "Snackbar after successfully adding a team member."
+  },
   "mgr_team_add_error": "সদস্য যোগ করা যায়নি · Could not add member",
-  "@mgr_team_add_error": { "description": "Snackbar when adding a team member fails." },
+  "@mgr_team_add_error": {
+    "description": "Snackbar when adding a team member fails."
+  },
   "mgr_team_removed": "সদস্য সরানো হয়েছে · Member removed",
-  "@mgr_team_removed": { "description": "Snackbar after removing a team member." },
+  "@mgr_team_removed": {
+    "description": "Snackbar after removing a team member."
+  },
   "mgr_team_remove_error": "সরানো যায়নি · Could not remove",
-  "@mgr_team_remove_error": { "description": "Snackbar when removing a team member fails." },
-
+  "@mgr_team_remove_error": {
+    "description": "Snackbar when removing a team member fails."
+  },
   "mgr_report_title": "রিপোর্ট · Reports",
-  "@mgr_report_title": { "description": "Report screen app-bar title." },
+  "@mgr_report_title": {
+    "description": "Report screen app-bar title."
+  },
   "mgr_report_owner": "মালিক বাছুন · Select owner",
-  "@mgr_report_owner": { "description": "Report screen: owner selector label." },
+  "@mgr_report_owner": {
+    "description": "Report screen: owner selector label."
+  },
   "mgr_report_generate": "রিপোর্ট তৈরি করুন · Generate report",
-  "@mgr_report_generate": { "description": "Report screen: generate report button." },
+  "@mgr_report_generate": {
+    "description": "Report screen: generate report button."
+  },
   "mgr_report_share": "PDF শেয়ার · Share PDF",
-  "@mgr_report_share": { "description": "Report screen: share PDF button." },
+  "@mgr_report_share": {
+    "description": "Report screen: share PDF button."
+  },
   "mgr_report_no_owners": "কোনো সক্রিয় মালিক নেই · No active owners linked",
-  "@mgr_report_no_owners": { "description": "Report screen: empty state when no owners are linked." },
+  "@mgr_report_no_owners": {
+    "description": "Report screen: empty state when no owners are linked."
+  },
   "mgr_report_income": "আয় · Income",
-  "@mgr_report_income": { "description": "Report screen: income stat label." },
+  "@mgr_report_income": {
+    "description": "Report screen: income stat label."
+  },
   "mgr_report_expense": "খরচ · Expense",
-  "@mgr_report_expense": { "description": "Report screen: expense stat label." },
+  "@mgr_report_expense": {
+    "description": "Report screen: expense stat label."
+  },
   "mgr_report_net": "নেট · Net",
-  "@mgr_report_net": { "description": "Report screen: net income label." },
+  "@mgr_report_net": {
+    "description": "Report screen: net income label."
+  },
   "mgr_report_occupancy": "অকুপেন্সি · Occupancy",
-  "@mgr_report_occupancy": { "description": "Report screen: occupancy stat label." },
+  "@mgr_report_occupancy": {
+    "description": "Report screen: occupancy stat label."
+  },
   "mgr_report_collection": "আদায় · Collection",
-  "@mgr_report_collection": { "description": "Report screen: collection rate label." },
+  "@mgr_report_collection": {
+    "description": "Report screen: collection rate label."
+  },
   "mgr_report_generating": "PDF তৈরি হচ্ছে…",
-  "@mgr_report_generating": { "description": "Report screen: loading label while generating the PDF." },
+  "@mgr_report_generating": {
+    "description": "Report screen: loading label while generating the PDF."
+  },
   "mgr_report_pdf_ready": "PDF তৈরি হয়েছে · PDF ready",
-  "@mgr_report_pdf_ready": { "description": "Report screen: success message when PDF is generated." },
+  "@mgr_report_pdf_ready": {
+    "description": "Report screen: success message when PDF is generated."
+  },
   "mgr_report_generate_error": "রিপোর্ট তৈরি হয়নি · Could not generate report",
-  "@mgr_report_generate_error": { "description": "Report screen: error snackbar." },
+  "@mgr_report_generate_error": {
+    "description": "Report screen: error snackbar."
+  },
   "mgr_report_share_error": "শেয়ার করা যায়নি · Could not share",
-  "@mgr_report_share_error": { "description": "Report screen: share error snackbar." },
+  "@mgr_report_share_error": {
+    "description": "Report screen: share error snackbar."
+  },
   "mgr_report_currency": "৳{amount}",
   "@mgr_report_currency": {
     "description": "Taka-prefixed amount on the report screen.",
-    "placeholders": { "amount": { "type": "String" } }
-  }
-  "@unit_tenant_unverified": { "description": "Sub-line on the unit-detail lease summary when the tenant's NID is not verified." },
-
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "chat_title": "AI সহকারী",
-  "@chat_title": { "description": "Title shown in the chat bottom-sheet header." },
+  "@chat_title": {
+    "description": "Title shown in the chat bottom-sheet header."
+  },
   "chat_input_hint": "জিজ্ঞাসা করুন…",
-  "@chat_input_hint": { "description": "Placeholder text in the chat message input field." },
+  "@chat_input_hint": {
+    "description": "Placeholder text in the chat message input field."
+  },
   "chat_send": "পাঠান",
-  "@chat_send": { "description": "Tooltip / accessibility label for the send button." },
+  "@chat_send": {
+    "description": "Tooltip / accessibility label for the send button."
+  },
   "chat_disclaimer": "AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না",
-  "@chat_disclaimer": { "description": "Bilingual disclaimer shown at the bottom of the chat sheet." },
+  "@chat_disclaimer": {
+    "description": "Bilingual disclaimer shown at the bottom of the chat sheet."
+  },
   "chat_disabled_title": "AI চ্যাট পাওয়া যাচ্ছে না",
-  "@chat_disabled_title": { "description": "Title shown in the chat sheet when the chatbot_enabled flag is off." },
+  "@chat_disabled_title": {
+    "description": "Title shown in the chat sheet when the chatbot_enabled flag is off."
+  },
   "chat_disabled_body": "এই ফিচারটি এখন বন্ধ আছে।",
-  "@chat_disabled_body": { "description": "Body text shown in the chat sheet when the chatbot_enabled flag is off." },
+  "@chat_disabled_body": {
+    "description": "Body text shown in the chat sheet when the chatbot_enabled flag is off."
+  },
   "chat_empty": "কথোপকথন শুরু করুন",
-  "@chat_empty": { "description": "Empty-state label when there are no messages yet." },
+  "@chat_empty": {
+    "description": "Empty-state label when there are no messages yet."
+  },
   "chat_loading_error": "বার্তা লোড করা যায়নি",
-  "@chat_loading_error": { "description": "Error state label when history fails to load." },
+  "@chat_loading_error": {
+    "description": "Error state label when history fails to load."
+  },
   "chat_send_error": "বার্তা পাঠানো যায়নি। আবার চেষ্টা করুন।",
-  "@chat_send_error": { "description": "Snackbar shown when sending a message fails." },
+  "@chat_send_error": {
+    "description": "Snackbar shown when sending a message fails."
+  },
   "chat_guardrail_disclaimer": "⚠️ AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না। এই তথ্য সাধারণ তথ্যের জন্য মাত্র।",
-  "@chat_guardrail_disclaimer": { "description": "Extended disclaimer shown when the assistant response contains legal or financial advice keywords." }
+  "@chat_guardrail_disclaimer": {
+    "description": "Extended disclaimer shown when the assistant response contains legal or financial advice keywords."
+  }
 }

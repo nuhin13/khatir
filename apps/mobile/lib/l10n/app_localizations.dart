@@ -1028,60 +1028,6 @@ abstract class AppLocalizations {
   /// **'লোড করা যায়নি'**
   String get unit_section_error;
 
-  /// Heading for the active-lease summary card on the unit-detail screen.
-  ///
-  /// In bn, this message translates to:
-  /// **'সক্রিয় লিজ'**
-  String get unit_lease_active;
-
-  /// Label for the lease term (start – end) on the unit-detail lease summary.
-  ///
-  /// In bn, this message translates to:
-  /// **'মেয়াদ'**
-  String get unit_lease_term;
-
-  /// No description provided for @unit_lease_no_dates.
-  ///
-  /// In bn, this message translates to:
-  /// **'মেয়াদ নির্ধারিত নয়'**
-  String get unit_lease_no_dates;
-
-  /// Label preceding the next upcoming rent period on the unit-detail lease summary.
-  ///
-  /// In bn, this message translates to:
-  /// **'পরবর্তী কিস্তি'**
-  String get unit_next_due;
-
-  /// The next upcoming rent period: amount and period.
-  ///
-  /// In bn, this message translates to:
-  /// **'৳{amount} · {period}'**
-  String unit_next_due_value(String amount, String period);
-
-  /// Shown on the unit-detail lease summary when the active lease has no upcoming (unpaid) period.
-  ///
-  /// In bn, this message translates to:
-  /// **'কোনো বকেয়া কিস্তি নেই'**
-  String get unit_next_due_none;
-
-  /// CTA on the unit-detail screen to create a new lease when the unit has none.
-  ///
-  /// In bn, this message translates to:
-  /// **'লিজ তৈরি করুন'**
-  String get unit_create_lease;
-
-  /// No description provided for @unit_lease_verified.
-  ///
-  /// In bn, this message translates to:
-  /// **'NID যাচাইকৃত'**
-  String get unit_lease_verified;
-
-  /// No description provided for @unit_lease_unverified.
-  ///
-  /// In bn, this message translates to:
-  /// **'যাচাই হয়নি'**
-  String get unit_lease_unverified;
-
   /// No description provided for @unit_edit.
   ///
   /// In bn, this message translates to:
@@ -3260,6 +3206,36 @@ abstract class AppLocalizations {
   /// **'এখন নয়'**
   String get upgrade_later;
 
+  /// Heading for the active-lease summary card on the unit-detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'সক্রিয় লিজ'**
+  String get unit_lease_active;
+
+  /// Label preceding the next upcoming rent period on the unit-detail lease summary.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী কিস্তি'**
+  String get unit_next_due;
+
+  /// The next upcoming rent period: amount and period.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount} · {period}'**
+  String unit_next_due_value(String amount, String period);
+
+  /// Shown on the unit-detail lease summary when the active lease has no upcoming (unpaid) period.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো বকেয়া কিস্তি নেই'**
+  String get unit_next_due_none;
+
+  /// CTA on the unit-detail screen to create a new lease when the unit has none.
+  ///
+  /// In bn, this message translates to:
+  /// **'লিজ তৈরি করুন'**
+  String get unit_create_lease;
+
   /// CTA on the unit-detail active-lease summary to send a rent request.
   ///
   /// In bn, this message translates to:
@@ -3278,6 +3254,30 @@ abstract class AppLocalizations {
   /// **'এই ইউনিটের জন্য একটি লিজ তৈরি করুন।'**
   String get unit_lease_none_body;
 
+  /// Label for the lease term (start – end) on the unit-detail lease summary.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেয়াদ'**
+  String get unit_lease_term;
+
+  /// Fallback shown when a lease has no start or end dates.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেয়াদ নির্ধারিত নয়'**
+  String get unit_lease_no_dates;
+
+  /// Lease-detail label for a tenant whose NID is verified.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাইকৃত'**
+  String get unit_lease_verified;
+
+  /// Lease-detail label for a tenant whose NID is not verified.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই হয়নি'**
+  String get unit_lease_unverified;
+
   /// Sub-line on the unit-detail lease summary when the tenant's NID is verified (matched).
   ///
   /// In bn, this message translates to:
@@ -3290,431 +3290,1246 @@ abstract class AppLocalizations {
   /// **'NID যাচাই হয়নি'**
   String get unit_tenant_unverified;
 
-  // ── NID Verify screen (EPIC-17 T-006) ──────────────────────────────────────
-
-  /// App-bar title of the NID verify screen.
-  String get nid_verify_title;
-
-  /// Handwritten accent hero on the verify screen.
-  String get nid_verify_hero;
-
-  /// Explanation of the EC verification shown in the info card.
-  String get nid_verify_desc;
-
-  /// Consent checkbox label. Must be checked before Verify can run.
-  String get nid_verify_consent;
-
-  /// Primary action button that triggers the EC verification.
-  String get nid_verify_run;
-
-  /// Loading message while the EC verify call is in flight.
-  String get nid_verify_loading;
-
-  /// Success result shown when EC returns matched.
-  String get nid_verify_matched;
-
-  /// Sub-line under the matched result.
-  String get nid_verify_matched_sub;
-
-  /// Result shown when EC returns not_matched.
-  String get nid_verify_not_matched;
-
-  /// Sub-line under the not-matched result.
-  String get nid_verify_not_matched_sub;
-
-  /// Error result shown when the EC call failed or errored.
-  String get nid_verify_error;
-
-  /// Sub-line under the error result.
-  String get nid_verify_error_sub;
-
-  /// Retry button on the verify error / not-matched state.
-  String get nid_verify_retry;
-
-  /// Done button shown after a successful (matched) verification result.
-  String get nid_verify_done;
-
-  /// Shown on the verify screen when the nid_verification_enabled flag is off.
-  String get nid_verify_flag_off;
-
-  /// Shown on the verify screen for free-tier users who cannot access verification.
-  String get nid_verify_upgrade;
-
-  // ── Verification badge (EPIC-17 T-007) ─────────────────────────────────────
-
-  /// Verification badge label for a tenant whose NID matched (green chip).
-  String get nid_badge_verified;
-
-  /// Verification badge label for a tenant not yet verified (grey chip).
-  String get nid_badge_unverified;
-
-  /// Verification badge label for a tenant whose NID did not match (amber chip).
-  String get nid_badge_failed;
-
-  // ── EPIC-18: AI lease ──────────────────────────────────────────────────────
-
   /// App-bar title of the AI lease document screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্মার্ট লিজ · AI চুক্তি'**
   String get lease_doc_title;
 
   /// Subtitle under the hero on the lease document intro state.
+  ///
+  /// In bn, this message translates to:
+  /// **'DNCC-সম্মত চুক্তি — AI দিয়ে তৈরি'**
   String get lease_doc_subtitle;
 
   /// Primary CTA on the lease document intro: trigger AI generation.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI দিয়ে চুক্তি তৈরি করুন'**
   String get lease_generate;
 
   /// Non-dismissible disclaimer banner shown on the draft and PDF preview.
+  ///
+  /// In bn, this message translates to:
+  /// **'এটি AI-তৈরি খসড়া এবং আইনি পরামর্শ নয়। স্বাক্ষরের আগে একজন যোগ্য আইনজীবীর সাথে সব ক্লজ পর্যালোচনা করুন।'**
   String get lease_disclaimer;
 
   /// Loading label shown while the AI generation POST is in-flight.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI আপনার লিজের খসড়া তৈরি করছে…'**
   String get lease_draft_generating;
 
   /// Sub-line under the disclaimer showing how many clauses were generated.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} টি ক্লজ পর্যালোচনার জন্য প্রস্তুত'**
   String lease_draft_clauses(int count);
 
   /// Pill badge on a required clause that cannot be deleted.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবশ্যিক'**
   String get lease_clause_required;
 
   /// Footer CTA on the draft state: open the clause review/edit screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ক্লজ দেখুন ও সম্পাদনা করুন'**
   String get lease_edit_clauses;
 
   /// Footer CTA on the draft state: open the PDF preview screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF দেখুন'**
   String get lease_view_pdf;
 
   /// Heading shown when a free-tier landlord tries to generate an AI lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI লিজ ব্যবহার করতে আপগ্রেড করুন'**
   String get lease_tier_gated_title;
 
   /// Body of the tier-gated state on the lease document screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI লিজ তৈরি করতে পেইড প্ল্যান প্রয়োজন। আনলক করতে আপগ্রেড করুন।'**
   String get lease_tier_gated_body;
 
   /// Shown when the ai_lease_enabled feature flag is off.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI লিজ এখন উপলব্ধ নয়।'**
   String get lease_unavailable;
 
   /// Error message on the lease document screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি তৈরি করা যায়নি। আবার চেষ্টা করুন।'**
   String get lease_doc_error;
 
   /// Retry button on the lease document error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা করুন'**
   String get lease_doc_retry;
 
   /// App-bar title of the clause review/edit screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ক্লজ পর্যালোচনা ও সম্পাদনা'**
   String get lease_clause_title;
 
   /// Primary action on the clause edit screen: PATCH clauses and return.
+  ///
+  /// In bn, this message translates to:
+  /// **'ক্লজ সংরক্ষণ'**
   String get lease_clause_save;
 
   /// Snackbar when the PATCH clauses call fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'ক্লজ সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।'**
   String get lease_clause_save_error;
 
   /// Snackbar shown after clauses are saved successfully.
+  ///
+  /// In bn, this message translates to:
+  /// **'ক্লজ সংরক্ষিত হয়েছে'**
   String get lease_clause_saved;
 
   /// Placeholder inside a clause text field on the edit screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'ক্লজের টেক্সট সম্পাদনা করুন…'**
   String get lease_clause_edit_hint;
 
   /// Tooltip on the lock icon for a required clause.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবশ্যিক ক্লজ — মুছতে পারবেন না'**
   String get lease_clause_required_lock;
 
   /// App-bar title of the lease PDF preview + share screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'লিজ PDF'**
   String get lease_pdf_title;
 
   /// Loading label while the PDF is rendered and downloaded.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনার লিজের PDF তৈরি হচ্ছে…'**
   String get lease_pdf_generating;
 
   /// Error state on the lease PDF screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF তৈরি করা যায়নি। আবার চেষ্টা করুন।'**
   String get lease_pdf_error;
 
   /// Retry button on the lease PDF error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা করুন'**
   String get lease_pdf_retry;
 
   /// Primary footer action: download/save the lease PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'নামান'**
   String get lease_pdf_download;
 
   /// Secondary footer action: share the lease PDF via the OS sheet.
+  ///
+  /// In bn, this message translates to:
+  /// **'শেয়ার করুন'**
   String get lease_pdf_share;
 
   /// Snackbar when a lease PDF share/download action fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।'**
   String get lease_pdf_action_failed;
 
-  // ── EPIC-19 Tenant app i18n keys ─────────────────────────────────────────
+  /// App-bar title of the NID verify screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাই'**
+  String get nid_verify_title;
 
+  /// Handwritten accent hero on the verify screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই করা যাক'**
+  String get nid_verify_hero;
+
+  /// Explanation of the EC verification.
+  ///
+  /// In bn, this message translates to:
+  /// **'EC যাচাই সেবা · Matched / Not Matched'**
+  String get nid_verify_desc;
+
+  /// Consent checkbox label. Must be checked before Verify can run.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়াটিয়ার সম্মতি নেওয়া হয়েছে'**
+  String get nid_verify_consent;
+
+  /// Primary action button that triggers the EC verification.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই করুন'**
+  String get nid_verify_run;
+
+  /// Loading message while the EC verify call is in flight.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই হচ্ছে…'**
+  String get nid_verify_loading;
+
+  /// Success result shown when EC returns matched.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID Matched with EC records'**
+  String get nid_verify_matched;
+
+  /// Sub-line under the matched result.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিচয় নিশ্চিত হয়েছে'**
+  String get nid_verify_matched_sub;
+
+  /// Result shown when EC returns not_matched.
+  ///
+  /// In bn, this message translates to:
+  /// **'Not Matched'**
+  String get nid_verify_not_matched;
+
+  /// Sub-line under the not-matched result.
+  ///
+  /// In bn, this message translates to:
+  /// **'EC-এ তথ্য মেলেনি'**
+  String get nid_verify_not_matched_sub;
+
+  /// Error result shown when the EC call failed or errored.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই সম্পন্ন হয়নি'**
+  String get nid_verify_error;
+
+  /// Sub-line under the error result.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা করুন'**
+  String get nid_verify_error_sub;
+
+  /// Retry button on the verify error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
+  String get nid_verify_retry;
+
+  /// Done button shown after a verification result.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পন্ন'**
+  String get nid_verify_done;
+
+  /// Shown when the nid_verification_enabled flag is off.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাই এখন বন্ধ আছে।'**
+  String get nid_verify_flag_off;
+
+  /// Shown for free-tier users who cannot access verification.
+  ///
+  /// In bn, this message translates to:
+  /// **'NID যাচাই একটি পেইড ফিচার — আপগ্রেড করুন'**
+  String get nid_verify_upgrade;
+
+  /// Verification badge label for a verified tenant.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাইকৃত'**
+  String get nid_badge_verified;
+
+  /// Verification badge label for an unverified tenant.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই হয়নি'**
+  String get nid_badge_unverified;
+
+  /// Verification badge label for a failed verification.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেলেনি'**
+  String get nid_badge_failed;
+
+  /// No description provided for @ten_home_greeting.
+  ///
+  /// In bn, this message translates to:
+  /// **'আসসালামু আলাইকুম,'**
   String get ten_home_greeting;
+
+  /// No description provided for @ten_home_rent_status.
+  ///
+  /// In bn, this message translates to:
+  /// **'এ মাসের ভাড়া'**
   String get ten_home_rent_status;
+
+  /// No description provided for @ten_home_rent_paid.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিশোধিত'**
   String get ten_home_rent_paid;
+
+  /// No description provided for @ten_home_rent_overdue.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাকি'**
   String get ten_home_rent_overdue;
+
+  /// No description provided for @ten_home_pay.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেমেন্ট প্রমাণ আপলোড'**
   String get ten_home_pay;
+
+  /// No description provided for @ten_home_lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমার লিজ'**
   String get ten_home_lease;
+
+  /// No description provided for @ten_home_lease_view.
+  ///
+  /// In bn, this message translates to:
+  /// **'দেখুন'**
   String get ten_home_lease_view;
+
+  /// No description provided for @ten_home_quick_actions.
+  ///
+  /// In bn, this message translates to:
+  /// **'দ্রুত কাজ'**
   String get ten_home_quick_actions;
+
+  /// No description provided for @ten_home_action_maint.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেরামত চাই'**
   String get ten_home_action_maint;
+
+  /// No description provided for @ten_home_action_receipts.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ দেখুন'**
   String get ten_home_action_receipts;
+
+  /// No description provided for @ten_home_action_pay.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া দিন'**
   String get ten_home_action_pay;
+
+  /// No description provided for @ten_home_action_record.
+  ///
+  /// In bn, this message translates to:
+  /// **'রেকর্ড দেখুন'**
   String get ten_home_action_record;
+
+  /// No description provided for @ten_home_recent_receipts.
+  ///
+  /// In bn, this message translates to:
+  /// **'সাম্প্রতিক রসিদ'**
   String get ten_home_recent_receipts;
+
+  /// No description provided for @ten_home_no_lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো সক্রিয় লিজ নেই'**
   String get ten_home_no_lease;
+
+  /// No description provided for @ten_home_star_record.
+  ///
+  /// In bn, this message translates to:
+  /// **'You\'re a star!'**
   String get ten_home_star_record;
+
+  /// No description provided for @ten_home_star_body.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরের বাসায় ভালো রেকর্ড পাবেন'**
   String get ten_home_star_body;
 
+  /// No description provided for @ten_lease_rent.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া/মাস'**
   String get ten_lease_rent;
+
+  /// No description provided for @ten_lease_dates.
+  ///
+  /// In bn, this message translates to:
+  /// **'মেয়াদ'**
   String get ten_lease_dates;
+
+  /// No description provided for @ten_lease_landlord.
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিক'**
   String get ten_lease_landlord;
+
+  /// No description provided for @ten_lease_document.
+  ///
+  /// In bn, this message translates to:
+  /// **'চুক্তি PDF'**
   String get ten_lease_document;
+
+  /// No description provided for @ten_lease_advance.
+  ///
+  /// In bn, this message translates to:
+  /// **'অগ্রিম'**
   String get ten_lease_advance;
+
+  /// No description provided for @ten_lease_notice.
+  ///
+  /// In bn, this message translates to:
+  /// **'নোটিশ'**
   String get ten_lease_notice;
+
+  /// No description provided for @ten_lease_active.
+  ///
+  /// In bn, this message translates to:
+  /// **'চলমান'**
   String get ten_lease_active;
+
+  /// No description provided for @ten_lease_no_lease.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো সক্রিয় লিজ নেই'**
   String get ten_lease_no_lease;
 
+  /// No description provided for @ten_pay_amount.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়ার পরিমাণ'**
   String get ten_pay_amount;
+
+  /// No description provided for @ten_pay_instructions.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রমাণ দিন'**
   String get ten_pay_instructions;
+
+  /// No description provided for @ten_pay_screenshot.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্ক্রিনশট আপলোড'**
   String get ten_pay_screenshot;
+
+  /// No description provided for @ten_pay_txn_id.
+  ///
+  /// In bn, this message translates to:
+  /// **'Txn ID লিখুন'**
   String get ten_pay_txn_id;
+
+  /// No description provided for @ten_pay_note.
+  ///
+  /// In bn, this message translates to:
+  /// **'নোট লিখুন'**
   String get ten_pay_note;
+
+  /// No description provided for @ten_pay_submit.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রমাণ জমা দিন'**
   String get ten_pay_submit;
+
+  /// No description provided for @ten_pay_pending.
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিক যাচাই করলে রসিদ পাবেন'**
   String get ten_pay_pending;
+
+  /// No description provided for @ten_pay_no_rent.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো বকেয়া ভাড়া নেই'**
   String get ten_pay_no_rent;
 
+  /// No description provided for @ten_maint_category.
+  ///
+  /// In bn, this message translates to:
+  /// **'ধরন'**
   String get ten_maint_category;
+
+  /// No description provided for @ten_maint_describe.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিবরণ'**
   String get ten_maint_describe;
+
+  /// No description provided for @ten_maint_photo.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি যোগ করুন'**
   String get ten_maint_photo;
+
+  /// No description provided for @ten_maint_submit.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ পাঠান'**
   String get ten_maint_submit;
+
+  /// No description provided for @ten_maint_cat_plumbing.
+  ///
+  /// In bn, this message translates to:
+  /// **'🚿 পানি'**
   String get ten_maint_cat_plumbing;
+
+  /// No description provided for @ten_maint_cat_electrical.
+  ///
+  /// In bn, this message translates to:
+  /// **'💡 বিদ্যুৎ'**
   String get ten_maint_cat_electrical;
+
+  /// No description provided for @ten_maint_cat_paint.
+  ///
+  /// In bn, this message translates to:
+  /// **'🎨 রং'**
   String get ten_maint_cat_paint;
+
+  /// No description provided for @ten_maint_cat_other.
+  ///
+  /// In bn, this message translates to:
+  /// **'🔧 অন্যান্য'**
   String get ten_maint_cat_other;
+
+  /// No description provided for @ten_maint_description_hint.
+  ///
+  /// In bn, this message translates to:
+  /// **'কী সমস্যা হচ্ছে লিখুন'**
   String get ten_maint_description_hint;
+
+  /// No description provided for @ten_maint_photo_optional.
+  ///
+  /// In bn, this message translates to:
+  /// **'ঐচ্ছিক'**
   String get ten_maint_photo_optional;
 
+  /// No description provided for @ten_receipts_title.
+  ///
+  /// In bn, this message translates to:
+  /// **'রসিদ'**
   String get ten_receipts_title;
+
+  /// No description provided for @ten_receipts_period.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাস'**
   String get ten_receipts_period;
+
+  /// No description provided for @ten_receipts_download.
+  ///
+  /// In bn, this message translates to:
+  /// **'ডাউনলোড'**
   String get ten_receipts_download;
+
+  /// No description provided for @ten_receipts_empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো রসিদ নেই'**
   String get ten_receipts_empty;
+
+  /// No description provided for @ten_receipts_paid.
+  ///
+  /// In bn, this message translates to:
+  /// **'✓ পরিশোধিত'**
   String get ten_receipts_paid;
+
+  /// No description provided for @ten_receipts_pending.
+  ///
+  /// In bn, this message translates to:
+  /// **'⏳ অপেক্ষায়'**
   String get ten_receipts_pending;
+
+  /// No description provided for @ten_receipts_summary.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} মাস পরিশোধিত'**
   String ten_receipts_summary(String count);
 
+  /// No description provided for @ten_record_rating.
+  ///
+  /// In bn, this message translates to:
+  /// **'রেটিং'**
   String get ten_record_rating;
+
+  /// No description provided for @ten_record_notes.
+  ///
+  /// In bn, this message translates to:
+  /// **'ব্যক্তিগত নোট'**
   String get ten_record_notes;
+
+  /// No description provided for @ten_record_consent.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী মালিককে দেখাতে সম্মত'**
   String get ten_record_consent;
+
+  /// No description provided for @ten_record_save.
+  ///
+  /// In bn, this message translates to:
+  /// **'সংরক্ষণ'**
   String get ten_record_save;
+
+  /// No description provided for @ten_record_private_note.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুধু আপনার সম্মতিতে পরবর্তী মালিক দেখতে পাবেন'**
   String get ten_record_private_note;
+
+  /// No description provided for @ten_record_on_time.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাস সময়মতো'**
   String get ten_record_on_time;
+
+  /// No description provided for @ten_record_leases.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পন্ন লিজ'**
   String get ten_record_leases;
+
+  /// No description provided for @ten_record_avg_rating.
+  ///
+  /// In bn, this message translates to:
+  /// **'গড় রেটিং'**
   String get ten_record_avg_rating;
+
+  /// No description provided for @ten_record_disputes.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিরোধ'**
   String get ten_record_disputes;
+
+  /// No description provided for @ten_record_trusted.
+  ///
+  /// In bn, this message translates to:
+  /// **'Trusted tenant'**
   String get ten_record_trusted;
+
+  /// No description provided for @ten_record_notes_hint.
+  ///
+  /// In bn, this message translates to:
+  /// **'ব্যক্তিগত অভিজ্ঞতা লিখুন'**
   String get ten_record_notes_hint;
 
-  // ── EPIC-20 warnings ────────────────────────────────────────────────────
-
-  /// **'সতর্কবার্তা · Issue Warning'**
+  /// App-bar title of the issue-warning screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কবার্তা জারি'**
   String get warning_screen_title;
 
+  /// Privacy banner on the warning screen.
+  ///
+  /// In bn, this message translates to:
   /// **'🔒 এটি শুধু আপনার ও আপনার ভাড়াটিয়ার মধ্যে — পাবলিক নয়'**
   String get warning_private_notice;
 
-  /// **'এই সতর্কবার্তাটি একটি ব্যক্তিগত নোটিশ...'**
+  /// Legal disclaimer on the warning screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই সতর্কবার্তাটি একটি ব্যক্তিগত নোটিশ। এটি কোনো সরকারি নথি নয় এবং অন্য কারো সাথে শেয়ার করা হবে না।'**
   String get warning_disclaimer;
 
-  /// **'সতর্কতার ধরন · Warning type'**
+  /// Label for the warning-type picker.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কতার ধরন'**
   String get warning_type_label;
 
-  /// **'দেরিতে ভাড়া · Late rent'**
+  /// Warning type: late rent.
+  ///
+  /// In bn, this message translates to:
+  /// **'দেরিতে ভাড়া'**
   String get warning_type_late_rent;
 
-  /// **'লিজ লঙ্ঘন · Lease violation'**
+  /// Warning type: lease violation.
+  ///
+  /// In bn, this message translates to:
+  /// **'লিজ লঙ্ঘন'**
   String get warning_type_lease_violation;
 
-  /// **'শব্দদূষণ · Noise'**
+  /// Warning type: noise.
+  ///
+  /// In bn, this message translates to:
+  /// **'শব্দদূষণ'**
   String get warning_type_noise;
 
-  /// **'সম্পত্তির ক্ষতি · Property damage'**
+  /// Warning type: property damage.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পত্তির ক্ষতি'**
   String get warning_type_property_damage;
 
-  /// **'অন্যান্য · Other'**
+  /// Warning type: other.
+  ///
+  /// In bn, this message translates to:
+  /// **'অন্যান্য'**
   String get warning_type_other;
 
-  /// **'কারণ · Reason'**
+  /// Label for the reason text field.
+  ///
+  /// In bn, this message translates to:
+  /// **'কারণ'**
   String get warning_reason_label;
 
-  /// **'সতর্কতার কারণ লিখুন · Describe the reason for the warning'**
+  /// Placeholder text for the reason field.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কতার কারণ লিখুন'**
   String get warning_reason_hint;
 
-  /// **'কারণ লিখুন · Reason is required'**
+  /// Validation error when the reason field is empty.
+  ///
+  /// In bn, this message translates to:
+  /// **'কারণ লিখুন'**
   String get warning_reason_required;
 
-  /// **'সতর্কবার্তা জারি করুন · Issue warning'**
+  /// Primary submit button on the issue-warning form.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কবার্তা জারি করুন'**
   String get warning_issue;
 
-  /// **'সতর্কবার্তা জারি হয়েছে · Warning issued'**
+  /// Snackbar shown after a warning is successfully issued.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কবার্তা জারি হয়েছে'**
   String get warning_issued_ok;
 
-  /// **'জারি করা যায়নি · Couldn't issue warning. Please try again.'**
+  /// Snackbar shown when issuing a warning fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'জারি করা যায়নি'**
   String get warning_issue_error;
 
-  /// **'সতর্কবার্তা সুবিধা এখন বন্ধ আছে · Warning feature is currently unavailable.'**
+  /// Message shown when the warnings_feature kill-switch is off.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কবার্তা সুবিধা এখন বন্ধ আছে'**
   String get warning_feature_disabled;
 
-  /// **'সতর্কবার্তার নোটিশ · Warning Notice PDF'**
+  /// App-bar title of the warning notice PDF preview screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কবার্তার নোটিশ'**
   String get warning_notice_title;
 
-  /// **'নোটিশ তৈরি হচ্ছে · Generating notice…'**
+  /// Loading message while the warning notice PDF is generated.
+  ///
+  /// In bn, this message translates to:
+  /// **'নোটিশ তৈরি হচ্ছে…'**
   String get warning_notice_generating;
 
-  /// **'নামান · Download'**
+  /// Primary action: download the warning notice PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'নামান'**
   String get warning_notice_download;
 
-  /// **'শেয়ার · Share'**
+  /// Secondary action: share the warning notice PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'শেয়ার'**
   String get warning_notice_share;
 
-  /// **'নোটিশ তৈরি করা যায়নি · Could not generate the notice.'**
+  /// Error state message when warning notice PDF generation fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'নোটিশ তৈরি করা যায়নি'**
   String get warning_notice_error;
 
-  /// **'কাজটি সম্পন্ন হয়নি · Could not complete that. Please try again.'**
+  /// Snackbar shown when share/download fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'কাজটি সম্পন্ন হয়নি'**
   String get warning_notice_action_failed;
 
-  /// **'আবার চেষ্টা · Retry'**
+  /// Retry button on the warning notice PDF error state.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার চেষ্টা'**
   String get warning_notice_retry;
 
-  /// **'সতর্কবার্তা · Warnings'**
+  /// Section heading for the warnings region on the unit/lease detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কবার্তা'**
   String get unit_warnings_section;
 
-  /// **'সতর্কবার্তা জারি করুন · Issue warning'**
+  /// CTA to issue a warning from the unit/lease detail screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'সতর্কবার্তা জারি করুন'**
   String get unit_issue_warning;
 
-  /// **'কোনো সতর্কবার্তা নেই · No warnings yet'**
+  /// Empty-state message in the warnings section when no warnings have been issued.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো সতর্কবার্তা নেই'**
   String get unit_warnings_empty;
 
+  /// A warning row label: type and date.
+  ///
+  /// In bn, this message translates to:
   /// **'{type} · {date}'**
   String warning_type_chip(String type, String date);
 
-  /// **'নোটিশ দেখুন · View notice'**
+  /// Action to view the generated notice PDF for an issued warning.
+  ///
+  /// In bn, this message translates to:
+  /// **'নোটিশ দেখুন'**
   String get warning_view_notice;
 
-  // ── EPIC-22 Manager strings ────────────────────────────────────────────────
-
+  /// Manager home screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'ম্যানেজার হোম · Manager Home'**
   String get mgr_home_title;
+
+  /// Manager home: portfolio total stat label.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোট পোর্টফোলিও · Total portfolio'**
   String get mgr_home_total;
+
+  /// Manager home: linked active owners count.
+  ///
+  /// In bn, this message translates to:
+  /// **'{count} জন মালিক'**
   String mgr_home_owners(String count);
+
+  /// Manager home: CTA to link a new owner.
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিক যোগ · Add owner'**
   String get mgr_home_add_owner;
+
+  /// Manager home: navigate to team screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'টিম · Team'**
   String get mgr_home_team;
+
+  /// Manager home: navigate to reports screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'রিপোর্ট · Reports'**
   String get mgr_home_reports;
+
+  /// Manager home: empty state when no active owners are linked.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো সক্রিয় মালিক নেই · No active owners yet'**
   String get mgr_home_empty;
+
+  /// Manager home: empty state body.
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিক যোগ করুন — তাদের পোর্টফোলিও এখানে দেখাবে।'**
   String get mgr_home_empty_sub;
+
+  /// Manager home: owner card stat — total units.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইউনিট · Units'**
   String get mgr_home_stat_units;
+
+  /// Manager home: owner card stat — occupied units.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাড়া হয়েছে · Occupied'**
   String get mgr_home_stat_occupied;
+
+  /// Manager home: owner card stat — monthly rent.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাসিক · Monthly'**
   String get mgr_home_stat_rent;
+
+  /// Taka-prefixed amount on manager home owner cards.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
   String mgr_home_currency(String amount);
 
+  /// Add-owner screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিক যোগ · Link owner'**
   String get mgr_add_owner_title;
+
+  /// Add-owner hero heading (English).
+  ///
+  /// In bn, this message translates to:
+  /// **'Link an owner'**
   String get mgr_add_owner_hero;
+
+  /// Add-owner hero sub (Bangla).
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিকের তথ্য দিন'**
   String get mgr_add_owner_hero_sub;
+
+  /// Add-owner form: phone field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিকের নম্বর · Owner phone'**
   String get mgr_add_owner_phone;
+
+  /// Add-owner form: phone field hint.
+  ///
+  /// In bn, this message translates to:
+  /// **'01XXXXXXXXX'**
   String get mgr_add_owner_phone_hint;
+
+  /// Add-owner form: name field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিকের নাম · Owner name'**
   String get mgr_add_owner_name;
+
+  /// Add-owner form: name field hint.
+  ///
+  /// In bn, this message translates to:
+  /// **'পূর্ণ নাম'**
   String get mgr_add_owner_name_hint;
+
+  /// Add-owner form: send link request button.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ পাঠান · Send request'**
   String get mgr_add_owner_request;
+
+  /// Add-owner: section heading for pending requests.
+  ///
+  /// In bn, this message translates to:
+  /// **'অপেক্ষমাণ অনুরোধ · Pending requests'**
   String get mgr_add_owner_pending;
+
+  /// Add-owner: section heading for active linked owners.
+  ///
+  /// In bn, this message translates to:
+  /// **'সক্রিয় মালিক · Active owners'**
   String get mgr_add_owner_active;
+
+  /// Add-owner: empty state for pending section.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো অপেক্ষমাণ অনুরোধ নেই'**
   String get mgr_add_owner_none_pending;
+
+  /// Status chip for a pending owner link request.
+  ///
+  /// In bn, this message translates to:
+  /// **'অপেক্ষমাণ · Pending'**
   String get mgr_add_owner_status_pending;
+
+  /// Status chip for an active linked owner.
+  ///
+  /// In bn, this message translates to:
+  /// **'সক্রিয় · Active'**
   String get mgr_add_owner_status_active;
+
+  /// Snackbar after sending an owner link request.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ পাঠানো হয়েছে · Request sent'**
   String get mgr_add_owner_sent;
+
+  /// Snackbar when sending an owner link request fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'অনুরোধ পাঠানো যায়নি · Could not send request'**
   String get mgr_add_owner_error;
+
+  /// Validation error for the phone field.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক নম্বর দিন · Enter a valid phone number'**
   String get mgr_add_owner_err_phone;
+
+  /// Validation error for the name field.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম দিন · Enter the owner\'s name'**
   String get mgr_add_owner_err_name;
 
+  /// Team screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'টিম · Team'**
   String get mgr_team_title;
+
+  /// Team screen: add team member button.
+  ///
+  /// In bn, this message translates to:
+  /// **'সদস্য যোগ · Add member'**
   String get mgr_team_add;
+
+  /// Team screen: role label on a member card.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভূমিকা · Role'**
   String get mgr_team_role;
+
+  /// Team screen: scope label on a member card.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিসর · Scope'**
   String get mgr_team_scope;
+
+  /// Team member scope: unrestricted (all owners).
+  ///
+  /// In bn, this message translates to:
+  /// **'সব মালিক · All owners'**
   String get mgr_team_scope_all;
+
+  /// Team screen: remove member button.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরান · Remove'**
   String get mgr_team_remove;
+
+  /// Remove confirmation dialog title.
+  ///
+  /// In bn, this message translates to:
+  /// **'সদস্য সরাবেন? · Remove member?'**
   String get mgr_team_remove_confirm_title;
+
+  /// Remove confirmation dialog body.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই সদস্য সব মালিকের পোর্টফোলিওতে প্রবেশাধিকার হারাবেন।'**
   String get mgr_team_remove_confirm_body;
+
+  /// Cancel button in dialogs.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাতিল · Cancel'**
   String get mgr_team_cancel;
+
+  /// Confirm remove button in dialog.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরান · Remove'**
   String get mgr_team_confirm;
+
+  /// Team screen: empty state.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনো কোনো সদস্য নেই · No team members yet'**
   String get mgr_team_empty;
+
+  /// Add team member bottom-sheet title.
+  ///
+  /// In bn, this message translates to:
+  /// **'সদস্য যোগ · Add team member'**
   String get mgr_team_add_title;
+
+  /// Add member form: phone field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'নম্বর · Phone'**
   String get mgr_team_phone;
+
+  /// Add member form: name field label.
+  ///
+  /// In bn, this message translates to:
+  /// **'নাম · Name'**
   String get mgr_team_name;
+
+  /// Add member form: role dropdown label.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভূমিকা · Role'**
   String get mgr_team_role_label;
+
+  /// Snackbar after successfully adding a team member.
+  ///
+  /// In bn, this message translates to:
+  /// **'সদস্য যোগ হয়েছে · Member added'**
   String get mgr_team_added;
+
+  /// Snackbar when adding a team member fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'সদস্য যোগ করা যায়নি · Could not add member'**
   String get mgr_team_add_error;
+
+  /// Snackbar after removing a team member.
+  ///
+  /// In bn, this message translates to:
+  /// **'সদস্য সরানো হয়েছে · Member removed'**
   String get mgr_team_removed;
+
+  /// Snackbar when removing a team member fails.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরানো যায়নি · Could not remove'**
   String get mgr_team_remove_error;
 
+  /// Report screen app-bar title.
+  ///
+  /// In bn, this message translates to:
+  /// **'রিপোর্ট · Reports'**
   String get mgr_report_title;
+
+  /// Report screen: owner selector label.
+  ///
+  /// In bn, this message translates to:
+  /// **'মালিক বাছুন · Select owner'**
   String get mgr_report_owner;
+
+  /// Report screen: generate report button.
+  ///
+  /// In bn, this message translates to:
+  /// **'রিপোর্ট তৈরি করুন · Generate report'**
   String get mgr_report_generate;
+
+  /// Report screen: share PDF button.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF শেয়ার · Share PDF'**
   String get mgr_report_share;
+
+  /// Report screen: empty state when no owners are linked.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোনো সক্রিয় মালিক নেই · No active owners linked'**
   String get mgr_report_no_owners;
+
+  /// Report screen: income stat label.
+  ///
+  /// In bn, this message translates to:
+  /// **'আয় · Income'**
   String get mgr_report_income;
+
+  /// Report screen: expense stat label.
+  ///
+  /// In bn, this message translates to:
+  /// **'খরচ · Expense'**
   String get mgr_report_expense;
+
+  /// Report screen: net income label.
+  ///
+  /// In bn, this message translates to:
+  /// **'নেট · Net'**
   String get mgr_report_net;
+
+  /// Report screen: occupancy stat label.
+  ///
+  /// In bn, this message translates to:
+  /// **'অকুপেন্সি · Occupancy'**
   String get mgr_report_occupancy;
+
+  /// Report screen: collection rate label.
+  ///
+  /// In bn, this message translates to:
+  /// **'আদায় · Collection'**
   String get mgr_report_collection;
+
+  /// Report screen: loading label while generating the PDF.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF তৈরি হচ্ছে…'**
   String get mgr_report_generating;
+
+  /// Report screen: success message when PDF is generated.
+  ///
+  /// In bn, this message translates to:
+  /// **'PDF তৈরি হয়েছে · PDF ready'**
   String get mgr_report_pdf_ready;
+
+  /// Report screen: error snackbar.
+  ///
+  /// In bn, this message translates to:
+  /// **'রিপোর্ট তৈরি হয়নি · Could not generate report'**
   String get mgr_report_generate_error;
+
+  /// Report screen: share error snackbar.
+  ///
+  /// In bn, this message translates to:
+  /// **'শেয়ার করা যায়নি · Could not share'**
   String get mgr_report_share_error;
+
+  /// Taka-prefixed amount on the report screen.
+  ///
+  /// In bn, this message translates to:
+  /// **'৳{amount}'**
   String mgr_report_currency(String amount);
 
-  /// No documentation comment provided in ARB.
+  /// Title shown in the chat bottom-sheet header.
   ///
-  /// In en, this message translates to:
-  /// **'AI সহকারী · AI Assistant'**
+  /// In bn, this message translates to:
+  /// **'AI সহকারী'**
   String get chat_title;
 
-  /// No documentation comment provided in ARB.
+  /// Placeholder text in the chat message input field.
   ///
-  /// In en, this message translates to:
-  /// **'জিজ্ঞাসা করুন · Ask a question…'**
+  /// In bn, this message translates to:
+  /// **'জিজ্ঞাসা করুন…'**
   String get chat_input_hint;
 
-  /// No documentation comment provided in ARB.
+  /// Tooltip / accessibility label for the send button.
   ///
-  /// In en, this message translates to:
-  /// **'পাঠান · Send'**
+  /// In bn, this message translates to:
+  /// **'পাঠান'**
   String get chat_send;
 
-  /// No documentation comment provided in ARB.
+  /// Bilingual disclaimer shown at the bottom of the chat sheet.
   ///
-  /// In en, this message translates to:
-  /// **'AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না · AI does not give legal or financial advice'**
+  /// In bn, this message translates to:
+  /// **'AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না'**
   String get chat_disclaimer;
 
-  /// No documentation comment provided in ARB.
+  /// Title shown in the chat sheet when the chatbot_enabled flag is off.
   ///
-  /// In en, this message translates to:
-  /// **'AI চ্যাট পাওয়া যাচ্ছে না · AI Chat Unavailable'**
+  /// In bn, this message translates to:
+  /// **'AI চ্যাট পাওয়া যাচ্ছে না'**
   String get chat_disabled_title;
 
-  /// No documentation comment provided in ARB.
+  /// Body text shown in the chat sheet when the chatbot_enabled flag is off.
   ///
-  /// In en, this message translates to:
-  /// **'এই ফিচারটি এখন বন্ধ আছে। · This feature is currently disabled.'**
+  /// In bn, this message translates to:
+  /// **'এই ফিচারটি এখন বন্ধ আছে।'**
   String get chat_disabled_body;
 
-  /// No documentation comment provided in ARB.
+  /// Empty-state label when there are no messages yet.
   ///
-  /// In en, this message translates to:
-  /// **'কথোপকথন শুরু করুন · Start the conversation'**
+  /// In bn, this message translates to:
+  /// **'কথোপকথন শুরু করুন'**
   String get chat_empty;
 
-  /// No documentation comment provided in ARB.
+  /// Error state label when history fails to load.
   ///
-  /// In en, this message translates to:
-  /// **'বার্তা লোড করা যায়নি · Couldn\'t load messages'**
+  /// In bn, this message translates to:
+  /// **'বার্তা লোড করা যায়নি'**
   String get chat_loading_error;
 
-  /// No documentation comment provided in ARB.
+  /// Snackbar shown when sending a message fails.
   ///
-  /// In en, this message translates to:
-  /// **'বার্তা পাঠানো যায়নি · Couldn\'t send message. Please try again.'**
+  /// In bn, this message translates to:
+  /// **'বার্তা পাঠানো যায়নি। আবার চেষ্টা করুন।'**
   String get chat_send_error;
 
-  /// No documentation comment provided in ARB.
+  /// Extended disclaimer shown when the assistant response contains legal or financial advice keywords.
   ///
-  /// In en, this message translates to:
-  /// **'⚠️ AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না। এই তথ্য সাধারণ তথ্যের জন্য মাত্র। · AI does not provide legal or financial advice. This information is for general purposes only.'**
+  /// In bn, this message translates to:
+  /// **'⚠️ AI কোনো আইনি বা আর্থিক পরামর্শ দেয় না। এই তথ্য সাধারণ তথ্যের জন্য মাত্র।'**
   String get chat_guardrail_disclaimer;
 }
 
