@@ -4,7 +4,7 @@ epic: EPIC-22
 title: Manager data layer (mobile)
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [T-003, T-004, T-005]
 blocks: []

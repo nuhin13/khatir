@@ -3587,6 +3587,75 @@ abstract class AppLocalizations {
 
   /// **'নোটিশ দেখুন · View notice'**
   String get warning_view_notice;
+
+  // ── EPIC-22 Manager strings ────────────────────────────────────────────────
+
+  String get mgr_home_title;
+  String get mgr_home_total;
+  String mgr_home_owners(String count);
+  String get mgr_home_add_owner;
+  String get mgr_home_team;
+  String get mgr_home_reports;
+  String get mgr_home_empty;
+  String get mgr_home_empty_sub;
+  String get mgr_home_stat_units;
+  String get mgr_home_stat_occupied;
+  String get mgr_home_stat_rent;
+  String mgr_home_currency(String amount);
+
+  String get mgr_add_owner_title;
+  String get mgr_add_owner_hero;
+  String get mgr_add_owner_hero_sub;
+  String get mgr_add_owner_phone;
+  String get mgr_add_owner_phone_hint;
+  String get mgr_add_owner_name;
+  String get mgr_add_owner_name_hint;
+  String get mgr_add_owner_request;
+  String get mgr_add_owner_pending;
+  String get mgr_add_owner_active;
+  String get mgr_add_owner_none_pending;
+  String get mgr_add_owner_status_pending;
+  String get mgr_add_owner_status_active;
+  String get mgr_add_owner_sent;
+  String get mgr_add_owner_error;
+  String get mgr_add_owner_err_phone;
+  String get mgr_add_owner_err_name;
+
+  String get mgr_team_title;
+  String get mgr_team_add;
+  String get mgr_team_role;
+  String get mgr_team_scope;
+  String get mgr_team_scope_all;
+  String get mgr_team_remove;
+  String get mgr_team_remove_confirm_title;
+  String get mgr_team_remove_confirm_body;
+  String get mgr_team_cancel;
+  String get mgr_team_confirm;
+  String get mgr_team_empty;
+  String get mgr_team_add_title;
+  String get mgr_team_phone;
+  String get mgr_team_name;
+  String get mgr_team_role_label;
+  String get mgr_team_added;
+  String get mgr_team_add_error;
+  String get mgr_team_removed;
+  String get mgr_team_remove_error;
+
+  String get mgr_report_title;
+  String get mgr_report_owner;
+  String get mgr_report_generate;
+  String get mgr_report_share;
+  String get mgr_report_no_owners;
+  String get mgr_report_income;
+  String get mgr_report_expense;
+  String get mgr_report_net;
+  String get mgr_report_occupancy;
+  String get mgr_report_collection;
+  String get mgr_report_generating;
+  String get mgr_report_pdf_ready;
+  String get mgr_report_generate_error;
+  String get mgr_report_share_error;
+  String mgr_report_currency(String amount);
 }
 
 class _AppLocalizationsDelegate
