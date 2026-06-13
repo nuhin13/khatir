@@ -39,16 +39,16 @@ class Building(SoftDeleteModel):
     )
     address = models.TextField(help_text="Full address — printed on the DMP form.")
     lat = models.DecimalField(
-        max_digits=9,
-        decimal_places=6,
+        max_digits=12,
+        decimal_places=9,
         null=True,
         blank=True,
         default=None,
         help_text="Optional map-pin latitude.",
     )
     lng = models.DecimalField(
-        max_digits=9,
-        decimal_places=6,
+        max_digits=12,
+        decimal_places=9,
         null=True,
         blank=True,
         default=None,

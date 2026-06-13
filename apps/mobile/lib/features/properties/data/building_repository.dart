@@ -57,8 +57,8 @@ class BuildingRepository {
       'name': name,
       'area': area.wire,
       'address': address,
-      if (lat != null) 'lat': lat,
-      if (lng != null) 'lng': lng,
+      if (lat != null) 'lat': double.parse(lat.toStringAsFixed(6)),
+      if (lng != null) 'lng': double.parse(lng.toStringAsFixed(6)),
     };
     try {
       final res = await _dio.post<Map<String, dynamic>>(
@@ -84,8 +84,8 @@ class BuildingRepository {
       if (name != null) 'name': name,
       if (area != null) 'area': area.wire,
       if (address != null) 'address': address,
-      if (lat != null) 'lat': lat,
-      if (lng != null) 'lng': lng,
+      if (lat != null) 'lat': double.parse(lat.toStringAsFixed(6)),
+      if (lng != null) 'lng': double.parse(lng.toStringAsFixed(6)),
     };
     try {
       final res = await _dio.patch<Map<String, dynamic>>(

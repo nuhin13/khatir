@@ -48,10 +48,10 @@ class BuildingCreateSerializer(serializers.Serializer[dict[str, object]]):
     area = serializers.ChoiceField(choices=Area.choices)
     address = serializers.CharField()
     lat = serializers.DecimalField(
-        max_digits=9, decimal_places=6, required=False, allow_null=True
+        max_digits=12, decimal_places=9, required=False, allow_null=True
     )
     lng = serializers.DecimalField(
-        max_digits=9, decimal_places=6, required=False, allow_null=True
+        max_digits=12, decimal_places=9, required=False, allow_null=True
     )
 
 
@@ -65,10 +65,10 @@ class BuildingUpdateSerializer(serializers.Serializer[dict[str, object]]):
     area = serializers.ChoiceField(choices=Area.choices, required=False)
     address = serializers.CharField(required=False)
     lat = serializers.DecimalField(
-        max_digits=9, decimal_places=6, required=False, allow_null=True
+        max_digits=12, decimal_places=9, required=False, allow_null=True
     )
     lng = serializers.DecimalField(
-        max_digits=9, decimal_places=6, required=False, allow_null=True
+        max_digits=12, decimal_places=9, required=False, allow_null=True
     )
 
     def validate(self, attrs: dict[str, object]) -> dict[str, object]:
