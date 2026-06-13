@@ -15,6 +15,10 @@ import '../../features/leases/presentation/screens/lease_list_screen.dart';
 import '../../features/maintenance/presentation/screens/add_expense_screen.dart';
 import '../../features/maintenance/presentation/screens/expenses_screen.dart';
 import '../../features/maintenance/presentation/screens/maintenance_queue_screen.dart';
+import '../../features/manager/presentation/screens/mgr_add_owner_screen.dart';
+import '../../features/manager/presentation/screens/mgr_home_screen.dart';
+import '../../features/manager/presentation/screens/mgr_report_screen.dart';
+import '../../features/manager/presentation/screens/mgr_team_screen.dart';
 import '../../features/onboarding/data/onboarding_prefs.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/more_screen.dart';
@@ -310,25 +314,49 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
 
-      // ── Manager shell (T-004) — stubbed, filled by EPIC-22 ──────────────
+      // ── Manager shell (EPIC-22) — real screens wired by T-011 ─────────────
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             ManagerShell(navigationShell: navigationShell),
         branches: [
-          _placeholderBranch(
-            // TODO(EPIC-22) replace with the manager multi-owner portfolio.
-            path: '/manager/home',
-            name: 'managerHome',
-            label: (l) => l.nav_home,
+          // Manager home (T-006): consolidated multi-owner portfolio.
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/manager/home',
+                name: 'managerHome',
+                builder: (context, state) => const MgrHomeScreen(),
+                routes: [
+                  // Add-owner (T-007): link a new owner / view pending.
+                  GoRoute(
+                    path: MgrAddOwnerScreen.routePath,
+                    name: MgrAddOwnerScreen.routeName,
+                    builder: (context, state) => const MgrAddOwnerScreen(),
+                  ),
+                  // Team (T-008): manage team members.
+                  GoRoute(
+                    path: MgrTeamScreen.routePath,
+                    name: MgrTeamScreen.routeName,
+                    builder: (context, state) => const MgrTeamScreen(),
+                  ),
+                  // Report (T-009): generate + share per-owner PDF report.
+                  GoRoute(
+                    path: MgrReportScreen.routePath,
+                    name: MgrReportScreen.routeName,
+                    builder: (context, state) => const MgrReportScreen(),
+                  ),
+                ],
+              ),
+            ],
           ),
           _placeholderBranch(
-            // TODO(EPIC-22) replace with the manager aggregate report.
+            // Manager dashboard — future EPIC.
             path: '/manager/dashboard',
             name: 'managerDashboard',
             label: (l) => l.nav_charts,
           ),
           _placeholderBranch(
-            // TODO(EPIC-22) replace with rent across owners.
+            // Manager rent across owners — future EPIC.
             path: '/manager/rent',
             name: 'managerRent',
             label: (l) => l.nav_rent,
