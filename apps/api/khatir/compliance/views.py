@@ -180,7 +180,10 @@ class AdminAuditEntryListView(APIView):
 
         admin_user = params.get("admin_user")
         if admin_user:
-            queryset = queryset.filter(admin_user_id=admin_user)
+            if admin_user.lower() == "system":
+                queryset = queryset.filter(admin_user__isnull=True)
+            elif admin_user.isdigit():
+                queryset = queryset.filter(admin_user_id=int(admin_user))
 
         action = params.get("action")
         if action:
@@ -194,11 +197,12 @@ class AdminAuditEntryListView(APIView):
         if entity_id:
             queryset = queryset.filter(entity_id=entity_id)
 
-        date_from = params.get("date_from")
+        # Support both date_from/date_to (canonical) and from/to (legacy alias).
+        date_from = params.get("date_from") or params.get("from")
         if date_from:
             queryset = queryset.filter(created_at__gte=date_from)
 
-        date_to = params.get("date_to")
+        date_to = params.get("date_to") or params.get("to")
         if date_to:
             queryset = queryset.filter(created_at__lte=date_to)
 

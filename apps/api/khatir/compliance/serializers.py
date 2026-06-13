@@ -62,11 +62,14 @@ class ConsentRecordSerializer(serializers.ModelSerializer[ConsentRecord]):
 class AdminAuditEntrySerializer(serializers.ModelSerializer[AdminAuditEntry]):
     """Read-only projection of an immutable admin audit entry (EPIC-16.T-002)."""
 
+    actor = serializers.SerializerMethodField()
+
     class Meta:
         model = AdminAuditEntry
         fields = (
             "id",
             "admin_user",
+            "actor",
             "action",
             "entity_type",
             "entity_id",
@@ -77,6 +80,12 @@ class AdminAuditEntrySerializer(serializers.ModelSerializer[AdminAuditEntry]):
             "created_at",
         )
         read_only_fields = fields
+
+    def get_actor(self, obj: AdminAuditEntry) -> str:
+        admin = obj.admin_user
+        if admin is None:
+            return "System"
+        return admin.name or admin.email or f"Admin #{admin.pk}"
 
 
 class VerificationLogSerializer(serializers.ModelSerializer[VerificationLog]):
