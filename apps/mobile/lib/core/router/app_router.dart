@@ -25,6 +25,7 @@ import '../../features/properties/presentation/wizard/wizard_host.dart';
 import '../../features/rent/presentation/screens/receipt_screen.dart';
 import '../../features/rent/presentation/screens/rent_request_screen.dart';
 import '../../features/rent/presentation/screens/verify_payment_screen.dart';
+import '../../features/verification/presentation/screens/verify_screen.dart';
 import '../../features/role/presentation/screens/role_chooser_screen.dart';
 import '../../features/shell/landlord_shell.dart';
 import '../../features/shell/manager_shell.dart';
@@ -620,6 +621,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: MaintenanceQueueScreen.routeName,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const MaintenanceQueueScreen(),
+      ),
+
+      // ── NID verify screen (EPIC-17 T-006) ──────────────────────────────────
+      // The NID EC-verification screen for a specific tenant, reached via the
+      // unit-detail "Verify" CTA or a verification badge tap at
+      // `/tenants/:id/verify`. Flag-gated and tier-gated inside the screen.
+      // Sits on the root navigator so it covers the landlord shell when pushed.
+      GoRoute(
+        path: '/tenants/:id/verify',
+        name: VerifyScreen.routeName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => VerifyScreen(
+          tenantId: state.pathParameters['id'] ?? '',
+        ),
       ),
 
       // ── Properties / portfolio (T-012) ──────────────────────────────────

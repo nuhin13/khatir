@@ -4,7 +4,7 @@ epic: EPIC-17
 title: Flutter verify screen
 layer: mobile
 size: M
-status: todo
+status: done
 preferred_agent: claude-code
 depends_on: [EPIC-04.T-014, T-004]
 blocks: [T-007]
